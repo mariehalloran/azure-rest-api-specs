@@ -26,7 +26,27 @@ enum Versions {
   @armCommonTypesVersion("v5")
   v2025_11_01_preview: "2025-11-01-preview",
 
+  @doc("The 2026-01-01-preview version.")
+  @armCommonTypesVersion("v5")
+  v2026_01_01_preview: "2026-01-01-preview",
+
   @doc("The 2026-03-01-preview version.")
   @armCommonTypesVersion("v5")
   v2026_03_01_preview: "2026-03-01-preview",
+
+  @doc("The 2026-05-01-preview version.")
+  @armCommonTypesVersion("v5")
+  v2026_05_01_preview: "2026-05-01-preview",
+
+  @doc("The 2026-05-04-preview version.")
+  @armCommonTypesVersion("v5")
+  v2026_05_04_preview: "2026-05-04-preview",
+
+  @doc("The 2026-07-01-preview version.")
+  @armCommonTypesVersion("v5")
+  v2026_07_01_preview: "2026-07-01-preview",
+
+  @doc("The 2026-08-01-preview version.")
+  @armCommonTypesVersion("v5")
+  v2026_08_01_preview: "2026-08-01-preview",
 }

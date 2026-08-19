@@ -11,6 +11,9 @@ import "../shared/main.tsp";
 using TypeSpec.Http;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
+using OpenAPI;
+using Azure.Core;
+using Azure.ClientGenerator.Core;
 using Azure.ResourceManager;
 using Azure.Portal;
 
@@ -25,7 +28,10 @@ namespace Microsoft.AwsConnector;
 /** Api versions */
 enum Versions {
   /** 2024-12-01 api version */
-  `2024-12-01`,
+  v2024_12_01: "2024-12-01",
+
+  /** 2026-05-31-preview api version */
+  v2026_05_31_preview: "2026-05-31-preview",
 }
 
 //---------------------------------------------- ApiGatewayStages ----------------------------------------------
@@ -90,7 +96,7 @@ model AwsApiGatewayStageProperties {
   documentationVersion?: string;
 
   @doc("A map that defines the method settings for a Stage resource. Keys (designated as ``/{method_setting_key`` below) are method paths defined as ``{resource_path}/{http_method}`` for an individual method override, or ``/\\*/\\*`` for overriding all methods in the stage.")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   methodSettings?: MethodSetting[];
 
   @doc("The string identifier of the associated RestApi.")
@@ -100,7 +106,7 @@ model AwsApiGatewayStageProperties {
   stageName?: string;
 
   @doc("The collection of tags. Each tag element is associated with a given resource.")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   tags?: Tag[];
 
   @doc("Specifies whether active tracing with X-ray is enabled for the Stage.")

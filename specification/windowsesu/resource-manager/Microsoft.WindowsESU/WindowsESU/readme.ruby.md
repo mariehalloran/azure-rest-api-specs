@@ -4,7 +4,7 @@ These settings apply only when `--ruby` is specified on the command line.
 
 ```yaml
 package-name: azure_mgmt_windowsesu
-package-version: 2019-09-16-preview
+package-version: 2019-09-16
 azure-arm: true
 ```
 

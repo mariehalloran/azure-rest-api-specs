@@ -1,0 +1,70 @@
+{
+  "operationId": "AutomationRequests_CreateOrUpdate",
+  "title": "Create or Update PCCodeUpdate Request",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "api-version": "2026-06-01-preview",
+    "applicationEntitlementId": "cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa",
+    "requestId": "7c3d5a1b-2f4a-6b8c-0d1e-3a4b5c6d7e8f",
+    "resource": {
+      "location": "centralus",
+      "properties": {
+        "requestType": "PCCodeUpdate",
+        "businessJustification": "Update PC code / service group mapping for the billing scope.",
+        "context": {
+          "pcCodeUpdateContext": {
+            "currentPCCode": "P10012345",
+            "billingServiceTreeId": "11111111-2222-3333-4444-555555555555",
+            "billingServiceName": "Contoso Billing Service",
+            "subscriptionIds": [
+              "22222222-3333-4444-5555-666666666666"
+            ],
+            "targetServiceGroupId": "77777777-8888-9999-aaaa-bbbbbbbbbbbb",
+            "targetServiceGroupName": "Contoso Target Service Group"
+          }
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Bami/applicationEntitlements/cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa/requests/7c3d5a1b-2f4a-6b8c-0d1e-3a4b5c6d7e8f",
+        "name": "7c3d5a1b-2f4a-6b8c-0d1e-3a4b5c6d7e8f",
+        "type": "Microsoft.Bami/applicationEntitlements/requests",
+        "location": "centralus",
+        "properties": {
+          "requestStatus": "Started",
+          "requestType": "PCCodeUpdate",
+          "businessJustification": "Update PC code / service group mapping for the billing scope.",
+          "serviceName": "Contoso Billing Service",
+          "createdDate": "2026-03-06T12:00:00Z",
+          "lastModifiedDate": "2026-03-06T12:00:00Z",
+          "context": {}
+        }
+      }
+    },
+    "201": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Bami/locations/global/operationStatuses/7c3d5a1b-2f4a-6b8c-0d1e-3a4b5c6d7e8f?api-version=2026-06-01-preview",
+        "Retry-After": 10
+      },
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Bami/applicationEntitlements/cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa/requests/7c3d5a1b-2f4a-6b8c-0d1e-3a4b5c6d7e8f",
+        "name": "7c3d5a1b-2f4a-6b8c-0d1e-3a4b5c6d7e8f",
+        "type": "Microsoft.Bami/applicationEntitlements/requests",
+        "location": "centralus",
+        "properties": {
+          "requestStatus": "Started",
+          "requestType": "PCCodeUpdate",
+          "businessJustification": "Update PC code / service group mapping for the billing scope.",
+          "serviceName": "Contoso Billing Service",
+          "createdDate": "2026-03-06T12:00:00Z",
+          "lastModifiedDate": "2026-03-06T12:00:00Z",
+          "context": {}
+        }
+      }
+    }
+  }
+}

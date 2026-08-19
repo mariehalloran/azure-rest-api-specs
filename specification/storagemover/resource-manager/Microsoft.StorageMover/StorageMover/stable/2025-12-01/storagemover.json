@@ -483,7 +483,8 @@
             "in": "path",
             "description": "The name of the Agent resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._-]{1,54}$"
           }
         ],
         "responses": {
@@ -538,7 +539,8 @@
             "in": "path",
             "description": "The name of the Agent resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._-]{1,54}$"
           },
           {
             "name": "agent",
@@ -605,7 +607,8 @@
             "in": "path",
             "description": "The name of the Agent resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._-]{1,54}$"
           },
           {
             "name": "agent",
@@ -666,7 +669,8 @@
             "in": "path",
             "description": "The name of the Agent resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._-]{1,54}$"
           }
         ],
         "responses": {
@@ -1029,7 +1033,8 @@
             "in": "path",
             "description": "The name of the Endpoint resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           }
         ],
         "responses": {
@@ -1099,7 +1104,8 @@
             "in": "path",
             "description": "The name of the Endpoint resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           },
           {
             "name": "endpoint",
@@ -1178,7 +1184,8 @@
             "in": "path",
             "description": "The name of the Endpoint resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           },
           {
             "name": "endpoint",
@@ -1257,7 +1264,8 @@
             "in": "path",
             "description": "The name of the Endpoint resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           }
         ],
         "responses": {
@@ -1379,7 +1387,8 @@
             "in": "path",
             "description": "The name of the Project resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           }
         ],
         "responses": {
@@ -1431,7 +1440,8 @@
             "in": "path",
             "description": "The name of the Project resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           },
           {
             "name": "project",
@@ -1492,7 +1502,8 @@
             "in": "path",
             "description": "The name of the Project resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           },
           {
             "name": "project",
@@ -1553,7 +1564,8 @@
             "in": "path",
             "description": "The name of the Project resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           }
         ],
         "responses": {
@@ -1625,7 +1637,8 @@
             "in": "path",
             "description": "The name of the Project resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           }
         ],
         "responses": {
@@ -1682,14 +1695,16 @@
             "in": "path",
             "description": "The name of the Project resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           },
           {
             "name": "jobDefinitionName",
             "in": "path",
             "description": "The name of the Job Definition resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           }
         ],
         "responses": {
@@ -1744,14 +1759,16 @@
             "in": "path",
             "description": "The name of the Project resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           },
           {
             "name": "jobDefinitionName",
             "in": "path",
             "description": "The name of the Job Definition resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           },
           {
             "name": "jobDefinition",
@@ -1818,14 +1835,16 @@
             "in": "path",
             "description": "The name of the Project resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           },
           {
             "name": "jobDefinitionName",
             "in": "path",
             "description": "The name of the Job Definition resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           },
           {
             "name": "jobDefinition",
@@ -1886,14 +1905,16 @@
             "in": "path",
             "description": "The name of the Project resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           },
           {
             "name": "jobDefinitionName",
             "in": "path",
             "description": "The name of the Job Definition resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           }
         ],
         "responses": {
@@ -1965,14 +1986,16 @@
             "in": "path",
             "description": "The name of the Project resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           },
           {
             "name": "jobDefinitionName",
             "in": "path",
             "description": "The name of the Job Definition resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           }
         ],
         "responses": {
@@ -2029,21 +2052,24 @@
             "in": "path",
             "description": "The name of the Project resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           },
           {
             "name": "jobDefinitionName",
             "in": "path",
             "description": "The name of the Job Definition resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           },
           {
             "name": "jobRunName",
             "in": "path",
             "description": "The name of the Job Run resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           }
         ],
         "responses": {
@@ -2100,14 +2126,16 @@
             "in": "path",
             "description": "The name of the Project resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           },
           {
             "name": "jobDefinitionName",
             "in": "path",
             "description": "The name of the Job Definition resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           }
         ],
         "responses": {
@@ -2161,14 +2189,16 @@
             "in": "path",
             "description": "The name of the Project resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           },
           {
             "name": "jobDefinitionName",
             "in": "path",
             "description": "The name of the Job Definition resource.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
           }
         ],
         "responses": {
@@ -2880,6 +2910,10 @@
           "$ref": "#/definitions/EndpointBaseProperties",
           "description": "The resource specific properties for the Storage Mover resource."
         },
+        "systemData": {
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/systemData",
+          "description": "Resource system metadata."
+        },
         "identity": {
           "$ref": "../../../../../../common-types/resource-management/v3/managedidentity.json#/definitions/ManagedServiceIdentity",
           "description": "The managed service identity of the resource. This property is only available on the latest version."
@@ -2906,10 +2940,6 @@
             "create"
           ]
         },
-        "description": {
-          "type": "string",
-          "description": "A description for the Endpoint."
-        },
         "endpointKind": {
           "$ref": "#/definitions/EndpointKind",
           "description": "The Endpoint resource kind source or target.",
@@ -2917,6 +2947,10 @@
             "read",
             "create"
           ]
+        },
+        "description": {
+          "type": "string",
+          "description": "A description for the Endpoint."
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
@@ -3064,6 +3098,7 @@
         "Weekly",
         "Daily",
         "Onetime",
+        "Custom",
         "None"
       ],
       "x-ms-enum": {
@@ -3087,9 +3122,12 @@
             "value": "Onetime"
           },
           {
+            "name": "Custom",
+            "value": "Custom"
+          },
+          {
             "name": "None",
-            "value": "None",
-            "description": "No schedule frequency. The job definition will not run on a schedule."
+            "value": "None"
           }
         ]
       }
@@ -3337,16 +3375,23 @@
         },
         "connections": {
           "type": "array",
-          "description": "List of connections associated to this job",
+          "description": "List of connections resourceId associated with the job.",
           "items": {
             "type": "string",
             "format": "arm-id",
-            "description": "A type definition that refers the id to an Azure Resource Manager resource."
+            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+            "x-ms-arm-id-details": {
+              "allowedResources": [
+                {
+                  "type": "Microsoft.StorageMover/storageMovers/connections"
+                }
+              ]
+            }
           }
         },
         "dataIntegrityValidation": {
           "$ref": "#/definitions/DataIntegrityValidation",
-          "description": "Data Integrity Validation mode."
+          "description": "Data Integrity validation to be updated"
         },
         "schedule": {
           "$ref": "#/definitions/ScheduleInfo",
@@ -3986,11 +4031,10 @@
       "description": "The source type of S3WithHmac endpoint.",
       "enum": [
         "MINIO",
+        "BACKBLAZE",
         "IBM",
-        "GCS",
-        "ALIBABA",
-        "DELL_EMC",
-        "OTHER"
+        "CLOUDFLARE",
+        "GCS"
       ],
       "x-ms-enum": {
         "name": "S3WithHmacSourceType",
@@ -4001,24 +4045,20 @@
             "value": "MINIO"
           },
           {
+            "name": "BACKBLAZE",
+            "value": "BACKBLAZE"
+          },
+          {
             "name": "IBM",
             "value": "IBM"
           },
           {
+            "name": "CLOUDFLARE",
+            "value": "CLOUDFLARE"
+          },
+          {
             "name": "GCS",
             "value": "GCS"
-          },
-          {
-            "name": "ALIBABA",
-            "value": "ALIBABA"
-          },
-          {
-            "name": "DELL_EMC",
-            "value": "DELL_EMC"
-          },
-          {
-            "name": "OTHER",
-            "value": "OTHER"
           }
         ]
       }

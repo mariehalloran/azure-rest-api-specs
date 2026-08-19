@@ -5,6 +5,7 @@ import "@azure-tools/typespec-azure-core";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 using Azure.Core;
 using Azure.ResourceManager.Foundations;
@@ -2298,6 +2299,7 @@ model K8sScheduling {
 /**
  * The kubernetes scheduling options. It describes restrictions used to help Kubernetes select appropriate nodes to host the database service
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model K8sSchedulingOptions {
   ...Record<unknown>;
 
@@ -2644,8 +2646,16 @@ model SqlServerInstanceProperties {
   /**
    * The unique ID of the hybrid machine that this resource belongs to.
    */
+  @removed(Versions.v2026_07_01_preview)
   @visibility(Lifecycle.Read)
   vmId?: string;
+
+  /**
+   * The unique ID of the hybrid machine that this resource belongs to.
+   */
+  @added(Versions.v2026_07_01_preview)
+  @encodedName("application/json", "vmId")
+  vmIdWritable?: string;
 
   /**
    * The time when the resource was created.
@@ -3808,8 +3818,16 @@ model SqlServerInstanceUpdateProperties {
   /**
    * The unique ID of the hybrid machine that this resource belongs to.
    */
+  @removed(Versions.v2026_07_01_preview)
   @visibility(Lifecycle.Read)
   vmId?: string;
+
+  /**
+   * The unique ID of the hybrid machine that this resource belongs to.
+   */
+  @added(Versions.v2026_07_01_preview)
+  @encodedName("application/json", "vmId")
+  vmIdWritable?: string;
 
   /**
    * The time when the resource was created.
@@ -4019,6 +4037,7 @@ model SqlServerInstanceUpdateProperties {
 /**
  * The Arc SQL Server instance telemetry retrieval request.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceTelemetryRequest {
   /**
    * The name of the telemetry dataset to retrieve.
@@ -4056,6 +4075,7 @@ model SqlServerInstanceTelemetryRequest {
 /**
  * A section of the telemetry response for the SQL Server instance.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceTelemetryResponse {
   /**
    * The columns of the result telemetry table for the SQL Server instance.
@@ -4096,6 +4116,7 @@ model SqlServerInstanceTelemetryColumn {
 /**
  * The request for retrieving SQL best practices assessment results.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceBpaRequest {
   /**
    * The report type that needs to be fetched. If not specified, the default is AssessmentSummary.
@@ -4121,6 +4142,7 @@ model SqlServerInstanceBpaRequest {
 /**
  * A section of the SQL best practices assessment response.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceBpaResponse {
   /**
    * The SQL best practices assessment response columns.
@@ -4160,6 +4182,7 @@ model SqlServerInstanceBpaColumn {
 /**
  * The response for running migration assessment on the SQL Server instance.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceRunMigrationAssessmentResponse {
   /**
    * The unique identifier of the job.
@@ -4260,6 +4283,7 @@ model SequencerAction {
 /**
  * The request for running a SQL Server Instance target recommendation job.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceRunTargetRecommendationJobRequest {
   /**
    * Controls whether the SQL Server instance resource is updated with the target recommendation details after the job completes.
@@ -4294,6 +4318,7 @@ model SqlServerInstanceRunTargetRecommendationJobRequest {
 /**
  * Represents the response of a SQL Server Instance target recommendation job execution.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceRunTargetRecommendationJobResponse {
   /**
    * Represents the current status of the target recommendation job.
@@ -4305,6 +4330,7 @@ model SqlServerInstanceRunTargetRecommendationJobResponse {
 /**
  * The request for retrieving SQL Server Instance target recommendation reports.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceTargetRecommendationReportsRequest {
   /**
    * Zero-based offset indicating where to continue reading reports in the overall list of reports. Defaults to 0 if not provided. This value must be used together with the corresponding sectionOffset to resume pagination. The reportOffset advances only after all sections of the current report have been retrieved. To retrieve subsequent pages, use the nextReportOffset and nextSectionOffset values from the previous response.
@@ -4332,6 +4358,7 @@ model SqlServerInstanceTargetRecommendationReportsRequest {
 /**
  * Represents the response containing SQL Server Instance target recommendation reports.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceTargetRecommendationReportsResponse {
   /**
    * Represents the status of the latest target recommendation job. Report records are returned only when the job status is Succeeded.
@@ -4422,6 +4449,7 @@ model SqlServerInstanceTargetRecommendationReportSection {
 /**
  * Represents the response containing the SQL Server Instance Migration Readiness report.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceMigrationReadinessReportResponse {
   /**
    * The migration readiness report as a serialized JSON string. When isCompressed is true, the value is base64-encoded GZip-compressed and must be decoded and decompressed before parsing.
@@ -4446,6 +4474,7 @@ model SqlServerInstanceMigrationReadinessReportResponse {
 /**
  * The response object for the request to run SQL best practices assessment.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceRunBestPracticesAssessmentResponse {
   /**
    * The unique identifier of the job.
@@ -4482,6 +4511,7 @@ model SqlServerInstanceRunBestPracticesAssessmentResponse {
 /**
  * The response object for the request to run migration readiness assessment.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceRunMigrationReadinessAssessmentResponse {
   /**
    * The unique identifier of the job.
@@ -4518,6 +4548,7 @@ model SqlServerInstanceRunMigrationReadinessAssessmentResponse {
 /**
  * The request for the status of the jobs running on the SQL Server instance.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceJobsStatusRequest {
   /**
    * The name of the feature to retrieve the job status for.
@@ -4533,6 +4564,7 @@ model SqlServerInstanceJobsStatusRequest {
 /**
  * The response for the status of the jobs running on the SQL Server instance.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceJobsStatusResponse {
   /**
    * The list of jobs status running on the SQL Server instance.
@@ -4580,6 +4612,7 @@ model SqlServerInstanceJobStatus {
 /**
  * The request for the jobs running on the SQL Server instance.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceJobsRequest {
   /**
    * The name of the feature to retrieve the jobs for.
@@ -4595,6 +4628,7 @@ model SqlServerInstanceJobsRequest {
 /**
  * The response for the jobs running on the SQL Server instance.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceJobsResponse {
   /**
    * The list of jobs running on the SQL Server instance.
@@ -4642,6 +4676,7 @@ model SqlServerInstanceJob {
 /**
  * The MI Link assessment request for the SQL Server instance.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceManagedInstanceLinkAssessmentRequest {
   /**
    * The Azure SQL Managed Instance resource ID to link with the SQL Server instance.
@@ -4682,6 +4717,7 @@ model SqlServerInstanceManagedInstanceLinkAssessmentRequest {
 /**
  * The response containing the results of the MI Link assessment.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerInstanceManagedInstanceLinkAssessmentResponse {
   /**
    * The list of the results for MI Link assessment.
@@ -5320,8 +5356,16 @@ model SqlServerAvailabilityGroupResourceProperties {
   /**
    * The unique ID of the hybrid machine that this resource belongs to.
    */
+  @removed(Versions.v2026_07_01_preview)
   @visibility(Lifecycle.Read)
   vmId?: string;
+
+  /**
+   * The unique ID of the hybrid machine that this resource belongs to.
+   */
+  @added(Versions.v2026_07_01_preview)
+  @encodedName("application/json", "vmId")
+  vmIdWritable?: string;
 
   /**
    * Timestamp for when the data was collected from the client machine.
@@ -6180,8 +6224,16 @@ model SqlServerDatabaseResourceProperties {
   /**
    * The unique ID of the hybrid machine that this resource belongs to.
    */
+  @removed(Versions.v2026_07_01_preview)
   @visibility(Lifecycle.Read)
   vmId?: string;
+
+  /**
+   * The unique ID of the hybrid machine that this resource belongs to.
+   */
+  @added(Versions.v2026_07_01_preview)
+  @encodedName("application/json", "vmId")
+  vmIdWritable?: string;
 
   /**
    * Conditional. If createMode is PointInTimeRestore, this value is required. Specifies the point in time (ISO8601 format) of the source database that will be restored to create the new database.
@@ -6212,6 +6264,7 @@ model SqlServerDatabaseResourceProperties {
 /**
  * List of features that are enabled for the database
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SqlServerDatabaseResourcePropertiesDatabaseOptions {
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   isAutoCloseOn?: boolean;

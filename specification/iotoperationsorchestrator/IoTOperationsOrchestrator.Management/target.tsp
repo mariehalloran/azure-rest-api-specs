@@ -62,7 +62,7 @@ model TopologiesProperties {
 
 @doc("Defines a component binding for a provider.")
 model BindingProperties {
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "field is loosely defined and dependent on customer scenarios"
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "properties field is loosely defined and are dependent on customer scenarios"
   @doc("Configuration values for the binding.")
   config: Record<unknown>;
 
@@ -76,12 +76,7 @@ model BindingProperties {
 @armResourceOperations
 interface Targets {
   get is ArmResourceRead<Target>;
-  #suppress "@azure-tools/typespec-azure-core/invalid-final-state" "MUST CHANGE ON NEXT UPDATE"
-  @Azure.Core.useFinalStateVia("azure-async-operation")
-  createOrUpdate is ArmResourceCreateOrUpdateAsync<
-    Target,
-    LroHeaders = Azure.Core.Foundations.RetryAfterHeader
-  >;
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<Target>;
   update is ArmCustomPatchSync<Target>;
   delete is ArmResourceDeleteWithoutOkAsync<Target>;
   listByResourceGroup is ArmResourceListByParent<Target>;

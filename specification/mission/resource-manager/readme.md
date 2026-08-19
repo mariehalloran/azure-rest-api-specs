@@ -1,11 +1,14 @@
 # mission
 
 > see https://aka.ms/autorest
-> This is the AutoRest configuration file for mission.
+
+This is the AutoRest configuration file for mission.
+
+---
 
 ## Configuration
 
-Required if any services under this folder are RPaaS.
+These are the global settings for the mission.
 
 ```yaml
 openapi-type: arm

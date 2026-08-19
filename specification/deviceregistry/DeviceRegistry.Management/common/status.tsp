@@ -30,7 +30,7 @@ model StatusConfig {
 model StatusError is Error;
 
 @doc("Defines the health state of the resource.")
-@added(Versions.v2026_04_01)
+@added(Versions.v2026_02_01_preview)
 union HealthStatus {
   @doc("Resource state is unknown.")
   Unknown: "Unknown",
@@ -48,7 +48,7 @@ union HealthStatus {
 }
 
 @doc("Represents the health state of a resource.")
-@added(Versions.v2026_04_01)
+@added(Versions.v2026_02_01_preview)
 model HealthState {
   @visibility(Lifecycle.Read)
   @doc("The high-level health status of the resource.")

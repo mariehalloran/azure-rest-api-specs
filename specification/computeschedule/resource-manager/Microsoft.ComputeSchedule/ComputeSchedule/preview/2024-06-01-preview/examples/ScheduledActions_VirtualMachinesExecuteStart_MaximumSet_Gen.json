@@ -1,0 +1,59 @@
+{
+  "title": "ScheduledActions_VirtualMachinesExecuteStart_Max",
+  "operationId": "ScheduledActions_VirtualMachinesExecuteStart",
+  "parameters": {
+    "api-version": "2024-06-01-preview",
+    "subscriptionId": "D7D928E7-7E6D-4944-813C-F8D3BFAF7921",
+    "locationparameter": "zqthildizkmcqdbgjzvuuuodnr",
+    "requestBody": {
+      "executionParameters": {
+        "optimizationPreference": "Cost",
+        "retryPolicy": {
+          "retryCount": 18,
+          "retryWindowInMinutes": 4
+        }
+      },
+      "resources": {
+        "ids": [
+          "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Compute/virtualMachines/myVm"
+        ]
+      },
+      "correlationid": "z"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "description": "sdlcbrypxndlcgrsqlsakihpc",
+        "type": "qozmermvobwip",
+        "location": "cqvx",
+        "results": [
+          {
+            "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Compute/virtualMachines/myVm",
+            "errorCode": "vlmhucggnpvuwbtetghwuzk",
+            "errorDetails": "ptbyxqjciiefribgfnc",
+            "operation": {
+              "operationId": "qemuiegurpxahpqxooukzjkxbitx",
+              "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Compute/virtualMachines/myVm",
+              "opType": "Unknown",
+              "subscriptionId": "whkuyoq",
+              "deadline": "2024-08-05T19:25:37.820Z",
+              "deadlineType": "Unknown",
+              "state": "Unknown",
+              "timeZone": "zxpalyfeoldusdgdtqfdmxjykyp",
+              "resourceOperationError": {
+                "errorCode": "oguq",
+                "errorDetails": "ezjpckwyrd"
+              },
+              "completedAt": "2024-08-05T19:25:37.821Z",
+              "retryPolicy": {
+                "retryCount": 18,
+                "retryWindowInMinutes": 4
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

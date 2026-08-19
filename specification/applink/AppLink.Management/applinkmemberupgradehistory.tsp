@@ -39,6 +39,5 @@ model UpgradeHistoryProperties {
 
 @armResourceOperations
 interface UpgradeHistories {
-  @doc("List UpgradeHistory resources by AppLinkMember.")
   listByAppLinkMember is ArmResourceListByParent<UpgradeHistory>;
 }

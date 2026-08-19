@@ -95,7 +95,7 @@ model AutonomousDatabaseBackupProperties {
   @visibility(Lifecycle.Read)
   lifecycleState?: AutonomousDatabaseBackupLifecycleState;
 
-  @doc("Retention period, in days")
+  @doc("Retention period, in days, for long-term backups.")
   @visibility(Lifecycle.Read, Lifecycle.Create, Lifecycle.Update)
   retentionPeriodInDays?: int32;
 
@@ -122,6 +122,11 @@ model AutonomousDatabaseBackupProperties {
   @doc("Azure resource provisioning state.")
   @visibility(Lifecycle.Read)
   provisioningState?: AzureResourceProvisioningState;
+
+  @added(Versions.v20260401_preview)
+  @doc("The destination where this backup is stored.")
+  @visibility(Lifecycle.Read)
+  backupDestination?: BackupDestinationType;
 }
 
 @doc("Details to restore an Oracle Autonomous Database.")

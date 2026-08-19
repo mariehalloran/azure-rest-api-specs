@@ -28,12 +28,12 @@ options:
     flavor: azure
     use-object-for-unknown: true
   "@azure-tools/typespec-ts":
-    service-dir: sdk/arcdata
-    emitter-output-dir: "{output-dir}/{service-dir}/arm-arcdata"
+    service-dir: sdk/azurearcdata
+    emitter-output-dir: "{output-dir}/{service-dir}/arm-azurearcdata"
     flavor: "azure"
     experimental-extensible-enums: true
     package-details:
-      name: "@azure/arm-arcdata"
+      name: "@azure/arm-azurearcdata"
   "@azure-tools/typespec-go":
     service-dir: "sdk/resourcemanager/azurearcdata"
     emitter-output-dir: "{output-dir}/{service-dir}/armazurearcdata"

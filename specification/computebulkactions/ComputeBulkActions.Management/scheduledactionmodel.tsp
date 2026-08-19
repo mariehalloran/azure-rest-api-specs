@@ -5,14 +5,42 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@azure-tools/typespec-client-generator-core";
 
+using TypeSpec.Http;
+using TypeSpec.Rest;
+using TypeSpec.Versioning;
 using Azure.Core;
 using Azure.ResourceManager;
+using TypeSpec.OpenAPI;
 using Azure.ClientGenerator.Core;
-using TypeSpec.Versioning;
 
 namespace Microsoft.ComputeBulkActions;
 
 // --------------- Request Body Naming ---------------
+
+@@clientName(
+  BulkActions.virtualMachinesSubmitDeallocate::parameters.body,
+  "requestBody"
+);
+@@doc(
+  BulkActions.virtualMachinesSubmitDeallocate::parameters.body,
+  "The request body"
+);
+@@clientName(
+  BulkActions.virtualMachinesSubmitHibernate::parameters.body,
+  "requestBody"
+);
+@@doc(
+  BulkActions.virtualMachinesSubmitHibernate::parameters.body,
+  "The request body"
+);
+@@clientName(
+  BulkActions.virtualMachinesSubmitStart::parameters.body,
+  "requestBody"
+);
+@@doc(
+  BulkActions.virtualMachinesSubmitStart::parameters.body,
+  "The request body"
+);
 @@clientName(
   BulkActions.virtualMachinesExecuteDeallocate::parameters.body,
   "requestBody"
@@ -67,6 +95,14 @@ namespace Microsoft.ComputeBulkActions;
 );
 @@doc(
   BulkActions.virtualMachinesCancelOperations::parameters.body,
+  "The request body"
+);
+@@clientName(
+  BulkActions.virtualMachinesGetOperationErrors::parameters.body,
+  "requestBody"
+);
+@@doc(
+  BulkActions.virtualMachinesGetOperationErrors::parameters.body,
   "The request body"
 );
 
@@ -190,20 +226,42 @@ model Resources {
 @doc("The resources needed for the user request with the correlationId")
 model ResourceWithContext {
   @doc("The resource ids used for the request")
-  id: armResourceIdentifier<[
+  resourceId: armResourceIdentifier<[
     {
       type: "Microsoft.Compute/vm";
     }
   ]>;
 
   @doc("The operational context of the resourceId")
-  context: string;
+  operationContext: string;
 }
 
 @doc("The resources needed for the user request with the context for tracking purposes")
 model ResourcesWithContext {
   @doc("The resource ids used for the request")
-  ids: Array<ResourceWithContext>;
+  @identifiers(#["resourceId"])
+  resources: Array<ResourceWithContext>;
+}
+
+@added(Versions.`2026-02-10-preview`)
+@doc("The properties model which the customers can use to specify multiple VM SKU options and allocation strategy, for greater flexibility and higher chances of successful VM creation")
+model Properties {
+  @doc("List of VM sizes supported for properties model")
+  @minItems(1)
+  @maxItems(10)
+  vmSizesProfile: Array<VmSizeProfile>;
+
+  @doc("Specifies the OS type for creating the VMs")
+  osType: string;
+
+  @doc("Specifies capacity type for launching instances. It can be in terms of VMs or vCPUs.")
+  capacityType?: CapacityType;
+
+  @doc("Configuration Options for Regular or Spot instances in the VMs")
+  priorityProfile: PriorityProfile;
+
+  @doc("Zone Allocation Policy for launching instances.")
+  zoneAllocationPolicy?: ZoneAllocationPolicy;
 }
 
 @doc("Resource creation data model")
@@ -221,6 +279,10 @@ model ResourceProvisionPayload {
 
   @doc("if resourceOverrides doesn't contain \"name\", service will create name based of prefix and ResourceCount e.g. resourceprefix-0,resourceprefix-1..")
   resourcePrefix?: string;
+
+  @added(Versions.`2026-02-10-preview`)
+  @doc("Properties tag to create Vms based on size, zone and allocation strategy")
+  properties?: Properties;
 }
 
 @doc("The retry policy for the user request")
@@ -231,7 +293,6 @@ model RetryPolicy {
   @doc("Retry window in minutes for user request")
   retryWindowInMinutes?: int32;
 
-  @removed(Microsoft.ComputeBulkActions.Versions.`2026-02-01-preview`)
   @doc("Action to take on failed retries for user request")
   onFailureAction?: ResourceOperationType;
 }
@@ -295,11 +356,9 @@ model ResourceOperationDetails {
   @doc("Retry policy the user can pass")
   retryPolicy?: RetryPolicy;
 
-  @removed(Microsoft.ComputeBulkActions.Versions.`2026-02-01-preview`)
   @doc("Resource notification details.")
   resourceNotificationDetails?: ResourceNotificationDetails;
 
-  @removed(Microsoft.ComputeBulkActions.Versions.`2026-02-01-preview`)
   @doc("Fallback operation details if a fallback was performed")
   fallbackOperation?: FallbackOperation;
 }
@@ -323,11 +382,72 @@ model ResourceOperation {
   operation?: ResourceOperationDetails;
 }
 
+#suppress "@azure-tools/typespec-azure-core/no-offsetdatetime" "Prefer using `offsetDateTime` when representing a datetime."
+@doc("This defines a list of operation errors associated with a unique operationId")
+model OperationErrorDetails {
+  @doc("The error code of the operation")
+  errorCode: string;
+
+  @doc("The error details of the operation")
+  errorDetails: string;
+
+  @doc("The timestamp of the error occurrence")
+  timestamp?: offsetDateTime;
+
+  @doc("The compute operationid of the Start/Deallocate/Hibernate request")
+  azureOperationName?: string;
+}
+
+#suppress "@azure-tools/typespec-azure-core/no-offsetdatetime" "Prefer using `offsetDateTime` when representing a datetime."
+@doc("This is the first level of operation errors from the request when clients get errors per vm operation")
+model OperationErrorsResult {
+  @doc("The operationId identifying a vm operation")
+  operationId?: string;
+
+  @doc("The creation time of the error result, returned in UTC datetimeoffset format")
+  creationTime?: offsetDateTime;
+
+  @doc("The activation time of a Virtual Machine operation, returned in UTC datetimeoffset format")
+  activationTime?: offsetDateTime;
+
+  @doc("The completion time of the operation if the operation was completed, returned in UTC datetimeoffset format")
+  completedAt?: offsetDateTime;
+
+  @identifiers(#[])
+  @doc("A list of errors associated with the operationid")
+  operationErrors?: Array<OperationErrorDetails>;
+
+  @doc("Request level error code")
+  requestErrorCode?: string;
+
+  @doc("Request level error details")
+  requestErrorDetails?: string;
+}
+
 // ------------------ Common Models ---------------
 @doc("The common request model for power operations")
 model ResourceNotificationDetails {
   @doc("Operation context for notification tracking")
   operationContext?: string;
+}
+
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@doc("The submit-type request for power operations")
+model SubmitTypeRequest {
+  @doc("The schedule for the request")
+  schedule: Schedule;
+
+  @doc("The execution parameters for the request")
+  executionParameters: ExecutionParameters;
+
+  @doc("The resources for the request")
+  resources?: Resources;
+
+  @doc("The resources for the request with operation context information needed for notification tracking.")
+  resourcesWithContext?: ResourcesWithContext;
+
+  @doc("CorrelationId item")
+  correlationid: string;
 }
 
 @doc("The execute-type request for power operations")
@@ -338,7 +458,6 @@ model ExecuteTypeRequest {
   @doc("The resources for the request")
   resources?: Resources;
 
-  @removed(Microsoft.ComputeBulkActions.Versions.`2026-02-01-preview`)
   @doc("The resources for the request with operation context information")
   resourcesWithContext?: ResourcesWithContext;
 
@@ -346,6 +465,7 @@ model ExecuteTypeRequest {
   correlationid: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Common model for operation response")
 model OperationResponse {
   @doc("The description of the operation response")
@@ -363,19 +483,37 @@ model OperationResponse {
   results?: Array<ResourceOperation>;
 }
 
-// ----------- DeallocateResponse ---------
+// ----------- SubmitDeallocate ---------
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@doc("The deallocate request for resources")
+model SubmitDeallocateRequest {
+  ...SubmitTypeRequest;
+}
+
 @doc("The response from a deallocate request")
 model DeallocateResourceOperationResponse {
   ...OperationResponse;
 }
 
-// ----------- StartResponse ---------
+// ----------- SubmitStart ---------
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@doc("This is the request for start")
+model SubmitStartRequest {
+  ...SubmitTypeRequest;
+}
+
 @doc("The response from a start request")
 model StartResourceOperationResponse {
   ...OperationResponse;
 }
 
-// ----------- HibernateResponse ---------
+// ----------- SubmitHibernate ---------
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@doc("This is the request for hibernate")
+model SubmitHibernateRequest {
+  ...SubmitTypeRequest;
+}
+
 @doc("The response from a Hibernate request")
 model HibernateResourceOperationResponse {
   ...OperationResponse;
@@ -459,4 +597,19 @@ model CancelOperationsResponse {
   @identifiers(#["resourceId"])
   @doc("An array of resource operations that were successfully cancelled")
   results: Array<ResourceOperation>;
+}
+
+// ----------- GetOperationErrors ---------
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@doc("This is the request to get errors per vm operations")
+model GetOperationErrorsRequest {
+  @doc("The list of operation ids to query errors of")
+  operationIds: Array<string>;
+}
+
+@doc("This is the response from a get operations errors request")
+model GetOperationErrorsResponse {
+  @identifiers(#["operationId"])
+  @doc("An array of operationids and their corresponding errors if any")
+  results: Array<OperationErrorsResult>;
 }

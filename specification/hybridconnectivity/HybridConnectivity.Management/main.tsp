@@ -12,15 +12,12 @@ import "./models.tsp";
 import "./EndpointResource.tsp";
 import "./ServiceConfigurationResource.tsp";
 import "./PublicCloud.tsp";
-import "@azure-tools/typespec-client-generator-core";
 import "./back-compatible.tsp";
+
+import "@azure-tools/typespec-client-generator-core";
 import "./client.tsp";
 
 using Azure.ClientGenerator.Core;
-using TypeSpec.Rest;
-using TypeSpec.Http;
-using Azure.ResourceManager.Foundations;
-using Azure.Core;
 using Azure.ResourceManager;
 using TypeSpec.Versioning;
 /**
@@ -37,6 +34,15 @@ namespace Microsoft.HybridConnectivity;
 enum Versions {
   @doc("Version 2024-12-01")
   v2024_12_01: "2024-12-01",
+
+  @doc("Version 2025-12-01-preview")
+  v2025_12_01_preview: "2025-12-01-preview",
+
+  @doc("Version 2026-04-01-preview")
+  v2026_04_01_preview: "2026-04-01-preview",
+
+  @doc("Version 2026-09-01-preview")
+  v2026_09_01_preview: "2026-09-01-preview",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}

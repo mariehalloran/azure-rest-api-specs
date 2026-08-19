@@ -112,13 +112,13 @@ union KafkaSaslType {
   string,
 
   @doc("Sasl Plain authentication.")
-  "plain",
+  plain: "plain",
 
   @doc("Sasl ScramSha256 authentication.")
-  "scramSha256",
+  scramSha256: "scramSha256",
 
   @doc("Sasl ScramSha512 authentication.")
-  "scramSha512",
+  scramSha512: "scramSha512",
 }
 
 // Add SaslRemoteBrokerBasicAuthenticationToken properties.
@@ -332,13 +332,13 @@ union KafkaAcks {
   string,
 
   @doc("Kafka acks zero.")
-  "zero",
+  zero: "zero",
 
   @doc("Kafka acks one.")
-  "one",
+  one: "one",
 
   @doc("Kafka acks all.")
-  "all",
+  all: "all",
 }
 
 // Add SharedSubscriptionProperties properties.

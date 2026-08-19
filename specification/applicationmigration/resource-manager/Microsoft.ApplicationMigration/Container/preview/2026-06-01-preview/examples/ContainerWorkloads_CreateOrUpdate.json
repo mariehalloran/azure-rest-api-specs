@@ -1,0 +1,177 @@
+{
+  "operationId": "ContainerWorkloads_CreateOrUpdate",
+  "title": "Create or update a container workload",
+  "parameters": {
+    "subscriptionId": "4bd2aa0f-2bd2-4d67-91a8-5a4533d58600",
+    "resourceGroupName": "myResourceGroup",
+    "siteName": "myContainerSite",
+    "workloadName": "cluster01_production_deployment_web-frontend",
+    "api-version": "2026-06-01-preview",
+    "resource": {
+      "properties": {
+        "workloadScenario": "orchestrated",
+        "clusterArmId": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerClusters/cluster01",
+        "nodeIds": [
+          "node01",
+          "node02"
+        ],
+        "machineArmId": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.OffAzure/serverSites/mySite/machines/vm-001",
+        "softwareAttributes": {
+          "softwareName": "Kubernetes",
+          "softwareVersion": "1.28.4"
+        },
+        "supportStatus": "Mainstream",
+        "applianceName": "myAppliance",
+        "namespace": "production",
+        "controllerType": "deployment",
+        "controllerName": "web-frontend",
+        "replicasCurrent": 3,
+        "replicasDesired": 3,
+        "applicationGroupId": "production/myapp",
+        "applicationGroupSource": "app-label",
+        "selectorLabels": [
+          {
+            "key": "app",
+            "value": "myapp"
+          }
+        ],
+        "matchingServices": [
+          {
+            "serviceName": "web-frontend-svc",
+            "serviceNamespace": "production",
+            "serviceType": "ClusterIP",
+            "ports": [
+              {
+                "name": "http",
+                "protocol": "TCP",
+                "port": 80,
+                "targetPort": "8080"
+              },
+              {
+                "name": "metrics",
+                "protocol": "TCP",
+                "port": 9090,
+                "targetPort": "metrics"
+              }
+            ],
+            "clusterIp": "10.96.0.100"
+          }
+        ],
+        "matchingRoutes": [],
+        "workloadSummary": {
+          "containerCount": 2,
+          "initContainerCount": 0,
+          "totalCpuRequest": "500m",
+          "totalCpuLimit": "1000m",
+          "totalMemoryRequest": "256Mi",
+          "totalMemoryLimit": "512Mi",
+          "hasGpuRequests": false,
+          "hasPersistentVolumes": false,
+          "persistentVolumeCount": 0,
+          "totalPvSizeGb": 0,
+          "distinctImages": [
+            "nginx:1.25",
+            "redis:7.2"
+          ],
+          "imageArchitectures": [
+            "amd64"
+          ],
+          "configMapRefCount": 2,
+          "secretRefCount": 1,
+          "secretTypes": [
+            "Opaque"
+          ],
+          "hasExternalSecrets": false
+        },
+        "readinessSignals": {
+          "usesHostNetwork": false,
+          "usesHostPid": false,
+          "usesHostIpc": false,
+          "hasPrivilegedContainers": false,
+          "hasRootContainers": false,
+          "mountsDockerSocket": false,
+          "usesNodeSelector": false,
+          "hasNodeAffinity": false,
+          "hasPodAntiAffinity": false,
+          "hasTopologySpreadConstraints": false,
+          "hasTolerations": false,
+          "hasWindowsContainers": false,
+          "hasHostPathVolumes": false,
+          "usesSecrets": false,
+          "usesConfigMaps": true,
+          "hasPrivateRegistry": false,
+          "hasGpuRequirement": false,
+          "hasHpa": false,
+          "hasVpa": false,
+          "hasPdb": false,
+          "hasIngressRules": false,
+          "hasTlsSecrets": false,
+          "hasLivenessProbes": true,
+          "hasReadinessProbes": true,
+          "exposesMultiplePorts": false,
+          "hasNetworkPolicy": false
+        },
+        "containers": [
+          {
+            "containerName": "nginx",
+            "isInitContainer": false,
+            "containerImage": {
+              "imageName": "nginx",
+              "imageTag": "1.25",
+              "imageRegistry": "docker.io"
+            },
+            "resourceAllocation": {
+              "cpuRequest": "250m",
+              "cpuLimit": "500m",
+              "memoryRequest": "128Mi",
+              "memoryLimit": "256Mi"
+            }
+          }
+        ],
+        "errors": [],
+        "criticalErrorCount": 0,
+        "warningsCount": 0,
+        "workloadType": "Kubernetes",
+        "discoveryCompleteness": "deep-complete",
+        "isShallowCompleted": true,
+        "isDeepDiscoveryCompleted": true,
+        "isKubeconfigDiscoveryCompleted": true
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerWorkloads/cluster01_production_deployment_web-frontend",
+        "name": "cluster01_production_deployment_web-frontend",
+        "type": "Microsoft.ApplicationMigration/containerSites/ContainerWorkloads",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "workloadScenario": "orchestrated",
+          "controllerType": "deployment",
+          "controllerName": "web-frontend",
+          "namespace": "production",
+          "replicasCurrent": 3,
+          "replicasDesired": 3,
+          "applicationGroupId": "production/myapp",
+          "discoveryCompleteness": "deep-complete"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerWorkloads/cluster01_production_deployment_web-frontend",
+        "name": "cluster01_production_deployment_web-frontend",
+        "type": "Microsoft.ApplicationMigration/containerSites/ContainerWorkloads",
+        "properties": {
+          "provisioningState": "Creating",
+          "workloadScenario": "orchestrated",
+          "controllerType": "deployment",
+          "controllerName": "web-frontend",
+          "namespace": "production",
+          "discoveryCompleteness": "deep-complete"
+        }
+      }
+    }
+  }
+}

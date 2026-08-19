@@ -1,0 +1,43 @@
+{
+  "operationId": "InternalContextCaches_Update",
+  "title": "Update an internal Context Cache",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "testrg",
+    "location": "eastus",
+    "api-version": "2026-02-01-preview",
+    "internalContextCacheName": "testaccount",
+    "properties": {
+      "properties": {
+        "description": "Updated internal account description"
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/locations/eastus/internalContextCaches/testaccount",
+        "name": "testaccount",
+        "type": "Microsoft.Storage/internalContextCaches",
+        "properties": {
+          "accountKind": "Regional",
+          "description": "Updated internal account description",
+          "provisioningState": "Succeeded",
+          "resourceProperties": {
+            "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/contextCaches/testaccount",
+            "resourceType": "Microsoft.Storage/contextCaches",
+            "baseLocation": "eastus",
+            "baseAccountKind": "Regional",
+            "storageAccountName": "testaccount0001"
+          }
+        }
+      }
+    },
+    "202": {
+      "headers": {
+        "location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Storage/locations/eastus/operationStatuses/00000000-0000-0000-0000-000000000000?api-version=2026-02-01-preview",
+        "Retry-After": "10"
+      }
+    }
+  }
+}

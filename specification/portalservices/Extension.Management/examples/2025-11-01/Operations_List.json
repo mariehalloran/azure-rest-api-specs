@@ -1,5 +1,7 @@
 {
-  "parameters": {},
+  "parameters": {
+    "api-version": "2025-11-01"
+  },
   "responses": {
     "200": {
       "body": {
@@ -29,36 +31,6 @@
               "resource": "Extensions",
               "operation": "Delete extensions",
               "description": "Delete extensions"
-            }
-          },
-          {
-            "name": "Microsoft.PortalServices/dashboards/read",
-            "isDataAction": false,
-            "display": {
-              "provider": "Azure Portal",
-              "resource": "Dashboards",
-              "operation": "Get Dashboard",
-              "description": "Reads the dashboards for the subscription."
-            }
-          },
-          {
-            "name": "Microsoft.PortalServices/dashboards/write",
-            "isDataAction": false,
-            "display": {
-              "provider": "Azure Portal",
-              "resource": "Dashboards",
-              "operation": "Set Dashboard",
-              "description": "Add or modify dashboard to a subscription."
-            }
-          },
-          {
-            "name": "Microsoft.PortalServices/dashboards/delete",
-            "isDataAction": false,
-            "display": {
-              "provider": "Azure Portal",
-              "resource": "Dashboards",
-              "operation": "Delete Dashboard",
-              "description": "Removes the dashboard from the subscription."
             }
           }
         ]

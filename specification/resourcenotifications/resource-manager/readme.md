@@ -1,0 +1,110 @@
+# Azure Resource Notifications
+
+> see https://aka.ms/autorest
+
+This is the AutoRest configuration file for Azure Resource Notifications.
+
+## Getting Started
+
+To build the SDK for Azure Resource Notifications, simply [Install AutoRest](https://aka.ms/autorest/install) and in this folder, run:
+
+> `autorest`
+
+To see additional help and options, run:
+
+> `autorest --help`
+
+## Configuration
+
+### Basic Information
+
+These are the global settings for the Azure Resource Notifications API.
+
+``` yaml
+openapi-type: arm
+tag: package-2026-08-01-preview
+```
+
+### Tag: package-2026-08-01-preview
+
+These settings apply only when `--tag=package-2026-08-01-preview` is specified on the command line.
+
+``` yaml $(tag) == 'package-2026-08-01-preview'
+input-file:
+- Microsoft.ResourceNotifications/preview/2026-08-01-preview/resourcenotifications.json
+```
+
+### Tag: package-2026-06-01-preview
+
+These settings apply only when `--tag=package-2026-06-01-preview` is specified on the command line.
+
+``` yaml $(tag) == 'package-2026-06-01-preview'
+input-file:
+- Microsoft.ResourceNotifications/preview/2026-06-01-preview/resourcenotifications.json
+```
+
+### Tag: package-2026-03-01-preview
+
+These settings apply only when `--tag=package-2026-03-01-preview` is specified on the command line.
+
+``` yaml $(tag) == 'package-2026-03-01-preview'
+input-file:
+- Microsoft.ResourceNotifications/preview/2026-03-01-preview/resourcenotifications.json
+```
+
+### Tag: package-2025-11-19-preview
+
+These settings apply only when `--tag=package-2025-11-19-preview` is specified on the command line.
+
+``` yaml $(tag) == 'package-2025-11-19-preview'
+input-file:
+- Microsoft.ResourceNotifications/preview/2025-11-19-preview/resourcenotifications.json
+```
+
+## Suppression
+
+``` yaml
+suppressions:
+  - code: GuidUsage
+    from: resourcenotifications.json
+    reason: appId, objectId, and tenantId are AAD identity identifiers which are GUIDs by definition. These fields share the Azure.Core.uuid definition.
+    where: $.definitions["Azure.Core.uuid"].format
+  - code: ArmResourcePropertiesBag
+    from: resourcenotifications.json
+    reason: Temporary suppression. Destination discriminator kind is currently modeled under DestinationProperties.kind across existing preview API versions (2025-11-19-preview, 2026-03-01-preview, 2026-06-01-preview). Track debt and remove by 2026-09-01-preview by moving kind to top-level Destination envelope.
+    where: $.definitions.Destination
+  - code: TrackedResourcesMustHavePut
+    from: resourcenotifications.json
+    reason: Namespace is read-only, pre-provisioned by the platform.
+    where: $.definitions.Namespace
+  - code: TrackedResourcePatchOperation
+    from: resourcenotifications.json
+    reason: Namespace is read-only, pre-provisioned by the platform.
+    where: $.definitions.Namespace
+  - code: AllTrackedResourcesMustHaveDelete
+    from: resourcenotifications.json
+    reason: Namespace is read-only, pre-provisioned by the platform.
+    where: $.definitions.Namespace
+```
+
+## Code Generation
+
+### C#
+
+See configuration in [readme.csharp.md](./readme.csharp.md)
+
+### Python
+
+See configuration in [readme.python.md](./readme.python.md)
+
+### Java
+
+See configuration in [readme.java.md](./readme.java.md)
+
+### JavaScript
+
+See configuration in [readme.nodejs.md](./readme.nodejs.md)
+
+### Go
+
+See configuration in [readme.go.md](./readme.go.md)

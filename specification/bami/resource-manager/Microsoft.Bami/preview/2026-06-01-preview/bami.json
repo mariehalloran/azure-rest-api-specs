@@ -1,0 +1,2435 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "BAMI Management",
+    "version": "2026-06-01-preview",
+    "description": "BAMI Automation API for managing test account provisioning through ARM RPaaS.",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "AutomationRequests"
+    },
+    {
+      "name": "ApplicationEntitlements"
+    }
+  ],
+  "paths": {
+    "/providers/Microsoft.Bami/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Operations": {
+            "$ref": "./examples/Operations_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Bami/applicationEntitlements": {
+      "get": {
+        "operationId": "ApplicationEntitlements_ListBySubscription",
+        "tags": [
+          "ApplicationEntitlements"
+        ],
+        "description": "List application entitlements by subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/OdataFilterParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ApplicationEntitlementResourceListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Application Entitlements by Subscription": {
+            "$ref": "./examples/ApplicationEntitlements_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Bami/applicationEntitlements": {
+      "get": {
+        "operationId": "ApplicationEntitlements_ListByResourceGroup",
+        "tags": [
+          "ApplicationEntitlements"
+        ],
+        "description": "List application entitlements.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/OdataFilterParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ApplicationEntitlementResourceListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Application Entitlements By Resource Group": {
+            "$ref": "./examples/ApplicationEntitlements_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Bami/applicationEntitlements/{applicationEntitlementId}": {
+      "get": {
+        "operationId": "ApplicationEntitlements_Get",
+        "tags": [
+          "ApplicationEntitlements"
+        ],
+        "description": "Get application entitlement.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "applicationEntitlementId",
+            "in": "path",
+            "description": "The application entitlement identifier (onboarding request ID).",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,62}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ApplicationEntitlementResource"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get Application Entitlement": {
+            "$ref": "./examples/ApplicationEntitlements_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ApplicationEntitlements_CreateOrUpdate",
+        "tags": [
+          "ApplicationEntitlements"
+        ],
+        "description": "Create or link the application entitlement after onboarding approval.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "applicationEntitlementId",
+            "in": "path",
+            "description": "The application entitlement identifier (onboarding request ID).",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,62}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ApplicationEntitlementResource"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ApplicationEntitlementResource' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ApplicationEntitlementResource"
+            }
+          },
+          "201": {
+            "description": "Resource 'ApplicationEntitlementResource' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ApplicationEntitlementResource"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create or Update Application Entitlement": {
+            "$ref": "./examples/ApplicationEntitlements_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "ApplicationEntitlements_Update",
+        "tags": [
+          "ApplicationEntitlements"
+        ],
+        "description": "Update application entitlement.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "applicationEntitlementId",
+            "in": "path",
+            "description": "The application entitlement identifier (onboarding request ID).",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,62}$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ApplicationEntitlementResourceUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ApplicationEntitlementResource"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update Application Entitlement": {
+            "$ref": "./examples/ApplicationEntitlements_Update.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "ApplicationEntitlements_Delete",
+        "tags": [
+          "ApplicationEntitlements"
+        ],
+        "description": "Delete application entitlement.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "applicationEntitlementId",
+            "in": "path",
+            "description": "The application entitlement identifier (onboarding request ID).",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,62}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete Application Entitlement": {
+            "$ref": "./examples/ApplicationEntitlements_Delete.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Bami/applicationEntitlements/{applicationEntitlementId}/requests": {
+      "get": {
+        "operationId": "AutomationRequests_List",
+        "tags": [
+          "AutomationRequests"
+        ],
+        "description": "List automation requests for an application entitlement.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "applicationEntitlementId",
+            "in": "path",
+            "description": "The application entitlement identifier (onboarding request ID).",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,62}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AutomationRequestResourceListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Requests By Application Entitlement": {
+            "$ref": "./examples/Requests_ListByApplication.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Bami/applicationEntitlements/{applicationEntitlementId}/requests/{requestId}": {
+      "get": {
+        "operationId": "AutomationRequests_Get",
+        "tags": [
+          "AutomationRequests"
+        ],
+        "description": "Get an automation request.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "applicationEntitlementId",
+            "in": "path",
+            "description": "The application entitlement identifier (onboarding request ID).",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,62}$"
+          },
+          {
+            "name": "requestId",
+            "in": "path",
+            "description": "The identifier of the automation request.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,62}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AutomationRequestResource"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get Request": {
+            "$ref": "./examples/Requests_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "AutomationRequests_CreateOrUpdate",
+        "tags": [
+          "AutomationRequests"
+        ],
+        "description": "Create or update an automation request.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "applicationEntitlementId",
+            "in": "path",
+            "description": "The application entitlement identifier (onboarding request ID).",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,62}$"
+          },
+          {
+            "name": "requestId",
+            "in": "path",
+            "description": "The identifier of the automation request.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,62}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AutomationRequestResource"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'AutomationRequestResource' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/AutomationRequestResource"
+            }
+          },
+          "201": {
+            "description": "Resource 'AutomationRequestResource' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/AutomationRequestResource"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create or Update AppConsent Request": {
+            "$ref": "./examples/Requests_CreateOrUpdate_AppConsent.json"
+          },
+          "Create or Update PCCodeUpdate Request": {
+            "$ref": "./examples/Requests_CreateOrUpdate_PCCodeUpdate.json"
+          },
+          "Create or Update PCCodeUpdate Request (Service Group)": {
+            "$ref": "./examples/Requests_CreateOrUpdate_PCCodeUpdate_ServiceGroup.json"
+          },
+          "Create or Update Request": {
+            "$ref": "./examples/Requests_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "AutomationRequests_Update",
+        "tags": [
+          "AutomationRequests"
+        ],
+        "description": "Update an automation request.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "applicationEntitlementId",
+            "in": "path",
+            "description": "The application entitlement identifier (onboarding request ID).",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,62}$"
+          },
+          {
+            "name": "requestId",
+            "in": "path",
+            "description": "The identifier of the automation request.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,62}$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AutomationRequestResourceUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AutomationRequestResource"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update Automation Request": {
+            "$ref": "./examples/Requests_Update.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "AutomationRequests_Delete",
+        "tags": [
+          "AutomationRequests"
+        ],
+        "description": "Delete an automation request.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "applicationEntitlementId",
+            "in": "path",
+            "description": "The application entitlement identifier (onboarding request ID).",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,62}$"
+          },
+          {
+            "name": "requestId",
+            "in": "path",
+            "description": "The identifier of the automation request.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,62}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete Automation Request": {
+            "$ref": "./examples/Requests_Delete.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Bami/applicationEntitlements/{applicationEntitlementId}/requests/{requestId}/cancel": {
+      "post": {
+        "operationId": "AutomationRequests_Cancel",
+        "tags": [
+          "AutomationRequests"
+        ],
+        "description": "Cancel an automation request.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "applicationEntitlementId",
+            "in": "path",
+            "description": "The application entitlement identifier (onboarding request ID).",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,62}$"
+          },
+          {
+            "name": "requestId",
+            "in": "path",
+            "description": "The identifier of the automation request.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,62}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CancelRequestBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AutomationRequestResource"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Cancel an automation request": {
+            "$ref": "./examples/Requests_Cancel.json"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AccountContext": {
+      "type": "object",
+      "description": "Configuration for an account creation request. Specifies the account type and the corresponding type-specific sub-context.",
+      "properties": {
+        "accountType": {
+          "$ref": "#/definitions/AccountType",
+          "description": "The account type to create."
+        },
+        "smbContext": {
+          "$ref": "#/definitions/SMBContext",
+          "description": "The SMB account context. Required when accountType is 'SMB' or 'SMBSafelist'."
+        },
+        "fieldLedContext": {
+          "$ref": "#/definitions/FieldLedContext",
+          "description": "The field-led account context. Required when accountType is 'FieldLed'."
+        },
+        "fedGovDirectContext": {
+          "$ref": "#/definitions/FieldLedContext",
+          "description": "The FedGov direct account context. Required when accountType is 'FedGovDirect'. Uses the same schema as FieldLedContext."
+        },
+        "fedGovIndirectContext": {
+          "$ref": "#/definitions/FedGovIndirectContext",
+          "description": "The FedGov indirect account context. Required when accountType is 'FedGovIndirect'."
+        },
+        "indirectContext": {
+          "$ref": "#/definitions/IndirectContext",
+          "description": "The indirect account context. Required when accountType is 'IndirectPartnerAccount', 'IndirectCustomerAccount', or 'IndirectAccount'."
+        },
+        "ncoeContext": {
+          "$ref": "#/definitions/FieldLedContext",
+          "description": "The NCOE customer account context. Required when accountType is 'NCOECustomerAccount'. Uses the same schema as FieldLedContext."
+        },
+        "applicationIds": {
+          "type": "array",
+          "description": "First-party application IDs that should be granted access to the newly created tenant.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "governancePolicyTemplateId": {
+          "type": "string",
+          "description": "The governance policy template ID for configuring application access in the new tenant."
+        }
+      },
+      "required": [
+        "accountType"
+      ]
+    },
+    "AccountType": {
+      "type": "string",
+      "description": "The account type to create.",
+      "enum": [
+        "SMB",
+        "SMBSafelist",
+        "FieldLed",
+        "FedGovDirect",
+        "FedGovIndirect",
+        "IndirectPartnerAccount",
+        "IndirectCustomerAccount",
+        "IndirectAccount",
+        "NCOECustomerAccount",
+        "CustomerLed",
+        "CustomerLedSafelist",
+        "PartnerLedSafelist",
+        "EA"
+      ],
+      "x-ms-enum": {
+        "name": "AccountType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "SMB",
+            "value": "SMB",
+            "description": "SMB account type."
+          },
+          {
+            "name": "SMBSafelist",
+            "value": "SMBSafelist",
+            "description": "SMB safelist account type."
+          },
+          {
+            "name": "FieldLed",
+            "value": "FieldLed",
+            "description": "Field-led account type."
+          },
+          {
+            "name": "FedGovDirect",
+            "value": "FedGovDirect",
+            "description": "FedGov direct account type."
+          },
+          {
+            "name": "FedGovIndirect",
+            "value": "FedGovIndirect",
+            "description": "FedGov indirect account type."
+          },
+          {
+            "name": "IndirectPartnerAccount",
+            "value": "IndirectPartnerAccount",
+            "description": "Indirect partner account type."
+          },
+          {
+            "name": "IndirectCustomerAccount",
+            "value": "IndirectCustomerAccount",
+            "description": "Indirect customer account type."
+          },
+          {
+            "name": "IndirectAccount",
+            "value": "IndirectAccount",
+            "description": "Indirect account type."
+          },
+          {
+            "name": "NCOECustomerAccount",
+            "value": "NCOECustomerAccount",
+            "description": "NCOE customer account type."
+          },
+          {
+            "name": "CustomerLed",
+            "value": "CustomerLed",
+            "description": "Customer-led account type."
+          },
+          {
+            "name": "CustomerLedSafelist",
+            "value": "CustomerLedSafelist",
+            "description": "Customer-led safelist account type."
+          },
+          {
+            "name": "PartnerLedSafelist",
+            "value": "PartnerLedSafelist",
+            "description": "Partner-led safelist account type."
+          },
+          {
+            "name": "EA",
+            "value": "EA",
+            "description": "Enterprise Agreement account type."
+          }
+        ]
+      }
+    },
+    "Address": {
+      "type": "object",
+      "description": "A postal address.",
+      "properties": {
+        "addressLine1": {
+          "type": "string",
+          "description": "Address line 1."
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "Address line 2."
+        },
+        "addressLine3": {
+          "type": "string",
+          "description": "Address line 3."
+        },
+        "city": {
+          "type": "string",
+          "description": "The city."
+        },
+        "state": {
+          "type": "string",
+          "description": "The state or province."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "The postal or ZIP code."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The ISO country code."
+        }
+      }
+    },
+    "AppConsentContext": {
+      "type": "object",
+      "description": "Configuration for an application consent request. Grants first-party application consent for a billing scope. AppConsent is a non-billable production automation request.",
+      "properties": {
+        "isHobo": {
+          "type": "boolean",
+          "description": "Whether this is a HOBO (hosted-on-behalf-of) consent. Defaults to false server-side."
+        },
+        "billingServiceTreeId": {
+          "type": "string",
+          "description": "The Service Tree ID (GUID) of the billing service that owns the consent."
+        },
+        "billingServiceName": {
+          "type": "string",
+          "description": "The display name of the billing service that owns the consent."
+        },
+        "appsConsentPerTenant": {
+          "type": "array",
+          "description": "The applications to consent, grouped by Azure environment then by tenant.",
+          "items": {
+            "$ref": "#/definitions/AppConsentEnvironmentSelection"
+          },
+          "x-ms-identifiers": [
+            "environment"
+          ]
+        }
+      },
+      "required": [
+        "billingServiceTreeId",
+        "billingServiceName"
+      ]
+    },
+    "AppConsentEnvironmentSelection": {
+      "type": "object",
+      "description": "The application consent selections for a single Azure environment.",
+      "properties": {
+        "environment": {
+          "$ref": "#/definitions/AzureEnvironment",
+          "description": "The Azure environment (cloud) the consent applies to."
+        },
+        "tenants": {
+          "type": "array",
+          "description": "The per-tenant application consent grants for this environment.",
+          "items": {
+            "$ref": "#/definitions/TenantAppConsent"
+          },
+          "x-ms-identifiers": [
+            "tenantId"
+          ]
+        }
+      },
+      "required": [
+        "environment",
+        "tenants"
+      ]
+    },
+    "AppConsentFulfillmentDetail": {
+      "type": "object",
+      "description": "Fulfillment details for a completed application consent request.",
+      "properties": {
+        "billingProfileId": {
+          "type": "string",
+          "description": "The billing profile ID associated with the consent."
+        },
+        "invoiceSectionId": {
+          "type": "string",
+          "description": "The invoice section ID associated with the consent."
+        },
+        "tags": {
+          "type": "object",
+          "description": "Tags applied as part of the consent fulfillment.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "errorDetail": {
+          "$ref": "#/definitions/FulfillmentErrorDetail",
+          "description": "Error details if the application consent failed."
+        }
+      }
+    },
+    "ApplicationEntitlementProperties": {
+      "type": "object",
+      "description": "Properties of the application entitlement.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the resource.",
+          "readOnly": true
+        },
+        "serviceTreeId": {
+          "type": "string",
+          "description": "The Service Tree ID (GUID).",
+          "readOnly": true
+        },
+        "applicationId": {
+          "type": "string",
+          "description": "The application (client) ID (GUID).",
+          "readOnly": true
+        },
+        "applicationDisplayName": {
+          "type": "string",
+          "description": "The application display name.",
+          "readOnly": true
+        },
+        "pcCode": {
+          "type": "string",
+          "description": "The Profit Center (PC) code used for cross-charging usage of this application entitlement, captured at onboarding time.",
+          "readOnly": true
+        },
+        "businessJustification": {
+          "type": "string",
+          "description": "Business justification captured at onboarding time. Reused as the default Comments value for every automation request created under this entitlement. Free-form text MUST NOT contain customer data, PII, or secrets.",
+          "maxLength": 500,
+          "readOnly": true
+        },
+        "onboardingRequestId": {
+          "type": "string",
+          "description": "The ID (GUID) of the onboarding request that created this application entitlement.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/ApplicationEntitlementStatus",
+          "description": "The status of the application's automation onboarding.",
+          "readOnly": true
+        },
+        "maxAssignedQuota": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The maximum number of requests allowed within the quota window.",
+          "readOnly": true
+        },
+        "estimatedCostPerWindow": {
+          "type": "number",
+          "format": "double",
+          "description": "The maximum estimated cost (USD) allowed within the quota window.",
+          "readOnly": true
+        },
+        "quotaWindowDays": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of days in the quota window.",
+          "readOnly": true
+        },
+        "currentQuotaUsage": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The current number of requests used in the current period.",
+          "readOnly": true
+        },
+        "currentCostUsage": {
+          "type": "number",
+          "format": "double",
+          "description": "The current cost usage (USD) in the current period.",
+          "readOnly": true
+        },
+        "quotaResetDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date when the quota resets.",
+          "readOnly": true
+        },
+        "lastQuotaUsageDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date when the quota was last used. Omitted from the response when the entitlement has not been used yet.",
+          "readOnly": true
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date when the application entitlement expires. Past this date the entitlement is no longer usable for automation.",
+          "readOnly": true
+        },
+        "requesterTenantId": {
+          "type": "string",
+          "description": "The Microsoft Entra tenant ID (GUID) of the user who submitted the onboarding request, captured at onboarding time.",
+          "readOnly": true
+        },
+        "requesterObjectId": {
+          "type": "string",
+          "description": "The Microsoft Entra object ID (GUID) of the user who submitted the onboarding request, captured at onboarding time.",
+          "readOnly": true
+        }
+      }
+    },
+    "ApplicationEntitlementResource": {
+      "type": "object",
+      "description": "An application entitlement resource representing the application's automation onboarding status and usage limits.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ApplicationEntitlementProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "ApplicationEntitlementResourceListResult": {
+      "type": "object",
+      "description": "The response of a ApplicationEntitlementResource list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ApplicationEntitlementResource items on this page",
+          "items": {
+            "$ref": "#/definitions/ApplicationEntitlementResource"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ApplicationEntitlementResourceUpdate": {
+      "type": "object",
+      "description": "The type used for update operations of the ApplicationEntitlementResource.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ApplicationEntitlementStatus": {
+      "type": "string",
+      "description": "The status of the application's automation onboarding.",
+      "enum": [
+        "Active",
+        "Suspended",
+        "PendingApproval",
+        "Offboarded",
+        "PendingLinking",
+        "Onboarded"
+      ],
+      "x-ms-enum": {
+        "name": "ApplicationEntitlementStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Active",
+            "value": "Active",
+            "description": "The application entitlement is active."
+          },
+          {
+            "name": "Suspended",
+            "value": "Suspended",
+            "description": "The application entitlement is suspended."
+          },
+          {
+            "name": "PendingApproval",
+            "value": "PendingApproval",
+            "description": "The application entitlement is pending approval."
+          },
+          {
+            "name": "Offboarded",
+            "value": "Offboarded",
+            "description": "The application has been offboarded."
+          },
+          {
+            "name": "PendingLinking",
+            "value": "PendingLinking",
+            "description": "The application entitlement is pending linking."
+          },
+          {
+            "name": "Onboarded",
+            "value": "Onboarded",
+            "description": "The application has been onboarded."
+          }
+        ]
+      }
+    },
+    "AutomationRequestProperties": {
+      "type": "object",
+      "description": "Properties of an automation request.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the resource.",
+          "readOnly": true
+        },
+        "requestType": {
+          "$ref": "#/definitions/RequestType",
+          "description": "The type of request to create.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "accountType": {
+          "$ref": "#/definitions/AccountType",
+          "description": "The account type to create. Required for Account requests.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "estimatedMonthlySpend": {
+          "type": "number",
+          "format": "double",
+          "description": "The estimated monthly spend in USD for this test account. Required and must be greater than zero for billable request types (Account, Subscription, Tenant). Optional for non-billable production request types (AppConsent, PCCodeUpdate).",
+          "minimum": 0,
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "businessJustification": {
+          "type": "string",
+          "description": "Business justification for this request. Optional — when omitted, the value is taken from the parent ApplicationEntitlement's businessJustification (captured at onboarding time). Free-form text MUST NOT contain customer data, PII, or secrets.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "context": {
+          "$ref": "#/definitions/RequestContext",
+          "description": "The test account context containing all configuration for the request.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "requestStatus": {
+          "$ref": "#/definitions/RequestStatus",
+          "description": "The current processing status of the request.",
+          "readOnly": true
+        },
+        "serviceName": {
+          "type": "string",
+          "description": "The resolved service name from Service Tree.",
+          "readOnly": true
+        },
+        "createdDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The business-domain timestamp at which the automation request was submitted to the BAMI service (UTC). Distinct from systemData.createdAt, which records when the underlying ARM resource record was first persisted.",
+          "readOnly": true
+        },
+        "lastModifiedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The business-domain timestamp at which the automation request entered its most recent processing state (e.g., status transition, fulfillment update). Distinct from systemData.lastModifiedAt, which records when the underlying ARM resource record was last written.",
+          "readOnly": true
+        },
+        "result": {
+          "$ref": "#/definitions/RequestFulfillmentDetails",
+          "description": "The fulfillment result details. Populated when the request reaches Completed status.",
+          "readOnly": true
+        },
+        "onboardingRequestId": {
+          "type": "string",
+          "description": "The ID (GUID) of the onboarding request; equal to the resource 'name'.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "requestType",
+        "context"
+      ]
+    },
+    "AutomationRequestResource": {
+      "type": "object",
+      "description": "An automation request resource for test account provisioning.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/AutomationRequestProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "AutomationRequestResourceListResult": {
+      "type": "object",
+      "description": "The response of a AutomationRequestResource list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The AutomationRequestResource items on this page",
+          "items": {
+            "$ref": "#/definitions/AutomationRequestResource"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "AutomationRequestResourceUpdate": {
+      "type": "object",
+      "description": "The type used for update operations of the AutomationRequestResource.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "AzureEnvironment": {
+      "type": "string",
+      "description": "The Azure environment (cloud) that an application consent selection applies to.",
+      "enum": [
+        "Public",
+        "Prod",
+        "Fairfax",
+        "Mooncake",
+        "Blackforest",
+        "Test",
+        "Dog",
+        "Development",
+        "USNat",
+        "USSec",
+        "Cbv",
+        "France",
+        "Delos"
+      ],
+      "x-ms-enum": {
+        "name": "AzureEnvironment",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Public",
+            "value": "Public",
+            "description": "The Azure public cloud."
+          },
+          {
+            "name": "Prod",
+            "value": "Prod",
+            "description": "The Azure production environment."
+          },
+          {
+            "name": "Fairfax",
+            "value": "Fairfax",
+            "description": "The Azure US Government (Fairfax) cloud."
+          },
+          {
+            "name": "Mooncake",
+            "value": "Mooncake",
+            "description": "The Azure China (Mooncake) cloud."
+          },
+          {
+            "name": "Blackforest",
+            "value": "Blackforest",
+            "description": "The Azure Germany (Blackforest) cloud."
+          },
+          {
+            "name": "Test",
+            "value": "Test",
+            "description": "The test environment."
+          },
+          {
+            "name": "Dog",
+            "value": "Dog",
+            "description": "The dogfood environment."
+          },
+          {
+            "name": "Development",
+            "value": "Development",
+            "description": "The development environment."
+          },
+          {
+            "name": "UsNat",
+            "value": "USNat",
+            "description": "The US Nat air-gapped cloud."
+          },
+          {
+            "name": "UsSec",
+            "value": "USSec",
+            "description": "The US Sec air-gapped cloud."
+          },
+          {
+            "name": "Cbv",
+            "value": "Cbv",
+            "description": "The CBV environment."
+          },
+          {
+            "name": "France",
+            "value": "France",
+            "description": "The France cloud."
+          },
+          {
+            "name": "Delos",
+            "value": "Delos",
+            "description": "The Delos air-gapped cloud."
+          }
+        ]
+      }
+    },
+    "CancelRequestBody": {
+      "type": "object",
+      "description": "The request body for cancelling an automation request.",
+      "properties": {
+        "reason": {
+          "type": "string",
+          "description": "The reason for cancellation."
+        }
+      }
+    },
+    "FedGovIndirectContext": {
+      "type": "object",
+      "description": "Configuration for FedGov indirect account types. Composes FieldLedContext with a customer signup entity.",
+      "properties": {
+        "audienceType": {
+          "$ref": "#/definitions/FieldLedAudienceType",
+          "description": "The audience type."
+        },
+        "configurationType": {
+          "$ref": "#/definitions/FieldLedConfigurationType",
+          "description": "The configuration type."
+        },
+        "environmentType": {
+          "$ref": "#/definitions/FieldLedEnvironmentType",
+          "description": "The environment type."
+        },
+        "mcapiAuthorization": {
+          "$ref": "#/definitions/McapiAuthorization",
+          "description": "The MCAPI authorization level."
+        },
+        "objectId": {
+          "type": "string",
+          "description": "The object ID (GUID) for BYOT (Bring Your Own Tenant) scenarios. Mutually exclusive with signupEntity."
+        },
+        "tier": {
+          "type": "string",
+          "description": "The organization tier."
+        },
+        "tenantId": {
+          "type": "string",
+          "description": "The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration."
+        },
+        "fulfillmentDetail": {
+          "$ref": "#/definitions/FieldLedRequestFulfillmentDetail",
+          "description": "The account fulfillment details. Populated after account creation is completed.",
+          "readOnly": true
+        },
+        "signupEntity": {
+          "$ref": "#/definitions/SignupEntity",
+          "description": "The signup entity for new tenant creation. Mutually exclusive with tenantId + objectId."
+        },
+        "customerSignupEntity": {
+          "$ref": "#/definitions/SignupEntity",
+          "description": "The customer signup entity for the FedGov indirect account."
+        }
+      }
+    },
+    "FieldLedAudienceType": {
+      "type": "string",
+      "description": "The audience type for field-led accounts.",
+      "enum": [
+        "Internal",
+        "External"
+      ],
+      "x-ms-enum": {
+        "name": "FieldLedAudienceType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Internal",
+            "value": "Internal",
+            "description": "Internal audience."
+          },
+          {
+            "name": "External",
+            "value": "External",
+            "description": "External audience."
+          }
+        ]
+      }
+    },
+    "FieldLedConfigurationType": {
+      "type": "string",
+      "description": "The configuration type for field-led accounts.",
+      "enum": [
+        "Standard",
+        "NoBilling"
+      ],
+      "x-ms-enum": {
+        "name": "FieldLedConfigurationType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Standard",
+            "value": "Standard",
+            "description": "Standard configuration."
+          },
+          {
+            "name": "NoBilling",
+            "value": "NoBilling",
+            "description": "No billing configuration."
+          }
+        ]
+      }
+    },
+    "FieldLedContext": {
+      "type": "object",
+      "description": "Configuration for a field-led account type. Used as the base schema for FedGovDirect, NCOE, and other field-led-derived account types.",
+      "properties": {
+        "audienceType": {
+          "$ref": "#/definitions/FieldLedAudienceType",
+          "description": "The audience type."
+        },
+        "configurationType": {
+          "$ref": "#/definitions/FieldLedConfigurationType",
+          "description": "The configuration type."
+        },
+        "environmentType": {
+          "$ref": "#/definitions/FieldLedEnvironmentType",
+          "description": "The environment type."
+        },
+        "mcapiAuthorization": {
+          "$ref": "#/definitions/McapiAuthorization",
+          "description": "The MCAPI authorization level."
+        },
+        "objectId": {
+          "type": "string",
+          "description": "The object ID (GUID) for BYOT (Bring Your Own Tenant) scenarios. Mutually exclusive with signupEntity."
+        },
+        "tier": {
+          "type": "string",
+          "description": "The organization tier."
+        },
+        "tenantId": {
+          "type": "string",
+          "description": "The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration."
+        },
+        "fulfillmentDetail": {
+          "$ref": "#/definitions/FieldLedRequestFulfillmentDetail",
+          "description": "The account fulfillment details. Populated after account creation is completed.",
+          "readOnly": true
+        },
+        "signupEntity": {
+          "$ref": "#/definitions/SignupEntity",
+          "description": "The signup entity for new tenant creation. Mutually exclusive with tenantId + objectId."
+        }
+      }
+    },
+    "FieldLedEnvironmentType": {
+      "type": "string",
+      "description": "The environment type for field-led accounts.",
+      "enum": [
+        "Test",
+        "Production"
+      ],
+      "x-ms-enum": {
+        "name": "FieldLedEnvironmentType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Test",
+            "value": "Test",
+            "description": "Test environment."
+          },
+          {
+            "name": "Production",
+            "value": "Production",
+            "description": "Production environment."
+          }
+        ]
+      }
+    },
+    "FieldLedRequestFulfillmentDetail": {
+      "type": "object",
+      "description": "Fulfillment details for a field-led account creation, including billing account, profile, and invoice section identifiers.",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "description": "The billing account ID."
+        },
+        "organizationId": {
+          "type": "string",
+          "description": "The organization ID."
+        },
+        "billingAccountId": {
+          "type": "string",
+          "description": "The composite billing account identifier in the form '{accountId}:{organizationId}'. Populated when both accountId and organizationId are present.",
+          "readOnly": true
+        },
+        "billingProfileId": {
+          "type": "string",
+          "description": "The billing profile ID."
+        },
+        "invoiceSectionId": {
+          "type": "string",
+          "description": "The invoice section ID."
+        },
+        "partnerBillingProfileId": {
+          "type": "string",
+          "description": "The partner billing profile ID (for indirect/CSP accounts)."
+        },
+        "partnerInvoiceSectionId": {
+          "type": "string",
+          "description": "The partner invoice section ID (for indirect/CSP accounts)."
+        },
+        "partnerAccountId": {
+          "type": "string",
+          "description": "The partner account ID (for indirect/CSP accounts)."
+        },
+        "partnerOrganizationId": {
+          "type": "string",
+          "description": "The partner organization ID (for indirect/CSP accounts)."
+        },
+        "errorDetail": {
+          "$ref": "#/definitions/FulfillmentErrorDetail",
+          "description": "Error details if account creation failed."
+        }
+      }
+    },
+    "FulfillmentErrorDetail": {
+      "type": "object",
+      "description": "Error details for fulfillment operations.",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "The error code."
+        },
+        "message": {
+          "type": "string",
+          "description": "The error message."
+        },
+        "target": {
+          "type": "string",
+          "description": "The error target."
+        }
+      }
+    },
+    "IndirectContext": {
+      "type": "object",
+      "description": "Configuration for indirect (CSP) account types. Composes FieldLedContext with a partner signup entity.",
+      "properties": {
+        "audienceType": {
+          "$ref": "#/definitions/FieldLedAudienceType",
+          "description": "The audience type."
+        },
+        "configurationType": {
+          "$ref": "#/definitions/FieldLedConfigurationType",
+          "description": "The configuration type."
+        },
+        "environmentType": {
+          "$ref": "#/definitions/FieldLedEnvironmentType",
+          "description": "The environment type."
+        },
+        "mcapiAuthorization": {
+          "$ref": "#/definitions/McapiAuthorization",
+          "description": "The MCAPI authorization level."
+        },
+        "objectId": {
+          "type": "string",
+          "description": "The object ID (GUID) for BYOT (Bring Your Own Tenant) scenarios. Mutually exclusive with signupEntity."
+        },
+        "tier": {
+          "type": "string",
+          "description": "The organization tier."
+        },
+        "tenantId": {
+          "type": "string",
+          "description": "The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration."
+        },
+        "fulfillmentDetail": {
+          "$ref": "#/definitions/FieldLedRequestFulfillmentDetail",
+          "description": "The account fulfillment details. Populated after account creation is completed.",
+          "readOnly": true
+        },
+        "signupEntity": {
+          "$ref": "#/definitions/SignupEntity",
+          "description": "The signup entity for new tenant creation. Mutually exclusive with tenantId + objectId."
+        },
+        "partnerSignupEntity": {
+          "$ref": "#/definitions/SignupEntity",
+          "description": "The partner signup entity for the indirect account."
+        }
+      }
+    },
+    "McapiAuthorization": {
+      "type": "string",
+      "description": "The MCAPI authorization level.",
+      "enum": [
+        "ProductionAccess",
+        "CanaryAccess"
+      ],
+      "x-ms-enum": {
+        "name": "McapiAuthorization",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "ProductionAccess",
+            "value": "ProductionAccess",
+            "description": "Production access level."
+          },
+          {
+            "name": "CanaryAccess",
+            "value": "CanaryAccess",
+            "description": "Canary access level."
+          }
+        ]
+      }
+    },
+    "OrganizationInfo": {
+      "type": "object",
+      "description": "Organization information for tenant and account creation.",
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "description": "The display name of the organization."
+        },
+        "domainName": {
+          "type": "string",
+          "description": "The domain name (subdomain portion). The full domain suffix is appended by the service."
+        },
+        "size": {
+          "type": "string",
+          "description": "The organization size."
+        }
+      },
+      "required": [
+        "displayName"
+      ]
+    },
+    "PCCodeUpdateContext": {
+      "type": "object",
+      "description": "Configuration for a PC (Profit Center) code update request. Updates the PC code / service group mapping for a billing scope. PCCodeUpdate is a non-billable production automation request.",
+      "properties": {
+        "currentPCCode": {
+          "type": "string",
+          "description": "The current PC code prior to the update."
+        },
+        "billingServiceTreeId": {
+          "type": "string",
+          "description": "The Service Tree ID (GUID) of the billing service that owns the subscriptions."
+        },
+        "billingServiceName": {
+          "type": "string",
+          "description": "The display name of the billing service that owns the subscriptions."
+        },
+        "subscriptionIds": {
+          "type": "array",
+          "description": "The subscription IDs to update. Used for subscription-scoped PC code updates.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "serviceGroupId": {
+          "type": "string",
+          "description": "The source service group ID. Used for service-group-scoped PC code updates."
+        },
+        "targetServiceGroupId": {
+          "type": "string",
+          "description": "The target service group ID to move the subscriptions to."
+        },
+        "targetServiceGroupName": {
+          "type": "string",
+          "description": "The target service group display name."
+        },
+        "serviceSelections": {
+          "type": "array",
+          "description": "The per-service subscription selections for a service-group-scoped PC code update.",
+          "items": {
+            "$ref": "#/definitions/PCCodeUpdateServiceSelection"
+          },
+          "x-ms-identifiers": [
+            "serviceTreeId"
+          ]
+        }
+      }
+    },
+    "PCCodeUpdateFulfillmentDetail": {
+      "type": "object",
+      "description": "Fulfillment details for a completed PC code update request.",
+      "properties": {
+        "transferId": {
+          "type": "string",
+          "description": "The transfer ID generated for a subscription-scoped PC code update."
+        },
+        "serviceTransferIds": {
+          "type": "array",
+          "description": "The per-service transfer IDs generated for a service-group-scoped PC code update.",
+          "items": {
+            "$ref": "#/definitions/PCCodeUpdateServiceTransfer"
+          },
+          "x-ms-identifiers": [
+            "serviceTreeId"
+          ]
+        },
+        "errorDetail": {
+          "$ref": "#/definitions/FulfillmentErrorDetail",
+          "description": "Error details if the PC code update failed."
+        }
+      }
+    },
+    "PCCodeUpdateServiceSelection": {
+      "type": "object",
+      "description": "A service and its selected subscriptions within a service-group-scoped PC code update.",
+      "properties": {
+        "serviceTreeId": {
+          "type": "string",
+          "description": "The service identifier (Service Tree ID, GUID) within the service group."
+        },
+        "serviceName": {
+          "type": "string",
+          "description": "The service display name."
+        },
+        "subscriptionIds": {
+          "type": "array",
+          "description": "The subscription IDs selected under this service.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "PCCodeUpdateServiceTransfer": {
+      "type": "object",
+      "description": "The transfer ID produced for a single service within a service-group-scoped PC code update.",
+      "properties": {
+        "serviceTreeId": {
+          "type": "string",
+          "description": "The service identifier (Service Tree ID, GUID) the transfer belongs to."
+        },
+        "transferId": {
+          "type": "string",
+          "description": "The transfer ID generated for the service."
+        }
+      }
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of the resource.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Accepted",
+        "InProgress"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          },
+          {
+            "name": "Accepted",
+            "value": "Accepted",
+            "description": "The resource provisioning request has been accepted."
+          },
+          {
+            "name": "InProgress",
+            "value": "InProgress",
+            "description": "The resource is being provisioned."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "RequestContext": {
+      "type": "object",
+      "description": "The test account context associated with the automation request. Contains configuration for account or tenant provisioning.",
+      "properties": {
+        "accountContext": {
+          "$ref": "#/definitions/AccountContext",
+          "description": "The account context. Required when requestType is 'Account'."
+        },
+        "tenantContext": {
+          "$ref": "#/definitions/TenantContext",
+          "description": "The tenant context. Required when requestType is 'Tenant'."
+        },
+        "appConsentContext": {
+          "$ref": "#/definitions/AppConsentContext",
+          "description": "The application consent context. Required when requestType is 'AppConsent'."
+        },
+        "pcCodeUpdateContext": {
+          "$ref": "#/definitions/PCCodeUpdateContext",
+          "description": "The PC code update context. Required when requestType is 'PCCodeUpdate'."
+        }
+      }
+    },
+    "RequestFulfillmentDetails": {
+      "type": "object",
+      "description": "Result details for a completed automation request. The populated fields depend on the requestType.",
+      "properties": {
+        "organizationInfo": {
+          "$ref": "#/definitions/OrganizationInfo",
+          "description": "The organization info with full domain name (subdomain + suffix). Populated for Account and Tenant requests."
+        },
+        "tenantFulfillmentDetail": {
+          "$ref": "#/definitions/SignupEntityResponse",
+          "description": "The tenant fulfillment details including tenantId, userObjectId, and UPN. Populated for Tenant requests."
+        },
+        "tenantId": {
+          "type": "string",
+          "description": "The tenant ID (GUID) of the created tenant. Populated for Account requests."
+        },
+        "objectId": {
+          "type": "string",
+          "description": "The user object ID (GUID) in the created tenant. Populated for Account requests."
+        },
+        "fulfillmentDetail": {
+          "$ref": "#/definitions/FieldLedRequestFulfillmentDetail",
+          "description": "The account fulfillment details including accountId, billingProfileId, etc. Populated for Account requests."
+        },
+        "signupEntity": {
+          "$ref": "#/definitions/SignupEntity",
+          "description": "The signup entity used for tenant creation. Contains organization info and user info."
+        },
+        "appConsentFulfillmentDetail": {
+          "$ref": "#/definitions/AppConsentFulfillmentDetail",
+          "description": "The application consent fulfillment details. Populated for AppConsent requests.",
+          "readOnly": true
+        },
+        "pcCodeUpdateFulfillmentDetail": {
+          "$ref": "#/definitions/PCCodeUpdateFulfillmentDetail",
+          "description": "The PC code update fulfillment details. Populated for PCCodeUpdate requests.",
+          "readOnly": true
+        }
+      }
+    },
+    "RequestStatus": {
+      "type": "string",
+      "description": "The current processing status of the request.",
+      "enum": [
+        "Started",
+        "PendingApproval",
+        "PendingAdminApproval",
+        "PendingBAMIAdminApproval",
+        "PendingBudgetApproval",
+        "PendingServiceAdminApproval",
+        "Approved",
+        "Denied",
+        "Cancelled",
+        "InProgress",
+        "Completed",
+        "Failed",
+        "Expiring",
+        "Expired",
+        "Deleted",
+        "PendingConfiguration",
+        "ActionRequired",
+        "PendingLinking"
+      ],
+      "x-ms-enum": {
+        "name": "RequestStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Started",
+            "value": "Started",
+            "description": "The request has been started."
+          },
+          {
+            "name": "PendingApproval",
+            "value": "PendingApproval",
+            "description": "The request is pending approval."
+          },
+          {
+            "name": "PendingAdminApproval",
+            "value": "PendingAdminApproval",
+            "description": "The request is pending admin approval."
+          },
+          {
+            "name": "PendingBAMIAdminApproval",
+            "value": "PendingBAMIAdminApproval",
+            "description": "The request is pending BAMI admin approval."
+          },
+          {
+            "name": "PendingBudgetApproval",
+            "value": "PendingBudgetApproval",
+            "description": "The request is pending budget approval."
+          },
+          {
+            "name": "PendingServiceAdminApproval",
+            "value": "PendingServiceAdminApproval",
+            "description": "The request is pending service admin approval."
+          },
+          {
+            "name": "Approved",
+            "value": "Approved",
+            "description": "The request has been approved."
+          },
+          {
+            "name": "Denied",
+            "value": "Denied",
+            "description": "The request has been denied."
+          },
+          {
+            "name": "Cancelled",
+            "value": "Cancelled",
+            "description": "The request has been cancelled."
+          },
+          {
+            "name": "InProgress",
+            "value": "InProgress",
+            "description": "The request is in progress."
+          },
+          {
+            "name": "Completed",
+            "value": "Completed",
+            "description": "The request has been completed."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "The request has failed."
+          },
+          {
+            "name": "Expiring",
+            "value": "Expiring",
+            "description": "The request is expiring."
+          },
+          {
+            "name": "Expired",
+            "value": "Expired",
+            "description": "The request has expired."
+          },
+          {
+            "name": "Deleted",
+            "value": "Deleted",
+            "description": "The request has been deleted."
+          },
+          {
+            "name": "PendingConfiguration",
+            "value": "PendingConfiguration",
+            "description": "The request is pending configuration."
+          },
+          {
+            "name": "ActionRequired",
+            "value": "ActionRequired",
+            "description": "The request requires action."
+          },
+          {
+            "name": "PendingLinking",
+            "value": "PendingLinking",
+            "description": "The request is pending linking."
+          }
+        ]
+      }
+    },
+    "RequestType": {
+      "type": "string",
+      "description": "The type of automation request.",
+      "enum": [
+        "Account",
+        "Tenant",
+        "Subscription",
+        "AppConsent",
+        "PCCodeUpdate"
+      ],
+      "x-ms-enum": {
+        "name": "RequestType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Account",
+            "value": "Account",
+            "description": "Account provisioning request."
+          },
+          {
+            "name": "Tenant",
+            "value": "Tenant",
+            "description": "Tenant provisioning request."
+          },
+          {
+            "name": "Subscription",
+            "value": "Subscription",
+            "description": "Subscription provisioning request."
+          },
+          {
+            "name": "AppConsent",
+            "value": "AppConsent",
+            "description": "Application consent request. A non-billable production automation request that grants first-party application consent for the specified billing scope."
+          },
+          {
+            "name": "PCCodeUpdate",
+            "value": "PCCodeUpdate",
+            "description": "PC (Profit Center) code update request. A non-billable production automation request that updates the PC code / service group mapping for the specified billing scope."
+          }
+        ]
+      }
+    },
+    "SMBContext": {
+      "type": "object",
+      "description": "Configuration specific to SMB account types. Composes FieldLedContext with SMB-specific properties.",
+      "properties": {
+        "audienceType": {
+          "$ref": "#/definitions/FieldLedAudienceType",
+          "description": "The audience type."
+        },
+        "configurationType": {
+          "$ref": "#/definitions/FieldLedConfigurationType",
+          "description": "The configuration type."
+        },
+        "environmentType": {
+          "$ref": "#/definitions/FieldLedEnvironmentType",
+          "description": "The environment type."
+        },
+        "mcapiAuthorization": {
+          "$ref": "#/definitions/McapiAuthorization",
+          "description": "The MCAPI authorization level."
+        },
+        "objectId": {
+          "type": "string",
+          "description": "The object ID (GUID) for BYOT (Bring Your Own Tenant) scenarios. Mutually exclusive with signupEntity."
+        },
+        "tier": {
+          "type": "string",
+          "description": "The organization tier."
+        },
+        "tenantId": {
+          "type": "string",
+          "description": "The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration."
+        },
+        "fulfillmentDetail": {
+          "$ref": "#/definitions/FieldLedRequestFulfillmentDetail",
+          "description": "The account fulfillment details. Populated after account creation is completed.",
+          "readOnly": true
+        },
+        "signupEntity": {
+          "$ref": "#/definitions/SignupEntity",
+          "description": "The signup entity for new tenant creation. Mutually exclusive with tenantId + objectId."
+        },
+        "userEmail": {
+          "type": "string",
+          "description": "The user email to be used for allow listing and test account configuration."
+        }
+      }
+    },
+    "SignupEntity": {
+      "type": "object",
+      "description": "The signup entity containing organization and user information for tenant creation.",
+      "properties": {
+        "organizationInfo": {
+          "$ref": "#/definitions/OrganizationInfo",
+          "description": "The organization information."
+        },
+        "userInfo": {
+          "$ref": "#/definitions/UserInfo",
+          "description": "The user information. Auto-populated from the application entitlement onboarding record if not provided."
+        },
+        "tags": {
+          "type": "array",
+          "description": "Tags for the signup entity.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "organizationInfo"
+      ]
+    },
+    "SignupEntityResponse": {
+      "type": "object",
+      "description": "The response from tenant creation containing provisioning state and tenant details.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the tenant creation."
+        },
+        "tenantDetails": {
+          "$ref": "#/definitions/TenantDetails",
+          "description": "The created tenant details."
+        },
+        "errorDetails": {
+          "$ref": "#/definitions/SignupErrorDetails",
+          "description": "Error details if tenant creation failed."
+        }
+      }
+    },
+    "SignupError": {
+      "type": "object",
+      "description": "The signup error.",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "The error code."
+        },
+        "message": {
+          "type": "string",
+          "description": "The error message."
+        }
+      }
+    },
+    "SignupErrorDetails": {
+      "type": "object",
+      "description": "Error details from the tenant signup process.",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/SignupError",
+          "description": "The signup error."
+        }
+      }
+    },
+    "TenantAppConsent": {
+      "type": "object",
+      "description": "The first-party application consent grant for a single tenant.",
+      "properties": {
+        "tenantId": {
+          "type": "string",
+          "description": "The tenant ID (GUID) the applications belong to."
+        },
+        "applicationIds": {
+          "type": "array",
+          "description": "The first-party application IDs (GUIDs) to grant consent for in this tenant.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "tenantId",
+        "applicationIds"
+      ]
+    },
+    "TenantContext": {
+      "type": "object",
+      "description": "Configuration for a tenant creation request.",
+      "properties": {
+        "organizationInfo": {
+          "$ref": "#/definitions/OrganizationInfo",
+          "description": "Organization information including display name and domain name."
+        },
+        "userInfo": {
+          "$ref": "#/definitions/UserInfo",
+          "description": "User information for tenant creation. Auto-populated from the application entitlement onboarding record if not provided."
+        },
+        "tenantProvisionLocation": {
+          "type": "string",
+          "description": "The tenant provision location."
+        },
+        "additionalTags": {
+          "type": "array",
+          "description": "Additional tags for the tenant.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tenantClassification": {
+          "type": "string",
+          "description": "The tenant classification."
+        },
+        "tenantFulfillmentDetail": {
+          "$ref": "#/definitions/SignupEntityResponse",
+          "description": "The tenant fulfillment details. Populated after tenant creation is completed.",
+          "readOnly": true
+        },
+        "fulfillmentDetail": {
+          "$ref": "#/definitions/FieldLedRequestFulfillmentDetail",
+          "description": "The billing account fulfillment details. Populated after account creation is completed.",
+          "readOnly": true
+        },
+        "applicationIds": {
+          "type": "array",
+          "description": "First-party application IDs that should be granted access to the newly created tenant.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "governancePolicyTemplateId": {
+          "type": "string",
+          "description": "The governance policy template ID for configuring application access in the new tenant."
+        }
+      },
+      "required": [
+        "organizationInfo"
+      ]
+    },
+    "TenantDetails": {
+      "type": "object",
+      "description": "Details of a created tenant.",
+      "properties": {
+        "tenantId": {
+          "type": "string",
+          "description": "The tenant ID (GUID)."
+        },
+        "userId": {
+          "type": "string",
+          "description": "The unique user identifier (PUID)."
+        },
+        "userObjectId": {
+          "type": "string",
+          "description": "The user object ID (GUID)."
+        },
+        "upn": {
+          "type": "string",
+          "description": "The user principal name."
+        },
+        "emailAddress": {
+          "type": "string",
+          "description": "The email address provided in the admin user info."
+        }
+      }
+    },
+    "UserInfo": {
+      "type": "object",
+      "description": "User information for tenant creation. Fields are auto-populated from the application entitlement onboarding record when not provided by the caller.",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "description": "The user's first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The user's last name."
+        },
+        "emailAddress": {
+          "type": "string",
+          "description": "The user's email address."
+        },
+        "middleName": {
+          "type": "string",
+          "description": "The user's middle name."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "The user's phone number."
+        },
+        "communicationLanguage": {
+          "type": "string",
+          "description": "The preferred communication language."
+        },
+        "address": {
+          "$ref": "#/definitions/Address",
+          "description": "The user's address."
+        }
+      }
+    }
+  },
+  "parameters": {
+    "OdataFilterParameter": {
+      "name": "$filter",
+      "in": "query",
+      "description": "OData filter expression. Supports a limited subset of OData filter syntax for filtering the result list.",
+      "required": false,
+      "type": "string",
+      "x-ms-parameter-location": "method",
+      "x-ms-client-name": "filter"
+    }
+  }
+}

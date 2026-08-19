@@ -1,6 +1,4 @@
 import "@azure-tools/typespec-client-generator-core";
-import "@azure-tools/typespec-azure-resource-manager";
-import "./routes.tsp";
 
 using Microsoft.Mission;
 
@@ -41,16 +39,11 @@ using Microsoft.Mission;
 );
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(
-  DedicatedHubResource.properties,
-  "autorest"
-);
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
   WorkloadResource.properties,
   "autorest"
 );
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(
-  Azure.ResourceManager.Foundations.ResourceUpdateModel.properties,
+  DedicatedHubResource.properties,
   "autorest"
 );

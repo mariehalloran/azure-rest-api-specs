@@ -1,15 +1,16 @@
 import "@typespec/http";
 import "@typespec/rest";
+import "@typespec/openapi";
 import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
 using TypeSpec.Http;
+using TypeSpec.OpenAPI;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
 using Azure.Core;
 using Azure.ResourceManager;
-using TypeSpec.OpenAPI;
 
 namespace Microsoft.HybridConnectivity;
 
@@ -17,15 +18,37 @@ namespace Microsoft.HybridConnectivity;
 
 //------------------- Generate Aws Template -------------------
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("ConnectorId and SolutionTypes and their properties to Generate AWS CFT Template.")
 model GenerateAwsTemplateRequest {
   @doc("The name of public cloud connector")
   connectorId: string;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers"
-  @identifiers(#[])
   @doc("The list of solution types and their settings")
+  @identifiers(#[])
   solutionTypes?: Array<SolutionTypeSettings>;
+}
+
+//------------------- Generate Gcp Template -------------------
+
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@added(Versions.v2025_12_01_preview)
+@doc("ConnectorId and SolutionTypes and their properties to Generate GCP Access Control Template.")
+model GenerateGcpTemplateRequest {
+  @doc("The name of public cloud connector")
+  connectorId: string;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers"
+  @doc("The list of solution types and their settings")
+  @identifiers(#[])
+  solutionTypes?: Array<SolutionTypeSettings>;
+
+  @doc("The GCP cloud profile.")
+  gcpCloudProfile?: GcpCloudProfile;
+
+  @doc("Optional template output format. Defaults to 'terraform' if not provided")
+  gcpTemplateFormat?: GcpTemplateFormat;
 }
 
 @doc("The properties of Solution Type")
@@ -94,6 +117,12 @@ model PublicCloudConnector is TrackedResource<PublicCloudConnectorProperties> {
   @path
   @segment("publicCloudConnectors")
   name: string;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" ""
+  @added(Versions.v2025_12_01_preview)
+  @doc("The kind of the public cloud connector.")
+  @visibility(Lifecycle.Read)
+  kind?: HostType;
 }
 
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance"
@@ -101,7 +130,7 @@ model PublicCloudConnector is TrackedResource<PublicCloudConnectorProperties> {
 model PublicCloudConnectorUpdate extends TrackedResourceUpdate {
   #suppress "@azure-tools/typespec-azure-core/no-legacy-usage"
   @doc("The resource-specific properties for this resource.")
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty("autorest")
+  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties?: PublicCloudConnectorPropertiesUpdate;
 }
 
@@ -117,6 +146,15 @@ model TrackedResourceUpdate extends Azure.ResourceManager.CommonTypes.Resource {
 model PublicCloudConnectorPropertiesUpdate {
   @doc("Cloud profile for AWS.")
   awsCloudProfile?: AwsCloudProfileUpdate;
+
+  @added(Versions.v2025_12_01_preview)
+  @doc("Cloud profile for GCP.")
+  gcpCloudProfile?: GcpCloudProfileUpdate;
+
+  @added(Versions.v2026_09_01_preview)
+  @doc("The list of subscription IDs associated with the connector. Defaults to null when not provided.")
+  @uniqueItems
+  subscriptionPool?: uuid[];
 }
 
 @doc("cloud profile for AWS.")
@@ -125,10 +163,32 @@ model AwsCloudProfileUpdate {
   excludedAccounts?: string[];
 }
 
+@added(Versions.v2025_12_01_preview)
+@doc("cloud profile for GCP.")
+model GcpCloudProfileUpdate {
+  @doc("The organization properties of the GCP organization.")
+  organizationProperties?: GcpOrganizationPropertiesUpdate;
+}
+
+@added(Versions.v2025_12_01_preview)
+@doc("GCP organization properties for update.")
+model GcpOrganizationPropertiesUpdate {
+  @doc("List of GCP projects which need to be excluded.")
+  excludedProjectNumbers?: string[];
+
+  @doc("List of GCP folders which need to be excluded.")
+  excludedFolderIds?: string[];
+}
+
 @doc("Properties of public cloud connectors.")
 model PublicCloudConnectorProperties {
+  @madeOptional(Versions.v2025_12_01_preview)
   @doc("Cloud profile for AWS.")
-  awsCloudProfile: AwsCloudProfile;
+  awsCloudProfile?: AwsCloudProfile;
+
+  @added(Versions.v2025_12_01_preview)
+  @doc("Cloud profile for GCP.")
+  gcpCloudProfile?: GcpCloudProfile;
 
   @doc("Host cloud the public cloud connector.")
   @visibility(Lifecycle.Create, Lifecycle.Read)
@@ -141,6 +201,11 @@ model PublicCloudConnectorProperties {
   @doc("Connector primary identifier.")
   @visibility(Lifecycle.Read)
   connectorPrimaryIdentifier?: string;
+
+  @added(Versions.v2026_09_01_preview)
+  @doc("The list of subscription IDs associated with the connector. Defaults to null when not provided.")
+  @uniqueItems
+  subscriptionPool?: uuid[];
 }
 
 @doc("Enum of host cloud the public cloud connector is referencing.")
@@ -149,6 +214,10 @@ union HostType {
 
   @doc("AWS state")
   AWS: "AWS",
+
+  @added(Versions.v2025_12_01_preview)
+  @doc("GCP state")
+  GCP: "GCP",
 }
 
 @doc("cloud profile for AWS.")
@@ -163,6 +232,58 @@ model AwsCloudProfile {
   @doc("Boolean value that indicates whether the account is organizational or not. True represents organization account, whereas false represents a single account.")
   @visibility(Lifecycle.Create, Lifecycle.Read)
   isOrganizationalAccount?: boolean = false;
+}
+
+@added(Versions.v2025_12_01_preview)
+@doc("cloud profile for GCP.")
+model GcpCloudProfile {
+  @doc("The project properties of the GCP project.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  projectProperties?: GcpProjectProperties;
+
+  @doc("The organization properties of the GCP organization.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  organizationProperties?: GcpOrganizationProperties;
+
+  @doc("Boolean value that indicates whether the connector connects to a GCP organization or project. True represents organization, whereas false represents a single project.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  isOrganization?: boolean = false;
+}
+
+@added(Versions.v2025_12_01_preview)
+@doc("GCP project properties.")
+model GcpProjectProperties {
+  @doc("The project number of the GCP project.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  projectNumber: string;
+
+  @doc("The project id of the GCP project.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  projectId: string;
+}
+
+@added(Versions.v2025_12_01_preview)
+@doc("GCP organization properties.")
+model GcpOrganizationProperties {
+  @doc("The organization id of the GCP organization.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  organizationId: string;
+
+  @doc("The project number of the management project under the GCP organization.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  managementProjectNumber: string;
+
+  @doc("The project Id of the management project under the GCP organization.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  managementProjectId: string;
+
+  @doc("List of GCP projects which need to be excluded.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  excludedProjectNumbers?: string[];
+
+  @doc("List of GCP folders which need to be excluded.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  excludedFolderIds?: string[];
 }
 
 //------------------- Solution Configuration -------------------
@@ -210,7 +331,7 @@ model SolutionConfigurationUpdate
   extends Azure.ResourceManager.CommonTypes.ProxyResource {
   #suppress "@azure-tools/typespec-azure-core/no-legacy-usage"
   @doc("The resource-specific properties for this resource.")
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty("autorest")
+  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties?: SolutionConfigurationPropertiesUpdate;
 }
 
@@ -263,6 +384,10 @@ model SolutionTypeProperties {
   @doc("The locations this solution is supported in.")
   supportedAzureRegions?: string[];
 
+  @added(Versions.v2025_12_01_preview)
+  @doc("The supported host types for the current solution type.")
+  hostTypes?: HostType[];
+
   #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers"
   @doc("Array of solution settings and its description.")
   @identifiers(#[])
@@ -285,6 +410,11 @@ model SolutionTypeSettingsProperties {
 
   @doc("Array of allowed values for this solution settings property.")
   allowedValues: string[];
+
+  @added(Versions.v2025_12_01_preview)
+  @madeRequired(Versions.v2025_12_01_preview)
+  @doc("The supported host types for the current solution setting")
+  hostTypes: HostType[];
 
   @doc("Default value for this solution settings property.")
   defaultValue: string;
@@ -346,7 +476,9 @@ model SolutionSettings is Record<string>;
 #suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model" "Existing use case"
 @route("/subscriptions/{subscriptionId}/providers/Microsoft.HybridConnectivity/")
 interface GenerateAwsTemplate {
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "Need to remove autoroute"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "Need to remove autoroute"
   @route("generateAwsTemplate")
   @post
   @action
@@ -369,6 +501,53 @@ interface GenerateAwsTemplate {
  */
 #suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model"
 model GenerateAwsTemplateResponse {}
+
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "Need to remove autoroute"
+#suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model" "Existing use case"
+@added(Versions.v2025_12_01_preview)
+@route("/subscriptions/{subscriptionId}/providers/Microsoft.HybridConnectivity/")
+interface GenerateGcpTemplate {
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "Need to remove autoroute"
+  @route("generateGcpTemplate")
+  @post
+  @action
+  @tag("GenerateGcpTemplate")
+  @doc("Retrieve GCP Access Control template")
+  post(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+
+    @doc("ConnectorId and SolutionTypes and their properties to Generate GCP Access Control Template.")
+    @body
+    generateGcpTemplateRequest: GenerateGcpTemplateRequest,
+  ):
+    | Azure.ResourceManager.ArmResponse<GenerateGcpTemplateResponse>
+    | ErrorResponse;
+}
+
+@doc("GCP template format.")
+union GcpTemplateFormat {
+  string,
+
+  @doc("Terraform template format")
+  Terraform: "terraform",
+
+  @doc("Shell script template format")
+  ShellScript: "shellscript",
+}
+
+/**
+ * The HybridConnectivity post operation response
+ */
+#suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model"
+@added(Versions.v2025_12_01_preview)
+model GenerateGcpTemplateResponse {
+  /** The generated GCP template. */
+  @added(Versions.v2026_04_01_preview)
+  template?: string;
+}
 
 @armResourceOperations
 interface PublicCloudConnectors {

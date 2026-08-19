@@ -1,4 +1,4 @@
-# Artifact Signing
+# Trusted Signing
 
 > see https://aka.ms/autorest
 
@@ -26,16 +26,17 @@ These are the global settings for the CodeSigning API.
 ```yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2025-10-13
+tag: package-2025-11-20-preview
 ```
 
-### Tag: package-2026-05-15-preview
+### Tag: package-2025-11-20-preview
 
-These settings apply only when `--tag=package-2026-05-15-preview` is specified on the command line.
+These settings apply only when `--tag=package-2025-11-20-preview` is specified on the command line.
 
-```yaml $(tag) == 'package-2026-05-15-preview'
+```yaml $(tag) == 'package-2025-11-20-preview'
 input-file:
-- preview/2026-05-15-preview/codeSigningAccount.json
+- preview/2025-11-20-preview/codeSigningAccount.json
+tag: package-2025-10-13
 ```
 
 ### Tag: package-2025-10-13
@@ -63,6 +64,24 @@ These settings apply only when `--tag=package-2024-02-05-preview` is specified o
 ```yaml $(tag) == 'package-2024-02-05-preview'
 input-file:
 - preview/2024-02-05-preview/codeSigningAccount.json
+```
+
+### Tag: package-2023-04-30-preview
+
+These settings apply only when `--tag=package-2023-04-30-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2023-04-30-preview'
+input-file:
+- preview/2023-04-30-preview/codeSigningAccount.json
+```
+
+### Tag: package-2020-12-14-preview
+
+These settings apply only when `--tag=package-2020-12-14-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2020-12-14-preview'
+input-file:
+- preview/2020-12-14-preview/codeSigningAccount.json
 ```
 
 ---
@@ -100,4 +119,3 @@ See configuration in [readme.csharp.md](./readme.csharp.md)
 See configuration in [readme.java.md](./readme.java.md)
 
 ## 
-

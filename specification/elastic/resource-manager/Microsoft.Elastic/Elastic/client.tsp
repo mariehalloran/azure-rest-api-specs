@@ -5,18 +5,16 @@ using Azure.Core;
 using Azure.ClientGenerator.Core;
 using Microsoft.Elastic;
 
-@@clientName(Microsoft.Elastic, "ElasticMgmtClient", "python");
-
 // Client customizations for Java SDK to maintain backward compatibility
 
 // Fix case change in ExternalUserInfo.userName -> username
 @@clientName(ExternalUserInfo.userName, "username", "java");
 
 // Fix case changes in PlanDetails properties
-@@clientName(PlanDetails.offerID, "offerId", "java,csharp");
-@@clientName(PlanDetails.planID, "planId", "java,csharp");
-@@clientName(PlanDetails.publisherID, "publisherId", "java,csharp");
-@@clientName(PlanDetails.termID, "termId", "java,csharp");
+@@clientName(PlanDetails.offerID, "offerId", "java");
+@@clientName(PlanDetails.planID, "planId", "java");
+@@clientName(PlanDetails.publisherID, "publisherId", "java");
+@@clientName(PlanDetails.termID, "termId", "java");
 
 // Fix case changes for createAndAssociate operations (IP -> Ip)
 @@clientLocation(
@@ -33,11 +31,6 @@ using Microsoft.Elastic;
 @@clientName(PlanDetails, "ElasticPlanDetails", "csharp");
 @@clientName(ProvisioningState, "ElasticProvisioningState", "csharp");
 @@clientName(ElasticMonitorResource, "ElasticMonitor", "csharp");
-@@alternateType(
-  ElasticMonitorResource.identity,
-  Azure.ResourceManager.CommonTypes.ManagedServiceIdentity,
-  "csharp"
-);
 @@clientName(MonitoringTagRules, "ElasticTagRule", "csharp");
 @@clientName(
   MonitoringTagRulesProperties,
@@ -123,7 +116,11 @@ using Microsoft.Elastic;
 );
 @@clientName(ExternalUserCreationResponse.created, "IsCreated", "csharp");
 @@clientName(FilteringTag, "ElasticFilteringTag", "csharp");
-@@clientName(LiftrResourceCategories, "ElasticLiftrResourceCategory", "csharp");
+@@clientName(
+  LiftrResourceCategories,
+  "ElasticLiftrResourceCategories",
+  "csharp"
+);
 @@clientName(LogRules, "ElasticLogRules", "csharp");
 @@clientName(LogRules.sendAadLogs, "ShouldAadLogsBeSent", "csharp");
 @@clientName(
@@ -146,12 +143,11 @@ using Microsoft.Elastic;
   "ElasticOpenAIIntegrationStatusProperties",
   "csharp"
 );
-@@clientName(OperationName, "VmCollectionUpdateOperationName", "csharp");
+@@clientName(OperationName, "VMCollectionUpdateOperationName", "csharp");
 @@clientName(ResourceSku, "ElasticSku", "csharp");
 @@clientName(SendingLogs, "SendingLogsStatus", "csharp");
 @@clientName(TagAction, "FilteringTagAction", "csharp");
 @@clientName(Type, "ElasticFilterType", "csharp");
-@@clientName(Type.ip, "IP", "csharp");
 @@clientName(UpgradableVersionsList, "UpgradableVersionListResult", "csharp");
 @@clientName(UserApiKeyResponse, "ElasticUserApiKeyResult", "csharp");
 @@clientName(
@@ -168,7 +164,7 @@ using Microsoft.Elastic;
   "csharp"
 );
 @@clientName(VMIngestionDetailsResponse, "VmIngestionDetailsResult", "csharp");
-@@clientName(VMResources, "ElasticVmResourceInfo", "csharp");
+@@clientName(VMResources, "ElasticVMResourceInfo", "csharp");
 @@alternateType(VMResources.vmResourceId, armResourceIdentifier, "csharp");
 @@clientName(
   ConfigurationType,
@@ -195,6 +191,7 @@ using Microsoft.Elastic;
   armResourceIdentifier,
   "csharp"
 );
+@@clientName(SubscriptionList, "MonitoredSubscriptionList", "csharp");
 @@alternateType(ElasticCloudDeployment.elasticsearchServiceUrl, url, "csharp");
 @@alternateType(ElasticCloudDeployment.kibanaServiceUrl, url, "csharp");
 @@alternateType(ElasticCloudDeployment.kibanaSsoUrl, url, "csharp");
@@ -299,54 +296,4 @@ using Microsoft.Elastic;
   ElasticVersionsOperationGroup.list,
   "GetElasticVersions",
   "csharp"
-);
-@@clientName(
-  MonitoredSubscriptionProperties,
-  "ElasticMonitoredSubscription",
-  "csharp"
-);
-@@clientName(
-  SubscriptionList,
-  "ElasticMonitoredSubscriptionProperties",
-  "csharp"
-);
-@@clientName(ElasticMonitorResources.vMHostList, "GetVmHosts", "csharp");
-/**
- * The list of subscriptions and it's monitoring status by current Elastic monitor.
- */
-model CustomMonitoredSubscription {
-  /**
-   * The subscriptionId to be monitored.
-   */
-  subscriptionId?: string;
-
-  /**
-   * The state of monitoring.
-   */
-  status?: Status;
-
-  /**
-   * The reason of not monitoring the subscription.
-   */
-  error?: string;
-
-  /**
-   * Definition of the properties for a TagRules resource.
-   */
-  tagRules?: MonitoringTagRulesProperties;
-}
-@@alternateType(
-  MonitoredSubscription,
-  CustomMonitoredSubscription,
-  "javascript"
-);
-@@clientName(
-  MonitoredSubscription,
-  "CustomMonitoredSubscription",
-  "javascript"
-);
-@@clientName(
-  CustomMonitoredSubscription,
-  "MonitoredSubscription",
-  "javascript"
 );

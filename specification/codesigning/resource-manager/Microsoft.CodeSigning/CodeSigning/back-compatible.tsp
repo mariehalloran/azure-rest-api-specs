@@ -5,24 +5,18 @@ using Microsoft.CodeSigning;
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(
-  CertificateProfile.properties,
-  "!javascript"
+  CertificateProfile.properties
 );
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(
-  CodeSigningAccount.properties,
-  "!javascript"
+  CodeSigningAccount.properties
 );
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(
-  CodeSigningAccountPatch.properties,
-  "!javascript"
+  CodeSigningAccountPatch.properties
 );
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
-  Certificate.revocation,
-  "!javascript"
-);
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(Certificate.revocation);

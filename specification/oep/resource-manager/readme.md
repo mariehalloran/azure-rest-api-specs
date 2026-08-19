@@ -1,7 +1,7 @@
-# oep
+# MEDS
 
 > see https://aka.ms/autorest
-> This is the AutoRest configuration file for oep.
+> This is the AutoRest configuration file for MEDS.
 
 ## Configuration
 

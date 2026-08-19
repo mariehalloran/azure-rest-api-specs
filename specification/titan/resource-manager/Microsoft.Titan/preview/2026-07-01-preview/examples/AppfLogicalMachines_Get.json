@@ -1,0 +1,51 @@
+{
+  "title": "AppfLogicalMachines_Get",
+  "operationId": "AppfLogicalMachines_Get",
+  "parameters": {
+    "api-version": "2026-07-01-preview",
+    "location": "eastus",
+    "appfLogicalMachine": "MAD20ISBRP021"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "status": "Active",
+          "statusO": "Healthy",
+          "logicalMachineType": "Server",
+          "inventoryManagementType": "BareMetal",
+          "cluster": "MAD20-Cluster01",
+          "environment": "Production",
+          "podName": "Pod-01",
+          "scaleUnit": "SU-03",
+          "machineFunction": "Compute",
+          "repair": "None",
+          "isVirtual": false,
+          "cloud": "Public",
+          "logicalServiceTreeId": "910ae907-bee4-4fdb-bdbc-c82a51981843",
+          "engineeringGroup": "TitanCompute",
+          "dcCode": "MAD20",
+          "hostPhysicalName": "MAD20PHYS001",
+          "hostPhysicalId": "host-001",
+          "hostLogicalName": "MAD20ISBRP021",
+          "hostInventoryType": "Physical"
+        },
+        "id": "/providers/Microsoft.Titan/locations/eastus/appfLogicalMachines/MAD20ISBRP021",
+        "name": "MAD20ISBRP021",
+        "type": "Microsoft.Titan/locations/eastus/appfLogicalMachines",
+        "location": "eastus",
+        "tags": {
+          "ms.inv.v0.owner.serviceTreeId": "910ae907-bee4-4fdb-bdbc-c82a51981843"
+        },
+        "systemData": {
+          "createdBy": "user@microsoft.com",
+          "createdByType": "User",
+          "createdAt": "2026-01-15T10:00:00.000Z",
+          "lastModifiedBy": "user@microsoft.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-01-15T10:00:00.000Z"
+        }
+      }
+    }
+  }
+}

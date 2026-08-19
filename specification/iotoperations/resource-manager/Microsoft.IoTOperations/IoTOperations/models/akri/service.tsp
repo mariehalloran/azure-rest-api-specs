@@ -13,8 +13,8 @@ using Azure.ResourceManager;
 
 namespace Microsoft.IoTOperations;
 
-/** AkriService resource. */
-@added(Versions.`2026-03-01`)
+/** AkriDiscoveryHandler resource. */
+@added(Versions.`2025-12-01-preview`)
 @parentResource(InstanceResource)
 model AkriServiceResource is ProxyResource<AkriServiceProperties> {
   /** Name of AkriService resource. */
@@ -33,7 +33,7 @@ model AkriServiceResource is ProxyResource<AkriServiceProperties> {
 }
 
 /** AkriService properties. */
-@added(Versions.`2026-03-01`)
+@added(Versions.`2025-12-01-preview`)
 model AkriServiceProperties {
   /** The status of the last operation. */
   @visibility(Lifecycle.Read)
@@ -45,7 +45,7 @@ model AkriServiceProperties {
 }
 
 /** AkriService status. */
-@added(Versions.`2026-03-01`)
+@added(Versions.`2025-12-01-preview`)
 model AkriServiceStatus {
   /** The health state of the AkriService. */
   @visibility(Lifecycle.Read)

@@ -14,7 +14,7 @@ namespace Microsoft.AzureStackHCI;
 /**
  * EdgeMachine details.
  */
-@added(Versions.v2026_05_01_preview)
+@added(Versions.v2026_03_15_preview)
 model EdgeMachine
   is Azure.ResourceManager.TrackedResource<EdgeMachineProperties> {
   ...ResourceNameParameter<
@@ -26,7 +26,7 @@ model EdgeMachine
   ...ManagedServiceIdentityProperty;
 }
 
-@added(Versions.v2026_05_01_preview)
+@added(Versions.v2026_03_15_preview)
 @armResourceOperations
 interface EdgeMachines {
   /**
@@ -63,11 +63,30 @@ interface EdgeMachines {
   /**
    * A long-running resource action to validate the edge machine.
    */
-  @added(Versions.v2026_05_01_preview)
+  @added(Versions.v2026_03_15_preview)
   validate is ArmResourceActionAsync<
     EdgeMachine,
     EdgeMachineValidateRequest,
     EdgeMachineValidateResponse
+  >;
+
+  /**
+   * Trigger an on-demand sync of edge machine security settings from Guest Configuration.
+   * Creates the default security settings child resource if it does not already exist.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "The final response has no content, so 204 is returned."
+  @added(Versions.v2026_03_15_preview)
+  refreshSecuritySettings is ArmResourceActionNoContentAsync<EdgeMachine, void>;
+
+  /**
+   * Trigger an on-demand refresh of applicable updates for the edge machine.
+   * Creates or updates the default EdgeMachineUpdate child resource with the latest set of applicable updates.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "The final response has no content, so 204 is returned."
+  @added(Versions.v2026_03_15_preview)
+  refreshApplicableUpdates is ArmResourceActionNoContentAsync<
+    EdgeMachine,
+    void
   >;
 }
 

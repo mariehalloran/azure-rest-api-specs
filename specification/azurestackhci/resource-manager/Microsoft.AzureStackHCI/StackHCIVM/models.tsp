@@ -917,6 +917,7 @@ model ExtendedLocation {
   type?: ExtendedLocationTypes;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The gallery images resource patch definition.")
 model GalleryImagesUpdateRequest {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Existing api"
@@ -954,6 +955,7 @@ model LogicalNetworkProperties {
   networkType?: LogicalNetworkTypeEnum;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("DhcpOptions contains an array of DNS servers available to VMs deployed in the logical network. Standard DHCP option for a subnet overrides logical network DHCP options.")
 model LogicalNetworkPropertiesDhcpOptions {
   @doc("The list of DNS servers IP addresses.")
@@ -1336,11 +1338,45 @@ model LogicalNetworkStatusProvisioningStatus {
   status?: Status;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The logical network resource patch definition.")
 model LogicalNetworksUpdateRequest {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Existing api"
   @doc("Resource tags")
   tags?: Record<string>;
+
+  @added(Versions.v2024_10_01_preview)
+  @doc("Defines the resource properties for the update.")
+  properties?: LogicalNetworkUpdateProperties;
+}
+
+@added(Versions.v2024_10_01_preview)
+@doc("Properties under the logical network resource")
+model LogicalNetworkUpdateProperties {
+  @doc("Subnet - list of subnets under the logical network")
+  @Azure.ResourceManager.identifiers(#[])
+  subnets?: SubnetUpdate[];
+}
+
+@added(Versions.v2024_10_01_preview)
+@doc("Subnet resource")
+model SubnetUpdate {
+  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
+  @doc("Properties of the subnet.")
+  @Azure.ClientGenerator.Core.Legacy.flattenProperty
+  properties?: SubnetUpdateProperties;
+
+  @doc("Name - The name of the resource that is unique within a resource group. This name can be used to access the resource.")
+  @pattern("^[a-zA-Z0-9]$|^[a-zA-Z0-9][-._a-zA-Z0-9]{0,78}[_a-zA-Z0-9]$")
+  @removed(Versions.v2025_09_01_preview)
+  name?: string;
+}
+
+@added(Versions.v2024_10_01_preview)
+@doc("Properties of the subnet.")
+model SubnetUpdateProperties {
+  @doc("NetworkSecurityGroup - Network Security Group attached to the network interface.")
+  networkSecurityGroup?: NetworkSecurityGroupArmReference;
 }
 
 @added(Versions.v2025_09_01_preview)
@@ -1367,6 +1403,7 @@ model VirtualNetworkAddressSpace {
   addressPrefixes: string[];
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2025_09_01_preview)
 @doc("DHCP options for virtual networks")
 model VirtualNetworkDhcpOptions {
@@ -1504,19 +1541,6 @@ model InboundNATRuleProperties {
   publicIPAddress: PublicIPAddressArmReference;
 }
 
-#suppress "@azure-tools/typespec-azure-core/casing-style" "NAT is a short form. The casing is correct."
-@added(Versions.v2025_09_01_preview)
-@doc("Inbound nat rule properties")
-model InboundNATRule {
-  @doc("name of the inbound nat rule")
-  @visibility(Lifecycle.Read, Lifecycle.Create)
-  @pattern("^[a-zA-Z0-9]$|^[a-zA-Z0-9][-._a-zA-Z0-9]{0,62}[a-zA-Z0-9]$")
-  name: string;
-
-  @doc("properties of the inbound nat rule")
-  properties: InboundNATRuleProperties;
-}
-
 @added(Versions.v2026_04_01_preview)
 @doc("Inbound rule properties - extends InboundNATRuleProperties with additional status tracking")
 model InboundRuleProperties {
@@ -1554,6 +1578,19 @@ model InboundRuleStatusProvisioningStatus {
   status?: Status;
 }
 
+#suppress "@azure-tools/typespec-azure-core/casing-style" "NAT is a short form. The casing is correct."
+@added(Versions.v2025_09_01_preview)
+@doc("Inbound nat rule properties")
+model InboundNATRule {
+  @doc("name of the inbound nat rule")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  @pattern("^[a-zA-Z0-9]$|^[a-zA-Z0-9][-._a-zA-Z0-9]{0,62}[a-zA-Z0-9]$")
+  name: string;
+
+  @doc("properties of the inbound nat rule")
+  properties: InboundNATRuleProperties;
+}
+
 @added(Versions.v2025_09_01_preview)
 @doc("Nat Gateway resource properties")
 model NatGatewayProperties {
@@ -1570,7 +1607,7 @@ model NatGatewayProperties {
   #suppress "@azure-tools/typespec-azure-core/casing-style" "NAT is a short form. The casing is correct."
   @doc("List of inbound NAT rules. InboundNATRules can only be set after the NAT Gateway has been associated with a vnet. Removed in 2026-04-01-preview; use InboundRule Child resource instead.")
   @removed(Versions.v2026_04_01_preview)
-  @Azure.ResourceManager.identifiers(#[])
+  @identifiers(#[])
   inboundNATRules?: InboundNATRule[];
 
   @doc("Provisioning state of the public IP")
@@ -1823,6 +1860,7 @@ model LoadBalancerStatusProvisioningStatus {
   status?: Status;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The virtual network subnet resource patch definition.")
 @added(Versions.v2025_09_01_preview)
 model VirtualNetworkSubnetUpdateRequest {
@@ -1909,6 +1947,7 @@ model MarketplaceGalleryImageStatusDownloadStatus {
   downloadSizeInMB?: int64;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The marketplace gallery image resource patch definition.")
 model MarketplaceGalleryImagesUpdateRequest {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Existing api"
@@ -1916,6 +1955,7 @@ model MarketplaceGalleryImagesUpdateRequest {
   tags?: Record<string>;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The network interface resource patch definition.")
 model NetworkInterfacesUpdateRequest {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Existing api"
@@ -1992,6 +2032,7 @@ model StorageContainerStatusProvisioningStatus {
   status?: Status;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The storage container resource patch definition.")
 model StorageContainersUpdateRequest {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Existing api"
@@ -2048,7 +2089,7 @@ model SnapshotProperties {
 }
 
 @added(Versions.v2026_02_01_preview)
-@doc("Snapshot Status provisioning status")
+@doc("VHD Status provisioning status")
 model SnapshotStatusProvisioningStatus {
   @doc("The ID of the operation performed on the snapshot")
   operationId?: string;
@@ -2211,6 +2252,7 @@ model VirtualHardDiskUploadStatus {
   errorMessage?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The virtual hard disk resource patch definition.")
 model VirtualHardDisksUpdateRequest {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Existing api"
@@ -2230,6 +2272,7 @@ model VirtualHardDisksUpdateProperties {
   diskSizeGB?: int64;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2024_05_01_preview)
 @doc("Request for uploading virtual hard disk.")
 model VirtualHardDiskUploadRequest {
@@ -2239,6 +2282,7 @@ model VirtualHardDiskUploadRequest {
   azureManagedDiskUploadUrl: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2024_05_01_preview)
 @doc("Response for uploading virtual hard disk.")
 model VirtualHardDiskUploadResponse {
@@ -2368,6 +2412,10 @@ model VirtualMachineInstancePropertiesHardwareProfileDynamicMemoryConfig {
 
   @doc("Defines the amount of extra memory that should be reserved for a virtual machine instance at runtime, as a percentage of the total memory that the virtual machine instance is thought to need. This only applies to virtual systems with dynamic memory enabled. This property can be in the range of 5 to 2000.")
   targetMemoryBuffer?: int32;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("Specifies whether dynamic memory is enabled for the virtual machine instance. When omitted, dynamic memory remains enabled; setting this to false converts the virtual machine instance to static memory.")
+  enabled?: boolean;
 }
 
 #suppress "@azure-tools/typespec-azure-core/casing-style" "GPU is a short form. It is the correct case."
@@ -2646,6 +2694,7 @@ model Identity {
   type?: "SystemAssigned";
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The virtual machine instance resource patch definition.")
 model VirtualMachineInstanceUpdateRequest {
   @doc("Defines the resource properties for the update.")
@@ -2687,6 +2736,10 @@ model HardwareProfileUpdate {
   @doc("virtualMachineGPUs - updated list of GPUs on the virtual machine instance")
   @Azure.ResourceManager.identifiers(#[])
   virtualMachineGPUs?: VirtualMachineInstancePropertiesHardwareProfileVirtualMachineGPU[];
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("Dynamic memory config for day-2 updates and static-to-dynamic conversion of the virtual machine instance.")
+  dynamicMemoryConfig?: VirtualMachineInstancePropertiesHardwareProfileDynamicMemoryConfig;
 }
 
 @doc("Storage profile update")
@@ -2826,6 +2879,7 @@ model GuestCredential {
   password?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_04_01_preview)
 @doc("The operation gracefully shuts down a virtual machine by requesting the operating system to shut down. The virtual machine can be restarted with the same provisioned resources. To force an immediate shut down, see the skipShutdown flag.")
 model PowerOffVirtualMachineOptions {

@@ -1,14 +1,24 @@
 - tool: TypeSpecValidation
-  paths:
-    # Specify the path to the tspconfig.yaml file where suppression should apply
-    - tspconfig.yaml
-  rules:
-    - SdkTspConfigValidation
   reason: >
     Not ready to generate SDKs from TypeSpec.
     Responsibility: Service team with SDK team collaboration. 
     Comment: SDK is defined in OpenAPI file, not in TypeSpec.
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - options.@azure-tools/typespec-go.*
+    - parameters.service-dir.default
+    - options.@azure-tools/typespec-java.*
+    - options.@azure-tools/typespec-python.*
+    - options.@azure-tools/typespec-ts.*
+    - options.@azure-typespec/http-client-csharp-mgmt.*
+  paths: [tspconfig.yaml]
 
+- tool: TypeSpecRequirement
+  path: ./preview/2021-11-10-privatepreview/*.json
+  reason: Brownfield service not ready to migrate
+- tool: TypeSpecRequirement
+  path: ./preview/2022-09-15-privatepreview/*.json
+  reason: Brownfield service not ready to migrate
 - tool: TypeSpecRequirement
   path: ./preview/2023-02-08-preview/*.json
   reason: Brownfield service not ready to migrate

@@ -1,0 +1,39 @@
+{
+  "operationId": "ResourceSubscriptionDestinations_Update",
+  "title": "Update the tags on a destination",
+  "parameters": {
+    "subscriptionId": "12345678-1234-1234-1234-123456789012",
+    "resourceGroupName": "example-rg",
+    "subscriptionRuleName": "example-subscription",
+    "destinationName": "fabric-destination",
+    "api-version": "2026-03-01-preview",
+    "properties": {
+      "tags": {
+        "environment": "staging",
+        "team": "platform"
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ResourceNotifications/resourceSubscriptions/example-subscription/destinations/fabric-destination",
+        "name": "fabric-destination",
+        "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
+        "location": "westus",
+        "tags": {
+          "environment": "staging",
+          "team": "platform"
+        },
+        "properties": {
+          "provisioningState": "Succeeded"
+        },
+        "kind": "fabricTable",
+        "endpoint": {
+          "workspaceId": "12345678-1234-1234-1234-123456789012",
+          "databaseId": "sample-database-id"
+        }
+      }
+    }
+  }
+}

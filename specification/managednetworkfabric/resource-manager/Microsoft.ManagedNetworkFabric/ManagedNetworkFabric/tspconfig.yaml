@@ -12,7 +12,6 @@ options:
     output-file: "{version-status}/{version}/managednetworkfabric.json"
     arm-types-dir: "{project-root}/../../../../common-types/resource-management"
   "@azure-typespec/http-client-csharp-mgmt":
-    package-name: "Azure.ResourceManager.ManagedNetworkFabric"
     namespace: "Azure.ResourceManager.ManagedNetworkFabric"
     emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-python":
@@ -40,7 +39,6 @@ options:
     typespec-title-map:
       ManagedNetworkFabricClient: AzureNetworkFabricManagementServiceAPI
     emitter-output-dir: "{output-dir}/{service-dir}/arm-managednetworkfabric"
-    compatibility-lro: true
     flavor: "azure"
     experimental-extensible-enums: true
     package-details:

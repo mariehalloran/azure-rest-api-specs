@@ -9,8 +9,8 @@ using Azure.ResourceManager;
 
 namespace Microsoft.DurableTask;
 
-model SchedulerPrivateLinkResource is PrivateLink;
-alias PrivateLinkOperations = PrivateLinks<SchedulerPrivateLinkResource>;
+model MyPrivateLinkResource is PrivateLink;
+alias PrivateLinkOperations = PrivateLinks<MyPrivateLinkResource>;
 
 model PrivateEndpointConnection is PrivateEndpointConnectionResource;
 alias PrivateEndpointOperations = PrivateEndpoints<PrivateEndpointConnection>;
@@ -46,12 +46,12 @@ model SchedulerProperties {
   @doc("SKU of the durable task scheduler")
   sku: SchedulerSku;
 
-  @added(Versions.v2026_02_01)
+  @added(Versions.v2025_05_04_Preview)
   @doc("Allow or disallow public network access to durable task scheduler")
   publicNetworkAccess?: PublicNetworkAccess;
 
   /** The private endpoints exposed by this resource */
-  @added(Versions.v2026_02_01)
+  @added(Versions.v2025_05_04_Preview)
   @visibility(Lifecycle.Read)
   privateEndpointConnections?: PrivateEndpointConnection[];
 }
@@ -96,7 +96,7 @@ union RedundancyState {
 }
 
 @doc("State of the public network access.")
-@added(Versions.v2026_02_01)
+@added(Versions.v2025_05_04_Preview)
 union PublicNetworkAccess {
   string,
 
@@ -131,7 +131,7 @@ model SchedulerPropertiesUpdate {
   @doc("SKU of the durable task scheduler")
   sku?: SchedulerSkuUpdate;
 
-  @added(Versions.v2026_02_01)
+  @added(Versions.v2025_05_04_Preview)
   @doc("Allow or disallow public network access to durable task scheduler")
   publicNetworkAccess?: PublicNetworkAccess;
 }
@@ -168,26 +168,26 @@ interface Schedulers {
   @doc("List Schedulers by subscription")
   listBySubscription is ArmListBySubscription<Scheduler>;
 
-  @added(Versions.v2026_02_01)
+  @added(Versions.v2025_05_04_Preview)
   @doc("Get a private link resource for the durable task scheduler")
   getPrivateLink is PrivateLinkOperations.Read<Scheduler>;
-  @added(Versions.v2026_02_01)
+  @added(Versions.v2025_05_04_Preview)
   @doc("List private link resources for the durable task scheduler")
   listPrivateLinks is PrivateLinkOperations.ListByParent<Scheduler>;
 
-  @added(Versions.v2026_02_01)
+  @added(Versions.v2025_05_04_Preview)
   @doc("Get a private endpoint connection for the durable task scheduler")
   getPrivateEndpointConnection is PrivateEndpointOperations.Read<Scheduler>;
-  @added(Versions.v2026_02_01)
+  @added(Versions.v2025_05_04_Preview)
   @doc("Create or update a private endpoint connection for the durable task scheduler")
   createOrUpdatePrivateEndpointConnection is PrivateEndpointOperations.CreateOrUpdateAsync<Scheduler>;
-  @added(Versions.v2026_02_01)
+  @added(Versions.v2025_05_04_Preview)
   @doc("Update a private endpoint connection for the durable task scheduler")
   updatePrivateEndpointConnection is PrivateEndpointOperations.CustomPatchAsync<Scheduler>;
-  @added(Versions.v2026_02_01)
+  @added(Versions.v2025_05_04_Preview)
   @doc("Delete a private endpoint connection for the durable task scheduler")
   deletePrivateEndpointConnection is PrivateEndpointOperations.DeleteAsync<Scheduler>;
-  @added(Versions.v2026_02_01)
+  @added(Versions.v2025_05_04_Preview)
   @doc("List private endpoint connections for the durable task scheduler")
   listPrivateEndpointConnections is PrivateEndpointOperations.ListByParent<Scheduler>;
 

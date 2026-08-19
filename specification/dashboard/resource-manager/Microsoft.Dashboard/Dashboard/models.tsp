@@ -74,6 +74,47 @@ union DeterministicOutboundIP {
 }
 
 /**
+ * Indicate the state for content restriction level for the Grafana instance.
+ * When set to Strict, Content Security Policy (CSP) and User Authentication are enforced.
+ */
+@added(Versions.v2026_05_01_preview)
+union ContentRestriction {
+  string,
+
+  /** Strict content restriction with full CSP enforcement */
+  Strict: "Strict",
+
+  /** Content restriction is off, relaxed CSP template is used */
+  Off: "Off",
+}
+
+/**
+ * State of the datasource syncer for the Grafana instance.
+ */
+@added(Versions.v2026_05_01_preview)
+union DatasourceSyncerState {
+  string,
+
+  /** Datasource syncer is disabled */
+  Disabled: "Disabled",
+
+  /** Datasource syncer is enabled */
+  Enabled: "Enabled",
+}
+
+/**
+ * Datasource syncer settings for the Grafana instance.
+ */
+@added(Versions.v2026_05_01_preview)
+model DatasourceSyncerSettings {
+  /** Whether the datasource syncer is enabled or disabled. */
+  state?: DatasourceSyncerState;
+
+  /** Suffix used by the datasource syncer. Case insensitive. */
+  suffix?: string;
+}
+
+/**
  * The creator will have admin access for the Grafana instance.
  */
 @added(Versions.v2025_08_01)
@@ -188,6 +229,7 @@ union ManagedPrivateEndpointConnectionStatus {
 }
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ManagedGrafanaListResponse is Azure.Core.Page<ManagedGrafana>;
 
 /**
@@ -233,6 +275,19 @@ model ManagedGrafanaProperties {
    */
   @added(Versions.v2025_08_01)
   creatorCanAdmin?: CreatorCanAdmin;
+
+  /**
+   * Indicate the content restriction level for the Grafana instance.
+   * When set to Strict, Content Security Policy (CSP) and User Authentication are enforced.
+   */
+  @added(Versions.v2026_05_01_preview)
+  contentRestriction?: ContentRestriction;
+
+  /**
+   * Datasource syncer settings for the Grafana instance.
+   */
+  @added(Versions.v2026_05_01_preview)
+  datasourceSyncer?: DatasourceSyncerSettings;
 
   /**
    * Whether a Grafana instance uses deterministic outbound IPs.
@@ -405,6 +460,12 @@ model GrafanaConfigurations {
    * Grafana Unified Alerting Screenshots settings
    */
   unifiedAlertingScreenshots?: UnifiedAlertingScreenshots;
+
+  /**
+   * Comma-delimited list of Grafana preview feature toggles to enable. Each toggle is validated against a version-aware allowlist. Example: 'canvasPanelPanZoom,timeComparison'.
+   */
+  @added(Versions.v2026_07_01_preview)
+  previewFeatureToggles?: string;
 }
 
 /**
@@ -592,6 +653,19 @@ model ManagedGrafanaPropertiesUpdateParameters {
   creatorCanAdmin?: CreatorCanAdmin;
 
   /**
+   * Indicate the content restriction level for the Grafana instance.
+   * When set to Strict, Content Security Policy (CSP) and User Authentication are enforced.
+   */
+  @added(Versions.v2026_05_01_preview)
+  contentRestriction?: ContentRestriction;
+
+  /**
+   * Datasource syncer settings for the Grafana instance.
+   */
+  @added(Versions.v2026_05_01_preview)
+  datasourceSyncer?: DatasourceSyncerSettings;
+
+  /**
    * Whether a Grafana instance uses deterministic outbound IPs.
    */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
@@ -747,6 +821,7 @@ model MarketplaceTrialQuota {
 }
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model GrafanaAvailablePluginListResponse {
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @identifiers(#["pluginId"])
@@ -790,6 +865,7 @@ model GrafanaAvailablePlugin {
 /**
  * The list of managed private endpoints of a grafana resource
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ManagedPrivateEndpointModelListResponse
   is Azure.Core.Page<ManagedPrivateEndpointModel>;
 
@@ -877,6 +953,7 @@ model ManagedPrivateEndpointUpdateParameters {
 }
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model IntegrationFabricListResponse is Azure.Core.Page<IntegrationFabric>;
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
@@ -928,6 +1005,7 @@ model IntegrationFabricPropertiesUpdateParameters {
 }
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ManagedDashboardListResponse is Azure.Core.Page<ManagedDashboard>;
 
 /**
@@ -970,6 +1048,7 @@ model ResourceSku {
 /**
  * The list response for dashboard definitions.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2025_09_01_preview)
 model DashboardDefinitionListResponse is Azure.Core.Page<DashboardDefinition>;
 
@@ -985,6 +1064,30 @@ model DashboardDefinitionProperties {
 
   /**
    * The provisioning state of the dashboard definition resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/**
+ * The list response for grafana definitions.
+ */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@added(Versions.v2025_11_01_preview)
+model GrafanaDefinitionsListResponse is Azure.Core.Page<GrafanaDefinition>;
+
+/**
+ * Properties specific to the grafana definition.
+ */
+@added(Versions.v2025_11_01_preview)
+model GrafanaDefinitionsProperties {
+  /**
+   * The grafana definition data in JSON format.
+   */
+  serializedData: string;
+
+  /**
+   * The provisioning state of the grafana definition resource.
    */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;

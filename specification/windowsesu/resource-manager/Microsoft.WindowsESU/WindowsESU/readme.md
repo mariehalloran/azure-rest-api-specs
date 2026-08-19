@@ -26,7 +26,7 @@ These are the global settings for the windowsesu.
 
 ```yaml
 openapi-type: arm
-openapi-subtype: rpaas
+openapi-subtype: providerHub
 tag: package-2019-09-16-preview
 ```
 
@@ -50,13 +50,13 @@ This is not used by Autorest itself.
 
 ```yaml $(swagger-to-sdk)
 swagger-to-sdk:
+  - repo: azure-sdk-for-python
   - repo: azure-sdk-for-java
   - repo: azure-sdk-for-go
   - repo: azure-sdk-for-js
   - repo: azure-sdk-for-ruby
     after_scripts:
       - bundle install && rake arm:regen_all_profiles['azure_mgmt_windowsesu']
-  - repo: azure-resource-manager-schemas
   - repo: azure-powershell
 ```
 
@@ -79,6 +79,3 @@ See configuration in [readme.typescript.md](./readme.typescript.md)
 ## CSharp
 
 See configuration in [readme.csharp.md](./readme.csharp.md)
-
-
-

@@ -1,0 +1,16 @@
+- tool: TypeSpecValidation
+  reason: >
+    The product name "Windows 365" contains digits, which are disallowed by
+    the [a-z]+ regex used by SDK package-name and namespace conventions for
+    Python and TypeScript. The "windows365" identifier is the established
+    product name and is used consistently across all SDK emitter
+    configurations. Suppressing these three sub-rules preserves consistent
+    cross-language naming without changing the product identity.
+  rules:
+    - SdkTspConfigValidation
+  sub-rules:
+    - options.@azure-tools/typespec-ts.package-details.name
+    - options.@azure-tools/typespec-python.emitter-output-dir
+    - options.@azure-tools/typespec-python.namespace
+  paths:
+    - ./tspconfig.yaml

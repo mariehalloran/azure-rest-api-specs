@@ -1176,7 +1176,7 @@
           {
             "name": "monitorName",
             "in": "path",
-            "description": "Monitor resource name",
+            "description": "The name of the MonitorResource",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9_-]*$"
@@ -2245,6 +2245,10 @@
         "landingURL": {
           "type": "string",
           "description": "Landing URL for Dynatrace environment"
+        },
+        "apiUrl": {
+          "type": "string",
+          "description": "API URL for Dynatrace environment API endpoints"
         }
       }
     },

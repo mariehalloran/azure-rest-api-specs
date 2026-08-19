@@ -1,12 +1,16 @@
 emit:
   - "@azure-tools/typespec-autorest"
+parameters:
+  "service-dir":
+    default: "sdk/iotoperations"
 options:
   "@azure-tools/typespec-autorest":
     emitter-output-dir: "{project-root}/.."
     azure-resource-provider-folder: "resource-manager"
-    emit-common-types-schema: "never"
     output-file: "{azure-resource-provider-folder}/{service-name}/{version-status}/{version}/openapi.json"
-    omit-unreachable-types: true
+  "@azure-typespec/http-client-csharp-mgmt":
+    namespace: "Azure.ResourceManager.IotOperations"
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
 linter:
   extends:
     - "@azure-tools/typespec-azure-rulesets/resource-manager"

@@ -1,17 +1,21 @@
 import "@azure-tools/typespec-client-generator-core";
-import "@azure-tools/typespec-azure-resource-manager";
 
 using Azure.ClientGenerator.Core;
 using Microsoft.Maintenance;
 
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backwards compatibility"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(
   MaintenanceConfigurationProperties.maintenanceWindow
 );
 
 //@@Azure.ClientGenerator.Core.Legacy.flattenProperty(Update.properties);
 
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backwards compatibility"
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  Microsoft.Maintenance.Operation.properties
+);
+
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backwards compatibility"
 @@clientName(
   MaintenanceConfigurationOperationGroup.createOrUpdate::parameters.resource,
   "configuration"
@@ -20,7 +24,7 @@ using Microsoft.Maintenance;
   MaintenanceConfigurationOperationGroup.update::parameters.properties,
   "configuration"
 );
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backwards compatibility"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(
   MaintenanceConfiguration.properties
 );
@@ -29,7 +33,7 @@ using Microsoft.Maintenance;
   ApplyUpdateOperationGroup.createOrUpdateOrCancel::parameters.resource,
   "applyUpdate"
 );
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backwards compatibility"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(ApplyUpdate.properties);
 
 @@clientName(
@@ -56,11 +60,11 @@ using Microsoft.Maintenance;
   ConfigurationAssignmentsForResourceGroup.update::parameters.properties,
   "configurationAssignment"
 );
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backwards compatibility"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(
   ConfigurationAssignment.properties
 );
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backwards compatibility"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(
   Microsoft.Maintenance.Update.properties
 );
@@ -100,8 +104,7 @@ using Microsoft.Maintenance;
 );
 @@clientName(
   MaintenanceConfigurationOperationGroup.maintenanceConfigurationsList,
-  "List",
-  "!csharp"
+  "List"
 );
 @@clientLocation(ApplyUpdateOperationGroup.get, ApplyUpdates);
 @@clientLocation(
@@ -125,6 +128,10 @@ using Microsoft.Maintenance;
   ConfigurationAssignmentsForSubscriptions.list,
   "ConfigurationAssignmentsWithinSubscription"
 );
+@@clientLocation(
+  ApplyUpdatesOperationGroup.createOrUpdateGrandParent,
+  ApplyUpdates
+);
 @@clientLocation(ScheduledEventOperationGroup.acknowledge, "ScheduledEvents");
 @@clientLocation(
   ScheduledEventOperationGroup.acknowledgeList,
@@ -142,9 +149,3 @@ using Microsoft.Maintenance;
 );
 @@clientLocation(UpdatesOperationGroup.listParent, "Updates");
 @@clientLocation(UpdatesOperationGroup.list, "Updates");
-
-@@clientName(
-  Azure.ResourceManager.CommonTypes.OperationDisplay,
-  "OperationInfo",
-  "python"
-);

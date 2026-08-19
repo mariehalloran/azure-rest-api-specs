@@ -1,0 +1,57 @@
+{
+  "title": "ClusterVolumeJobs_Get_ApplyVolumeConfiguration",
+  "operationId": "ClusterVolumeJobs_Get",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "fd3c3665-1729-4b7b-9a38-238e83b0f98b",
+    "resourceGroupName": "ArcInstance-rg",
+    "clusterName": "cluster-1",
+    "volumeName": "volume-1",
+    "jobName": "update-volume-job-001"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "jobType": "ApplyVolumeConfiguration",
+          "deploymentMode": "Deploy",
+          "provisioningState": "Succeeded",
+          "jobId": "update-volume-job-001",
+          "startTimeUtc": "2024-11-14T10:46:55.167Z",
+          "endTimeUtc": "2024-11-14T10:50:55.167Z",
+          "status": "Succeeded",
+          "targetConfiguration": {
+            "placementMode": "manual"
+          },
+          "reportedProperties": {
+            "percentComplete": 100,
+            "deploymentStatus": {
+              "status": "Succeeded",
+              "steps": [
+                {
+                  "name": "Apply volume configuration",
+                  "description": "Applying the requested volume configuration to the cluster.",
+                  "fullStepIndex": "0",
+                  "startTimeUtc": "2024-11-14T10:46:55.167Z",
+                  "endTimeUtc": "2024-11-14T10:50:55.167Z",
+                  "status": "Success"
+                }
+              ]
+            }
+          }
+        },
+        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/ArcInstance-rg/providers/Microsoft.AzureStackHCI/clusters/cluster-1/volumes/volume-1/jobs/update-volume-job-001",
+        "name": "update-volume-job-001",
+        "type": "Microsoft.AzureStackHCI/clusters/volumes/jobs",
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2024-11-14T10:46:55.167Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2024-11-14T10:50:55.167Z"
+        }
+      }
+    }
+  }
+}

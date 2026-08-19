@@ -39,6 +39,7 @@ model PipelineProperties {
   @doc("Flag indicating whether the pipeline should be running or not.")
   enabled: boolean;
 
+  #suppress "@azure-tools/typespec-azure-core/bad-record-type"
   @doc("Information about where to pull input data from.")
   input: PipelineInput;
 
@@ -80,12 +81,7 @@ model PipelineStage is Record<unknown> {
 @armResourceOperations
 interface Pipelines {
   get is ArmResourceRead<Pipeline>;
-  #suppress "@azure-tools/typespec-azure-core/invalid-final-state" "MUST CHANGE ON NEXT UPDATE"
-  @Azure.Core.useFinalStateVia("azure-async-operation")
-  createOrUpdate is ArmResourceCreateOrUpdateAsync<
-    Pipeline,
-    LroHeaders = Azure.Core.Foundations.RetryAfterHeader
-  >;
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<Pipeline>;
   update is ArmCustomPatchSync<Pipeline>;
   delete is ArmResourceDeleteWithoutOkAsync<Pipeline>;
   listByInstance is ArmResourceListByParent<Pipeline>;

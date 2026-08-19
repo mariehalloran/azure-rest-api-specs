@@ -1,0 +1,33 @@
+{
+  "operationId": "ContainerClusters_Update",
+  "title": "Update a container cluster",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "siteName": "myContainerSite",
+    "clusterName": "kube-system-uid-abc123",
+    "properties": {
+      "properties": {
+        "orchestrator": {
+          "version": "1.28.5"
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerClusters/kube-system-uid-abc123",
+        "name": "kube-system-uid-abc123",
+        "type": "Microsoft.ApplicationMigration/containerSites/containerClusters",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "containerClusterId": "kube-system-uid-abc123",
+          "clusterDisplayName": "prod-k8s-01-updated",
+          "discoveryCompleteness": "deep-complete"
+        }
+      }
+    }
+  }
+}

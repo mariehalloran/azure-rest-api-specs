@@ -20,28 +20,11 @@ For other options on installation see [Installing AutoRest](https://aka.ms/autor
 
 ## Configuration
 
-## Suppression
-``` yaml
-directive:
-  - suppress: AvoidAdditionalProperties
-    where: $.definitions.AgentPoolProperties.properties.nodeLabels
-    reason: "nodeLabels is a user-defined map<string,string> for Kubernetes labels, following AKS behavior since 2022-09-01-preview."
-
-  - suppress: AvoidAdditionalProperties
-    where: $.definitions.NamedAgentPoolProfile.properties.nodeLabels
-    reason: "nodeLabels is a user-defined map<string,string> for Kubernetes labels, following AKS behavior since 2022-09-01-preview."
-
-  - suppress: AvoidAdditionalProperties
-    where: $.definitions.KubernetesVersionProperties.properties.patchVersions
-    reason: "patchVersions is a map of patch version info, following AKS behavior."
-```
-
 ### Basic Information
 
 These are the global settings for the hybridaks.
 
-
-``` yaml
+```yaml
 openapi-type: arm
 openapi-subtype: rpaas
 tag: package-preview-2026-04
@@ -56,6 +39,33 @@ input-file:
   - preview/2026-04-01-preview/openapi.json
 ```
 
+### Tag: package-preview-2025-09
+
+These settings apply only when `--tag=package-preview-2025-09` is specified on the command line.
+
+```yaml $(tag) == 'package-preview-2025-09'
+input-file:
+  - preview/2025-09-01-preview/openapi.json
+```
+
+### Tag: package-preview-2025-02
+
+These settings apply only when `--tag=package-preview-2025-02` is specified on the command line.
+
+```yaml $(tag) == 'package-preview-2025-02'
+input-file:
+  - preview/2025-02-01-preview/openapi.json
+```
+
+### Tag: package-preview-2024-09
+
+These settings apply only when `--tag=package-preview-2024-09` is specified on the command line.
+
+```yaml $(tag) == 'package-preview-2024-09'
+input-file:
+  - preview/2024-09-01-preview/openapi.json
+```
+
 ### Tag: package-2024-01
 
 These settings apply only when `--tag=package-2024-01` is specified on the command line.
@@ -64,61 +74,16 @@ These settings apply only when `--tag=package-2024-01` is specified on the comma
 input-file:
   - stable/2024-01-01/provisionedClusterInstances.json
   - stable/2024-01-01/virtualNetworks.json
-directive:
-  - suppress: PathForTrackedResourceTypes
-    from: provisionedClusterInstances.json
-    where: $.paths["/{connectedClusterResourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/agentPools/{agentPoolName}"]
-    reason: "Existing violation in main; surfaced by v2 folder migration (no API shape change)."
-  - suppress: TrackedExtensionResourcesAreNotAllowed
-    from: provisionedClusterInstances.json
-    reason: "Existing violation in main; surfaced by v2 folder migration (no API shape change)."
-  - suppress: PatchResponseCodes
-    from: provisionedClusterInstances.json
-    where: $.paths["/{connectedClusterResourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/agentPools/{agentPoolName}"].patch
-    reason: "Existing violation in main; surfaced by v2 folder migration (no API shape change)."
-  - suppress: XmsPageableForListCalls
-    from: provisionedClusterInstances.json
-    where: $.paths["/{connectedClusterResourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/agentPools"].get
-    reason: "Existing violation in main; surfaced by v2 folder migration (no API shape change)."
-  - suppress: AvoidAdditionalProperties
-    from: provisionedClusterInstances.json
-    where: $.definitions.AgentPoolProfile.properties.nodeLabels
-    reason: "Existing violation in main; surfaced by v2 folder migration (no API shape change)."
-  - suppress: LroLocationHeader
-    from: virtualNetworks.json
-    reason: "Existing violation in main; surfaced by v2 folder migration (no API shape change)."
 ```
+
 ### Tag: package-preview-2023-11
 
 These settings apply only when `--tag=package-preview-2023-11` is specified on the command line.
 
-``` yaml $(tag) == 'package-preview-2023-11'
+```yaml $(tag) == 'package-preview-2023-11'
 input-file:
   - preview/2023-11-15-preview/provisionedClusterInstances.json
   - preview/2023-11-15-preview/virtualNetworks.json
-directive:
-  - suppress: PathForTrackedResourceTypes
-    from: provisionedClusterInstances.json
-    where: $.paths["/{connectedClusterResourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/agentPools/{agentPoolName}"]
-    reason: "Existing violation in main; surfaced by v2 folder migration (no API shape change)."
-  - suppress: TrackedExtensionResourcesAreNotAllowed
-    from: provisionedClusterInstances.json
-    reason: "Existing violation in main; surfaced by v2 folder migration (no API shape change)."
-  - suppress: PatchResponseCodes
-    from: provisionedClusterInstances.json
-    where: $.paths["/{connectedClusterResourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/agentPools/{agentPoolName}"].patch
-    reason: "Existing violation in main; surfaced by v2 folder migration (no API shape change)."
-  - suppress: XmsPageableForListCalls
-    from: provisionedClusterInstances.json
-    where: $.paths["/{connectedClusterResourceUri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/agentPools"].get
-    reason: "Existing violation in main; surfaced by v2 folder migration (no API shape change)."
-  - suppress: AvoidAdditionalProperties
-    from: provisionedClusterInstances.json
-    where: $.definitions.AgentPoolProfile.properties.nodeLabels
-    reason: "Existing violation in main; surfaced by v2 folder migration (no API shape change)."
-  - suppress: LroLocationHeader
-    from: virtualNetworks.json
-    reason: "Existing violation in main; surfaced by v2 folder migration (no API shape change)."
 suppressions:
   - code: TopLevelResourcesListBySubscription
     where: $.definitions.KubernetesVersionProfile
@@ -133,6 +98,73 @@ suppressions:
     reason: This is a false alarm for the /default APIs, as they return a singleton resource and not a collection of resources
 ```
 
+### Tag: package-2023-11
+
+These settings apply only when `--tag=package-2023-11` is specified on the command line.
+
+```yaml $(tag) == 'package-2023-11'
+input-file:
+  - stable/2023-11-01/provisionedClusters.json
+suppressions:
+  - code: TopLevelResourcesListBySubscription
+    where: $.definitions.KubernetesVersionProfile
+    reason: Since kubernetesVersions/default resource is defined as an extension resource to the custom location, this rule does not apply. The kubernetesVersions can vary from one custom location to another and we can't really have a ListBySubscription operation for kubernetesVersions.
+  - code: TopLevelResourcesListBySubscription
+    where: $.definitions.VmSkuProfile
+    reason: Since skus/default resource is defined as an extension resource to the custom location, this rule does not apply. The skus can vary from one custom location to another and we can't really have a ListBySubscription operation for skus.
+  - code: GetCollectionOnlyHasValueAndNextLink
+    reason: This is a false alarm for the /default APIs, as they return a singleton resource and not a collection of resources
+```
+
+### Tag: package-preview-2022-09
+
+These settings apply only when `--tag=package-preview-2022-09` is specified on the command line.
+
+```yaml $(tag) == 'package-preview-2022-09'
+input-file:
+  - preview/2022-09-01-preview/provisionedClusters.json
+  - preview/2022-09-01-preview/storageSpaces.json
+  - preview/2022-09-01-preview/virtualNetworks.json
+```
+
+### Tag: package-2022-05-01-preview
+
+These settings apply only when `--tag=package-2022-05-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2022-05-01-preview'
+input-file:
+  - preview/2022-05-01-preview/provisionedClusters.json
+  - preview/2022-05-01-preview/virtualNetworks.json
+  - preview/2022-05-01-preview/storageSpaces.json
+```
+
+### Tag: package-2022-01-01-preview
+
+These settings apply only when `--tag=package-2022-01-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2022-01-01-preview'
+input-file:
+  - preview/2022-01-01-preview/provisionedClusters.json
+```
+
+### Tag: package-2021-09-01-preview
+
+These settings apply only when `--tag=package-2021-09-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2021-09-01-preview'
+input-file:
+  - preview/2021-09-01-preview/provisionedClusters.json
+```
+
+### Tag: package-2021-08-01-preview
+
+These settings apply only when `--tag=package-2021-08-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2021-08-01-preview'
+input-file:
+  - preview/2021-08-01-preview/provisionedClusters.json
+```
+
 ---
 
 # Code Generation
@@ -142,9 +174,9 @@ suppressions:
 This section describes what SDK should be generated by the automatic system.
 This is not used by Autorest itself.
 
-``` yaml $(swagger-to-sdk)
+```yaml $(swagger-to-sdk)
 swagger-to-sdk:
-  - repo: azure-sdk-for-python
+  - repo: azure-sdk-for-python-track2
   - repo: azure-sdk-for-java
   - repo: azure-sdk-for-go
   - repo: azure-sdk-for-js

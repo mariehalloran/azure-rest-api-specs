@@ -342,10 +342,10 @@ union RunMode {
   string,
 
   @doc("Automatically provision Frontend and Backend pods.")
-  "auto",
+  auto: "auto",
 
   @doc("Use Cardinality to set Frontend and Backend pods.")
-  "distributed",
+  distributed: "distributed",
 }
 
 @doc("The memory profile settings of the Broker")
@@ -701,11 +701,11 @@ union ResourceInfoDefinitionMethods {
   string,
 
   @doc("Allowed Connecting to Broker")
-  "Connect",
+  Connect: "Connect",
 
   @doc("Allowed Publishing to Broker")
-  "Publish",
+  Publish: "Publish",
 
   @doc("Allowed Subscribing to Broker")
-  "Subscribe",
+  Subscribe: "Subscribe",
 }

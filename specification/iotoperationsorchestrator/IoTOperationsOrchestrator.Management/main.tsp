@@ -26,6 +26,7 @@ namespace Microsoft.IoTOperationsOrchestrator;
 /** Api versions */
 enum Versions {
   /** 2023-10-04-preview preview version */
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v3)
   `2023-10-04-preview`,
 }
 

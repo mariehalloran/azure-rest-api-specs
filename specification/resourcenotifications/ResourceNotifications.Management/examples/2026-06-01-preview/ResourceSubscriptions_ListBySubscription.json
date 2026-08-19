@@ -1,0 +1,77 @@
+{
+  "operationId": "ResourceSubscriptions_ListBySubscription",
+  "title": "List all resource subscriptions in a subscription",
+  "parameters": {
+    "subscriptionId": "12345678-1234-1234-1234-123456789012",
+    "api-version": "2026-06-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ResourceNotifications/resourceSubscriptions/example-subscription",
+            "name": "example-subscription",
+            "type": "Microsoft.ResourceNotifications/resourceSubscriptions",
+            "location": "eastus",
+            "properties": {
+              "query": "resources",
+              "scope": {
+                "kind": "tenant",
+                "tenantId": "12345678-1234-1234-1234-123456789012",
+                "servicePrincipal": "app12345",
+                "identity": {
+                  "appId": "11111111-1111-1111-1111-111111111111",
+                  "objectId": "22222222-2222-2222-2222-222222222222",
+                  "tenantId": "12345678-1234-1234-1234-123456789012"
+                }
+              },
+              "provisioningState": "Succeeded",
+              "deliveryMode": {
+                "kind": "fanOut"
+              }
+            }
+          },
+          {
+            "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ResourceNotifications/resourceSubscriptions/cloud-subscription",
+            "name": "cloud-subscription",
+            "type": "Microsoft.ResourceNotifications/resourceSubscriptions",
+            "location": "westus",
+            "properties": {
+              "query": "resources | where type == 'Microsoft.Compute/virtualMachines'",
+              "scope": {
+                "kind": "cloud",
+                "id": "/subscriptions/6a251768-2874-41af-9124-7bd752fcae23/providers/Microsoft.ProviderHub/providerRegistrations/microsoft.compute"
+              },
+              "provisioningState": "Succeeded",
+              "deliveryMode": {
+                "kind": "partitioned",
+                "partitioningConfigurations": [
+                  {
+                    "kind": "arnRegion",
+                    "partitions": [
+                      {
+                        "name": "eastus-partition",
+                        "arnRegions": [
+                          "eastus",
+                          "eastus2"
+                        ]
+                      },
+                      {
+                        "name": "westus-partition",
+                        "arnRegions": [
+                          "westus",
+                          "westus2"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

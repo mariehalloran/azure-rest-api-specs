@@ -1,6 +1,6 @@
 parameters:
   service-dir:
-    default: "sdk/impactreporting"
+    default: "sdk/impact"
 emit:
   - "@azure-tools/typespec-autorest"
 linter:
@@ -13,33 +13,33 @@ options:
     emitter-output-dir: "{project-root}/.."
     azure-resource-provider-folder: "resource-manager"
     output-file: "{azure-resource-provider-folder}/{service-name}/{version-status}/{version}/impact.json"
+    version: "2026-05-01-preview"
   "@azure-typespec/http-client-csharp-mgmt":
+    namespace: "Azure.ResourceManager.Impact"
     emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
-    namespace: "Azure.ResourceManager.ImpactReporting"
   "@azure-tools/typespec-python":
-    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-impactreporting"
-    namespace: "azure.mgmt.impactreporting"
+    flavor: azure
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-impact"
+    namespace: "azure.mgmt.impact"
     generate-test: true
     generate-sample: true
-    flavor: "azure"
   "@azure-tools/typespec-java":
-    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-impactreporting"
-    namespace: "com.azure.resourcemanager.impactreporting"
-    service-name: "Impact Reporting"
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-impact"
     flavor: azure
+    namespace: "com.azure.resourcemanager.impact"
+    service-name: "impact"
+  "@azure-tools/typespec-ts":
+    emitter-output-dir: "{output-dir}/{service-dir}/arm-impact"
+    experimental-extensible-enums: true
+    flavor: azure
+    package-details:
+      name: "@azure/arm-impact"
   "@azure-tools/typespec-go":
-    service-dir: "sdk/resourcemanager/impactreporting"
-    emitter-output-dir: "{output-dir}/{service-dir}/armimpactreporting"
-    module: "github.com/Azure/azure-sdk-for-go/{service-dir}/armimpactreporting"
+    service-dir: "sdk/resourcemanager/impact"
+    emitter-output-dir: "{output-dir}/{service-dir}/armimpact"
+    module: "github.com/Azure/azure-sdk-for-go/{service-dir}/armimpact"
     fix-const-stuttering: true
-    flavor: "azure"
     generate-samples: true
     generate-fakes: true
     head-as-boolean: true
     inject-spans: true
-  "@azure-tools/typespec-ts":
-    flavor: azure
-    experimental-extensible-enums: true
-    emitter-output-dir: "{output-dir}/{service-dir}/arm-impactreporting"
-    package-details:
-      name: "@azure/arm-impactreporting"

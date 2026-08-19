@@ -14,7 +14,6 @@ import "./SbomComponentResource.tsp";
 import "./SummaryResource.tsp";
 import "./Workspace.tsp";
 import "./UsageMetric.tsp";
-import "./client.tsp";
 
 using Azure.ResourceManager;
 using TypeSpec.Versioning;

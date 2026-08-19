@@ -1,0 +1,31 @@
+- tool: TypeSpecValidation
+  reason: >
+    Not ready to generate SDKs from TypeSpec.
+    Responsibility: Service team with SDK team collaboration.
+    More info: https://aka.ms/azsdk/spec-gen-sdk-config.
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - options.@azure-tools/typespec-ts.*
+    - options.@azure-typespec/http-client-csharp-mgmt.*
+  paths:
+  - AadApplication.Management/tspconfig.yaml
+  - AzCopy.Management/tspconfig.yaml
+  - Certificate.Management/tspconfig.yaml
+  - Cloudsprout.Management/tspconfig.yaml
+  - Dns.Management/tspconfig.yaml
+  - Environment.Management/tspconfig.yaml
+  - Ficp.Management/tspconfig.yaml
+  - GenericGenevaActions.Management/tspconfig.yaml
+  - SampleResources.Management/tspconfig.yaml
+
+- tool: TypeSpecValidation
+  reason: >
+    Not ready to generate SDKs from TypeSpec.
+    Responsibility: Service team with SDK team collaboration.
+    More info: https://aka.ms/azsdk/spec-gen-sdk-config.
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - options.@azure-typespec/http-client-csharp-mgmt.*
+  paths:
+  - resource-manager/Microsoft.AzureCis/SampleResources/tspconfig.yaml
+  - EventGrid.Management/tspconfig.yaml

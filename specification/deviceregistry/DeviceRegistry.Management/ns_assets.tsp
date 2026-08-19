@@ -15,7 +15,7 @@ using Azure.ResourceManager;
 
 namespace Microsoft.DeviceRegistry;
 
-@added(Versions.v2025_07_01_preview)
+@added(Versions.v2024_10_01_preview)
 @parentResource(Namespace)
 @doc("Asset definition.")
 model NamespaceAsset is TrackedResource<NamespaceAssetProperties> {
@@ -35,7 +35,7 @@ model NamespaceAsset is TrackedResource<NamespaceAssetProperties> {
   extendedLocation: ExtendedLocation;
 }
 
-@added(Versions.v2026_04_01)
+@added(Versions.v2026_02_01_preview)
 @doc("The request body for the executeAction operation on NamespaceAsset.")
 model NamespaceAssetExecuteActionRequest {
   @doc("Name of the management action to be executed.")
@@ -49,7 +49,7 @@ model NamespaceAssetExecuteActionRequest {
   payload?: Record<unknown>;
 }
 
-@added(Versions.v2026_04_01)
+@added(Versions.v2026_02_01_preview)
 @doc("Status of the management action execution.")
 union ManagementActionExecutionStatus {
   @doc("Management action execution has succeeded.")
@@ -67,7 +67,7 @@ union ManagementActionExecutionStatus {
   string,
 }
 
-@added(Versions.v2026_04_01)
+@added(Versions.v2026_02_01_preview)
 @doc("The response body for the executeAction operation on NamespaceAsset.")
 model NamespaceAssetExecuteActionResponse {
   @doc("Status of the management action execution.")
@@ -82,7 +82,7 @@ model NamespaceAssetExecuteActionResponse {
   @doc("Resource ID of the asset on which the management action was executed.")
   assetResourceId: string;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model" "payload property field is custom defined by connector"
+  // Response property field is custom defined by connector. Cannot be strongly typed beyond a generic string (stringified payload)
   @doc("Response from the asset regarding the management action execution.")
   response?: string;
 
@@ -90,25 +90,38 @@ model NamespaceAssetExecuteActionResponse {
   error?: Error;
 }
 
-@added(Versions.v2025_07_01_preview)
+alias NamespaceAssetPropertiesUpdate = {
+  ...OptionalProperties<UpdateableProperties<OmitProperties<
+    NamespaceAssetProperties,
+    "defaultTopic"
+  >>>;
+
+  @added(Versions.v2024_10_01_preview)
+  @removed(Versions.v2025_07_01_preview)
+  @doc("Object that describes the default topic information for the asset.")
+  defaultTopic?: OptionalProperties<OmitDefaults<Topic>>;
+};
+
+@added(Versions.v2024_10_01_preview)
 @armResourceOperations
 interface NamespaceAssets {
   get is ArmResourceRead<NamespaceAsset>;
   createOrReplace is ArmResourceCreateOrReplaceAsync<NamespaceAsset>;
-  // Using 'ArmCustomPatchAsync' instead of 'ArmResourcePatchAsync' to define the correct patch payload for the resource.
-  // This is a workaround to fix the patch payload that otherwise will expose the 'location' field (not present in patch),
-  // since otherwise it extends the ARM TrackedResource type.
+  @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     NamespaceAsset,
     Azure.ResourceManager.Foundations.ResourceUpdateModel<
       NamespaceAsset,
-      NamespaceAssetProperties
+      NamespaceAssetPropertiesUpdate
     >
   >;
   delete is ArmResourceDeleteWithoutOkAsync<NamespaceAsset>;
   listByResourceGroup is ArmResourceListByParent<NamespaceAsset>;
-  @doc("A long-running resource action.")
-  @added(Versions.v2026_04_01)
+  @removed(Versions.v2025_07_01_preview)
+  listBySubscription is ArmListBySubscription<NamespaceAsset>;
+  /** Execute a management action on the asset. */
+  @added(Versions.v2026_02_01_preview)
+  @Azure.Core.useFinalStateVia("azure-async-operation")
   executeAction is ArmResourceActionAsync<
     NamespaceAsset,
     NamespaceAssetExecuteActionRequest,

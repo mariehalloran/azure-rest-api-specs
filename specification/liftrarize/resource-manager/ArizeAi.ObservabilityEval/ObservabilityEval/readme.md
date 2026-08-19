@@ -27,16 +27,7 @@ These are the global settings for the ArizeAi service.
 ```yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2024-10-01
-```
-
-### Tag: package-2024-10-01
-
-These settings apply only when `--tag=package-2024-10-01` is specified on the command line.
-
-```yaml $(tag) == 'package-2024-10-01'
-input-file:
-  - stable/2024-10-01/openapi.json
+tag: package-2024-10-01-preview
 ```
 
 ### Tag: package-2024-10-01-preview

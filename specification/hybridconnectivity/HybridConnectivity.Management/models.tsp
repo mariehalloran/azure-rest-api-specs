@@ -1,10 +1,12 @@
 import "@typespec/rest";
 import "@typespec/http";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Foundations;
 using Azure.Core;
@@ -31,6 +33,14 @@ union ServiceName {
   SSH: "SSH",
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "For backward compatibility"
   WAC: "WAC",
+
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "For backward compatibility"
+  @added(Versions.v2026_04_01_preview)
+  GVMO: "GVMO",
+
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "For backward compatibility"
+  @added(Versions.v2026_04_01_preview)
+  GVMOBOOTSTRAP: "GVMOBOOTSTRAP",
 }
 
 /**
@@ -145,7 +155,7 @@ model ServiceConfigurationResourcePatch {
   /**
    * The service configuration properties.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backward compatibility"
+  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "For backward compatibility"
   @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties?: ServiceConfigurationPropertiesPatch;
 }
@@ -163,6 +173,7 @@ model ServiceConfigurationPropertiesPatch {
 /**
  * The details of the service for which credentials needs to be returned.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ListCredentialsRequest {
   /**
    * The name of the service. If not provided, the request will by pass the generation of service configuration token
@@ -177,7 +188,7 @@ model EndpointAccessResource {
   /**
    * Azure relay hybrid connection access properties
    */
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backward compatibility"
+  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "For backward compatibility"
   @Azure.ClientGenerator.Core.Legacy.flattenProperty
   relay?: RelayNamespaceAccessProperties;
 }
@@ -231,14 +242,14 @@ model IngressGatewayResource {
   /**
    * Azure relay hybrid connection access properties
    */
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backward compatibility"
+  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "For backward compatibility"
   @Azure.ClientGenerator.Core.Legacy.flattenProperty
   relay?: RelayNamespaceAccessProperties;
 
   /**
    * Ingress gateway profile
    */
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backward compatibility"
+  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "For backward compatibility"
   @Azure.ClientGenerator.Core.Legacy.flattenProperty
   ingress?: IngressProfileProperties;
 }
@@ -255,7 +266,7 @@ model IngressProfileProperties {
   /**
    * The AAD Profile
    */
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backward compatibility"
+  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "For backward compatibility"
   @Azure.ClientGenerator.Core.Legacy.flattenProperty
   aadProfile: AADProfileProperties;
 }
@@ -279,6 +290,7 @@ model AADProfileProperties {
 /**
  * Represent ManageProxy Request object.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ManagedProxyRequest {
   /**
    * The name of the service.
@@ -314,6 +326,7 @@ model ManagedProxyResource {
 /**
  * Represent ListIngressGatewayCredentials Request object.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ListIngressGatewayCredentialsRequest {
   /**
    * The name of the service. If not provided, the request will by pass the generation of service configuration token.

@@ -11,6 +11,9 @@ import "../shared/main.tsp";
 using TypeSpec.Http;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
+using OpenAPI;
+using Azure.Core;
+using Azure.ClientGenerator.Core;
 using Azure.ResourceManager;
 using Azure.Portal;
 
@@ -25,7 +28,10 @@ namespace Microsoft.AwsConnector;
 /** Api versions */
 enum Versions {
   /** 2024-12-01 api version */
-  `2024-12-01`,
+  v2024_12_01: "2024-12-01",
+
+  /** 2026-05-31-preview api version */
+  v2026_05_31_preview: "2026-05-31-preview",
 }
 
 //---------------------------------------------- RedshiftClusterParameterGroups ----------------------------------------------
@@ -82,11 +88,11 @@ model AwsRedshiftClusterParameterGroupProperties {
   parameterGroupName?: string;
 
   @doc("An array of parameters to be modified. A maximum of 20 parameters can be modified in a single request.")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   parameters?: Parameter[];
 
   @doc("An array of key-value pairs to apply to this resource.")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   tags?: Tag[];
 }
 

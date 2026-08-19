@@ -6,7 +6,6 @@ import "@azure-tools/typespec-azure-resource-manager";
 import "./models.tsp";
 import "./CopilotSettings.tsp";
 import "./back-compatible.tsp";
-import "./client.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
@@ -21,8 +20,27 @@ using TypeSpec.Http;
 @doc("Azure Portal Services API Reference")
 namespace Microsoft.PortalServices;
 
+#suppress "@azure-tools/typespec-azure-resource-manager/version-progression" "Versions '2024-04-01-preview' and '2024-04-01' were published prior to this lint rule existing. Both are public ARM API versions in use by customers and cannot be renamed without breaking compatibility."
 @doc("Azure Portal Services Copilot Settings Management API versions.")
 enum Versions {
   @doc("Azure Portal Services Copilot Settings Management API version 2024-04-01-preview.")
   v2024_04_01_preview: "2024-04-01-preview",
+
+  @doc("Azure Portal Services Copilot Settings Management API version 2024-07-01-preview.")
+  v2024_07_01_preview: "2024-07-01-preview",
+
+  @doc("Azure Portal Services Copilot Settings Management API version 2024-08-01-preview.")
+  v2024_08_01_preview: "2024-08-01-preview",
+
+  @doc("Azure Portal Services Copilot Settings Management API version 2024-09-01-preview.")
+  v2024_09_01_preview: "2024-09-01-preview",
+
+  @doc("Azure Portal Services Copilot Settings Management API version 2025-08-01-preview.")
+  v2025_08_01_preview: "2025-08-01-preview",
+
+  @doc("Azure Portal Services Copilot Settings Management API version 2025-09-10-preview.")
+  v2025_09_10_preview: "2025-09-10-preview",
+
+  @doc("Azure Portal Services Copilot Settings Management API version 2026-07-01-preview.")
+  v2026_07_01_preview: "2026-07-01-preview",
 }

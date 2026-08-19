@@ -155,15 +155,20 @@
             "minimumApproversRequired": 1
           },
           "enclaveCreation": {
-            "approvalPolicy": "Required",
-            "minimumApproversRequired": 1
+            "approvalPolicy": "NotRequired"
           },
           "connectionCreation": {
             "approvalPolicy": "Required",
-            "minimumApproversRequired": 1
+            "minimumApproversRequired": 1,
+            "mandatoryApprovers": [
+              {
+                "approverEntraId": "00000000-0000-0000-0000-000000000002"
+              }
+            ]
           },
           "connectionUpdate": {
-            "approvalPolicy": "NotRequired"
+            "approvalPolicy": "Required",
+            "minimumApproversRequired": 1
           },
           "communityMaintenanceMode": {
             "approvalPolicy": "Required",
@@ -180,7 +185,11 @@
           "enclaveMaintenanceMode": {
             "approvalPolicy": "NotRequired"
           }
-        }
+        },
+        "addressSpaces": [
+          "10.0.0.0/16",
+          "10.1.0.0/16"
+        ]
       }
     }
   },
@@ -199,7 +208,7 @@
           }
         },
         "properties": {
-          "addressSpace": "10.0.0.0/24",
+          "addressSpace": "",
           "dnsServers": [
             "azure.net"
           ],
@@ -415,15 +424,20 @@
               "minimumApproversRequired": 1
             },
             "enclaveCreation": {
-              "approvalPolicy": "Required",
-              "minimumApproversRequired": 1
+              "approvalPolicy": "NotRequired"
             },
             "connectionCreation": {
               "approvalPolicy": "Required",
-              "minimumApproversRequired": 1
+              "minimumApproversRequired": 1,
+              "mandatoryApprovers": [
+                {
+                  "approverEntraId": "00000000-0000-0000-0000-000000000002"
+                }
+              ]
             },
             "connectionUpdate": {
-              "approvalPolicy": "NotRequired"
+              "approvalPolicy": "Required",
+              "minimumApproversRequired": 1
             },
             "communityMaintenanceMode": {
               "approvalPolicy": "Required",
@@ -440,7 +454,11 @@
             "enclaveMaintenanceMode": {
               "approvalPolicy": "NotRequired"
             }
-          }
+          },
+          "addressSpaces": [
+            "10.0.0.0/16",
+            "10.1.0.0/16"
+          ]
         },
         "tags": {
           "sampletag": "samplevalue"

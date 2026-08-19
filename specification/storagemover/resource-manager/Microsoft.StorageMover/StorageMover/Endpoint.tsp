@@ -25,8 +25,15 @@ model Endpoint is Azure.ResourceManager.ProxyResource<
     Resource = Endpoint,
     KeyName = "endpointName",
     SegmentName = "endpoints",
-    NamePattern = ""
+    NamePattern = "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
   >;
+
+  /**
+   * Resource system metadata.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property"
+  @added(Versions.v2025_07_01)
+  systemData?: SystemData;
 
   /**
    * The managed service identity of the resource. This property is only available on the latest version.

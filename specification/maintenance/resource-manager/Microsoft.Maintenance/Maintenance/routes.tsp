@@ -14,12 +14,14 @@ using TypeSpec.Versioning;
 
 namespace Microsoft.Maintenance;
 
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "ScheduledEvents is not modeled as an ARM resource; this group only exposes custom action (POST) operations."
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "Suppress expected decorator error"
 interface ScheduledEventOperationGroup {
   /**
    * Post ScheduledEvents Acknowledgement
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "Custom action POST that acknowledges a ScheduledEvent; not a standard ARM resource lifecycle operation."
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @summary("Post ScheduledEvents Acknowledgement")
   @route("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Compute/{resourceType}/{resourceName}/providers/Microsoft.Maintenance/scheduledevents/{scheduledEventId}/acknowledge")
   @post
@@ -50,8 +52,9 @@ interface ScheduledEventOperationGroup {
   /**
    * Post List of ScheduledEvents Acknowledgement
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "Custom action POST that acknowledges a list of ScheduledEvents; not a standard ARM resource lifecycle operation."
-  @added(Versions.v2025_10_01_preview)
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @summary("Post ScheduledEvents List Acknowledgement")
   @route("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Compute/{resourceType}/{resourceName}/providers/Microsoft.Maintenance/scheduledevents")
   @post
@@ -80,9 +83,68 @@ interface ScheduledEventOperationGroup {
     | ScheduledEventsListAcknowledgeError;
 }
 
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "Suppress expected decorator error"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "Suppress expected arm error"
 interface ApplyUpdatesOperationGroup {
+  /**
+   * Apply maintenance updates to resource with 2 parents
+   */
+  @summary("Apply Updates to resource with 2 parents")
+  @route("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{providerName}/{resourceGrandParentType}/{resourceGrandParentName}/{resourceParentType}/{resourceParentName}/{resourceType}/{resourceName}/providers/Microsoft.Maintenance/applyUpdates/default")
+  @put
+  createOrUpdateGrandParent(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupParameter,
+
+    /**
+     * Resource provider name
+     */
+    @path
+    providerName: string,
+
+    /**
+     * Resource second parent type
+     */
+    @path
+    resourceGrandParentType: string,
+
+    /**
+     * Resource second parent identifier
+     */
+    @path
+    resourceGrandParentName: string,
+
+    /**
+     * Resource parent type
+     */
+    @path
+    resourceParentType: string,
+
+    /**
+     * Resource parent identifier
+     */
+    @path
+    resourceParentName: string,
+
+    /**
+     * Resource type
+     */
+    @path
+    resourceType: string,
+
+    /**
+     * Resource identifier
+     */
+    @path
+    resourceName: string,
+  ):
+    | ArmResponse<ApplyUpdate>
+    | ArmCreatedResponse<ApplyUpdate>
+    | MaintenanceError;
+
   /**
    * Apply maintenance updates to resource with parent
    */
@@ -162,12 +224,14 @@ interface ApplyUpdatesOperationGroup {
     | MaintenanceError;
 }
 
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "Suppress expected decorator error"
 interface ApplyUpdateForResourceGroupOperationGroup {
   /**
    * Get Configuration records within a subscription and resource group
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "Suppress expected arm error"
   @summary("Get Configuration records within a subscription and resource group")
   @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Maintenance/applyUpdates")
   @get
@@ -180,7 +244,9 @@ interface ApplyUpdateForResourceGroupOperationGroup {
 }
 
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "Suppress expected decorator errors"
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "Suppress expected arm error"
 interface ConfigurationAssignmentForResourceGroupOperationGroup {
   /**
    * Get Configuration records within a subscription and resource group
@@ -214,8 +280,10 @@ interface ConfigurationAssignmentForResourceGroupOperationGroup {
   ): ArmResponse<ListConfigurationAssignmentsResult> | MaintenanceError;
 }
 
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "Suppress expected decorator error"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "Suppress expected arm error"
 interface UpdatesOperationGroup {
   /**
    * Get updates to resources.

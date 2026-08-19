@@ -12,21 +12,20 @@ directive:
       group: hybridaks
 ```
 
-``` yaml $(az) && $(target-mode) != 'core'
+```yaml $(az) && $(target-mode) != 'core'
 az:
-    extensions: hybridaks
-    namespace: azure.mgmt.hybridaks
-    package-name: azure-mgmt-hybridaks
+  extensions: hybridaks
+  namespace: azure.mgmt.hybridaks
+  package-name: azure-mgmt-hybridaks
 az-output-folder: $(azure-cli-extension-folder)/src/hybridaks
 python-sdk-output-folder: "$(az-output-folder)/azext_hybridaks/vendored_sdks/hybridaks"
 # add additional configuration here specific for Azure CLI
 # refer to the faq.md for more details
 ```
 
-
-
 This is for command modules that already in azure cli main repo.
-``` yaml $(az) && $(target-mode) == 'core'
+
+```yaml $(az) && $(target-mode) == 'core'
 az:
   extensions: hybridaks
   namespace: azure.mgmt.hybridaks

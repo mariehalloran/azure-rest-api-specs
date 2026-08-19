@@ -1,6 +1,29 @@
 - tool: TypeSpecRequirement
+  path: ./preview/2022-01-15-privatepreview/*.json
+  reason: Brownfield service not ready to migrate
+- tool: TypeSpecRequirement
   path: ./preview/2023-02-01-preview/*.json
   reason: Brownfield service not ready to migrate
 - tool: TypeSpecRequirement
   path: ./stable/2023-06-15/*.json
   reason: Brownfield service not ready to migrate
+- tool: TypeSpecValidation
+  reason: >
+    Not ready to generate SDKs from TypeSpec.
+    Responsibility: Service team with SDK team collaboration.
+    More info: https://aka.ms/azsdk/spec-gen-sdk-config.
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - parameters.service-dir.default
+    - options.@azure-tools/typespec-go.*
+    - options.@azure-tools/typespec-java.*
+    - options.@azure-tools/typespec-python.*
+    - options.@azure-tools/typespec-ts.*
+  paths: [tspconfig.yaml]
+- tool: LintDiff
+  reason: >
+    API board approved. UUIDs are used for correlation/validation identifiers
+    to ensure uniqueness across distributed validation and upgrade operations.
+  rules: [GuidUsage, R3017]
+  paths:
+    - preview/2026-07-15-preview/managednetworkfabric.json

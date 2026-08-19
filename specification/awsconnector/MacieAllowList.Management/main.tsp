@@ -25,7 +25,10 @@ namespace Microsoft.AwsConnector;
 /** Api versions */
 enum Versions {
   /** 2024-12-01 api version */
-  `2024-12-01`,
+  v2024_12_01: "2024-12-01",
+
+  /** 2026-05-31-preview api version */
+  v2026_05_31_preview: "2026-05-31-preview",
 }
 
 //---------------------------------------------- MacieAllowLists ----------------------------------------------
@@ -84,7 +87,7 @@ model AwsMacieAllowListProperties {
   status?: Status;
 
   @doc("A collection of tags associated with a resource")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   tags?: Tag[];
 }
 

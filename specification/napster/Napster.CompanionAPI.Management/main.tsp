@@ -4,7 +4,6 @@ import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@azure-tools/typespec-liftr-base";
-import "./client.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
@@ -18,6 +17,7 @@ using LiftrBase;
 @armProviderNamespace
 @service(#{ title: "Napster.CompanionAPI management service" })
 @versioned(Napster.CompanionAPI.Versions)
+@armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v3)
 namespace Napster.CompanionAPI {
   interface Operations extends Azure.ResourceManager.Operations {}
 
@@ -88,6 +88,7 @@ namespace Napster.CompanionAPI {
    * SaaS guid & PublishedId for Activate and Validate SaaS Resource
    */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
   model ActivateSaaSParameterRequest {
     /**
      * SaaS guid for Activate and Validate SaaS Resource
@@ -105,6 +106,7 @@ namespace Napster.CompanionAPI {
    */
   #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
   model SaaSResourceDetailsResponse
     extends Azure.ResourceManager.CommonTypes.ProxyResource {
     /**
@@ -117,6 +119,7 @@ namespace Napster.CompanionAPI {
    * Response of get latest linked SaaS resource operation
    */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
   model LatestLinkedSaaSResponse {
     /**
      * SaaS resource id
@@ -134,6 +137,7 @@ namespace Napster.CompanionAPI {
   interface Organizations {
     get is ArmResourceRead<OrganizationResource>;
     createOrUpdate is ArmResourceCreateOrReplaceAsync<OrganizationResource>;
+    #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
     @patch(#{ implicitOptionality: true })
     update is ArmCustomPatchAsync<
       OrganizationResource,

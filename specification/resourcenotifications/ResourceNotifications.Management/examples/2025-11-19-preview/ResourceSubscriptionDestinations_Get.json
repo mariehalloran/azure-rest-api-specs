@@ -1,0 +1,50 @@
+{
+  "operationId": "ResourceSubscriptionDestinations_Get",
+  "title": "Get a storage account destination",
+  "parameters": {
+    "subscriptionId": "12345678-1234-1234-1234-123456789012",
+    "resourceGroupName": "example-rg",
+    "subscriptionRuleName": "example-subscription",
+    "destinationName": "storage-destination",
+    "api-version": "2025-11-19-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ResourceNotifications/resourceSubscriptions/example-subscription/destinations/storage-destination",
+        "name": "storage-destination",
+        "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
+        "properties": {
+          "partitions": [
+            "p0",
+            "p1",
+            "p2"
+          ],
+          "provisioningState": "Succeeded"
+        },
+        "location": "westus",
+        "kind": "storageAccount",
+        "container": "notifications",
+        "pathPolicy": {
+          "kind": "timeAndScopeRangeHash",
+          "scope": "tenant",
+          "scopeBucketsCount": 100,
+          "pathTemplate": "year={yyyy},month={mm},day={dd}/hour={hh}/tenantBucket={scopeBucket}"
+        },
+        "batchingPolicy": {
+          "kind": "minCountMaxDelay",
+          "minResources": 1000,
+          "maxDelay": "PT5M"
+        },
+        "endpoints": [
+          {
+            "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.Storage/storageAccounts/storage1"
+          },
+          {
+            "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.Storage/storageAccounts/storage2"
+          }
+        ]
+      }
+    }
+  }
+}

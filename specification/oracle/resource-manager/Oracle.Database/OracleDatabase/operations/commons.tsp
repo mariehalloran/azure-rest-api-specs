@@ -1,5 +1,3 @@
-import "@typespec/openapi";
-
 using TypeSpec.Http;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
@@ -54,6 +52,7 @@ interface OracleChildResource<
 @armResourceOperations
 interface ListActions {
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "TODO - Migrate to LRO pattern"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation', 'x-ms-long-running-operation-options' OpenAPI extension(s) predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @doc("Generic Async Get operation")
   @extension("x-ms-long-running-operation", true)
   @extension(
@@ -65,11 +64,10 @@ interface ListActions {
   @post
   ArmResourceGetActionAsync<
     TResource extends Foundations.Resource,
-    TResponse extends {} | void,
+    TResponse,
     TBaseParameters = BaseParameters<TResource>
   >(...ResourceInstanceParameters<TResource, TBaseParameters>):
     | ArmResponse<TResponse>
-    | ArmAcceptedLroResponse<LroHeaders = ArmLroLocationHeader<FinalResult = TResponse> &
-        Azure.Core.Foundations.RetryAfterHeader>
+    | ArmAcceptedLroResponse
     | ErrorResponse;
 }

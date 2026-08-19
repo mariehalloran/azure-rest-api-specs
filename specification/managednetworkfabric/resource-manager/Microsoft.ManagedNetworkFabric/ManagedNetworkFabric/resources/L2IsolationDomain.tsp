@@ -1,17 +1,19 @@
 import "../models/common.tsp";
 
 using TypeSpec.Rest;
-using TypeSpec.Http;
 using Azure.ResourceManager;
 using TypeSpec.Versioning;
+using TypeSpec.Http;
 using TypeSpec.OpenAPI;
 
 namespace Microsoft.ManagedNetworkFabric;
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" ""
+#suppress "@azure-tools/typespec-azure-core/no-private-usage" "Unsupported common type"
 @doc("The L2 Isolation Domain resource definition.")
-model L2IsolationDomain is Azure.ResourceManager.TrackedResource<
-  L2IsolationDomainProperties,
-  false
-> {
+@Azure.ResourceManager.Private.armResourceInternal(L2IsolationDomainProperties)
+@Http.Private.includeInapplicableMetadataInPayload(false)
+model L2IsolationDomain
+  extends Azure.ResourceManager.Foundations.TrackedResource {
   @doc("Name of the L2 Isolation Domain.")
   @pattern("^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$")
   @path
@@ -21,12 +23,14 @@ model L2IsolationDomain is Azure.ResourceManager.TrackedResource<
   name: string;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
+  @doc("The L2IsolationDomain properties")
+  properties: L2IsolationDomainProperties;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
   @added(Versions.v2025_07_15)
   @doc("The managed service identities assigned to this resource.")
   identity?: Azure.ResourceManager.Foundations.ManagedServiceIdentity;
 }
-
-@@doc(L2IsolationDomain.properties, "The L2IsolationDomain properties");
 
 @armResourceOperations
 interface L2IsolationDomains {
@@ -76,11 +80,25 @@ interface L2IsolationDomains {
     UpdateAdministrativeStateResponse
   >;
 
+  @action("validateConfiguration")
+  @removed(Versions.v2026_01_15_preview)
+  @renamedFrom(Versions.v2026_01_15_preview, "validateConfiguration")
+  @sharedRoute
+  @doc("Validates the configuration of the resources.")
+  validateConfigurationDeprecated is ArmResourceActionAsync<
+    L2IsolationDomain,
+    void,
+    ValidateConfigurationResponse
+  >;
+
+  @action("validateConfiguration")
+  @added(Versions.v2026_01_15_preview)
+  @sharedRoute
   @doc("Validates the configuration of the resources.")
   validateConfiguration is ArmResourceActionAsync<
     L2IsolationDomain,
     void,
-    ValidateConfigurationResponse
+    ValidateConfigurationResponseV2
   >;
 
   @doc("Commits the configuration of the given resources.")
@@ -102,5 +120,13 @@ interface L2IsolationDomains {
 );
 @@doc(
   L2IsolationDomains.updateAdministrativeState::parameters.body,
+  "Request payload."
+);
+@@doc(
+  L2IsolationDomains.validateConfigurationDeprecated::parameters.body,
+  "Request payload."
+);
+@@doc(
+  L2IsolationDomains.validateConfiguration::parameters.body,
   "Request payload."
 );

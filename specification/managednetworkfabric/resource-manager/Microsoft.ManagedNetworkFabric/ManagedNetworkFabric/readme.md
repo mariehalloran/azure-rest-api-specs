@@ -27,7 +27,54 @@ These are the global settings for the Managed Network Fabric.
 ```yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2025-07-15
+tag: package-2026-07-15-preview
+```
+
+### Tag: package-2026-07-15-preview
+
+These settings apply only when `--tag=package-2026-07-15-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-07-15-preview'
+input-file:
+  - preview/2026-07-15-preview/managednetworkfabric.json
+suppressions:
+  - code: AvoidAnonymousTypes
+    where: $.definitions
+    reason: This error is caused by typespec inbuilt managed identity model.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    where: $.paths
+    reason: Older API versions (e.g., 2024-02-15-preview, 2023-06-15) contain deprecated APIs that have been removed and are not listed in the default tag.
+  - code: GuidUsage
+    where: $.definitions.Azure.Core.uuid
+    reason: GUIDs are required for validationId and correlationId fields as per ARM API review guidance.
+  - code: AvoidAdditionalProperties
+    where: $.definitions.DeviceCommand.properties.validationRules
+    reason: validationRules is intentionally a free-form JSON object so callers can define their own arbitrary validation rules to evaluate device command output.
+  - code: PatchBodyParametersSchema
+    from: managednetworkfabric.json
+    # Positional index: PatchBodyParametersSchema reports at the path/operation location, not at a
+    # definition, so a $.definitions.<Model> anchor does not match. Verified correct against
+    # preview/2026-07-15-preview/managednetworkfabric.json. Re-verify this index if a path
+    # parameter is added, removed or reordered on this PATCH - a stale index silently
+    # un-scopes the suppression or lands on an unrelated parameter.
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedNetworkFabric/fabrics/{fabricName}"].patch.parameters[4].schema.properties.properties
+    reason: The PATCH body and its properties object are fully optional. The only required member anywhere beneath it is url on ControllerEndpoint (properties.controllerManagedConfig.endpoints[].url), which the rule reports transitively. An endpoint array entry with no URL cannot be acted on, so url is required on the array item rather than on the PATCH body itself; making it optional would let callers submit endpoint entries the service must reject at runtime.
+```
+
+### Tag: package-2026-01-15-preview
+
+These settings apply only when `--tag=package-2026-01-15-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-01-15-preview'
+input-file:
+  - preview/2026-01-15-preview/managednetworkfabric.json
+suppressions:
+  - code: AvoidAnonymousTypes
+    where: $.definitions
+    reason: This error is caused by typespec inbuilt managed identity model.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    where: $.paths
+    reason: Previous API versions not included in default tag as they are documented in their own tags
 ```
 
 ### Tag: package-2025-07-15
@@ -38,14 +85,12 @@ These settings apply only when `--tag=package-2025-07-15` is specified on the co
 input-file:
   - stable/2025-07-15/managednetworkfabric.json
 suppressions:
-  - code: ArmResourcePropertiesBag
-    reason: Suppressing errors to conform to the existing published API
-    from: managednetworkfabric.json
-    where: $.definitions["InternetGateway"]
-  - code: ArmResourcePropertiesBag
-    from: managednetworkfabric.json
-    reason: Suppressing errors to conform to the existing published API
-    where: $.definitions["NetworkFabricSku"]
+  - code: AvoidAnonymousTypes
+    where: $.definitions
+    reason: This error is caused by typespec inbuilt managed identity model.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    where: $.paths
+    reason: Previous API versions not included in default tag as they are documented in their own tags
 ```
 
 ### Tag: package-2024-06-15-preview
@@ -56,14 +101,12 @@ These settings apply only when `--tag=package-2024-06-15-preview` is specified o
 input-file:
   - preview/2024-06-15-preview/managednetworkfabric.json
 suppressions:
-  - code: ArmResourcePropertiesBag
-    reason: Suppressing errors to conform to the existing published API
-    from: managednetworkfabric.json
-    where: $.definitions["InternetGateway"]
-  - code: ArmResourcePropertiesBag
-    from: managednetworkfabric.json
-    reason: Suppressing errors to conform to the existing published API
-    where: $.definitions["NetworkFabricSku"]
+  - code: AvoidAnonymousTypes
+    where: $.definitions
+    reason: This error is caused by typespec inbuilt managed identity model.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    where: $.paths
+    reason: Previous API versions not included in default tag as they are documented in their own tags
 ```
 
 ### Tag: package-2024-02-15-preview
@@ -73,15 +116,6 @@ These settings apply only when `--tag=package-2024-02-15-preview` is specified o
 ```yaml $(tag) == 'package-2024-02-15-preview'
 input-file:
   - preview/2024-02-15-preview/managednetworkfabric.json
-suppressions:
-  - code: ArmResourcePropertiesBag
-    reason: Suppressing errors to conform to the existing published API
-    from: managednetworkfabric.json
-    where: $.definitions["InternetGateway"]
-  - code: ArmResourcePropertiesBag
-    from: managednetworkfabric.json
-    reason: Suppressing errors to conform to the existing published API
-    where: $.definitions["NetworkFabricSku"]
 ```
 
 ### Tag: package-2023-06-15
@@ -135,6 +169,29 @@ input-file:
   - preview/2023-02-01-preview/Operations.json
   - preview/2023-02-01-preview/RoutePolicies.json
   - preview/2023-02-01-preview/common.json
+```
+
+### Tag: package-2022-01-15-privatepreview
+
+These settings apply only when `--tag=package-2022-01-15-privatepreview` is specified on the command line.
+
+```yaml $(tag) == 'package-2022-01-15-privatepreview'
+input-file:
+  - preview/2022-01-15-privatepreview/common.json
+  - preview/2022-01-15-privatepreview/Operations.json
+  - preview/2022-01-15-privatepreview/NetworkFabricControllers.json
+  - preview/2022-01-15-privatepreview/NetworkFabrics.json
+  - preview/2022-01-15-privatepreview/NetworkDevices.json
+  - preview/2022-01-15-privatepreview/NetworkRacks.json
+  - preview/2022-01-15-privatepreview/L2IsolationDomains.json
+  - preview/2022-01-15-privatepreview/L3IsolationDomains.json
+  - preview/2022-01-15-privatepreview/RoutePolicies.json
+  - preview/2022-01-15-privatepreview/AccessControlLists.json
+  - preview/2022-01-15-privatepreview/IpCommunityLists.json
+  - preview/2022-01-15-privatepreview/IpPrefixLists.json
+  - preview/2022-01-15-privatepreview/NetworkFabricSkus.json
+  - preview/2022-01-15-privatepreview/NetworkRackSkus.json
+  - preview/2022-01-15-privatepreview/NetworkDeviceSkus.json
 ```
 
 ---

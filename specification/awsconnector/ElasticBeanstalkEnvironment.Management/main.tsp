@@ -11,6 +11,9 @@ import "../shared/main.tsp";
 using TypeSpec.Http;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
+using OpenAPI;
+using Azure.Core;
+using Azure.ClientGenerator.Core;
 using Azure.ResourceManager;
 using Azure.Portal;
 
@@ -25,7 +28,10 @@ namespace Microsoft.AwsConnector;
 /** Api versions */
 enum Versions {
   /** 2024-12-01 api version */
-  `2024-12-01`,
+  v2024_12_01: "2024-12-01",
+
+  /** 2026-05-31-preview api version */
+  v2026_05_31_preview: "2026-05-31-preview",
 }
 
 //---------------------------------------------- ElasticBeanstalkEnvironments ----------------------------------------------
@@ -76,6 +82,7 @@ model AwsElasticBeanstalkEnvironmentProperties {
   description?: string;
 
   @doc("Property endpointURL")
+  @clientName("endpointUrl", "java")
   endpointURL?: string;
 
   @doc("A unique name for the environment.")
@@ -85,7 +92,7 @@ model AwsElasticBeanstalkEnvironmentProperties {
   operationsRole?: string;
 
   @doc("Key-value pairs defining configuration options for this environment, such as the instance type.")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   optionSettings?: OptionSetting[];
 
   @doc("The Amazon Resource Name (ARN) of the custom platform to use with the environment.")
@@ -95,7 +102,7 @@ model AwsElasticBeanstalkEnvironmentProperties {
   solutionStackName?: string;
 
   @doc("Specifies the tags applied to resources in the environment.")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   tags?: Tag[];
 
   @doc("The name of the Elastic Beanstalk configuration template to use with the environment.")

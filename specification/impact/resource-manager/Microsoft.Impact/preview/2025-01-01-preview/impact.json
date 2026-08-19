@@ -1399,33 +1399,6 @@
         }
       ]
     },
-    "InsightCategoryGroup": {
-      "type": "object",
-      "description": "Group of insights for a category",
-      "properties": {
-        "category": {
-          "type": "string",
-          "description": "Category name"
-        },
-        "status": {
-          "type": "string",
-          "description": "Status of the insights in this category"
-        },
-        "insights": {
-          "type": "array",
-          "description": "List of insight references in this category",
-          "items": {
-            "$ref": "#/definitions/InsightReference"
-          },
-          "x-ms-identifiers": [
-            "id"
-          ]
-        }
-      },
-      "required": [
-        "category"
-      ]
-    },
     "InsightCustomResourceCommonParameters": {
       "type": "object",
       "description": "context of post call for insight",
@@ -1545,19 +1518,6 @@
         "content",
         "insightUniqueId",
         "impact"
-      ]
-    },
-    "InsightReference": {
-      "type": "object",
-      "description": "Reference to an Insight resource",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Azure resource ID of the insight"
-        }
-      },
-      "required": [
-        "id"
       ]
     },
     "InsightUnderSubscription": {

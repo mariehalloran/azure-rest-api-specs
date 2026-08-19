@@ -1400,8 +1400,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/OrganizationProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-client-flatten": true
+          "description": "The resource-specific properties for this resource."
         },
         "identity": {
           "$ref": "../../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
@@ -1563,8 +1562,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/InformaticaServerlessRuntimeProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-client-flatten": true
+          "description": "The resource-specific properties for this resource."
         },
         "identity": {
           "$ref": "../../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
@@ -1992,7 +1990,8 @@
             "description": "Organization resource state is unknown"
           }
         ]
-      }
+      },
+      "readOnly": true
     },
     "RegionsMetadata": {
       "type": "object",

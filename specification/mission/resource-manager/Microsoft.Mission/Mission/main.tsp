@@ -9,7 +9,6 @@ import "@azure-tools/typespec-azure-resource-manager";
 import "./version.tsp";
 import "./routes.tsp";
 import "./back-compatible.tsp";
-import "./client.tsp";
 
 using Azure.ResourceManager;
 using TypeSpec.Versioning;

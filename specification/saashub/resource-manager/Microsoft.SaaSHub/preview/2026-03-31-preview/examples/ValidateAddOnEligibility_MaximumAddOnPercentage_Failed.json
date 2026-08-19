@@ -1,0 +1,79 @@
+{
+  "parameters": {
+    "api-version": "2026-03-31-preview",
+    "body": {
+      "addOns": [
+        {
+          "productCode": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+          "pricingAudience": "Direct-Commercial",
+          "quantity": 250,
+          "itemTrackingId": "ADDON_001"
+        }
+      ],
+      "productsInCart": [
+        {
+          "productCode": "a1b2c3d4-e5f6-4789-0abc-def123456789",
+          "quantity": 100,
+          "itemTrackingId": "BASE_001"
+        }
+      ],
+      "customerTenantId": "6ba7b815-9dad-11d1-80b4-00c04fd430c8",
+      "market": "US",
+      "nationalCloud": "Public",
+      "customerBillingScope": "/providers/Microsoft.Billing/billingAccounts/6ba7b813-9dad-11d1-80b4-00c04fd430c8:6ba7b814-9dad-11d1-80b4-00c04fd430c8"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "productCode": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+            "itemTrackingId": "ADDON_001",
+            "pricingAudience": "Direct-Commercial",
+            "eligibilityResult": {
+              "isEligible": "Ineligible",
+              "ineligibilityReasons": [
+                "maximumAddOnLicensesExceeded"
+              ],
+              "eligibilityConstraints": [
+                {
+                  "constraintType": "requiredBaseProducts",
+                  "isEligible": "Eligible",
+                  "mustHaveAnyBaseProducts": [
+                    "a1b2c3d4-e5f6-4789-0abc-def123456789"
+                  ],
+                  "ownedBaseProducts": [
+                    "a1b2c3d4-e5f6-4789-0abc-def123456789"
+                  ]
+                },
+                {
+                  "constraintType": "minimumAddOnPercentageQuantityOfBase",
+                  "isEligible": "Eligible",
+                  "currentTotalAddOnLicenseQuantity": 250,
+                  "currentTotalBaseLicenseQuantity": 100,
+                  "minimumPercentOfBaseQuantity": 0.25,
+                  "minimumAddOnLicenseQuantityToBePurchased": 25,
+                  "missingAddOnLicenses": 0,
+                  "purchaseQuantity": 250
+                },
+                {
+                  "constraintType": "maximumAddOnPercentageQuantityOfBase",
+                  "isEligible": "Ineligible",
+                  "currentTotalAddOnLicenseQuantity": 250,
+                  "currentTotalBaseLicenseQuantity": 100,
+                  "maximumPercentOfBaseQuantity": 2,
+                  "maximumAddOnLicenseQuantityAllowed": 200,
+                  "excessAddOnLicenseQuantity": 50,
+                  "purchaseQuantity": 250
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "ProviderLevelActions_ValidateAddOnEligibility",
+  "title": "Validate Add-On Eligibility - Ineligible because add-on seats exceed the maximum percentage of base seats"
+}

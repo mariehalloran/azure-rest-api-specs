@@ -23,7 +23,7 @@ The recommended workflow for API development follows this sequence:
 4. Compile TypeSpec (generates schema and copies examples)
 5. Run model validation
 6. Fix any issues and repeat
-7. Final verification and cleanup
+7. Update the changelog
 ```
 
 ### Step 2 Detail: Updating Examples When Adding New Properties
@@ -70,7 +70,7 @@ Understanding the file structure is crucial for successful development:
 | Type | Location | Purpose |
 |------|----------|---------|
 | **Source Examples** | `examples/{API_VERSION}/*.json` | Where you edit and format |
-| **Source TypeSpec** | `*.tsp` | TypeSpec model definitions |
+| **Source TypeSpec** | `*.tsp`, `private-preview/*.tsp` | TypeSpec model definitions |
 | **Target Schema** | `preview/{API_VERSION}/hci.json` | Generated OpenAPI schema |
 | **Target Examples** | `preview/{API_VERSION}/examples/*.json` | Copied from source during compilation |
 
@@ -322,7 +322,7 @@ Ensure you're running commands from the correct directory:
 4. **Proper Discriminated Types**: Always define concrete classes for discriminated union types
 5. **Regular Validation**: Run validation frequently during development
 6. **Pre-Commit Checks**: Include formatting and validation in your pre-commit process
-7. **Final verification and cleanup**: Re-run formatting, compilation, and validation, then confirm no stale example files remain in `preview/{API_VERSION}/examples/`.
+7. **Update the Changelog**: When adding or modifying models, fields, or examples, update the corresponding `.agents/changelog-{API_VERSION}.md` file. Include the field name, type, access level (if read-only), and a brief description. This keeps the changelog in sync with TypeSpec and example changes.
 8. **Read-Only Awareness in Examples**: When a model or its properties use `@visibility(Lifecycle.Read)`, remember to include those properties only in response bodies of example files, never in request bodies.
 
 ---
@@ -362,6 +362,10 @@ npx prettier --write .\examples\{API_VERSION}\*.json && npx tsp format * && tsp 
 ```
 
 ---
+
+## Version-Specific Issues
+
+For specific issues encountered in particular API versions, refer to the corresponding version-specific documentation files in this directory (e.g., `model-validation-fixes-{API_VERSION}.md`).
 
 ## Contact
 

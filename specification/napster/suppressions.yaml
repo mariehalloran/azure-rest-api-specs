@@ -1,6 +1,9 @@
 - tool: TypeSpecValidation
-  rules: [FolderStructure]
-  sub-rules: [MustUseV2]
-  reason: Migrated to public repo using folder structure v1; conversion to v2 planned in a follow-up.
-  paths:
-    - Napster.CompanionAPI.Management
+  reason: >
+    Not ready to generate SDKs from TypeSpec.
+    Responsibility: Service team with SDK team collaboration.
+    More info: https://aka.ms/azsdk/spec-gen-sdk-config.
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - options.@azure-typespec/http-client-csharp-mgmt.*
+  paths: [Napster.CompanionAPI.Management/tspconfig.yaml]

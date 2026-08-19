@@ -39,3 +39,12 @@ union ProvisioningState {
   @doc("The resource was accepted by the server.")
   Accepted: "Accepted",
 }
+
+@doc("The Microsoft.IoTOperationsDataProcessor versions.")
+enum Versions {
+  @doc("Microsoft IoT Operations Data Processor version 2023-10-04-preview.")
+  Preview20230928: "2023-10-04-preview",
+
+  @doc("Microsoft IoT Operations Data Processor version 2024-02-01-preview.")
+  Preview20240201: "2024-02-01-preview",
+}

@@ -51,6 +51,11 @@ model NeighborGroupProperties {
   @doc("Configuration state of the resource.")
   @visibility(Lifecycle.Read)
   configurationState?: ConfigurationState;
+
+  @added(Versions.v2026_01_15_preview)
+  @doc("Administrative state of the resource.")
+  @visibility(Lifecycle.Read)
+  administrativeState?: AdministrativeState;
 }
 
 @doc("Neighbor Group Patchable Properties defines the patchable properties of the resource.")
@@ -90,6 +95,7 @@ model NeighborGroupPatchProperties {
   ...NeighborGroupPatchableProperties;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Response for Neighbor Group Resync operation.")
 @added(Versions.v2025_07_15)
 model NeighborGroupResyncResponse {

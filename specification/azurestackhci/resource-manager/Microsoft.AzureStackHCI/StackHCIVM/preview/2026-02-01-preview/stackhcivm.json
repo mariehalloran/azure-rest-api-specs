@@ -208,6 +208,10 @@
               "$ref": "#/definitions/VirtualMachineInstance"
             },
             "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
               "Retry-After": {
                 "type": "integer",
                 "format": "int32",
@@ -504,6 +508,10 @@
               "$ref": "#/definitions/GuestAgent"
             },
             "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
               "Retry-After": {
                 "type": "integer",
                 "format": "int32",
@@ -1532,6 +1540,10 @@
               "$ref": "#/definitions/GalleryImage"
             },
             "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
               "Retry-After": {
                 "type": "integer",
                 "format": "int32",
@@ -2120,6 +2132,10 @@
               "$ref": "#/definitions/LogicalNetwork"
             },
             "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
               "Retry-After": {
                 "type": "integer",
                 "format": "int32",
@@ -2412,6 +2428,10 @@
               "$ref": "#/definitions/MarketplaceGalleryImage"
             },
             "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
               "Retry-After": {
                 "type": "integer",
                 "format": "int32",
@@ -3000,6 +3020,10 @@
               "$ref": "#/definitions/NetworkInterface"
             },
             "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
               "Retry-After": {
                 "type": "integer",
                 "format": "int32",
@@ -3295,6 +3319,10 @@
               "$ref": "#/definitions/NetworkSecurityGroup"
             },
             "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
               "Retry-After": {
                 "type": "integer",
                 "format": "int32",
@@ -3611,6 +3639,10 @@
               "$ref": "#/definitions/SecurityRule"
             },
             "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
               "Retry-After": {
                 "type": "integer",
                 "format": "int32",
@@ -4427,6 +4459,10 @@
               "$ref": "#/definitions/StorageContainer"
             },
             "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
               "Retry-After": {
                 "type": "integer",
                 "format": "int32",
@@ -4719,6 +4755,10 @@
               "$ref": "#/definitions/VirtualHardDisk"
             },
             "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
               "Retry-After": {
                 "type": "integer",
                 "format": "int32",
@@ -5767,8 +5807,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/AttestationStatusProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-client-flatten": true
+          "description": "The resource-specific properties for this resource."
         }
       },
       "allOf": [
@@ -6362,8 +6401,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/GalleryImageProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-client-flatten": true
+          "description": "The resource-specific properties for this resource."
         },
         "extendedLocation": {
           "$ref": "#/definitions/ExtendedLocation",
@@ -6648,8 +6686,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/GuestAgentProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-client-flatten": true
+          "description": "The resource-specific properties for this resource."
         }
       },
       "allOf": [
@@ -6822,8 +6859,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/HybridIdentityMetadataProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-client-flatten": true
+          "description": "The resource-specific properties for this resource."
         }
       },
       "allOf": [
@@ -7676,8 +7712,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/LogicalNetworkProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-client-flatten": true
+          "description": "The resource-specific properties for this resource."
         },
         "extendedLocation": {
           "$ref": "#/definitions/ExtendedLocation",
@@ -7847,6 +7882,20 @@
         ]
       }
     },
+    "LogicalNetworkUpdateProperties": {
+      "type": "object",
+      "description": "Properties under the logical network resource",
+      "properties": {
+        "subnets": {
+          "type": "array",
+          "description": "Subnet - list of subnets under the logical network",
+          "items": {
+            "$ref": "#/definitions/SubnetUpdate"
+          },
+          "x-ms-identifiers": []
+        }
+      }
+    },
     "LogicalNetworksUpdateRequest": {
       "type": "object",
       "description": "The logical network resource patch definition.",
@@ -7857,6 +7906,10 @@
           "additionalProperties": {
             "type": "string"
           }
+        },
+        "properties": {
+          "$ref": "#/definitions/LogicalNetworkUpdateProperties",
+          "description": "Defines the resource properties for the update."
         }
       }
     },
@@ -7887,8 +7940,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/MarketplaceGalleryImageProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-client-flatten": true
+          "description": "The resource-specific properties for this resource."
         },
         "extendedLocation": {
           "$ref": "#/definitions/ExtendedLocation",
@@ -8203,8 +8255,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/NetworkInterfaceProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-client-flatten": true
+          "description": "The resource-specific properties for this resource."
         },
         "extendedLocation": {
           "$ref": "#/definitions/ExtendedLocation",
@@ -8389,8 +8440,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/NetworkSecurityGroupProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-client-flatten": true
+          "description": "The resource-specific properties for this resource."
         },
         "extendedLocation": {
           "$ref": "#/definitions/ExtendedLocation",
@@ -9032,8 +9082,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/SecurityRuleProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-client-flatten": true
+          "description": "The resource-specific properties for this resource."
         },
         "extendedLocation": {
           "$ref": "#/definitions/ExtendedLocation",
@@ -9339,7 +9388,7 @@
     },
     "SnapshotStatusProvisioningStatus": {
       "type": "object",
-      "description": "Snapshot Status provisioning status",
+      "description": "VHD Status provisioning status",
       "properties": {
         "operationId": {
           "type": "string",
@@ -9492,8 +9541,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/StorageContainerProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-client-flatten": true
+          "description": "The resource-specific properties for this resource."
         },
         "extendedLocation": {
           "$ref": "#/definitions/ExtendedLocation",
@@ -9739,6 +9787,27 @@
         }
       }
     },
+    "SubnetUpdate": {
+      "type": "object",
+      "description": "Subnet resource",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/SubnetUpdateProperties",
+          "description": "Properties of the subnet.",
+          "x-ms-client-flatten": true
+        }
+      }
+    },
+    "SubnetUpdateProperties": {
+      "type": "object",
+      "description": "Properties of the subnet.",
+      "properties": {
+        "networkSecurityGroup": {
+          "$ref": "#/definitions/NetworkSecurityGroupArmReference",
+          "description": "NetworkSecurityGroup - Network Security Group attached to the network interface."
+        }
+      }
+    },
     "TagsObject": {
       "type": "object",
       "description": "Tags object for patch operations.",
@@ -9768,8 +9837,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/VirtualHardDiskProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-client-flatten": true
+          "description": "The resource-specific properties for this resource."
         },
         "extendedLocation": {
           "$ref": "#/definitions/ExtendedLocation",
@@ -10114,8 +10182,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/VirtualMachineInstanceProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-client-flatten": true
+          "description": "The resource-specific properties for this resource."
         },
         "extendedLocation": {
           "$ref": "#/definitions/ExtendedLocation",

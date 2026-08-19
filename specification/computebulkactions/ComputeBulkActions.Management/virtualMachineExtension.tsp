@@ -3,6 +3,10 @@ import "@typespec/http";
 import "@azure-tools/typespec-azure-core";
 import "./common.tsp";
 
+using TypeSpec.Rest;
+using TypeSpec.Http;
+using Azure.Core;
+
 namespace Microsoft.ComputeBulkActions;
 
 @doc("Defines a virtual machine extension.")

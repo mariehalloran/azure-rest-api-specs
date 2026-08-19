@@ -769,7 +769,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SchedulerPrivateLinkResourceListResult"
+              "$ref": "#/definitions/MyPrivateLinkResourceListResult"
             }
           },
           "default": {
@@ -1425,6 +1425,27 @@
         }
       }
     },
+    "MyPrivateLinkResourceListResult": {
+      "type": "object",
+      "description": "The response of a MyPrivateLinkResource list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The MyPrivateLinkResource items on this page",
+          "items": {
+            "$ref": "../../../../../../common-types/resource-management/v6/privatelinks.json#/definitions/PrivateLinkResource"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "PrivateEndpointConnectionListResult": {
       "type": "object",
       "description": "The response of a PrivateEndpointConnection list operation.",
@@ -1700,27 +1721,6 @@
           "description": "The Scheduler items on this page",
           "items": {
             "$ref": "#/definitions/Scheduler"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "SchedulerPrivateLinkResourceListResult": {
-      "type": "object",
-      "description": "The response of a SchedulerPrivateLinkResource list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The SchedulerPrivateLinkResource items on this page",
-          "items": {
-            "$ref": "../../../../../../common-types/resource-management/v6/privatelinks.json#/definitions/PrivateLinkResource"
           }
         },
         "nextLink": {

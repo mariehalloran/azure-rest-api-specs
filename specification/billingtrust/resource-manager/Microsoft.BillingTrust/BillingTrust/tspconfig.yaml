@@ -8,11 +8,10 @@ options:
     use-read-only-status-schema: true
     emit-lro-options: "final-state-only"
     emitter-output-dir: "{project-root}"
-    examples-dir: "{project-root}/examples"
     output-file: "{version-status}/{version}/openapi.json"
     arm-types-dir: "{project-root}/../../../../common-types/resource-management"
   "@azure-typespec/http-client-csharp-mgmt":
-    namespace: "Azure.ResourceManager.Billing.Trust"
+    namespace: "Azure.ResourceManager.BillingTrust"
     emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-python":
     emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-billingtrust"
@@ -21,16 +20,16 @@ options:
     generate-sample: true
     flavor: "azure"
   "@azure-tools/typespec-java":
-    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-billing-trust"
-    namespace: "com.azure.resourcemanager.billing.trust"
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-billingtrust"
+    namespace: "com.azure.resourcemanager.billingtrust"
     service-name: "BillingTrust"
     flavor: azure
   "@azure-tools/typespec-ts":
-    emitter-output-dir: "{output-dir}/{service-dir}/arm-billing-trust"
+    emitter-output-dir: "{output-dir}/{service-dir}/arm-billingtrust"
     flavor: azure
     experimental-extensible-enums: true
     package-details:
-      name: "@azure/arm-billing-trust"
+      name: "@azure/arm-billingtrust"
   "@azure-tools/typespec-go":
     service-dir: "sdk/resourcemanager/billingtrust"
     emitter-output-dir: "{output-dir}/{service-dir}/armbillingtrust"

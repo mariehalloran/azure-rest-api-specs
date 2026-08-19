@@ -20,6 +20,9 @@ enum Versions {
 
   @doc("January 01, 2026 Preview API Version")
   v2026_01_01_preview: "2026-01-01-preview",
+
+  @doc("May 01, 2026 Preview API Version")
+  v2026_05_01_preview: "2026-05-01-preview",
 }
 
 @doc("A successful response from getUploadToken will contain an 'uploadUrl' field. This uploadUrl field's value should follow the format: https://[storage-account-name].blob.core.windows.net/[container-name]/[your-blob.extension]?[SAS-token]")

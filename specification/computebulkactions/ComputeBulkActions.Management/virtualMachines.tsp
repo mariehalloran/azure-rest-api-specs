@@ -5,7 +5,11 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./common.tsp";
 
+using TypeSpec.Http;
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
+using TypeSpec.OpenAPI;
+using Azure.ResourceManager;
 using Azure.Core;
 
 namespace Microsoft.ComputeBulkActions;

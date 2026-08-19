@@ -16,12 +16,15 @@ import "./PlatformUpdates.tsp";
 import "./OsImages.tsp";
 import "./UpdateContents.tsp";
 import "./Operations.tsp";
+import "./models.tsp";
 import "./back-compatible.tsp";
 import "./ArcSetting.tsp";
 import "./Cluster.tsp";
+import "./NetworkProfile.tsp";
 import "./DeploymentSetting.tsp";
 import "./EdgeDeviceJob.tsp";
 import "./EdgeDevice.tsp";
+import "./EdgeDeviceMetadata.tsp";
 import "./Extension.tsp";
 import "./Offer.tsp";
 import "./Publisher.tsp";
@@ -33,15 +36,46 @@ import "./UpdateSummaries.tsp";
 import "./ValidatedSolutionRecipe.tsp";
 import "./EdgeMachine.tsp";
 import "./EdgeMachineJobs.tsp";
+import "./EdgeMachineMetadata.tsp";
 import "./EdgeMachineUpdate.tsp";
+import "./EdgeMachineGpu.tsp";
+import "./EdgeMachineStorage.tsp";
+import "./EdgeMachineNetworkAdapters.tsp";
+import "./EdgeMachineSecuritySettings.tsp";
+import "./EdgeMachineDeploymentSetting.tsp";
 import "./ValidateOwnershipVouchers.tsp";
 import "./ClusterJobs.tsp";
+import "./ClusterVolume.tsp";
+import "./ClusterVolumeJob.tsp";
+import "./CapacitySetting.tsp";
 import "./DevicePool.tsp";
-import "./EdgeMachineGpu.tsp";
-import "./EdgeMachineNetworkAdapters.tsp";
-import "./EdgeMachineStorage.tsp";
+import "./ProxyConfiguration.tsp";
 import "./client.tsp";
 
+// PRIVATE PREVIEW - Storage Arrays subtree (read-only)
+import "./StorageArray.tsp";
+import "./StorageArrayJob.tsp";
+import "./StoragePool.tsp";
+import "./VolumeGroup.tsp";
+import "./StorageVolume.tsp";
+import "./VolumeMapping.tsp";
+import "./ConsistencyGroup.tsp";
+import "./ReplicationUnit.tsp";
+import "./ReplicationSession.tsp";
+import "./ReplicationPeering.tsp";
+import "./ReplicationPolicy.tsp";
+
+// PRIVATE PREVIEW - Cluster storage & shared resources (read-only)
+import "./InitiatorGroup.tsp";
+import "./StorageFabric.tsp";
+import "./FabricAlias.tsp";
+import "./FabricZone.tsp";
+import "./StorageArrayAssociation.tsp";
+
+using TypeSpec.Rest;
+using TypeSpec.Http;
+using Azure.ResourceManager.Foundations;
+using Azure.Core;
 using Azure.ResourceManager;
 using TypeSpec.Versioning;
 /**
@@ -56,20 +90,6 @@ namespace Microsoft.AzureStackHCI;
 
 /**
  * The available API versions.
- *
- * This enum lists only the currently active API versions. Retired preview
- * versions (e.g. 2025-11-01-preview through 2026-04-01-preview) are
- * intentionally omitted — each new preview fully supersedes the previous one,
- * and customers are expected to adopt the latest preview. Including every
- * shipped preview would require extensive `@added`/`@removed` decorator
- * chains across hundreds of models, rendering the TypeSpec source unreadable
- * and unmaintainable.
- *
- * The published swagger files under `preview/<retired-version>/` remain on
- * disk for backward compatibility with existing consumers (CI pipelines,
- * unit tests, and customer dependencies). Those swaggers are frozen and
- * must be regenerated from a pinned commit if changes are ever needed —
- * not from the latest main.
  */
 enum Versions {
   /**
@@ -78,12 +98,7 @@ enum Versions {
   v2026_02_01: "2026-02-01",
 
   /**
-   * The 2026-04-30 API version.
+   * The 2026-03-15-preview API version.
    */
-  v2026_04_30: "2026-04-30",
-
-  /**
-   * The 2026-05-01-preview API version.
-   */
-  v2026_05_01_preview: "2026-05-01-preview",
+  v2026_03_15_preview: "2026-03-15-preview",
 }

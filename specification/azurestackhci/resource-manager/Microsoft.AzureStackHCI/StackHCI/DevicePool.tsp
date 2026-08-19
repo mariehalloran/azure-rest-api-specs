@@ -14,7 +14,8 @@ namespace Microsoft.AzureStackHCI;
 /**
  * DevicePool details.
  */
-@added(Versions.v2026_05_01_preview)
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
+@added(Versions.v2026_03_15_preview)
 model DevicePool
   is Azure.ResourceManager.TrackedResource<DevicePoolProperties> {
   ...ResourceNameParameter<
@@ -26,7 +27,7 @@ model DevicePool
   ...ManagedServiceIdentityProperty;
 }
 
-@added(Versions.v2026_05_01_preview)
+@added(Versions.v2026_03_15_preview)
 @armResourceOperations
 interface DevicePools {
   /**

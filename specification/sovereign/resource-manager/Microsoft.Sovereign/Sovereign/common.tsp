@@ -1,0 +1,44 @@
+import "@azure-tools/typespec-azure-core";
+import "@azure-tools/typespec-azure-resource-manager";
+import "@typespec/versioning";
+
+using Azure.ResourceManager;
+using Azure.Core;
+using TypeSpec.Versioning;
+
+namespace Microsoft.Sovereign;
+
+@doc("The Microsoft Sovereign Provider version.")
+enum Versions {
+  @doc("Preview version.")
+  Preview20230928: "2023-09-28-preview",
+
+  @doc("Second preview version.")
+  Preview20240331: "2024-03-31-preview",
+
+  @doc("Public preview version.")
+  Preview20241031: "2024-10-31-preview",
+
+  @doc("SCC Private Preview version.")
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  Preview20260315: "2026-03-15-preview",
+
+  @doc("The 2026-07-31 preview version.")
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  Preview20260731: "2026-07-31-preview",
+}
+
+@added(Versions.Preview20241031)
+@doc("The custom provisioning state.")
+union provisioningState {
+  ResourceProvisioningState,
+
+  @doc("The state of the resource when creating")
+  Creating: "Creating",
+
+  @doc("The state of the resource when updating")
+  Updating: "Updating",
+
+  @doc("The state of the resource when deleting")
+  Deleting: "Deleting",
+}

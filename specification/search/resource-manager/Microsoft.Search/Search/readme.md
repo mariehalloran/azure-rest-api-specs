@@ -291,3 +291,21 @@ suppressions:
     where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Search/searchServices/{searchServiceName}"].patch.parameters[5].schema.properties.properties
     reason: PATCH body uses a polymorphic properties payload that requires '@odata.type' as a discriminator in DataIdentity for type resolution; making it optional would break update semantics.
 ```
+
+### Suppression
+
+```yaml
+directive:
+  - suppress: OAV107
+    from: stable/2015-08-19/search.json
+    reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
+  - suppress: OAV107
+    from: stable/2015-02-28/search.json
+    reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
+  - suppress: OAV107
+    from: preview/2019-10-01-preview/search.json
+    reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
+  - suppress: OAV107
+    from: preview/2020-08-01-preview/search.json
+    reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
+```

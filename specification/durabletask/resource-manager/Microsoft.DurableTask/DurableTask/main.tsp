@@ -2,10 +2,12 @@ import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/versioning";
 import "@azure-tools/typespec-azure-resource-manager";
+import "./detector.tsp";
 import "./scheduler.tsp";
 import "./taskhub.tsp";
 import "./retentionpolicy.tsp";
 import "./transparentDataEncryption.tsp";
+import "./failoverInstance.tsp";
 import "./client.tsp";
 
 using TypeSpec.Rest;
@@ -30,6 +32,10 @@ enum Versions {
   v2025_04_01_Preview: "2025-04-01-preview",
 
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  @doc("2025-05-04-preview")
+  v2025_05_04_Preview: "2025-05-04-preview",
+
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   @doc("2025-11-01")
   v2025_11_01: "2025-11-01",
 
@@ -40,6 +46,10 @@ enum Versions {
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   @doc("2026-05-01-preview")
   v2026_05_01_Preview: "2026-05-01-preview",
+
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  @doc("2026-07-01-preview")
+  v2026_07_01_Preview: "2026-07-01-preview",
 }
 
 @doc("The status of the current operation")

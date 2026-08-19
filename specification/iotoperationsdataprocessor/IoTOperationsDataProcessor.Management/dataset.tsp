@@ -66,12 +66,7 @@ model DatasetPropertyKey {
 @armResourceOperations
 interface Datasets {
   get is ArmResourceRead<Dataset>;
-  #suppress "@azure-tools/typespec-azure-core/invalid-final-state" "MUST CHANGE ON NEXT UPDATE"
-  @Azure.Core.useFinalStateVia("azure-async-operation")
-  createOrUpdate is ArmResourceCreateOrUpdateAsync<
-    Dataset,
-    LroHeaders = Azure.Core.Foundations.RetryAfterHeader
-  >;
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<Dataset>;
   update is ArmCustomPatchSync<Dataset>;
   delete is ArmResourceDeleteWithoutOkAsync<Dataset>;
   listByInstance is ArmResourceListByParent<Dataset>;

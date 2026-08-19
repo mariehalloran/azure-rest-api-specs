@@ -18,11 +18,11 @@ import "./resourcetypes/dedicatedHub/dedicatedHub.tsp";
 import "./resourcetypes/transitHub/transitHub.tsp";
 import "./resourcetypes/virtualEnclave/virtualenclave.tsp";
 import "./resourcetypes/workload/workload.tsp";
+import "./resourcetypes/serviceCatalog/serviceCatalog.tsp";
 
 import "./resourcetypes/shared/endpointrulebase.tsp";
 import "./resourcetypes/shared/governedserviceitem.tsp";
 import "./resourcetypes/shared/maintenancemodeconfiguration.tsp";
-import "./resourcetypes/shared/monitoring.tsp";
 import "./resourcetypes/shared/managedresourcegroupconfiguration.tsp";
 import "./resourcetypes/shared/principal.tsp";
 import "./resourcetypes/shared/provisioningstate.tsp";
@@ -100,18 +100,6 @@ model TransitHubResource is TrackedResource<TransitHubProperties> {
   name: string;
 }
 
-@added(Microsoft.Mission.Versions.v2025_11_01_preview)
-@doc("DedicatedHub Model Resource")
-@parentResource(CommunityResource)
-model DedicatedHubResource is TrackedResource<DedicatedHubProperties> {
-  @key("dedicatedHubName")
-  @segment("dedicatedHubs")
-  @path
-  @pattern("^[a-zA-Z][a-zA-Z0-9-_]*[a-zA-Z0-9]$")
-  @doc("The name of the Dedicated Hub Resource")
-  name: string;
-}
-
 @doc("EnclaveConnection Model Resource")
 model EnclaveConnectionResource
   is TrackedResource<EnclaveConnectionProperties> {
@@ -143,6 +131,29 @@ model CommunityEndpointResource
   @path
   @pattern("^[a-zA-Z][a-zA-Z0-9-_]*[a-zA-Z0-9]$")
   @doc("The name of the Community Endpoint Resource")
+  name: string;
+}
+
+@added(Microsoft.Mission.Versions.v2025_11_01_preview)
+@doc("DedicatedHub Model Resource")
+@parentResource(CommunityResource)
+model DedicatedHubResource is TrackedResource<DedicatedHubProperties> {
+  @key("dedicatedHubName")
+  @segment("dedicatedHubs")
+  @path
+  @pattern("^[a-zA-Z][a-zA-Z0-9-_]*[a-zA-Z0-9]$")
+  @doc("The name of the Dedicated Hub Resource")
+  name: string;
+}
+
+@added(Microsoft.Mission.Versions.v2026_05_04_preview)
+@doc("ServiceCatalog Model Resource")
+model ServiceCatalogResource is TrackedResource<ServiceCatalogProperties> {
+  @key("serviceCatalogName")
+  @segment("serviceCatalogs")
+  @pattern("^[a-zA-Z][a-zA-Z0-9-]*[a-zA-Z0-9]$")
+  @path
+  @doc("The name of the ServiceCatalog Resource")
   name: string;
 }
 

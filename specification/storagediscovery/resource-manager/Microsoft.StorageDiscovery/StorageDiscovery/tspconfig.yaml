@@ -44,7 +44,7 @@ options:
     inject-spans: true
   "@azure-tools/typespec-powershell":
     service-dir: "src"
-    package-dir: "StorageDiscovery/StorageDiscovery.Autorest"
+    emitter-output-dir: "{output-dir}/{service-dir}/StorageDiscovery/StorageDiscovery.Autorest"
     clear-output-folder: true
     azure: true
     module-version: 1.0.0

@@ -3,7 +3,6 @@ import "@typespec/rest";
 import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
-import "./client.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
@@ -129,6 +128,7 @@ model AgriServiceConfig {
   @minLength(2)
   appServiceResourceId?: string;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("Cosmos Db resource Id.")
   @visibility(Lifecycle.Read)
   @minLength(2)
@@ -264,7 +264,9 @@ interface AgriService {
 
 // note this is a template for an empty body resource action, which will be added to the library at some point
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "This is a template"
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "This is a template"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "This is a template"
 @armResourceAction(TResource)
 @post
 op ArmResourceListActionSync<
@@ -278,7 +280,7 @@ op ArmResourceListActionSync<
 @doc("The list of available agri solutions.")
 model AvailableAgriSolutionListResult {
   @doc("Agri solutions list.")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   solutions: DataManagerForAgricultureSolution[];
 }
 

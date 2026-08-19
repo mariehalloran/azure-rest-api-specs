@@ -9,7 +9,7 @@ using Azure.ResourceManager;
 
 namespace Microsoft.DurableTask;
 
-@doc("A transparent data encryption resource belonging to the scheduler")
+@doc("A retention policy resource belonging to the scheduler")
 @added(Versions.v2026_05_01_Preview)
 @parentResource(Scheduler)
 @singleton
@@ -34,6 +34,10 @@ model TransparentDataEncryptionProperties {
 
   @doc("The URI of the key in Key Vault to be used for transparent data encryption")
   keyVaultKeyUri?: url;
+
+  @added(Versions.v2026_07_01_Preview)
+  @doc("Indicates whether auto-rotation of the customer-managed keys is enabled for transparent data encryption")
+  autoRotationEnabled?: boolean;
 }
 
 @added(Versions.v2026_05_01_Preview)

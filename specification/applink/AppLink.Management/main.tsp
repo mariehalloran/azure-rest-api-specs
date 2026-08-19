@@ -7,7 +7,6 @@ import "./applink.tsp";
 import "./applinkmember.tsp";
 import "./applinkmemberupgradehistory.tsp";
 import "./applinkavailableversion.tsp";
-import "./client.tsp";
 
 using Versioning;
 using Azure.ResourceManager;

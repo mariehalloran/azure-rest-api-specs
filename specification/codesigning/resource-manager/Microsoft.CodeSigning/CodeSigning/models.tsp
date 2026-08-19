@@ -59,6 +59,13 @@ union ProfileType {
 
   @doc("Used for signing files for testing purpose.")
   PublicTrustTest: "PublicTrustTest",
+
+  @removed(Versions.v2024_02_05_preview)
+  @removed(Versions.v2024_09_30_preview)
+  @removed(Versions.v2025_10_13)
+  @added(Versions.v2025_11_20_preview)
+  @doc("Used for signing content files.")
+  C2PAContentCredentials: "C2PAContentCredentials",
 }
 
 @doc("Status of the certificate profiles.")
@@ -114,7 +121,7 @@ union SkuName {
   Premium: "Premium",
 }
 
-@doc("The reason that an artifact signing account name could not be used. The Reason element is only returned if nameAvailable is false.")
+@doc("The reason that a trusted signing account name could not be used. The Reason element is only returned if nameAvailable is false.")
 union NameUnavailabilityReason {
   string,
 
@@ -125,44 +132,44 @@ union NameUnavailabilityReason {
   AlreadyExists: "AlreadyExists",
 }
 
-@doc("Properties of the artifact signing account.")
+@doc("Properties of the trusted signing account.")
 model CodeSigningAccountProperties {
-  @doc("The URI of the artifact signing account which is used during signing files.")
+  @doc("The URI of the trusted signing account which is used during signing files.")
   @visibility(Lifecycle.Read)
   accountUri?: string;
 
-  @doc("SKU of the artifact signing account.")
+  @doc("SKU of the trusted signing account.")
   sku?: AccountSku;
 
-  @doc("Status of the current operation on artifact signing account.")
+  @doc("Status of the current operation on trusted signing account.")
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
 }
 
-@doc("SKU of the artifact signing account.")
+@doc("SKU of the trusted signing account.")
 model AccountSku {
   @doc("Name of the SKU.")
   name: SkuName;
 }
 
-@doc("Parameters for creating or updating an artifact signing account.")
+@doc("Parameters for creating or updating a trusted signing account.")
 model CodeSigningAccountPatch {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "existing API"
   @doc("Resource tags.")
   tags?: Record<string>;
 
-  @doc("Properties of the artifact signing account.")
+  @doc("Properties of the trusted signing account.")
   properties?: CodeSigningAccountPatchProperties;
 }
 
-@doc("Properties of the artifact signing account.")
+@doc("Properties of the trusted signing account.")
 model CodeSigningAccountPatchProperties {
-  @doc("SKU of the artifact signing account.")
+  @doc("SKU of the trusted signing account.")
   @typeChangedFrom(Versions.v2024_09_30_preview, AccountSku)
   sku?: AccountSkuPatch;
 }
 
-@doc("SKU of the artifact signing account.")
+@doc("SKU of the trusted signing account.")
 @added(Versions.v2024_09_30_preview)
 model AccountSkuPatch {
   @doc("Name of the SKU.")
@@ -237,10 +244,6 @@ model CertificateProfileProperties {
   @doc("Identity validation id used for the certificate subject name.")
   @madeRequired(Versions.v2024_09_30_preview)
   identityValidationId: string;
-
-  @doc("Indicates whether the resource is intended for a specific usage scenario.")
-  @added(Versions.v2026_05_15_preview)
-  programType?: string;
 
   @doc("Status of the current operation on certificate profile.")
   @visibility(Lifecycle.Read)
@@ -324,20 +327,12 @@ model RevokeCertificate {
   remarks?: string;
 }
 
-@doc("Defines the list of certificates for revocation in certificate profile.")
-@added(Versions.v2026_05_15_preview)
-model RevokeCertificateList {
-  @doc("List of certificates to be revoked in a certificate profile.")
-  @identifiers(#[])
-  revokeCertificates: RevokeCertificate[];
-}
-
-@doc("The parameters used to check the availability of the artifact signing account name.")
+@doc("The parameters used to check the availability of the trusted signing account name.")
 model CheckNameAvailability {
   @doc("The type of the resource, \"Microsoft.CodeSigning/codeSigningAccounts\".")
   type: string;
 
-  @doc("Artifact signing account name.")
+  @doc("Trusted signing account name.")
   name: string;
 }
 
@@ -347,7 +342,7 @@ model CheckNameAvailabilityResult {
   @visibility(Lifecycle.Read)
   nameAvailable?: boolean;
 
-  @doc("The reason that an artifact signing account name could not be used. The Reason element is only returned if nameAvailable is false.")
+  @doc("The reason that a trusted signing account name could not be used. The Reason element is only returned if nameAvailable is false.")
   @visibility(Lifecycle.Read)
   reason?: NameUnavailabilityReason;
 

@@ -1,0 +1,176 @@
+{
+  "operationId": "Models_CreateOrUpdate",
+  "title": "Create or update a Model",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg1",
+    "modelName": "my-custom-model",
+    "api-version": "2026-09-01-preview",
+    "resource": {
+      "location": "eastus",
+      "extendedLocation": {
+        "name": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ExtendedLocation/customLocations/my-custom-location",
+        "type": "CustomLocation"
+      },
+      "properties": {
+        "source": {
+          "custom": {
+            "registry": "myacr.azurecr.io",
+            "repository": "models/my-custom-model",
+            "tag": "v1",
+            "credentials": {
+              "kind": "KubernetesSecretRef",
+              "secretRef": {
+                "name": "acr-creds"
+              }
+            }
+          }
+        },
+        "displayName": "My Custom Model",
+        "description": "Custom in-house model for production inference.",
+        "publisher": "Contoso",
+        "license": "Apache-2.0",
+        "licenseUrl": "https://opensource.org/licenses/Apache-2.0",
+        "variants": [
+          {
+            "id": "cpu-fp16",
+            "compute": "Cpu",
+            "executionProvider": "CPUExecutionProvider",
+            "fileSizeBytes": 2147483648,
+            "priority": 10
+          }
+        ],
+        "requirements": {
+          "minMemory": "4Gi",
+          "supportedCompute": [
+            "Cpu"
+          ]
+        },
+        "capabilities": {
+          "task": "chat-completion",
+          "contextLength": 4096,
+          "streaming": true
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.FoundryLocal/models/my-custom-model",
+        "name": "my-custom-model",
+        "type": "Microsoft.FoundryLocal/models",
+        "location": "eastus",
+        "extendedLocation": {
+          "name": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ExtendedLocation/customLocations/my-custom-location",
+          "type": "CustomLocation"
+        },
+        "properties": {
+          "provisioningState": "Succeeded",
+          "source": {
+            "custom": {
+              "registry": "myacr.azurecr.io",
+              "repository": "models/my-custom-model",
+              "tag": "v1",
+              "credentials": {
+                "kind": "KubernetesSecretRef",
+                "secretRef": {
+                  "name": "acr-creds"
+                }
+              }
+            }
+          },
+          "displayName": "My Custom Model",
+          "description": "Custom in-house model for production inference.",
+          "publisher": "Contoso",
+          "license": "Apache-2.0",
+          "licenseUrl": "https://opensource.org/licenses/Apache-2.0",
+          "variants": [
+            {
+              "id": "cpu-fp16",
+              "compute": "Cpu",
+              "executionProvider": "CPUExecutionProvider",
+              "fileSizeBytes": 2147483648,
+              "priority": 10
+            }
+          ],
+          "requirements": {
+            "minMemory": "4Gi",
+            "supportedCompute": [
+              "Cpu"
+            ]
+          },
+          "capabilities": {
+            "task": "chat-completion",
+            "contextLength": 4096,
+            "streaming": true
+          },
+          "status": {
+            "phase": "Available",
+            "message": "Model artifact pulled and verified.",
+            "conditions": [
+              {
+                "type": "Available",
+                "status": "True",
+                "reason": "ArtifactReady",
+                "message": "Model artifact pulled and verified.",
+                "lastTransitionTime": "2026-05-20T00:01:00Z"
+              }
+            ],
+            "lastObservedAt": "2026-05-20T00:01:00Z"
+          }
+        },
+        "systemData": {
+          "createdBy": "user@example.com",
+          "createdByType": "User",
+          "createdAt": "2026-05-20T00:00:00.000Z",
+          "lastModifiedBy": "user@example.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-05-20T00:00:00.000Z"
+        }
+      }
+    },
+    "201": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.FoundryLocal/locations/eastus/operationStatuses/operationId?api-version=2026-09-01-preview",
+        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.FoundryLocal/locations/eastus/operationStatuses/operationId?api-version=2026-09-01-preview",
+        "Retry-After": 10
+      },
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.FoundryLocal/models/my-custom-model",
+        "name": "my-custom-model",
+        "type": "Microsoft.FoundryLocal/models",
+        "location": "eastus",
+        "extendedLocation": {
+          "name": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ExtendedLocation/customLocations/my-custom-location",
+          "type": "CustomLocation"
+        },
+        "properties": {
+          "provisioningState": "Accepted",
+          "source": {
+            "custom": {
+              "registry": "myacr.azurecr.io",
+              "repository": "models/my-custom-model",
+              "tag": "v1",
+              "credentials": {
+                "kind": "KubernetesSecretRef",
+                "secretRef": {
+                  "name": "acr-creds"
+                }
+              }
+            }
+          },
+          "displayName": "My Custom Model"
+        },
+        "systemData": {
+          "createdBy": "user@example.com",
+          "createdByType": "User",
+          "createdAt": "2026-05-20T00:00:00.000Z",
+          "lastModifiedBy": "user@example.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-05-20T00:00:00.000Z"
+        }
+      }
+    }
+  }
+}

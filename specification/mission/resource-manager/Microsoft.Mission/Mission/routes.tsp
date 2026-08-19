@@ -273,6 +273,16 @@ interface CommunityEndpoints {
     ApprovalDeletionCallbackRequest,
     ApprovalActionResponse
   >;
+
+  @doc("Triggers a manual re-sync of community endpoint connections to all configured sync destinations.")
+  @armResourceAction(CommunityEndpointResource)
+  @post
+  @added(Microsoft.Mission.Versions.v2026_05_01_preview)
+  sync is ArmResourceActionAsync<
+    CommunityEndpointResource,
+    void,
+    CommunityEndpointResource
+  >;
 }
 
 @doc("DedicatedHub Interface")
@@ -286,7 +296,8 @@ interface DedicatedHub {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
-  @patch
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
+  @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     DedicatedHubResource,
     PatchModel = DedicatedHubPatchModel
@@ -294,6 +305,29 @@ interface DedicatedHub {
   delete is ArmResourceDeleteWithoutOkAsync<DedicatedHubResource>;
   listByCommunityResource is ArmResourceListByParent<DedicatedHubResource>;
   listBySubscription is ArmListBySubscription<DedicatedHubResource>;
+}
+
+@doc("ServiceCatalog Interface")
+@added(Microsoft.Mission.Versions.v2026_05_04_preview)
+@armResourceOperations
+interface ServiceCatalog {
+  get is ArmResourceRead<ServiceCatalogResource>;
+  @useFinalStateVia("azure-async-operation")
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<
+    ServiceCatalogResource,
+    LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
+      ArmAsyncOperationHeader
+  >;
+
+  #suppress "@typespec/http/deprecated-implicit-optionality" "LEGACY - DO NOT COPY"
+  @patch(#{ implicitOptionality: true })
+  update is ArmCustomPatchAsync<
+    ServiceCatalogResource,
+    PatchModel = ServiceCatalogPatchModel
+  >;
+  delete is ArmResourceDeleteWithoutOkAsync<ServiceCatalogResource>;
+  listByResourceGroup is ArmResourceListByParent<ServiceCatalogResource>;
+  listBySubscription is ArmListBySubscription<ServiceCatalogResource>;
 }
 
 @doc("Approval Interface")

@@ -1,6 +1,7 @@
-- tool: TypeSpecRequirement
-  path: ./stable/2020-05-01/*.json
-  reason: Brownfield service not ready to migrate
-- tool: TypeSpecRequirement
-  path: ./stable/2023-01-01/*.json
-  reason: Brownfield service not ready to migrate
+- tool: TypeSpecValidation
+  reason: The typespec-go emitter options do not yet satisfy SdkTspConfigValidation. Go SDK generation for Azure Migrate is deferred to a future change, so these Go tspconfig options are suppressed in the interim.
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - options.@azure-tools/typespec-go.*
+  paths:
+    - ./tspconfig.yaml

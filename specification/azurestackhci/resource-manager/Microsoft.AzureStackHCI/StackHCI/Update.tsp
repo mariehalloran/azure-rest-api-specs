@@ -83,7 +83,7 @@ interface Updates {
    * Prepare Update
    */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "The final response has no content, so 204 is returned."
-  @added(Versions.v2026_04_30)
+  @added(Versions.v2026_03_15_preview)
   prepare is ArmResourceActionNoContentAsync<Update, void>;
 }
 

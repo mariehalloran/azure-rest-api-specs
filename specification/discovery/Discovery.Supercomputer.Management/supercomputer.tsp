@@ -27,6 +27,7 @@ model Supercomputer is TrackedResource<SupercomputerProperties> {
   identity?: CommonTypes.SystemAssignedServiceIdentity;
 }
 
+@added(Versions.v2025_12_01_preview)
 @doc("Supported System SKU Sizes.")
 union SystemSku {
   @added(Versions.v2026_02_01_preview)
@@ -90,6 +91,7 @@ model SupercomputerProperties {
 
   @doc("The SKU to use for the system node pool.")
   @visibility(Lifecycle.Read, Lifecycle.Create)
+  @added(Versions.v2025_12_01_preview)
   systemSku?: SystemSku;
 
   /**

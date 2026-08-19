@@ -10,7 +10,6 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./LiftrBase/main.tsp";
 import "./LiftrBase.Storage/main.tsp";
-import "./client.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
@@ -39,11 +38,35 @@ enum Versions {
   /**
    * The 2025-03-21 API version.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/version-progression" "Existing API"
+  #suppress "@azure-tools/typespec-azure-resource-manager/version-progression" "LEGACY"
   v2025_03_21: "2025-03-21",
+
+  /**
+   * The 2026-03-01-preview API version.
+   */
+  v2026_03_01_preview: "2026-03-01-preview",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}
+
+/**
+ * Response of get latest linked SaaS resource operation
+ */
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is a widely recognized acronym"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@added(Versions.v2026_03_01_preview)
+model LatestLinkedSaaSResponse {
+  /**
+   * SaaS resource id
+   */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is a widely recognized acronym"
+  saaSResourceId?: string;
+
+  /**
+   * Flag indicating if the SaaS resource is hidden
+   */
+  isHiddenSaaS?: boolean;
+}
 
 @armResourceOperations
 interface FileSystems {
@@ -80,6 +103,16 @@ interface FileSystems {
    * List FileSystemResource resources by subscription ID
    */
   listBySubscription is ArmListBySubscription<LiftrBase.Storage.FileSystemResource>;
+
+  /**
+   * Returns the latest SaaS linked to the Dell Storage Resource.
+   */
+  @added(Versions.v2026_03_01_preview)
+  latestLinkedSaaS is ArmResourceActionSync<
+    LiftrBase.Storage.FileSystemResource,
+    void,
+    ArmResponse<LatestLinkedSaaSResponse>
+  >;
 }
 
 @@doc(

@@ -1,0 +1,5395 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Microsoft.Cosmic Management Service",
+    "version": "2026-03-01-preview",
+    "description": "Microsoft.Cosmic Resource Provider Management API.",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "Namespaces"
+    },
+    {
+      "name": "Environments"
+    },
+    {
+      "name": "HealthMetadatas"
+    },
+    {
+      "name": "DeletedEnvironments"
+    },
+    {
+      "name": "Components"
+    },
+    {
+      "name": "Revisions"
+    },
+    {
+      "name": "Deployments"
+    }
+  ],
+  "paths": {
+    "/providers/Microsoft.Cosmic/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Operations_List_MaximumSet": {
+            "$ref": "examples/Operations_List_MaximumSet_Gen.json"
+          },
+          "Operations_List_MinimumSet": {
+            "$ref": "examples/Operations_List_MinimumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Cosmic/checkNameAvailability": {
+      "post": {
+        "operationId": "Namespaces_CheckNameAvailability",
+        "tags": [
+          "Namespaces"
+        ],
+        "description": "Checks that the Cosmic namespace name is valid and is not already in use within the subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The CheckAvailability request",
+            "required": true,
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/CheckNameAvailabilityRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/CheckNameAvailabilityResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Checks the availability of a Cosmic namespace name.": {
+            "$ref": "examples/Namespaces_CheckNameAvailability.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Cosmic/namespaces": {
+      "get": {
+        "operationId": "Namespaces_ListBySubscription",
+        "tags": [
+          "Namespaces"
+        ],
+        "description": "List Namespace resources by subscription ID",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/NamespaceListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Namespaces_ListBySubscription_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Namespaces_ListBySubscription_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces": {
+      "get": {
+        "operationId": "Namespaces_ListByResourceGroup",
+        "tags": [
+          "Namespaces"
+        ],
+        "description": "List Namespace resources by resource group",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/NamespaceListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Namespaces_ListByResourceGroup_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Namespaces_ListByResourceGroup_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}": {
+      "get": {
+        "operationId": "Namespaces_Get",
+        "tags": [
+          "Namespaces"
+        ],
+        "description": "Get a Namespace",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Namespace"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Namespaces_Get_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Namespaces_Get_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "Namespaces_CreateOrUpdate",
+        "tags": [
+          "Namespaces"
+        ],
+        "description": "Create a Namespace",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Namespace"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'Namespace' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Namespace"
+            }
+          },
+          "201": {
+            "description": "Resource 'Namespace' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Namespace"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Namespaces_CreateOrUpdate_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Namespaces_CreateOrUpdate_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "Namespaces_Update",
+        "tags": [
+          "Namespaces"
+        ],
+        "description": "Update a Namespace",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NamespaceUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Namespace"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Namespaces_Update_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Namespaces_Update_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "Namespaces_Delete",
+        "tags": [
+          "Namespaces"
+        ],
+        "description": "Delete a Namespace",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Namespaces_Delete_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Namespaces_Delete_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/components": {
+      "get": {
+        "operationId": "Components_ListByNamespace",
+        "tags": [
+          "Components"
+        ],
+        "description": "List Component resources by Namespace",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ComponentListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Components_ListByNamespace_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Components_ListByNamespace_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/components/{componentName}": {
+      "get": {
+        "operationId": "Components_Get",
+        "tags": [
+          "Components"
+        ],
+        "description": "Get a Component",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "componentName",
+            "in": "path",
+            "description": "The name of the component.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Component"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Components_Get_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Components_Get_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "Components_CreateOrUpdate",
+        "tags": [
+          "Components"
+        ],
+        "description": "Create a Component",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "componentName",
+            "in": "path",
+            "description": "The name of the component.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Component"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'Component' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Component"
+            }
+          },
+          "201": {
+            "description": "Resource 'Component' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Component"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Components_CreateOrUpdate_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Components_CreateOrUpdate_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "Components_Update",
+        "tags": [
+          "Components"
+        ],
+        "description": "Update the tags of a component. Component properties are immutable; only tags may be patched.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "componentName",
+            "in": "path",
+            "description": "The name of the component.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ComponentTagsUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Component"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Components_Update_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Components_Update_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "Components_Delete",
+        "tags": [
+          "Components"
+        ],
+        "description": "Delete a Component",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "componentName",
+            "in": "path",
+            "description": "The name of the component.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Components_Delete_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Components_Delete_MaximumSet_Gen.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/components/{componentName}/revisions": {
+      "get": {
+        "operationId": "Revisions_ListByComponent",
+        "tags": [
+          "Revisions"
+        ],
+        "description": "List Revision resources by Component",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "componentName",
+            "in": "path",
+            "description": "The name of the component.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/RevisionListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Revisions_ListByComponent_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Revisions_ListByComponent_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/components/{componentName}/revisions/{revisionName}": {
+      "get": {
+        "operationId": "Revisions_Get",
+        "tags": [
+          "Revisions"
+        ],
+        "description": "Get a Revision",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "componentName",
+            "in": "path",
+            "description": "The name of the component.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "revisionName",
+            "in": "path",
+            "description": "The name of the revision. Caller-chosen and authored by the orchestrator; the RP does not generate revision names.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Revision"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Revisions_Get_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Revisions_Get_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "Revisions_CreateOrUpdate",
+        "tags": [
+          "Revisions"
+        ],
+        "description": "Create a Revision",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "componentName",
+            "in": "path",
+            "description": "The name of the component.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "revisionName",
+            "in": "path",
+            "description": "The name of the revision. Caller-chosen and authored by the orchestrator; the RP does not generate revision names.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Revision"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'Revision' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Revision"
+            }
+          },
+          "201": {
+            "description": "Resource 'Revision' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Revision"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Revisions_CreateOrUpdate_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Revisions_CreateOrUpdate_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "Revisions_Update",
+        "tags": [
+          "Revisions"
+        ],
+        "description": "Update the tags of a revision. Revision spec properties are immutable; only tags may be patched.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "componentName",
+            "in": "path",
+            "description": "The name of the component.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "revisionName",
+            "in": "path",
+            "description": "The name of the revision. Caller-chosen and authored by the orchestrator; the RP does not generate revision names.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RevisionTagsUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Revision"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Revisions_Update_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Revisions_Update_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "Revisions_Delete",
+        "tags": [
+          "Revisions"
+        ],
+        "description": "Delete a Revision",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "componentName",
+            "in": "path",
+            "description": "The name of the component.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "revisionName",
+            "in": "path",
+            "description": "The name of the revision. Caller-chosen and authored by the orchestrator; the RP does not generate revision names.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Revisions_Delete_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Revisions_Delete_MaximumSet_Gen.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/deletedEnvironments": {
+      "get": {
+        "operationId": "DeletedEnvironments_ListByNamespace",
+        "tags": [
+          "DeletedEnvironments"
+        ],
+        "description": "List all soft-deleted environments within the parent namespace.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DeletedEnvironmentListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List soft-deleted environments within a namespace": {
+            "$ref": "examples/DeletedEnvironments_ListByNamespace.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/deletedEnvironments/{deletedEnvironmentName}": {
+      "get": {
+        "operationId": "DeletedEnvironments_Get",
+        "tags": [
+          "DeletedEnvironments"
+        ],
+        "description": "Get a soft-deleted environment by name within the parent namespace.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "deletedEnvironmentName",
+            "in": "path",
+            "description": "The name of the soft-deleted environment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DeletedEnvironment"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a soft-deleted environment by name": {
+            "$ref": "examples/DeletedEnvironments_Get.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/deletedEnvironments/{deletedEnvironmentName}/purge": {
+      "post": {
+        "operationId": "DeletedEnvironments_Purge",
+        "tags": [
+          "DeletedEnvironments"
+        ],
+        "description": "Permanently purge a soft-deleted environment, tearing down the underlying NPS namespace instances. Takes the platform ring in the request body for APIM routing. Blocked with 403 when purge protection is enabled; returns 404 when no soft-deleted environment with the given name exists.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "deletedEnvironmentName",
+            "in": "path",
+            "description": "The name of the soft-deleted environment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeletedEnvironmentActionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DeletedEnvironmentPurgeResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Purge a soft-deleted environment": {
+            "$ref": "examples/DeletedEnvironments_Purge.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/deletedEnvironments/{deletedEnvironmentName}/restore": {
+      "post": {
+        "operationId": "DeletedEnvironments_Restore",
+        "tags": [
+          "DeletedEnvironments"
+        ],
+        "description": "Restore a soft-deleted environment back to active state during the retention window. Takes the platform ring in the request body for APIM routing.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "deletedEnvironmentName",
+            "in": "path",
+            "description": "The name of the soft-deleted environment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeletedEnvironmentActionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DeletedEnvironmentRestoreResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Restore a soft-deleted environment": {
+            "$ref": "examples/DeletedEnvironments_Restore.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/environments": {
+      "get": {
+        "operationId": "Environments_ListByNamespace",
+        "tags": [
+          "Environments"
+        ],
+        "description": "List Environment resources by Namespace",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EnvironmentListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Environments_ListByNamespace_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Environments_ListByNamespace_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/environments/{environmentName}": {
+      "get": {
+        "operationId": "Environments_Get",
+        "tags": [
+          "Environments"
+        ],
+        "description": "Get a Environment",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "environmentName",
+            "in": "path",
+            "description": "The name of the environment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CosmicEnvironment"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Environments_Get_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Environments_Get_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "Environments_CreateOrUpdate",
+        "tags": [
+          "Environments"
+        ],
+        "description": "Create a Environment",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "environmentName",
+            "in": "path",
+            "description": "The name of the environment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CosmicEnvironment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'Environment' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/CosmicEnvironment"
+            }
+          },
+          "201": {
+            "description": "Resource 'Environment' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/CosmicEnvironment"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Environments_CreateOrUpdate_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Environments_CreateOrUpdate_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "Environments_Update",
+        "tags": [
+          "Environments"
+        ],
+        "description": "Update a Environment",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "environmentName",
+            "in": "path",
+            "description": "The name of the environment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnvironmentUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CosmicEnvironment"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Environments_Update_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Environments_Update_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "Environments_Delete",
+        "tags": [
+          "Environments"
+        ],
+        "description": "Delete a Environment",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "environmentName",
+            "in": "path",
+            "description": "The name of the environment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Environments_Delete_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Environments_Delete_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/environments/{environmentName}/deployments": {
+      "get": {
+        "operationId": "Deployments_ListByEnvironment",
+        "tags": [
+          "Deployments"
+        ],
+        "description": "List the deployment of the environment. The deployment is a singleton, so this returns at most one item.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "environmentName",
+            "in": "path",
+            "description": "The name of the environment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DeploymentListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Deployments_ListByEnvironment_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Deployments_ListByEnvironment_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/environments/{environmentName}/deployments/default": {
+      "get": {
+        "operationId": "Deployments_Get",
+        "tags": [
+          "Deployments"
+        ],
+        "description": "Get a Deployment",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "environmentName",
+            "in": "path",
+            "description": "The name of the environment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Deployment"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Deployments_Get_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Deployments_Get_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "Deployments_CreateOrUpdate",
+        "tags": [
+          "Deployments"
+        ],
+        "description": "Create or replace the full deployment intent for the environment. This is the only verb that writes deployment intent; PATCH updates tags only, so componentStates is always replaced atomically.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "environmentName",
+            "in": "path",
+            "description": "The name of the environment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Deployment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'Deployment' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Deployment"
+            }
+          },
+          "201": {
+            "description": "Resource 'Deployment' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Deployment"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Deployments_CreateOrUpdate_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Deployments_CreateOrUpdate_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "Deployments_Update",
+        "tags": [
+          "Deployments"
+        ],
+        "description": "Update the tags of a deployment. Deployment intent is not patchable; only tags may be updated here.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "environmentName",
+            "in": "path",
+            "description": "The name of the environment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeploymentTagsUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Deployment"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Deployments_Update_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Deployments_Update_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "Deployments_Delete",
+        "tags": [
+          "Deployments"
+        ],
+        "description": "Undeploy. Reconciles the workload off every realized instance in the environment, then removes the deployment resource, leaving the environment's capacity intact.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "environmentName",
+            "in": "path",
+            "description": "The name of the environment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Deployments_Delete_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Deployments_Delete_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/healthMetadatas": {
+      "get": {
+        "operationId": "HealthMetadatas_ListByNamespace",
+        "tags": [
+          "HealthMetadatas"
+        ],
+        "description": "List HealthMetadata resources by Namespace",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/HealthMetadataListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "HealthMetadatas_ListByNamespace_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/HealthMetadatas_ListByNamespace_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/healthMetadatas/{healthMetadataName}": {
+      "get": {
+        "operationId": "HealthMetadatas_Get",
+        "tags": [
+          "HealthMetadatas"
+        ],
+        "description": "Get a HealthMetadata",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "healthMetadataName",
+            "in": "path",
+            "description": "The name of the health metadata resource.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/HealthMetadata"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "HealthMetadatas_Get_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/HealthMetadatas_Get_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "HealthMetadatas_CreateOrUpdate",
+        "tags": [
+          "HealthMetadatas"
+        ],
+        "description": "Create a HealthMetadata",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "healthMetadataName",
+            "in": "path",
+            "description": "The name of the health metadata resource.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HealthMetadata"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'HealthMetadata' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/HealthMetadata"
+            }
+          },
+          "201": {
+            "description": "Resource 'HealthMetadata' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/HealthMetadata"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "HealthMetadatas_CreateOrUpdate_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/HealthMetadatas_CreateOrUpdate_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "HealthMetadatas_Update",
+        "tags": [
+          "HealthMetadatas"
+        ],
+        "description": "Update a HealthMetadata",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "healthMetadataName",
+            "in": "path",
+            "description": "The name of the health metadata resource.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HealthMetadataUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/HealthMetadata"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "HealthMetadatas_Update_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/HealthMetadatas_Update_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "HealthMetadatas_Delete",
+        "tags": [
+          "HealthMetadatas"
+        ],
+        "description": "Delete a HealthMetadata",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "healthMetadataName",
+            "in": "path",
+            "description": "The name of the health metadata resource.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "HealthMetadatas_Delete_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/HealthMetadatas_Delete_MaximumSet_Gen.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/migrate": {
+      "post": {
+        "operationId": "Namespaces_Migrate",
+        "tags": [
+          "Namespaces"
+        ],
+        "description": "Migrate an environment to ARM management. One-time, irreversible ownership transfer that flips the source label on all targeted instances.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MigrateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/MigrateResult"
+            }
+          },
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Namespaces_Migrate_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Namespaces_Migrate_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/preview": {
+      "post": {
+        "operationId": "Namespaces_Preview",
+        "tags": [
+          "Namespaces"
+        ],
+        "description": "Preview an environment resource in ARM without writing to inventory. Used for experimentation before committing to migration.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PreviewRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/PreviewResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Namespaces_Preview_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Namespaces_Preview_MaximumSet_Gen.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/validate": {
+      "post": {
+        "operationId": "Namespaces_Validate",
+        "tags": [
+          "Namespaces"
+        ],
+        "description": "Validate an environment by comparing the ARM resource against live inventory. Returns a list of differences.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ValidateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidateResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Namespaces_Validate_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "examples/Namespaces_Validate_MaximumSet_Gen.json"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ActiveRevisionsMode": {
+      "type": "string",
+      "description": "How many revisions of one component may be concurrently active in an environment.",
+      "enum": [
+        "Single",
+        "Multiple"
+      ],
+      "x-ms-enum": {
+        "name": "ActiveRevisionsMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Single",
+            "value": "Single",
+            "description": "At most one revision of this component is active per partition at a time. The natural shape for traditional SDP rollout."
+          },
+          {
+            "name": "Multiple",
+            "value": "Multiple",
+            "description": "Several revisions of this component may be concurrently active environment-wide, with an external mechanism routing traffic across them."
+          }
+        ]
+      }
+    },
+    "AggregateApplyState": {
+      "type": "string",
+      "description": "Apply outcome rolled up across every component on every instance in the environment.",
+      "enum": [
+        "Pending",
+        "InProgress",
+        "Succeeded",
+        "PartiallyFailed",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "AggregateApplyState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Pending",
+            "value": "Pending",
+            "description": "No component has begun applying on any instance."
+          },
+          {
+            "name": "InProgress",
+            "value": "InProgress",
+            "description": "At least one component and instance pair is still applying."
+          },
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Every component on every instance has succeeded."
+          },
+          {
+            "name": "PartiallyFailed",
+            "value": "PartiallyFailed",
+            "description": "Some component and instance pairs failed while others succeeded."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Every component and instance pair failed."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "ApplyState": {
+      "type": "string",
+      "description": "Per-component, per-instance apply outcome.",
+      "enum": [
+        "Pending",
+        "InProgress",
+        "Succeeded",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "ApplyState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Pending",
+            "value": "Pending",
+            "description": "The apply has not started on this instance."
+          },
+          {
+            "name": "InProgress",
+            "value": "InProgress",
+            "description": "The apply is in progress on this instance."
+          },
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "The apply succeeded on this instance."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "The apply failed on this instance."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "Azure.Core.azureLocation": {
+      "type": "string",
+      "description": "Represents an Azure geography region where supported resource providers live."
+    },
+    "CapacityPolicy": {
+      "type": "object",
+      "description": "Capacity configuration for the environment.",
+      "properties": {
+        "locations": {
+          "type": "array",
+          "description": "Per-location desired capacity keyed by canonical Azure region name.",
+          "items": {
+            "$ref": "#/definitions/LocationCapacity"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      }
+    },
+    "Component": {
+      "type": "object",
+      "description": "A Component resource representing an independently-deployable part of the app that the parent namespace identifies. Each component owns its own revision lineage, rollout, and rollback.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ComponentProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "ComponentKind": {
+      "type": "string",
+      "description": "The kind of a component. Fixed at create and immutable for the component's life; every revision under the component inherits it.",
+      "enum": [
+        "Code",
+        "Config"
+      ],
+      "x-ms-enum": {
+        "name": "ComponentKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Code",
+            "value": "Code",
+            "description": "The component carries deployable code."
+          },
+          {
+            "name": "Config",
+            "value": "Config",
+            "description": "The component carries a configuration feature."
+          }
+        ]
+      }
+    },
+    "ComponentListResult": {
+      "type": "object",
+      "description": "The response of a Component list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Component items on this page",
+          "items": {
+            "$ref": "#/definitions/Component"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ComponentProperties": {
+      "type": "object",
+      "description": "Properties of a Component resource.",
+      "properties": {
+        "componentKind": {
+          "$ref": "#/definitions/ComponentKind",
+          "description": "Whether the component carries deployable code or a configuration feature. Set at create and immutable thereafter; every revision under the component inherits this kind.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/CosmicProvisioningState",
+          "description": "The provisioning state of the component resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "componentKind"
+      ]
+    },
+    "ComponentState": {
+      "type": "object",
+      "description": "Active-revision intent for one component in one environment.",
+      "properties": {
+        "component": {
+          "type": "string",
+          "description": "The component name, matching a component under the same namespace. Always required; there is no implicit default component.",
+          "minLength": 1,
+          "maxLength": 63,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+        },
+        "activeRevisionsMode": {
+          "type": "string",
+          "description": "How many revisions of this component may be concurrently active, chosen independently per component. Defaults to Single.",
+          "default": "Single",
+          "enum": [
+            "Single",
+            "Multiple"
+          ],
+          "x-ms-enum": {
+            "name": "ActiveRevisionsMode",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "Single",
+                "value": "Single",
+                "description": "At most one revision of this component is active per partition at a time. The natural shape for traditional SDP rollout."
+              },
+              {
+                "name": "Multiple",
+                "value": "Multiple",
+                "description": "Several revisions of this component may be concurrently active environment-wide, with an external mechanism routing traffic across them."
+              }
+            ]
+          }
+        },
+        "partitionTargets": {
+          "type": "array",
+          "description": "Per-partition active-revision pointers for this component, used when it is in Single mode. The RP auto-populates one entry per realized partition of the parent environment, each initially with no active revision.",
+          "items": {
+            "$ref": "#/definitions/PartitionTarget"
+          },
+          "x-ms-identifiers": [
+            "region",
+            "partition"
+          ]
+        },
+        "activeRevisions": {
+          "type": "array",
+          "description": "Environment-wide list of this component's revision names currently active, used when it is in Multiple mode.",
+          "items": {
+            "$ref": "#/definitions/RevisionName"
+          }
+        }
+      },
+      "required": [
+        "component"
+      ]
+    },
+    "ComponentTagsUpdate": {
+      "type": "object",
+      "description": "The type used for updating tags in Component resources.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "CosmicDeployingState": {
+      "type": "string",
+      "description": "The provisioning state of a Deployment resource. This tracks the ARM write lifecycle of the deployment resource itself and is distinct from status.aggregateApplyState, which reports the observed workload apply outcome across the environment's instances.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Accepted",
+        "Deploying",
+        "Undeploying"
+      ],
+      "x-ms-enum": {
+        "name": "CosmicDeployingState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          },
+          {
+            "name": "Accepted",
+            "value": "Accepted",
+            "description": "The deployment write has been accepted and queued for reconciliation."
+          },
+          {
+            "name": "Deploying",
+            "value": "Deploying",
+            "description": "The RP is applying the requested component revisions to the environment's realized instances."
+          },
+          {
+            "name": "Undeploying",
+            "value": "Undeploying",
+            "description": "The RP is removing the workload from the environment's realized instances following a delete."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "CosmicEnvironment": {
+      "type": "object",
+      "description": "An Environment resource representing a per-ring deployment environment within a namespace.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/CosmicEnvironmentProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "CosmicEnvironmentProperties": {
+      "type": "object",
+      "description": "Properties of an Environment resource.",
+      "properties": {
+        "platformRing": {
+          "$ref": "#/definitions/CosmicRing",
+          "description": "Platform ring classification (e.g. test, sdf, msit, prod).",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "topology": {
+          "$ref": "#/definitions/Topology",
+          "description": "Topology configuration including per-location networking and partition declarations."
+        },
+        "capacity": {
+          "$ref": "#/definitions/CapacityPolicy",
+          "description": "Capacity configuration for the environment."
+        },
+        "resourcePolicy": {
+          "$ref": "#/definitions/ResourcePolicy",
+          "description": "Resource policy configuration for the environment."
+        },
+        "isolationGroup": {
+          "type": "string",
+          "description": "Isolation group override for cluster bin-packing affinity. When set, all NamespaceInstances in this environment are placed on this isolation group instead of the parent namespace's isolationGroup. Useful when different environments of the same namespace (e.g. dev vs prod) should target different clusters. Cannot be changed after environment creation.",
+          "minLength": 1,
+          "maxLength": 63,
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "status": {
+          "$ref": "#/definitions/EnvironmentStatus",
+          "description": "The status of the environment.",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/CosmicProvisioningState",
+          "description": "The provisioning state of the environment resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "capacity"
+      ]
+    },
+    "CosmicProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of a Cosmic resource.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Provisioning",
+        "Updating",
+        "Deleting",
+        "Accepted"
+      ],
+      "x-ms-enum": {
+        "name": "CosmicProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          },
+          {
+            "name": "Provisioning",
+            "value": "Provisioning",
+            "description": "The resource is being provisioned."
+          },
+          {
+            "name": "Updating",
+            "value": "Updating",
+            "description": "The resource is being updated."
+          },
+          {
+            "name": "Deleting",
+            "value": "Deleting",
+            "description": "The resource is being deleted."
+          },
+          {
+            "name": "Accepted",
+            "value": "Accepted",
+            "description": "The resource creation request has been accepted."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "CosmicRing": {
+      "type": "string",
+      "description": "Cosmic Rings.",
+      "enum": [
+        "plat",
+        "dev",
+        "rnr",
+        "tdf",
+        "infra",
+        "test",
+        "sdf",
+        "msit",
+        "prod",
+        "gallatin",
+        "bleu",
+        "delos",
+        "gcc",
+        "gcch",
+        "dod",
+        "ag08",
+        "ag09"
+      ],
+      "x-ms-enum": {
+        "name": "CosmicRing",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Plat",
+            "value": "plat",
+            "description": "Plat ring"
+          },
+          {
+            "name": "Dev",
+            "value": "dev",
+            "description": "Dev ring"
+          },
+          {
+            "name": "Rnr",
+            "value": "rnr",
+            "description": "Rnr ring"
+          },
+          {
+            "name": "Tdf",
+            "value": "tdf",
+            "description": "Tdf ring"
+          },
+          {
+            "name": "Infra",
+            "value": "infra",
+            "description": "Infra ring"
+          },
+          {
+            "name": "Test",
+            "value": "test",
+            "description": "Test ring"
+          },
+          {
+            "name": "Sdf",
+            "value": "sdf",
+            "description": "SDF ring"
+          },
+          {
+            "name": "Msit",
+            "value": "msit",
+            "description": "MSIT ring"
+          },
+          {
+            "name": "Prod",
+            "value": "prod",
+            "description": "Prod ring"
+          },
+          {
+            "name": "Gallatin",
+            "value": "gallatin",
+            "description": "Gallatin ring"
+          },
+          {
+            "name": "Bleu",
+            "value": "bleu",
+            "description": "Bleu ring"
+          },
+          {
+            "name": "Delos",
+            "value": "delos",
+            "description": "Delos ring"
+          },
+          {
+            "name": "Gcc",
+            "value": "gcc",
+            "description": "GCC ring"
+          },
+          {
+            "name": "Gcch",
+            "value": "gcch",
+            "description": "GCCH ring"
+          },
+          {
+            "name": "Dod",
+            "value": "dod",
+            "description": "DOD ring"
+          },
+          {
+            "name": "Ag08",
+            "value": "ag08",
+            "description": "Ag08 ring"
+          },
+          {
+            "name": "Ag09",
+            "value": "ag09",
+            "description": "Ag09 ring"
+          }
+        ]
+      }
+    },
+    "DeletedEnvironment": {
+      "type": "object",
+      "description": "A soft-deleted Environment, surfaced as a read-only tombstone under its parent namespace. Lists, restores, and purges are performed against this proxy resource while the namespace remains live.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/DeletedEnvironmentProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "DeletedEnvironmentActionRequest": {
+      "type": "object",
+      "description": "Request body for the soft-deleted environment actions (purge, restore), carrying the platform ring so APIM can route the request to the target ring's RP instance. The soft-deleted environment is a proxy resource (not cached by ARM/MetaRP), so the ring is supplied explicitly rather than read from a replayed body.",
+      "properties": {
+        "platformRing": {
+          "$ref": "#/definitions/CosmicRing",
+          "description": "Platform ring classification (e.g. test, sdf, msit, prod). Used by APIM to route the request to the target ring's RP instance."
+        }
+      },
+      "required": [
+        "platformRing"
+      ]
+    },
+    "DeletedEnvironmentDeleteMetadata": {
+      "type": "object",
+      "description": "Soft-delete metadata for a deleted environment. All properties are read-only and owned by the resource provider.",
+      "properties": {
+        "deletedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC instant at which the environment was soft-deleted.",
+          "readOnly": true
+        },
+        "purgeAfter": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC instant at which the soft-deleted environment is eligible for automatic purge (deletedAt + retentionPeriod).",
+          "readOnly": true
+        },
+        "retentionPeriod": {
+          "type": "string",
+          "description": "Retention bucket applied to this soft-deleted environment (ISO 8601 duration, e.g. P30DT0H0M).",
+          "readOnly": true
+        },
+        "purgeProtection": {
+          "type": "boolean",
+          "description": "When true, the environment cannot be manually purged during the retention window.",
+          "readOnly": true
+        },
+        "deletedBy": {
+          "type": "string",
+          "description": "Identity that initiated the delete (non-sensitive context only).",
+          "readOnly": true
+        }
+      }
+    },
+    "DeletedEnvironmentListResult": {
+      "type": "object",
+      "description": "The response of a DeletedEnvironment list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The DeletedEnvironment items on this page",
+          "items": {
+            "$ref": "#/definitions/DeletedEnvironment"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "DeletedEnvironmentProperties": {
+      "type": "object",
+      "description": "Properties of a soft-deleted environment. All properties are read-only; the soft-delete state is owned by the resource provider.",
+      "properties": {
+        "deleteMetadata": {
+          "$ref": "#/definitions/DeletedEnvironmentDeleteMetadata",
+          "description": "Soft-delete bookkeeping (when it was deleted, retention, purge eligibility, who deleted it).",
+          "readOnly": true
+        },
+        "environment": {
+          "$ref": "#/definitions/CosmicEnvironmentProperties",
+          "description": "The captured environment configuration at soft-delete time. Mirrors the original resource's properties so a GET on the deleted environment surfaces the full typed body (Key Vault DeletedKeyBundle style).",
+          "readOnly": true
+        }
+      }
+    },
+    "DeletedEnvironmentPurgeResult": {
+      "type": "object",
+      "description": "Response body for the purge action.",
+      "properties": {
+        "environmentName": {
+          "type": "string",
+          "description": "The name of the environment that was purged."
+        },
+        "purged": {
+          "type": "boolean",
+          "description": "Whether the purge succeeded for all instances of the environment."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Failure detail when the purge did not fully succeed (no secrets). Null on success."
+        }
+      },
+      "required": [
+        "environmentName",
+        "purged"
+      ]
+    },
+    "DeletedEnvironmentRestoreResult": {
+      "type": "object",
+      "description": "Response body for the restore action.",
+      "properties": {
+        "environmentName": {
+          "type": "string",
+          "description": "The name of the environment that was restored."
+        },
+        "restored": {
+          "type": "boolean",
+          "description": "Whether the restore succeeded for all instances of the environment."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Failure detail when the restore did not fully succeed (no secrets). Null on success."
+        }
+      },
+      "required": [
+        "environmentName",
+        "restored"
+      ]
+    },
+    "Deployment": {
+      "type": "object",
+      "description": "A singleton Deployment resource carrying which component revisions are currently active in the parent environment, and the observed per-instance apply outcome. Modeled as a child resource so deployment intent and capacity intent have independent lifecycle, RBAC, ETag, and reconciliation.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/DeploymentProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "DeploymentComponentStatus": {
+      "type": "object",
+      "description": "Apply outcome for one component on one instance.",
+      "properties": {
+        "component": {
+          "type": "string",
+          "description": "The component name."
+        },
+        "appliedRevisionName": {
+          "type": "string",
+          "description": "Currently applied revision of this component on this instance. Absent when no revision is applied."
+        },
+        "additionalAppliedRevisions": {
+          "type": "array",
+          "description": "Additional revisions of this component co-resident on this instance. Populated only when the component is in Multiple mode.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "imageDistributionState": {
+          "$ref": "#/definitions/ImageDistributionState",
+          "description": "Whether the active revision's declared images are present in the registry this instance pulls from. Omitted when the active revision declares no images."
+        },
+        "imageDistributionError": {
+          "$ref": "#/definitions/DeploymentErrorDetail",
+          "description": "Error detail for the most recent image-distribution failure. Present only when imageDistributionState is Failed."
+        },
+        "applyState": {
+          "$ref": "#/definitions/ApplyState",
+          "description": "Apply outcome for this component on this instance."
+        },
+        "lastTransitionAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of the most recent apply-state transition for this component on this instance."
+        },
+        "error": {
+          "$ref": "#/definitions/DeploymentErrorDetail",
+          "description": "Error detail for the most recent apply failure. Present only when applyState is Failed."
+        }
+      },
+      "required": [
+        "component"
+      ]
+    },
+    "DeploymentErrorDetail": {
+      "type": "object",
+      "description": "Error detail reported against a deployment apply or image-distribution outcome.",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Machine-readable error code."
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable error message."
+        }
+      }
+    },
+    "DeploymentInstanceStatus": {
+      "type": "object",
+      "description": "Apply outcome for every component on one realized instance.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Opaque instance identifier, matching an instance identifier in the parent environment's realization status."
+        },
+        "region": {
+          "type": "string",
+          "description": "Canonical Azure region of the realization containing this instance."
+        },
+        "partition": {
+          "type": "string",
+          "description": "Partition label of this instance."
+        },
+        "components": {
+          "type": "array",
+          "description": "Per-component apply outcome on this instance.",
+          "items": {
+            "$ref": "#/definitions/DeploymentComponentStatus"
+          },
+          "x-ms-identifiers": [
+            "component"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "region",
+        "partition"
+      ]
+    },
+    "DeploymentListResult": {
+      "type": "object",
+      "description": "The response of a Deployment list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Deployment items on this page",
+          "items": {
+            "$ref": "#/definitions/Deployment"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "DeploymentProperties": {
+      "type": "object",
+      "description": "Properties of a Deployment resource.",
+      "properties": {
+        "platformRing": {
+          "$ref": "#/definitions/CosmicRing",
+          "description": "Platform ring of the parent environment. Required: the APIM gateway selects the per-ring backend by reading this value out of the request body, so a deployment without it cannot be routed. Must match the parent environment's platformRing; set at create and immutable thereafter.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "componentStates": {
+          "type": "array",
+          "description": "Per-component active-revision intent, one entry per component the app deploys into this environment. Replaced atomically on every write; a component or partition the body omits reverts to no active revision.",
+          "items": {
+            "$ref": "#/definitions/ComponentState"
+          },
+          "x-ms-identifiers": [
+            "component"
+          ]
+        },
+        "status": {
+          "$ref": "#/definitions/DeploymentStatus",
+          "description": "Observed per-instance, per-component apply outcome for this environment.",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/CosmicDeployingState",
+          "description": "The provisioning state of the deployment resource. Reports the ARM write lifecycle only; the observed workload apply outcome is reported separately by status.aggregateApplyState.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "platformRing",
+        "componentStates"
+      ]
+    },
+    "DeploymentStatus": {
+      "type": "object",
+      "description": "Observed apply outcome for an environment's deployment, correlated to the environment's realizations by instance identifier.",
+      "properties": {
+        "aggregateApplyState": {
+          "$ref": "#/definitions/AggregateApplyState",
+          "description": "Apply outcome rolled up across every component on every instance.",
+          "readOnly": true
+        },
+        "lastTransitionAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Most recent transition timestamp across all instances and components.",
+          "readOnly": true
+        },
+        "instances": {
+          "type": "array",
+          "description": "Per-instance apply outcomes, flattened environment-wide so per-revision outcome can be filtered and counted without traversing realizations.",
+          "items": {
+            "$ref": "#/definitions/DeploymentInstanceStatus"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "id"
+          ]
+        }
+      }
+    },
+    "DeploymentTagsUpdate": {
+      "type": "object",
+      "description": "The type used for updating tags in Deployment resources.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "EgressPublicIps": {
+      "type": "object",
+      "description": "Egress public IP configuration using BYOIP.",
+      "properties": {
+        "ipTagType": {
+          "$ref": "#/definitions/IpTagType",
+          "description": "The IP tag type for egress.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipTagValue": {
+          "type": "string",
+          "description": "The IP tag value for egress.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipCapacity": {
+          "type": "string",
+          "description": "The IP capacity for egress.",
+          "pattern": "^(2|4|8|16)$"
+        },
+        "ipVersion": {
+          "$ref": "#/definitions/IpVersion",
+          "description": "The IP version (IPv4 or IPv6). Defaults to IPv4.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      }
+    },
+    "EnvironmentDefaultPolicy": {
+      "type": "object",
+      "description": "Environment-scoped default resource policy.",
+      "properties": {
+        "podResources": {
+          "type": "array",
+          "description": "Per-service pod resource specifications.",
+          "items": {
+            "$ref": "#/definitions/PodSpec"
+          },
+          "x-ms-identifiers": []
+        },
+        "os": {
+          "$ref": "#/definitions/OsType",
+          "description": "The operating system type.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipVersion": {
+          "$ref": "#/definitions/IpVersion",
+          "description": "The IP version (IPv4 or IPv6)."
+        },
+        "vmFamily": {
+          "type": "string",
+          "description": "The Azure VM family for cluster selection (e.g., 'D_FLEX', 'F_FLEX', 'DV4').",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      }
+    },
+    "EnvironmentListResult": {
+      "type": "object",
+      "description": "The response of a Environment list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Environment items on this page",
+          "items": {
+            "$ref": "#/definitions/CosmicEnvironment"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "EnvironmentStatus": {
+      "type": "object",
+      "description": "Status of the environment.",
+      "properties": {
+        "realizationState": {
+          "$ref": "#/definitions/RealizationState",
+          "description": "The overall realization state."
+        },
+        "realizations": {
+          "type": "array",
+          "description": "Per-region realization details.",
+          "items": {
+            "$ref": "#/definitions/Realization"
+          },
+          "x-ms-identifiers": [
+            "id"
+          ]
+        }
+      }
+    },
+    "EnvironmentUpdate": {
+      "type": "object",
+      "description": "The type used for update operations of the Environment.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "$ref": "#/definitions/EnvironmentUpdateProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      }
+    },
+    "EnvironmentUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of the Environment.",
+      "properties": {
+        "topology": {
+          "$ref": "#/definitions/Topology",
+          "description": "Topology configuration including per-location networking and partition declarations."
+        },
+        "capacity": {
+          "$ref": "#/definitions/CapacityPolicy",
+          "description": "Capacity configuration for the environment."
+        },
+        "resourcePolicy": {
+          "$ref": "#/definitions/ResourcePolicy",
+          "description": "Resource policy configuration for the environment."
+        }
+      }
+    },
+    "GenevaEnvironment": {
+      "type": "string",
+      "description": "Geneva environment where monitor metadata is defined.",
+      "enum": [
+        "ppe",
+        "prod"
+      ],
+      "x-ms-enum": {
+        "name": "GenevaEnvironment",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Ppe",
+            "value": "ppe",
+            "description": "Geneva PPE environment."
+          },
+          {
+            "name": "Prod",
+            "value": "prod",
+            "description": "Geneva production environment."
+          }
+        ]
+      }
+    },
+    "GpuDriverType": {
+      "type": "string",
+      "description": "The GPU driver type.",
+      "enum": [
+        "CUDA",
+        "GRID"
+      ],
+      "x-ms-enum": {
+        "name": "GpuDriverType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "CUDA",
+            "value": "CUDA",
+            "description": "CUDA driver for compute workloads."
+          },
+          {
+            "name": "GRID",
+            "value": "GRID",
+            "description": "GRID driver for visualization workloads."
+          }
+        ]
+      }
+    },
+    "HealthMetadata": {
+      "type": "object",
+      "description": "Health metadata for COSMIC monitoring, scoped under a namespace and consumed by HealthService.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/HealthMetadataProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "HealthMetadataDimensionMap": {
+      "type": "object",
+      "description": "Mapping from COSMIC dimension keys to partner Geneva dimension names.",
+      "properties": {
+        "cosmicRing": {
+          "type": "string",
+          "description": "Partner dimension name for the COSMIC ring."
+        },
+        "cosmicGeo": {
+          "type": "string",
+          "description": "Partner dimension name for the COSMIC geo."
+        },
+        "cosmicRegion": {
+          "type": "string",
+          "description": "Partner dimension name for the COSMIC region."
+        },
+        "cosmicPartition": {
+          "type": "string",
+          "description": "Partner dimension name for the COSMIC partition."
+        },
+        "cosmicCluster": {
+          "type": "string",
+          "description": "Partner dimension name for the COSMIC cluster."
+        }
+      }
+    },
+    "HealthMetadataListResult": {
+      "type": "object",
+      "description": "The response of a HealthMetadata list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The HealthMetadata items on this page",
+          "items": {
+            "$ref": "#/definitions/HealthMetadata"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "HealthMetadataMonitor": {
+      "type": "object",
+      "description": "A Geneva monitor configured for health evaluation.",
+      "properties": {
+        "monitorName": {
+          "type": "string",
+          "description": "Unique monitor name within this health metadata resource.",
+          "minLength": 1
+        },
+        "monitorId": {
+          "type": "string",
+          "description": "Geneva monitor identifier.",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable monitor description."
+        },
+        "genevaAccount": {
+          "type": "string",
+          "description": "Optional monitor-level Geneva account override."
+        },
+        "genevaEnvironment": {
+          "$ref": "#/definitions/GenevaEnvironment",
+          "description": "Optional monitor-level Geneva environment override."
+        },
+        "dimensionMap": {
+          "$ref": "#/definitions/HealthMetadataDimensionMap",
+          "description": "Optional monitor-level dimension map override."
+        },
+        "regions": {
+          "type": "array",
+          "description": "Regions this monitor applies to. Empty means all regions.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "partitionLabels": {
+          "type": "array",
+          "description": "Partition labels this monitor applies to. Empty means all partitions.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "weight": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Weight of this monitor for health scoring.",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "monitorName",
+        "monitorId",
+        "weight"
+      ]
+    },
+    "HealthMetadataProperties": {
+      "type": "object",
+      "description": "Properties of a HealthMetadata resource.",
+      "properties": {
+        "platformRing": {
+          "$ref": "#/definitions/CosmicRing",
+          "description": "Platform ring this health metadata applies to.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "regions": {
+          "type": "array",
+          "description": "Regions this health metadata applies to. Empty means all regions.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "partitionLabels": {
+          "type": "array",
+          "description": "Partition labels this health metadata applies to. Empty means all partitions.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "genevaAccount": {
+          "type": "string",
+          "description": "Geneva/MDM account name used for monitor lookups.",
+          "minLength": 1
+        },
+        "genevaEnvironment": {
+          "$ref": "#/definitions/GenevaEnvironment",
+          "description": "Geneva environment where the monitors are defined."
+        },
+        "dimensionMap": {
+          "$ref": "#/definitions/HealthMetadataDimensionMap",
+          "description": "Default mapping from COSMIC dimension keys to partner Geneva dimension names."
+        },
+        "monitors": {
+          "type": "array",
+          "description": "Monitors configured for health evaluation.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/HealthMetadataMonitor"
+          },
+          "x-ms-identifiers": [
+            "monitorName"
+          ]
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/CosmicProvisioningState",
+          "description": "The provisioning state of the health metadata resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "platformRing",
+        "genevaAccount",
+        "dimensionMap",
+        "monitors"
+      ]
+    },
+    "HealthMetadataUpdate": {
+      "type": "object",
+      "description": "The type used for update operations of the HealthMetadata.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "$ref": "#/definitions/HealthMetadataUpdateProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      }
+    },
+    "HealthMetadataUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of the HealthMetadata.",
+      "properties": {
+        "regions": {
+          "type": "array",
+          "description": "Regions this health metadata applies to. Empty means all regions.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "partitionLabels": {
+          "type": "array",
+          "description": "Partition labels this health metadata applies to. Empty means all partitions.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "genevaAccount": {
+          "type": "string",
+          "description": "Geneva/MDM account name used for monitor lookups.",
+          "minLength": 1
+        },
+        "genevaEnvironment": {
+          "$ref": "#/definitions/GenevaEnvironment",
+          "description": "Geneva environment where the monitors are defined."
+        },
+        "dimensionMap": {
+          "$ref": "#/definitions/HealthMetadataDimensionMap",
+          "description": "Default mapping from COSMIC dimension keys to partner Geneva dimension names."
+        },
+        "monitors": {
+          "type": "array",
+          "description": "Monitors configured for health evaluation.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/HealthMetadataMonitor"
+          },
+          "x-ms-identifiers": [
+            "monitorName"
+          ]
+        }
+      }
+    },
+    "HealthState": {
+      "type": "string",
+      "description": "The health state of an environment resource.",
+      "enum": [
+        "Healthy",
+        "Unhealthy",
+        "Unknown"
+      ],
+      "x-ms-enum": {
+        "name": "HealthState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Healthy",
+            "value": "Healthy",
+            "description": "The environment is healthy."
+          },
+          {
+            "name": "Unhealthy",
+            "value": "Unhealthy",
+            "description": "The environment is unhealthy."
+          },
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "The health state is unknown."
+          }
+        ]
+      }
+    },
+    "ImageDistributionState": {
+      "type": "string",
+      "description": "Whether the active revision's declared images are present in the registry the instance pulls from. Reported by the image-distribution component, not by the apply agents, and excluded from the aggregate apply rollup.",
+      "enum": [
+        "Pending",
+        "InProgress",
+        "Ready",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "ImageDistributionState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Pending",
+            "value": "Pending",
+            "description": "Distribution has not started."
+          },
+          {
+            "name": "InProgress",
+            "value": "InProgress",
+            "description": "Distribution is in progress."
+          },
+          {
+            "name": "Ready",
+            "value": "Ready",
+            "description": "The declared images are present in the target registry."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Distribution failed."
+          }
+        ]
+      }
+    },
+    "ImageReference": {
+      "type": "object",
+      "description": "A digest-pinned container image reference declared on a revision.",
+      "properties": {
+        "reference": {
+          "type": "string",
+          "description": "Digest-pinned container image reference in the form registry/repository@sha256 followed by 64 hex characters. Tag-only and version-only references are rejected.",
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9._-]*[a-zA-Z0-9])?(:[0-9]+)?(/[a-zA-Z0-9]([a-zA-Z0-9._-]*[a-zA-Z0-9])?)+@sha256:[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "reference"
+      ]
+    },
+    "IngressPublicIp": {
+      "type": "object",
+      "description": "Ingress public IP configuration using BYOIP.",
+      "properties": {
+        "ipTagType": {
+          "$ref": "#/definitions/IpTagType",
+          "description": "The IP tag type for ingress."
+        },
+        "ipTagValue": {
+          "type": "string",
+          "description": "The IP tag value for ingress."
+        },
+        "names": {
+          "type": "array",
+          "description": "Names associated with this ingress IP configuration.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ipVersion": {
+          "$ref": "#/definitions/IpVersion",
+          "description": "The IP version (IPv4 or IPv6). Defaults to IPv4."
+        }
+      },
+      "required": [
+        "ipTagType",
+        "ipTagValue"
+      ]
+    },
+    "Instance": {
+      "type": "object",
+      "description": "Operational instance within a realization.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The instance identifier."
+        },
+        "partition": {
+          "type": "string",
+          "description": "The partition this instance belongs to."
+        },
+        "routingPartition": {
+          "type": "string",
+          "description": "Legacy routing partition metadata preserved for migration parity."
+        },
+        "clusterResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "The ARM resource ID of the cluster backing this instance."
+        },
+        "status": {
+          "$ref": "#/definitions/InstanceProvisioningStatus",
+          "description": "The provisioning status of this instance on the backing cluster."
+        },
+        "statusMessage": {
+          "type": "string",
+          "description": "Human-readable status message for this instance (e.g. placement error details).",
+          "readOnly": true
+        },
+        "identities": {
+          "type": "array",
+          "description": "Identities applied to this instance. Each entry's identityType distinguishes pod vs workload.",
+          "items": {
+            "$ref": "#/definitions/InstanceIdentity"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "clientId"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "partition"
+      ]
+    },
+    "InstanceIdentity": {
+      "type": "object",
+      "description": "User-assigned managed identity exposed on an Instance.",
+      "properties": {
+        "identityType": {
+          "$ref": "#/definitions/InstanceIdentityType",
+          "description": "The kind of identity (Pod or Workload)."
+        },
+        "clientId": {
+          "type": "string",
+          "description": "Client ID of the user-assigned managed identity."
+        },
+        "resourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the user-assigned managed identity."
+        },
+        "principalId": {
+          "type": "string",
+          "description": "Principal (object) ID of the user-assigned managed identity. Matches ARM common-types UserAssignedIdentity.principalId."
+        }
+      },
+      "required": [
+        "identityType",
+        "clientId",
+        "principalId"
+      ]
+    },
+    "InstanceIdentityType": {
+      "type": "string",
+      "description": "The kind of managed identity exposed on an Instance.",
+      "enum": [
+        "Pod",
+        "Workload"
+      ],
+      "x-ms-enum": {
+        "name": "InstanceIdentityType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Pod",
+            "value": "Pod",
+            "description": "Pod identity used by namespace pods (sourced from the placement's ring-level identity)."
+          },
+          {
+            "name": "Workload",
+            "value": "Workload",
+            "description": "Workload (federated) identity (sourced from the placement's cluster-level identity)."
+          }
+        ]
+      }
+    },
+    "InstanceLevelPublicIp": {
+      "type": "object",
+      "description": "BYOIP configuration for instance-level public IP (ILPIP).",
+      "properties": {
+        "prefixLength": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Prefix length of the IP block.",
+          "minimum": 0,
+          "maximum": 128,
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipTagType": {
+          "$ref": "#/definitions/IpTagType",
+          "description": "The IP tag type.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipTagValue": {
+          "type": "string",
+          "description": "The IP tag value.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipVersion": {
+          "$ref": "#/definitions/IpVersion",
+          "description": "The IP version (IPv4 or IPv6). Defaults to IPv4.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      }
+    },
+    "InstanceOverride": {
+      "type": "object",
+      "description": "Migration-only per-instance resource override.",
+      "properties": {
+        "instanceId": {
+          "type": "string",
+          "description": "Opaque RP instance identifier (GUID).",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+        },
+        "instanceQuota": {
+          "$ref": "#/definitions/InstanceQuota",
+          "description": "Optional per-instance quota override."
+        }
+      },
+      "required": [
+        "instanceId"
+      ]
+    },
+    "InstanceProvisioningStatus": {
+      "type": "string",
+      "description": "The provisioning status of a namespace instance on a cluster.",
+      "enum": [
+        "Unspecified",
+        "Ready",
+        "SoftDeleted",
+        "Error",
+        "Pending",
+        "ResourcesCleanedUp",
+        "Terminating"
+      ],
+      "x-ms-enum": {
+        "name": "InstanceProvisioningStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unspecified",
+            "value": "Unspecified",
+            "description": "Status is unspecified."
+          },
+          {
+            "name": "Ready",
+            "value": "Ready",
+            "description": "The instance is ready."
+          },
+          {
+            "name": "SoftDeleted",
+            "value": "SoftDeleted",
+            "description": "The instance has been soft-deleted."
+          },
+          {
+            "name": "Error",
+            "value": "Error",
+            "description": "The instance encountered an error."
+          },
+          {
+            "name": "Pending",
+            "value": "Pending",
+            "description": "The instance is pending provisioning."
+          },
+          {
+            "name": "ResourcesCleanedUp",
+            "value": "ResourcesCleanedUp",
+            "description": "The instance resources have been cleaned up."
+          },
+          {
+            "name": "Terminating",
+            "value": "Terminating",
+            "description": "The instance is terminating."
+          }
+        ]
+      }
+    },
+    "InstanceQuota": {
+      "type": "object",
+      "description": "Per-instance quota override shape (migration-only).",
+      "properties": {
+        "vmFamily": {
+          "type": "string",
+          "description": "The Azure VM family.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "podResources": {
+          "type": "array",
+          "description": "Per-service pod resource specifications.",
+          "items": {
+            "$ref": "#/definitions/PodSpec"
+          },
+          "x-ms-identifiers": []
+        }
+      }
+    },
+    "IpTagType": {
+      "type": "string",
+      "description": "Azure public-IP tag types. Extensible - new values may be added without a breaking change.",
+      "enum": [
+        "RoutingPreference",
+        "FirstPartyUsage"
+      ],
+      "x-ms-enum": {
+        "name": "IpTagType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "RoutingPreference",
+            "value": "RoutingPreference",
+            "description": "Routing preference for the IP (Internet, Microsoft, etc.)."
+          },
+          {
+            "name": "FirstPartyUsage",
+            "value": "FirstPartyUsage",
+            "description": "First-party Azure service usage tag."
+          }
+        ]
+      }
+    },
+    "IpVersion": {
+      "type": "string",
+      "description": "IP Version",
+      "enum": [
+        "IPv4",
+        "IPv6"
+      ],
+      "x-ms-enum": {
+        "name": "IpVersion",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "IPV4",
+            "value": "IPv4",
+            "description": "Version IPv4"
+          },
+          {
+            "name": "IPV6",
+            "value": "IPv6",
+            "description": "Version IPv6"
+          }
+        ]
+      }
+    },
+    "LocationCapacity": {
+      "type": "object",
+      "description": "Per-location desired capacity.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Canonical Azure region name.",
+          "minLength": 1
+        },
+        "totalInstanceCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total desired instance count in this location.",
+          "minimum": 1
+        },
+        "partitions": {
+          "type": "array",
+          "description": "Optional breakdown of capacity by partition key.",
+          "items": {
+            "$ref": "#/definitions/PartitionCapacity"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "MigrateRequest": {
+      "type": "object",
+      "description": "Request body for the migrate action.",
+      "properties": {
+        "environmentName": {
+          "type": "string",
+          "description": "The name of the environment to migrate."
+        },
+        "platformRing": {
+          "$ref": "#/definitions/CosmicRing",
+          "description": "Platform ring classification (e.g. test, sdf, msit, prod). Used by APIM to route the request to the target ring's RP instance."
+        }
+      },
+      "required": [
+        "environmentName",
+        "platformRing"
+      ]
+    },
+    "MigrateResult": {
+      "type": "object",
+      "description": "Response body for the migrate action.",
+      "properties": {
+        "environmentName": {
+          "type": "string",
+          "description": "The name of the environment that was migrated."
+        },
+        "status": {
+          "$ref": "#/definitions/MigrationStatus",
+          "description": "The overall status of the migration."
+        },
+        "totalInstanceCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total number of instances targeted for migration."
+        },
+        "migratedInstanceCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of instances successfully migrated."
+        },
+        "skippedInstanceCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of instances skipped (e.g., deleted or cleaned up)."
+        },
+        "instances": {
+          "type": "array",
+          "description": "Per-instance migration details.",
+          "items": {
+            "$ref": "#/definitions/MigratedInstance"
+          },
+          "x-ms-identifiers": [
+            "instanceId"
+          ]
+        }
+      },
+      "required": [
+        "environmentName",
+        "status",
+        "totalInstanceCount",
+        "migratedInstanceCount",
+        "skippedInstanceCount"
+      ]
+    },
+    "MigratedInstance": {
+      "type": "object",
+      "description": "Migration result for a single instance.",
+      "properties": {
+        "instanceId": {
+          "type": "string",
+          "description": "The instance identifier."
+        },
+        "region": {
+          "type": "string",
+          "description": "The Azure region of the instance."
+        },
+        "partition": {
+          "type": "string",
+          "description": "The partition the instance belongs to."
+        },
+        "migrated": {
+          "type": "boolean",
+          "description": "Whether this instance was successfully migrated."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reason the instance was skipped or failed, if applicable."
+        }
+      },
+      "required": [
+        "instanceId",
+        "region",
+        "partition",
+        "migrated"
+      ]
+    },
+    "MigrationState": {
+      "type": "string",
+      "description": "The migration state of a namespace instance.",
+      "enum": [
+        "NeedsMigration",
+        "InMigration",
+        "NoMigrationNeeded"
+      ],
+      "x-ms-enum": {
+        "name": "MigrationState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "NeedsMigration",
+            "value": "NeedsMigration",
+            "description": "Instance spec and cluster spec are mismatched; migration is required but has not started."
+          },
+          {
+            "name": "InMigration",
+            "value": "InMigration",
+            "description": "The instance is currently being migrated."
+          },
+          {
+            "name": "NoMigrationNeeded",
+            "value": "NoMigrationNeeded",
+            "description": "The instance is correctly placed; no migration is required."
+          }
+        ]
+      }
+    },
+    "MigrationStatus": {
+      "type": "string",
+      "description": "The overall status of a migration operation.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "PartiallySucceeded"
+      ],
+      "x-ms-enum": {
+        "name": "MigrationStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Migration completed successfully."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Migration failed."
+          },
+          {
+            "name": "PartiallySucceeded",
+            "value": "PartiallySucceeded",
+            "description": "Migration partially succeeded - some instances could not be migrated."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "Namespace": {
+      "type": "object",
+      "description": "A Namespace resource representing a logical grouping of Cosmic environments.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/NamespaceProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "NamespaceListResult": {
+      "type": "object",
+      "description": "The response of a Namespace list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Namespace items on this page",
+          "items": {
+            "$ref": "#/definitions/Namespace"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "NamespaceProperties": {
+      "type": "object",
+      "description": "Properties of a Namespace resource.",
+      "properties": {
+        "workload": {
+          "type": "string",
+          "description": "Workload name this resource belongs to.",
+          "minLength": 3,
+          "maxLength": 63,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "serviceTreeId": {
+          "type": "string",
+          "description": "The ServiceTree GUID (with all letters in lower case) for billing",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+        },
+        "torusTeam": {
+          "type": "string",
+          "description": "Torus Team Name",
+          "minLength": 3,
+          "maxLength": 63,
+          "pattern": "^[a-zA-Z0-9]([-a-zA-Z0-9_]*[a-zA-Z0-9])?$"
+        },
+        "icmAccount": {
+          "type": "string",
+          "description": "The IcM Account for Escalations",
+          "pattern": "^[a-zA-Z0-9_\\\\()&:,+\\-/]+$"
+        },
+        "icmTenant": {
+          "type": "string",
+          "description": "The IcM tenant for auditing",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_ ():/\\-]+$"
+        },
+        "emailAlias": {
+          "type": "string",
+          "description": "Email Alias",
+          "pattern": "^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}$"
+        },
+        "isolationGroup": {
+          "type": "string",
+          "description": "The isolation group for cluster bin-packing affinity. This field is required and cannot be changed after namespace creation.",
+          "minLength": 1,
+          "maxLength": 63,
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "nightwatchEnabled": {
+          "type": "boolean",
+          "description": "Indicates whether Nightwatch monitoring is enabled for the namespace.",
+          "default": false
+        },
+        "deploymentReadiness": {
+          "type": "array",
+          "description": "Legacy process metadata listing rollout readiness rings.",
+          "items": {
+            "$ref": "#/definitions/CosmicRing"
+          }
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/CosmicProvisioningState",
+          "description": "The provisioning state of the namespace resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "workload",
+        "serviceTreeId",
+        "torusTeam",
+        "icmAccount",
+        "icmTenant",
+        "isolationGroup",
+        "nightwatchEnabled"
+      ]
+    },
+    "NamespaceUpdate": {
+      "type": "object",
+      "description": "The type used for update operations of the Namespace.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "$ref": "#/definitions/NamespaceUpdateProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      }
+    },
+    "NamespaceUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of the Namespace.",
+      "properties": {
+        "serviceTreeId": {
+          "type": "string",
+          "description": "The ServiceTree GUID (with all letters in lower case) for billing",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+        },
+        "torusTeam": {
+          "type": "string",
+          "description": "Torus Team Name",
+          "minLength": 3,
+          "maxLength": 63,
+          "pattern": "^[a-zA-Z0-9]([-a-zA-Z0-9_]*[a-zA-Z0-9])?$"
+        },
+        "icmAccount": {
+          "type": "string",
+          "description": "The IcM Account for Escalations",
+          "pattern": "^[a-zA-Z0-9_\\\\()&:,+\\-/]+$"
+        },
+        "icmTenant": {
+          "type": "string",
+          "description": "The IcM tenant for auditing",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_ ():/\\-]+$"
+        },
+        "emailAlias": {
+          "type": "string",
+          "description": "Email Alias",
+          "pattern": "^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}$"
+        },
+        "nightwatchEnabled": {
+          "type": "boolean",
+          "description": "Indicates whether Nightwatch monitoring is enabled for the namespace.",
+          "default": false
+        },
+        "deploymentReadiness": {
+          "type": "array",
+          "description": "Legacy process metadata listing rollout readiness rings.",
+          "items": {
+            "$ref": "#/definitions/CosmicRing"
+          }
+        }
+      }
+    },
+    "OsType": {
+      "type": "string",
+      "description": "The operating system type for the compute nodes.",
+      "enum": [
+        "Linux",
+        "Windows"
+      ],
+      "x-ms-enum": {
+        "name": "OsType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Linux",
+            "value": "Linux",
+            "description": "Linux operating system."
+          },
+          {
+            "name": "Windows",
+            "value": "Windows",
+            "description": "Windows operating system."
+          }
+        ]
+      }
+    },
+    "Partition": {
+      "type": "object",
+      "description": "Partition label present in this realization.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The partition name.",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "PartitionCapacity": {
+      "type": "object",
+      "description": "Explicit capacity configuration for a specific partition.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The partition name.",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+        },
+        "instanceCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of instances to realize for this partition.",
+          "minimum": 1
+        },
+        "routingPartition": {
+          "type": "string",
+          "description": "Optional routing partition associated with this capacity partition. Format: {ring}_Efz_{region}, e.g. 'test_Efz_DSM'.",
+          "pattern": "^[a-z0-9]+_Efz_[A-Za-z0-9]+$"
+        }
+      },
+      "required": [
+        "name",
+        "instanceCount"
+      ]
+    },
+    "PartitionDefaultPolicy": {
+      "type": "object",
+      "description": "Partition-level default resource policy.",
+      "properties": {
+        "os": {
+          "$ref": "#/definitions/OsType",
+          "description": "The operating system type override.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "podResources": {
+          "type": "array",
+          "description": "Per-service pod resource specifications.",
+          "items": {
+            "$ref": "#/definitions/PodSpec"
+          },
+          "x-ms-identifiers": []
+        },
+        "vmFamily": {
+          "type": "string",
+          "description": "The Azure VM family override for this partition (e.g., 'F_FLEX' for GPU partitions).",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      }
+    },
+    "PartitionOverride": {
+      "type": "object",
+      "description": "Partition-scoped policy overrides.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The partition name.",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+        },
+        "partitionDefault": {
+          "$ref": "#/definitions/PartitionDefaultPolicy",
+          "description": "Partition-level default policy."
+        },
+        "instanceOverrides": {
+          "type": "array",
+          "description": "Migration-only per-instance overrides.",
+          "items": {
+            "$ref": "#/definitions/InstanceOverride"
+          },
+          "x-ms-identifiers": [
+            "instanceId"
+          ]
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "PartitionTarget": {
+      "type": "object",
+      "description": "Active-revision pointer for one component in one partition. The region and partition pair identifies the partition, matching the identity the provisioning side uses; the entry applies to every realized instance of that partition.",
+      "properties": {
+        "region": {
+          "type": "string",
+          "description": "Canonical Azure region of the partition, matching a location declared in the parent environment's capacity and the region of the corresponding realization.",
+          "minLength": 1
+        },
+        "partition": {
+          "type": "string",
+          "description": "Partition label declared under that region in the parent environment's capacity.",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+        },
+        "activeRevisionName": {
+          "$ref": "#/definitions/RevisionName",
+          "description": "Name of this component's active revision for this partition. Absent when no revision is active yet, which is how auto-populated entries start."
+        }
+      },
+      "required": [
+        "region",
+        "partition"
+      ]
+    },
+    "PodSpec": {
+      "type": "object",
+      "description": "Pod resource envelope.",
+      "properties": {
+        "cores": {
+          "type": "string",
+          "description": "CPU cores requested per pod (e.g. '0.5', '2').",
+          "pattern": "^([0-9]*\\.?[0-9]+)$"
+        },
+        "memory": {
+          "type": "string",
+          "description": "Memory requested per pod (e.g. '512Mi', '2Gi').",
+          "pattern": "^[0-9]+(\\.[0-9]+)?(Mi|Gi)$"
+        },
+        "coresLimit": {
+          "type": "string",
+          "description": "CPU cores limit per pod. If unset, defaults to approximately 2x the request.",
+          "pattern": "^([0-9]*\\.?[0-9]+)$"
+        },
+        "memoryLimit": {
+          "type": "string",
+          "description": "Memory limit per pod. If unset, defaults to approximately 2x the request.",
+          "pattern": "^[0-9]+(\\.[0-9]+)?(Mi|Gi)$"
+        },
+        "replicas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of replicas per cluster.",
+          "minimum": 1
+        },
+        "rollingUpdateReplicaPercentage": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Percentage of replicas considered during rolling updates.",
+          "minimum": 0,
+          "maximum": 25
+        }
+      }
+    },
+    "PreviewRequest": {
+      "type": "object",
+      "description": "Request body for the preview action.",
+      "properties": {
+        "environmentName": {
+          "type": "string",
+          "description": "The name of the environment to preview."
+        },
+        "properties": {
+          "$ref": "#/definitions/CosmicEnvironmentProperties",
+          "description": "The environment properties to preview."
+        }
+      },
+      "required": [
+        "environmentName",
+        "properties"
+      ]
+    },
+    "PreviewResult": {
+      "type": "object",
+      "description": "Response body for the preview action. Includes the stored environment properties along with projected inventory status showing how existing brownfield instances map to the ARM model.",
+      "properties": {
+        "environmentName": {
+          "type": "string",
+          "description": "The name of the previewed environment."
+        },
+        "properties": {
+          "$ref": "#/definitions/CosmicEnvironmentProperties",
+          "description": "The environment properties as stored in ARM, including projected inventory status with per-region realizations derived from live inventory."
+        }
+      },
+      "required": [
+        "environmentName",
+        "properties"
+      ]
+    },
+    "Realization": {
+      "type": "object",
+      "description": "Realization details for a specific region.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable RP-generated identifier for diagnostics."
+        },
+        "region": {
+          "$ref": "#/definitions/Azure.Core.azureLocation",
+          "description": "Canonical Azure region name."
+        },
+        "state": {
+          "$ref": "#/definitions/RealizationState",
+          "description": "Realization-specific state."
+        },
+        "partitions": {
+          "type": "array",
+          "description": "Partition realization details.",
+          "items": {
+            "$ref": "#/definitions/Partition"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        },
+        "instances": {
+          "type": "array",
+          "description": "Instance realization details.",
+          "items": {
+            "$ref": "#/definitions/Instance"
+          },
+          "x-ms-identifiers": [
+            "id"
+          ]
+        },
+        "networking": {
+          "$ref": "#/definitions/TopologyLocation",
+          "description": "Effective networking configuration applied by the RP for this region."
+        }
+      },
+      "required": [
+        "id",
+        "region"
+      ]
+    },
+    "RealizationState": {
+      "type": "string",
+      "description": "The realization state of an environment resource.",
+      "enum": [
+        "Accepted",
+        "InProgress",
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "PartiallySucceeded"
+      ],
+      "x-ms-enum": {
+        "name": "RealizationState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Accepted",
+            "value": "Accepted",
+            "description": "Realization has been accepted."
+          },
+          {
+            "name": "InProgress",
+            "value": "InProgress",
+            "description": "Realization is in progress."
+          },
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Realization succeeded."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Realization failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Realization was canceled."
+          },
+          {
+            "name": "PartiallySucceeded",
+            "value": "PartiallySucceeded",
+            "description": "Realization partially succeeded."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "RegionDefaultPolicy": {
+      "type": "object",
+      "description": "Region-level default resource policy.",
+      "properties": {
+        "ipVersion": {
+          "$ref": "#/definitions/IpVersion",
+          "description": "The IP version override for this region."
+        }
+      }
+    },
+    "RegionOverride": {
+      "type": "object",
+      "description": "Region-scoped policy overrides.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Canonical Azure region name.",
+          "minLength": 1
+        },
+        "regionDefault": {
+          "$ref": "#/definitions/RegionDefaultPolicy",
+          "description": "Region-level default policy."
+        },
+        "partitions": {
+          "type": "array",
+          "description": "Partition-scoped policy overrides keyed by partition name.",
+          "items": {
+            "$ref": "#/definitions/PartitionOverride"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "ResourcePolicy": {
+      "type": "object",
+      "description": "Resource policy configuration with layered environment/region/partition overrides.",
+      "properties": {
+        "environmentDefault": {
+          "$ref": "#/definitions/EnvironmentDefaultPolicy",
+          "description": "Default resource policy for the environment."
+        },
+        "regionOverrides": {
+          "type": "array",
+          "description": "Per-region resource policy overrides keyed by canonical location.",
+          "items": {
+            "$ref": "#/definitions/RegionOverride"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      }
+    },
+    "Revision": {
+      "type": "object",
+      "description": "A Revision resource representing an immutable, digest-pinned artifact version of its parent component. A revision carries no scope; where it is applied is governed by an environment's deployment resource.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/RevisionProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "RevisionListResult": {
+      "type": "object",
+      "description": "The response of a Revision list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Revision items on this page",
+          "items": {
+            "$ref": "#/definitions/Revision"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "RevisionName": {
+      "type": "string",
+      "description": "The name of a revision under a component. Shared by every property that points at a revision so the accepted name shape cannot drift between Single-mode and Multiple-mode intent.",
+      "minLength": 1,
+      "maxLength": 63,
+      "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+    },
+    "RevisionProperties": {
+      "type": "object",
+      "description": "Properties of a Revision resource. All spec properties are immutable once the revision is created.",
+      "properties": {
+        "artifactReference": {
+          "type": "string",
+          "description": "Digest-pinned reference to the deployable artifact. Content is opaque to the RP, which records the reference as metadata and never dereferences it. Tag-only or version-only references are rejected.",
+          "minLength": 1,
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "images": {
+          "type": "array",
+          "description": "Container-image digests the artifact references, declared by the orchestrator at publish. Metadata only - the RP validates digest-pinning and never pulls, copies, or otherwise dereferences them. Empty when the artifact references no container image.",
+          "items": {
+            "$ref": "#/definitions/ImageReference"
+          },
+          "x-ms-identifiers": [
+            "reference"
+          ],
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "provenance": {
+          "$ref": "#/definitions/RevisionProvenance",
+          "description": "Source metadata describing where this revision came from.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "status": {
+          "$ref": "#/definitions/RevisionStatus",
+          "description": "The referential state of the revision.",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/CosmicProvisioningState",
+          "description": "The provisioning state of the revision resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "artifactReference"
+      ]
+    },
+    "RevisionProvenance": {
+      "type": "object",
+      "description": "Source metadata describing where a revision came from. Creation time and identity are not repeated here - they are carried by the resource's standard ARM systemData envelope.",
+      "properties": {
+        "source": {
+          "type": "string",
+          "description": "The orchestrator or automation that published this revision."
+        },
+        "commitHash": {
+          "type": "string",
+          "description": "Source commit hash the artifact was built from."
+        },
+        "duplicateOfRevisionName": {
+          "type": "string",
+          "description": "Name of the earliest existing revision under the same component carrying the same artifact digest. Set by the RP when a revision is created under a new name with an already-seen digest, so retention automation and dashboards can collapse duplicates.",
+          "readOnly": true
+        }
+      }
+    },
+    "RevisionStatus": {
+      "type": "object",
+      "description": "The referential state of a revision.",
+      "properties": {
+        "referenced": {
+          "type": "boolean",
+          "description": "True when this revision is referenced by the deployment resource of at least one environment under the namespace. The RP updates this flag as deployment references change, so it is eventually consistent and a read taken immediately after a deployment write may briefly lag. Deletion guards do not rely on it: a referenced revision cannot be deleted because references are evaluated live at delete time. Cross-environment breadth is answered by Azure Resource Graph over the deployment resources rather than by this field.",
+          "readOnly": true
+        }
+      }
+    },
+    "RevisionTagsUpdate": {
+      "type": "object",
+      "description": "The type used for updating tags in Revision resources.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Topology": {
+      "type": "object",
+      "description": "Optional per-location topology declarations including networking and partition identity.",
+      "properties": {
+        "locations": {
+          "type": "array",
+          "description": "Per-location topology declarations keyed by canonical Azure region name.",
+          "items": {
+            "$ref": "#/definitions/TopologyLocation"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      }
+    },
+    "TopologyLocation": {
+      "type": "object",
+      "description": "Per-location topology configuration including networking and optional partition declarations.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Canonical Azure region name.",
+          "minLength": 1
+        },
+        "snatPortsPerNode": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Optional SNAT ports to allocate per node.",
+          "minimum": 0,
+          "maximum": 64000
+        },
+        "ingressPublicIps": {
+          "type": "array",
+          "description": "BYOIP configuration for ingress traffic.",
+          "items": {
+            "$ref": "#/definitions/IngressPublicIp"
+          },
+          "x-ms-identifiers": [
+            "ipTagType",
+            "ipTagValue"
+          ]
+        },
+        "egressPublicIps": {
+          "$ref": "#/definitions/EgressPublicIps",
+          "description": "BYOIP configuration for egress traffic."
+        },
+        "instanceLevelPublicIp": {
+          "$ref": "#/definitions/InstanceLevelPublicIp",
+          "description": "BYOIP configuration for instance-level public IP."
+        },
+        "partitions": {
+          "type": "array",
+          "description": "Optional declared partition set for this location.",
+          "items": {
+            "$ref": "#/definitions/TopologyPartition"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "TopologyPartition": {
+      "type": "object",
+      "description": "Declared partition identity for a location.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The partition name.",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "ValidateRequest": {
+      "type": "object",
+      "description": "Request body for the validate action.",
+      "properties": {
+        "environmentName": {
+          "type": "string",
+          "description": "The name of the environment to validate."
+        },
+        "platformRing": {
+          "$ref": "#/definitions/CosmicRing",
+          "description": "Platform ring classification (e.g. test, sdf, msit, prod). Used by APIM to route the request to the target ring's RP instance."
+        }
+      },
+      "required": [
+        "environmentName",
+        "platformRing"
+      ]
+    },
+    "ValidateResult": {
+      "type": "object",
+      "description": "Response body for the validate action.",
+      "properties": {
+        "isConsistent": {
+          "type": "boolean",
+          "description": "Whether the ARM template is consistent with inventory."
+        },
+        "differences": {
+          "type": "array",
+          "description": "List of differences found between ARM and inventory.",
+          "items": {
+            "$ref": "#/definitions/ValidationDifference"
+          },
+          "x-ms-identifiers": []
+        }
+      },
+      "required": [
+        "isConsistent"
+      ]
+    },
+    "ValidationDifference": {
+      "type": "object",
+      "description": "A single difference between ARM template and inventory.",
+      "properties": {
+        "differenceType": {
+          "$ref": "#/definitions/ValidationDifferenceType",
+          "description": "The type of difference."
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of the difference."
+        },
+        "location": {
+          "type": "string",
+          "description": "The Azure region where the difference was found."
+        },
+        "partition": {
+          "type": "string",
+          "description": "The partition name involved, if applicable."
+        },
+        "instanceId": {
+          "type": "string",
+          "description": "The instance ID involved, if applicable."
+        },
+        "templateCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The instance count in the ARM template, if applicable."
+        },
+        "inventoryCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The instance count in inventory, if applicable."
+        },
+        "state": {
+          "type": "string",
+          "description": "The instance state, if applicable."
+        }
+      },
+      "required": [
+        "differenceType",
+        "description"
+      ]
+    },
+    "ValidationDifferenceType": {
+      "type": "string",
+      "description": "The type of validation difference.",
+      "enum": [
+        "MissingInTemplate",
+        "CapacityMismatch",
+        "DeletedInstance",
+        "ConfigDifference"
+      ],
+      "x-ms-enum": {
+        "name": "ValidationDifferenceType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "MissingInTemplate",
+            "value": "MissingInTemplate",
+            "description": "Instance exists in inventory but not in the ARM template."
+          },
+          {
+            "name": "CapacityMismatch",
+            "value": "CapacityMismatch",
+            "description": "Instance count mismatch between ARM and inventory."
+          },
+          {
+            "name": "DeletedInstance",
+            "value": "DeletedInstance",
+            "description": "Instance is deleted or cleaned up in inventory."
+          },
+          {
+            "name": "ConfigDifference",
+            "value": "ConfigDifference",
+            "description": "Configuration difference between ARM and inventory."
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {}
+}

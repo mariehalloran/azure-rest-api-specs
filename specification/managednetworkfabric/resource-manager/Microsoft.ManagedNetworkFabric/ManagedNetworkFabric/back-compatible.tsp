@@ -2,7 +2,6 @@ import "@azure-tools/typespec-client-generator-core";
 
 using Azure.ClientGenerator.Core;
 using Microsoft.ManagedNetworkFabric;
-using TypeSpec.Versioning;
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
 @@Legacy.flattenProperty(AccessControlListPatch.properties);
@@ -154,15 +153,18 @@ using TypeSpec.Versioning;
 @@Legacy.flattenProperty(NetworkFabricSku.properties);
 
 @@clientName(NetworkFabrics.create::parameters.resource, "body");
-@@clientName(NetworkFabrics.createDeprecated::parameters.resource, "body");
 @@clientName(NetworkFabrics.update::parameters.properties, "body");
-@@clientName(NetworkFabrics.updateDeprecated::parameters.properties, "body");
 @@clientName(NetworkFabrics.provision, "provision");
 @@clientName(NetworkFabrics.deprovision, "deprovision");
 @@clientName(NetworkFabrics.upgrade, "upgrade");
 @@clientName(NetworkFabrics.refreshConfiguration, "refreshConfiguration");
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
 @@Legacy.flattenProperty(NetworkFabric.properties);
+
+@@clientName(EdgeConnectors.create::parameters.resource, "body");
+@@clientName(EdgeConnectors.update::parameters.properties, "body");
+@@clientName(Fabrics.create::parameters.resource, "body");
+@@clientName(Fabrics.update::parameters.properties, "body");
 
 @@clientName(NetworkToNetworkInterconnects.create::parameters.resource, "body");
 @@clientName(
@@ -205,18 +207,12 @@ using TypeSpec.Versioning;
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
 @@Legacy.flattenProperty(RoutePolicy.properties);
 
-@@clientName(NetworkBootstrapDevices.create::parameters.resource, "body");
-@@clientName(NetworkBootstrapDevices.update::parameters.properties, "body");
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
 @@Legacy.flattenProperty(NetworkBootstrapDevice.properties);
 
-@@clientName(NetworkBootstrapInterfaces.create::parameters.resource, "body");
-@@clientName(NetworkBootstrapInterfaces.update::parameters.properties, "body");
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
 @@Legacy.flattenProperty(NetworkBootstrapInterface.properties);
 
-@@clientName(NetworkMonitors.create::parameters.resource, "body");
-@@clientName(NetworkMonitors.update::parameters.properties, "body");
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
 @@Legacy.flattenProperty(NetworkMonitor.properties);
 
@@ -236,12 +232,7 @@ model NetworkDevicesListResult is Azure.Core.Page<NetworkDevice>;
 model NetworkFabricControllersListResult
   is Azure.Core.Page<NetworkFabricController>;
 model NetworkFabricSkusListResult is Azure.Core.Page<NetworkFabricSku>;
-@added(Versions.v2025_07_15)
 model NetworkFabricsListResult is Azure.Core.Page<NetworkFabric>;
-@removed(Versions.v2025_07_15)
-@renamedFrom(Versions.v2025_07_15, "NetworkFabricsListResult")
-model NetworkFabricsListResultDeprecated
-  is Azure.Core.Page<NetworkFabricDeprecated>;
 model NetworkPacketBrokersListResult is Azure.Core.Page<NetworkPacketBroker>;
 model NetworkRacksListResult is Azure.Core.Page<NetworkRack>;
 model NetworkTapRulesListResult is Azure.Core.Page<NetworkTapRule>;
@@ -253,6 +244,3 @@ model InternalNetworksList is Azure.Core.Page<InternalNetwork>;
 model NetworkInterfacesList is Azure.Core.Page<NetworkInterface>;
 model NetworkToNetworkInterconnectsList
   is Azure.Core.Page<NetworkToNetworkInterconnect>;
-
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
-@@Legacy.flattenProperty(NetworkFabricDeprecated.properties, "javascript");

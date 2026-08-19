@@ -5,6 +5,8 @@
 
 ## Configuration
 
+### Basic Information
+
 Required if any services under this folder are RPaaS.
 
 ```yaml

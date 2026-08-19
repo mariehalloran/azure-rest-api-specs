@@ -70,3 +70,7 @@ interface NginxDeploymentWafPolicies {
   NginxDeploymentWafPolicy.properties,
   "Nginx Deployment Waf Policy Properties"
 );
+@@doc(
+  NginxDeploymentWafPolicies.create::parameters.resource,
+  "The Nginx Deployment Waf Policy"
+);

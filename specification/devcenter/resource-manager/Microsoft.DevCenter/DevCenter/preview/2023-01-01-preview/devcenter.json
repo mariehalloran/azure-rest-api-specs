@@ -3491,7 +3491,7 @@
       "type": "object",
       "properties": {
         "imageReference": {
-          "$ref": "commonDefinitions.json#/definitions/ImageReference",
+          "$ref": "vdi.json#/definitions/ImageReference",
           "description": "Image reference information."
         },
         "sku": {
@@ -3524,16 +3524,16 @@
         },
         "imageValidationStatus": {
           "description": "Validation status of the configured image.",
-          "$ref": "commonDefinitions.json#/definitions/ImageValidationStatus",
+          "$ref": "vdi.json#/definitions/ImageValidationStatus",
           "readOnly": true
         },
         "imageValidationErrorDetails": {
           "description": "Details for image validator error. Populated when the image validation is not successful.",
-          "$ref": "commonDefinitions.json#/definitions/ImageValidationErrorDetails",
+          "$ref": "vdi.json#/definitions/ImageValidationErrorDetails",
           "readOnly": true
         },
         "activeImageReference": {
-          "$ref": "commonDefinitions.json#/definitions/ImageReference",
+          "$ref": "vdi.json#/definitions/ImageReference",
           "description": "Image reference information for the currently active image (only populated during updates).",
           "readOnly": true
         }
@@ -3582,12 +3582,12 @@
           "readOnly": true
         },
         "healthCheckStatus": {
-          "$ref": "commonDefinitions.json#/definitions/HealthCheckStatus",
+          "$ref": "vdi.json#/definitions/HealthCheckStatus",
           "readOnly": true
         },
         "domainJoinType": {
           "description": "AAD Join type of the network. This is populated based on the referenced Network Connection.",
-          "$ref": "commonDefinitions.json#/definitions/DomainJoinType",
+          "$ref": "vdi.json#/definitions/DomainJoinType",
           "readOnly": true
         }
       },

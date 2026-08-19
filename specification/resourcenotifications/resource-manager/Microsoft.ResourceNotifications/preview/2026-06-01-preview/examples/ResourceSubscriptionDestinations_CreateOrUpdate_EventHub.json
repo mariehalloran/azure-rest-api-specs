@@ -1,0 +1,85 @@
+{
+  "operationId": "ResourceSubscriptionDestinations_CreateOrUpdate",
+  "title": "Create or update an event hub destination",
+  "parameters": {
+    "subscriptionId": "12345678-1234-1234-1234-123456789012",
+    "resourceGroupName": "example-rg",
+    "subscriptionRuleName": "example-subscription",
+    "destinationName": "eventhub-destination",
+    "api-version": "2026-06-01-preview",
+    "resource": {
+      "properties": {},
+      "location": "westus",
+      "identity": {
+        "type": "UserAssigned",
+        "userAssignedIdentities": {
+          "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/arn-delivery-mi": {}
+        }
+      },
+      "kind": "eventHub",
+      "endpoints": [
+        {
+          "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.EventHub/namespaces/contoso-ns/eventhubs/arn-events"
+        }
+      ]
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ResourceNotifications/resourceSubscriptions/example-subscription/destinations/eventhub-destination",
+        "name": "eventhub-destination",
+        "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
+        "properties": {
+          "provisioningState": "Succeeded"
+        },
+        "location": "westus",
+        "identity": {
+          "type": "UserAssigned",
+          "userAssignedIdentities": {
+            "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/arn-delivery-mi": {
+              "clientId": "11111111-1111-1111-1111-111111111111",
+              "principalId": "22222222-2222-2222-2222-222222222222"
+            }
+          }
+        },
+        "kind": "eventHub",
+        "endpoints": [
+          {
+            "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.EventHub/namespaces/contoso-ns/eventhubs/arn-events"
+          }
+        ]
+      }
+    },
+    "201": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/12345678-1234-1234-1234-123456789012/providers/Microsoft.ResourceNotifications/operationStatuses/11111111-2222-3333-4444-555555555555?api-version=2026-06-01-preview",
+        "Retry-After": 10
+      },
+      "body": {
+        "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ResourceNotifications/resourceSubscriptions/example-subscription/destinations/eventhub-destination",
+        "name": "eventhub-destination",
+        "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
+        "properties": {
+          "provisioningState": "Accepted"
+        },
+        "location": "westus",
+        "identity": {
+          "type": "UserAssigned",
+          "userAssignedIdentities": {
+            "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/arn-delivery-mi": {
+              "clientId": "11111111-1111-1111-1111-111111111111",
+              "principalId": "22222222-2222-2222-2222-222222222222"
+            }
+          }
+        },
+        "kind": "eventHub",
+        "endpoints": [
+          {
+            "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.EventHub/namespaces/contoso-ns/eventhubs/arn-events"
+          }
+        ]
+      }
+    }
+  }
+}

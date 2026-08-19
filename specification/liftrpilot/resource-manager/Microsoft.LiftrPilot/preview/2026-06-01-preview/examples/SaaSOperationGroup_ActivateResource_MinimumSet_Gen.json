@@ -1,0 +1,23 @@
+{
+  "title": "SaaSOperationGroup_ActivateResource_MinimumSet",
+  "operationId": "SaaSOperationGroup_ActivateResource",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "E607A593-DCCC-45BE-89AE-C83A7A87859B",
+    "body": {
+      "saasGuid": "3f2504e0-4f89-11d3-9a0c-0305e82c3301"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "saasId": "/subscriptions/e607a593-dccc-45be-89ae-c83a7a87859b/resourceGroups/rgpilot/providers/Microsoft.SaaS/resources/contosoSaaS"
+      }
+    },
+    "202": {
+      "headers": {
+        "location": "https://contoso.com/operationstatus"
+      }
+    }
+  }
+}

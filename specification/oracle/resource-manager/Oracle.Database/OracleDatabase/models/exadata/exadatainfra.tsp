@@ -3,7 +3,6 @@ import "../common.tsp";
 using TypeSpec.Http;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
-using Azure.Core;
 using Azure.ResourceManager;
 
 namespace Oracle.Database;
@@ -183,6 +182,11 @@ model CloudExadataInfrastructureProperties {
   @visibility(Lifecycle.Read)
   ocid?: Ocid;
 
+  @added(Versions.v20260501_preview)
+  @doc("Azure Resource Anchor ID")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  resourceAnchorId?: ResourceAnchorResourceId;
+
   @doc("The number of compute servers for the cloud Exadata infrastructure.")
   @visibility(Lifecycle.Create, Lifecycle.Read, Lifecycle.Update)
   computeCount?: int32;
@@ -231,6 +235,11 @@ model CloudExadataInfrastructureProperties {
   @doc("The model name of the cloud Exadata infrastructure resource.")
   @visibility(Lifecycle.Create, Lifecycle.Read)
   shape: string;
+
+  @added(Versions.v20260501_preview)
+  @doc("Proximity placement group settings")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  proximityPlacementGroup?: ProximityPlacementGroup;
 
   #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("HTTPS link to OCI resources exposed to Azure Customer via Azure Interface.")

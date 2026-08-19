@@ -107,31 +107,13 @@ using Azure.Core;
   "csharp"
 );
 @@clientName(
-  NginxConfigurationRequest,
-  "NginxConfigurationCreateOrUpdateContent",
+  NginxConfigurationResponseProperties,
+  "NginxConfigurationProperties",
   "csharp"
 );
-@@clientName(NginxConfigurationRequest.type, "ResourceType", "csharp");
 @@clientName(
   NginxConfigurationRequestProperties,
   "NginxConfigurationCreateOrUpdateProperties",
-  "csharp"
-);
-@@clientName(
-  NginxDeploymentApiKeyRequest,
-  "NginxDeploymentApiKeyCreateOrUpdateContent",
-  "csharp"
-);
-@@clientName(NginxDeploymentApiKeyRequest.type, "ResourceType", "csharp");
-@@clientName(
-  NginxDeploymentDefaultWafPolicyListResponse,
-  "NginxDeploymentDefaultWafPolicyListResult",
-  "csharp"
-);
-@@clientName(NginxDeploymentProperties.ipAddress, "IPAddress", "csharp");
-@@clientName(
-  NginxDeploymentScalingPropertiesAutoScaleSettings,
-  "NginxDeploymentAutoScaleSettings",
   "csharp"
 );
 
@@ -158,16 +140,11 @@ using Azure.Core;
 );
 @@clientName(AnalysisResultData, "NginxAnalysisResultDetails", "csharp");
 @@clientName(Level, "NginxDiagnosticLevel", "csharp");
-@@clientName(
-  NginxConfigurationResponse,
-  "NginxConfiguration",
-  "csharp,go,javascript"
-);
-@@usage(NginxConfigurationResponse, Usage.input, "csharp");
+@@clientName(NginxConfigurationResponse, "NginxConfiguration", "csharp,go");
 @@clientName(
   NginxConfigurationResponseProperties,
   "NginxConfigurationProperties",
-  "csharp,go,javascript"
+  "csharp,go"
 );
 @@clientName(NginxDeploymentApiKeyResponse, "NginxDeploymentApiKey", "csharp");
 @@clientName(
@@ -177,12 +154,12 @@ using Azure.Core;
 );
 @@clientName(
   NginxConfigurationProtectedFileRequest,
-  "NginxConfigurationContentProtectedFile",
+  "NginxConfigurationProtectedFileContent",
   "csharp"
 );
 @@clientName(
   NginxConfigurationProtectedFileResponse,
-  "NginxConfigurationProtectedFile",
+  "NginxConfigurationProtectedFileResult",
   "csharp"
 );
 
@@ -191,7 +168,6 @@ using Azure.Core;
   azureLocation,
   "csharp"
 );
-@@alternateType(NginxCertificate.location, azureLocation, "csharp");
 @@clientName(ResourceSku, "NginxResourceSku", "csharp");
 @@clientName(
   WebApplicationFirewallStatus,
@@ -217,15 +193,5 @@ using Azure.Core;
 @@clientName(
   NginxDeployments.defaultWafPolicyList,
   "GetDefaultWafPolicies",
-  "csharp"
-);
-@@alternateType(
-  NginxDeployment.identity,
-  Azure.ResourceManager.CommonTypes.ManagedServiceIdentity,
-  "csharp"
-);
-@@alternateType(
-  NginxDeploymentUpdateParameters.identity,
-  Azure.ResourceManager.CommonTypes.ManagedServiceIdentity,
   "csharp"
 );

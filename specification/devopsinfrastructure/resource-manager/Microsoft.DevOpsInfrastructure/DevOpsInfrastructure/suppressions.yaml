@@ -1,15 +1,10 @@
-- tool: TypeSpecRequirement
-  path: ./preview/2023-10-30-preview/*.json
-  reason: Brownfield service not ready to migrate
-- tool: TypeSpecRequirement
-  path: ./preview/2023-12-13-preview/*.json
-  reason: Brownfield service not ready to migrate
-- tool: TypeSpecRequirement
-  path: ./preview/2024-03-26-preview/*.json
-  reason: Brownfield service not ready to migrate
-- tool: TypeSpecRequirement
-  path: ./preview/2024-04-04-preview/*.json
-  reason: Brownfield service not ready to migrate
-- tool: TypeSpecRequirement
-  path: ./stable/2024-10-19/*.json
-  reason: Brownfield service not ready to migrate
+- tool: TypeSpecValidation
+  reason: >
+    Not ready to generate SDKs from TypeSpec.
+    Responsibility: Service team with SDK team collaboration.
+    More info: https://aka.ms/azsdk/spec-gen-sdk-config.
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - options.@azure-tools/typespec-ts.*
+    - options.@azure-typespec/http-client-csharp-mgmt.*
+  paths: [tspconfig.yaml]

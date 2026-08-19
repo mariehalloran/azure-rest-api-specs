@@ -1427,7 +1427,7 @@
           {
             "name": "body",
             "in": "body",
-            "description": "Resource create parameters.",
+            "description": "The Nginx Deployment Waf Policy",
             "required": false,
             "schema": {
               "$ref": "#/definitions/NginxDeploymentWafPolicy"
@@ -2556,7 +2556,7 @@
         },
         "filepath": {
           "type": "string",
-          "description": "The absolute file path of the policy as in the virtual machine"
+          "description": "The file path of the policy"
         }
       }
     },
@@ -2580,7 +2580,7 @@
       "properties": {
         "status": {
           "type": "string",
-          "description": "The status of the analysis. The possible values can be arbitrary"
+          "description": "The status of the analysis"
         },
         "data": {
           "$ref": "#/definitions/NginxDeploymentWafPolicyAnalysisData",

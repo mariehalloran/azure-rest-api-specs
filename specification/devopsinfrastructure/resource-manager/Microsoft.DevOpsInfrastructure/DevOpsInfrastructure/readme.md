@@ -27,84 +27,7 @@ These are the global settings for the devopsinfrastructure.
 ```yaml
 openapi-type: arm
 openapi-subtype: providerHub
-tag: package-stable-2026-06-02
-```
-
-```yaml
-modelerfour:
-  flatten-models: false
-```
-
-### Tag: package-preview-2026-04-17
-
-These settings apply only when `--tag=package-preview-2026-04-17` is specified on the command line.
-
-```yaml $(tag) == 'package-preview-2026-04-17'
-input-file:
-  - preview/2026-04-17-preview/devopsinfrastructure.json
-```
-
-### Tag: package-stable-2026-06-02
-
-These settings apply only when `--tag=package-stable-2026-06-02` is specified on the command line.
-
-```yaml $(tag) == 'package-stable-2026-06-02'
-input-file:
-  - stable/2026-06-02/devopsinfrastructure.json
-```
-
-### Tag: package-stable-2025-09-20
-
-These settings apply only when `--tag=package-stable-2025-09-20` is specified on the command line.
-
-```yaml $(tag) == 'package-stable-2025-09-20'
-input-file:
-  - stable/2025-09-20/devopsinfrastructure.json
-```
-
-### Tag: package-stable-2025-01-21
-
-These settings apply only when `--tag=package-stable-2025-01-21` is specified on the command line.
-
-```yaml $(tag) == 'package-stable-2025-01-21'
-input-file:
-  - stable/2025-01-21/devopsinfrastructure.json
-```
-
-### Tag: package-stable-2024-10-19
-
-These settings apply only when `--tag=package-stable-2024-10-19` is specified on the command line.
-
-```yaml $(tag) == 'package-stable-2024-10-19'
-input-file:
-  - stable/2024-10-19/devopsinfrastructure.json
-```
-
-### Tag: package-preview-2024-04
-
-These settings apply only when `--tag=package-preview-2024-04` is specified on the command line.
-
-```yaml $(tag) == 'package-preview-2024-04'
-input-file:
-  - preview/2024-04-04-preview/devopsinfrastructure.json
-```
-
-### Tag: package-preview-2024-03
-
-These settings apply only when `--tag=package-preview-2024-03` is specified on the command line.
-
-```yaml $(tag) == 'package-preview-2024-03'
-input-file:
-  - preview/2024-03-26-preview/devopsinfrastructure.json
-```
-
-### Tag: package-2023-12-13-preview
-
-These settings apply only when `--tag=package-2023-12-13-preview` is specified on the command line.
-
-```yaml $(tag) == 'package-2023-12-13-preview'
-input-file:
-  - preview/2023-12-13-preview/devopsinfrastructure.json
+tag: package-2023-10-30-preview
 ```
 
 ### Tag: package-2023-10-30-preview
@@ -127,7 +50,9 @@ This is not used by Autorest itself.
 
 ```yaml $(swagger-to-sdk)
 swagger-to-sdk:
+  - repo: azure-sdk-for-python-track2
   - repo: azure-sdk-for-java
+  - repo: azure-sdk-for-go
   - repo: azure-resource-manager-schemas
   - repo: azure-cli-extensions
   - repo: azure-powershell
@@ -137,9 +62,17 @@ swagger-to-sdk:
 
 See configuration in [readme.az.md](./readme.az.md)
 
+## Go
+
+See configuration in [readme.go.md](./readme.go.md)
+
 ## Python
 
 See configuration in [readme.python.md](./readme.python.md)
+
+## TypeScript
+
+See configuration in [readme.typescript.md](./readme.typescript.md)
 
 ## CSharp
 

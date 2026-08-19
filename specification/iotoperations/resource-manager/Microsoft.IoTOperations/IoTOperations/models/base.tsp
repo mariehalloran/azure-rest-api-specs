@@ -48,7 +48,7 @@ union ProvisioningState {
 }
 
 @doc("The health state of the resource.")
-@added(Versions.`2025-10-01`)
+@added(Versions.`2025-09-01-preview`)
 union ResourceHealthState {
   string,
 
@@ -65,10 +65,10 @@ union ResourceHealthState {
   Unknown,
 }
 
-#deprecated "Field deprecated since v2026-03-01 service version. Use 'status.healthState' instead."
+#deprecated "Field deprecated since v2025-12-01-preview service version. Use 'status.healthState' instead."
 alias ResourceHealth = {
   @doc("The health state of the resource.")
-  @added(Versions.`2025-10-01`)
+  @added(Versions.`2025-09-01-preview`)
   @visibility(Lifecycle.Read)
   healthState?: ResourceHealthState = Unknown;
 };
@@ -270,7 +270,7 @@ scalar AzureDeviceRegistryNamespaceID
   ]>;
 
 @doc("Represents the health state of a resource.")
-@added(Versions.`2026-03-01`)
+@added(Versions.`2025-12-01-preview`)
 model ResourceHealthStatus {
   @visibility(Lifecycle.Read)
   @doc("The high-level health status of the resource.")

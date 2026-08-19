@@ -1,8 +1,3 @@
-using Azure.ResourceManager;
-
-@doc("Microsoft Mission Resource Provider management API.")
-namespace Microsoft.Mission;
-
 @doc("Update Mode")
 union UpdateMode {
   string,

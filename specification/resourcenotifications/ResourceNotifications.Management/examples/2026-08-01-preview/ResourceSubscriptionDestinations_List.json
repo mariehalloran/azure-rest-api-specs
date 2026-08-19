@@ -1,0 +1,84 @@
+{
+  "operationId": "ResourceSubscriptionDestinations_List",
+  "title": "List all destinations for a resource subscription",
+  "parameters": {
+    "subscriptionId": "12345678-1234-1234-1234-123456789012",
+    "resourceGroupName": "example-rg",
+    "subscriptionRuleName": "example-subscription",
+    "api-version": "2026-08-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ResourceNotifications/resourceSubscriptions/example-subscription/destinations/fabric-destination",
+            "name": "fabric-destination",
+            "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
+            "properties": {
+              "provisioningState": "Succeeded"
+            },
+            "location": "westus",
+            "identity": {
+              "type": "UserAssigned",
+              "userAssignedIdentities": {
+                "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/arn-delivery-mi": {
+                  "clientId": "11111111-1111-1111-1111-111111111111",
+                  "principalId": "22222222-2222-2222-2222-222222222222"
+                }
+              }
+            },
+            "kind": "fabricTable",
+            "endpoint": {
+              "workspaceId": "12345678-1234-1234-1234-123456789012",
+              "databaseId": "sample-database-id"
+            }
+          },
+          {
+            "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ResourceNotifications/resourceSubscriptions/example-subscription/destinations/storage-destination",
+            "name": "storage-destination",
+            "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
+            "properties": {
+              "partitions": [
+                "p0",
+                "p1"
+              ],
+              "provisioningState": "Succeeded"
+            },
+            "location": "westus",
+            "identity": {
+              "type": "UserAssigned",
+              "userAssignedIdentities": {
+                "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/arn-delivery-mi": {
+                  "clientId": "11111111-1111-1111-1111-111111111111",
+                  "principalId": "22222222-2222-2222-2222-222222222222"
+                }
+              }
+            },
+            "kind": "storageAccount",
+            "container": "events",
+            "pathPolicy": {
+              "kind": "timeAndScopeRangeHash",
+              "scope": "tenant",
+              "scopeBucketsCount": 50,
+              "pathTemplate": "year={yyyy},month={mm},day={dd}/hour={hh}/tenantBucket={scopeBucket}"
+            },
+            "batchingPolicy": {
+              "kind": "minCountMaxDelay",
+              "minResources": 500,
+              "maxDelay": "PT10M"
+            },
+            "endpoints": [
+              {
+                "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.Storage/storageAccounts/primarystorage"
+              },
+              {
+                "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.Storage/storageAccounts/secondarystorage"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

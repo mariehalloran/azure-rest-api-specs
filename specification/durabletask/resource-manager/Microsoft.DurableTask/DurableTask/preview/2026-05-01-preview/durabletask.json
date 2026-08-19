@@ -772,7 +772,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SchedulerPrivateLinkResourceListResult"
+              "$ref": "#/definitions/MyPrivateLinkResourceListResult"
             }
           },
           "default": {
@@ -1704,6 +1704,27 @@
         }
       }
     },
+    "MyPrivateLinkResourceListResult": {
+      "type": "object",
+      "description": "The response of a MyPrivateLinkResource list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The MyPrivateLinkResource items on this page",
+          "items": {
+            "$ref": "../../../../../../common-types/resource-management/v6/privatelinks.json#/definitions/PrivateLinkResource"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "PrivateEndpointConnectionListResult": {
       "type": "object",
       "description": "The response of a PrivateEndpointConnection list operation.",
@@ -1995,27 +2016,6 @@
         "value"
       ]
     },
-    "SchedulerPrivateLinkResourceListResult": {
-      "type": "object",
-      "description": "The response of a SchedulerPrivateLinkResource list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The SchedulerPrivateLinkResource items on this page",
-          "items": {
-            "$ref": "../../../../../../common-types/resource-management/v6/privatelinks.json#/definitions/PrivateLinkResource"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "SchedulerProperties": {
       "type": "object",
       "description": "Details of the Scheduler",
@@ -2240,7 +2240,7 @@
     },
     "TransparentDataEncryption": {
       "type": "object",
-      "description": "A transparent data encryption resource belonging to the scheduler",
+      "description": "A retention policy resource belonging to the scheduler",
       "properties": {
         "properties": {
           "$ref": "#/definitions/TransparentDataEncryptionProperties",

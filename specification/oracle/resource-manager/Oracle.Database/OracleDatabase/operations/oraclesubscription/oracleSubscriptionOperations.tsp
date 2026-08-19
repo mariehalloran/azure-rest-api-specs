@@ -1,10 +1,8 @@
-import "@typespec/http";
 import "../../models/oraclesubscription/oracleSubscription.tsp";
 using Azure.ResourceManager;
 using Azure.ResourceManager.Foundations;
 using Autorest;
 using TypeSpec.Versioning;
-using Http;
 
 namespace Oracle.Database;
 
@@ -65,6 +63,8 @@ interface OracleSubscriptions
    * @template Properties RP-specific property bag for the resource
    * @template BaseParameters The http parameters that are part of the request
    */
+  #suppress "@typespec/http/deprecated-implicit-optionality" "LEGACY - DO NOT COPY"
+  @Http.patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     OracleSubscription<Plan>,
     ResourceUpdateModel<

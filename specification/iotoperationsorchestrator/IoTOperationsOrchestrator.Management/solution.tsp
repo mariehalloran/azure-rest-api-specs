@@ -46,12 +46,7 @@ model SolutionProperties {
 @armResourceOperations
 interface Solutions {
   get is ArmResourceRead<Solution>;
-  #suppress "@azure-tools/typespec-azure-core/invalid-final-state" "MUST CHANGE ON NEXT UPDATE"
-  @Azure.Core.useFinalStateVia("azure-async-operation")
-  createOrUpdate is ArmResourceCreateOrUpdateAsync<
-    Solution,
-    LroHeaders = Azure.Core.Foundations.RetryAfterHeader
-  >;
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<Solution>;
   update is ArmCustomPatchSync<Solution>;
   delete is ArmResourceDeleteWithoutOkAsync<Solution>;
   listByResourceGroup is ArmResourceListByParent<Solution>;

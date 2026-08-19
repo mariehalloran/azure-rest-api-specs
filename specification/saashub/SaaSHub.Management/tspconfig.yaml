@@ -1,0 +1,69 @@
+emit:
+  - "@azure-tools/typespec-autorest"
+  # - "@azure-tools/typespec-csharp"  # Disabled due to GeneratorPageableHelpers protection level bug in emitter
+parameters:
+  service-dir:
+    default: "sdk/saashub"
+options:
+  "@azure-tools/typespec-autorest":
+    use-read-only-status-schema: true
+    omit-unreachable-types: true
+    emitter-output-dir: "{project-root}/.."
+    azure-resource-provider-folder: "resource-manager"
+    output-file: "{azure-resource-provider-folder}/{service-name}/{version-status}/{version}/openapi.json"
+  "@azure-tools/typespec-java":
+    flavor: azure
+    package-dir: "azure-resourcemanager-saashub"
+    namespace: "com.azure.resourcemanager.saashub"
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-saashub"
+  "@azure-tools/typespec-ts":
+    flavor: azure
+    experimental-extensible-enums: true
+    package-name: "@azure/arm-saashub"
+    package-details:
+      name: "@azure/arm-saashub"
+    emitter-output-dir: "{output-dir}/{service-dir}/arm-saashub"
+  "@azure-tools/typespec-go":
+    service-dir: "sdk/resourcemanager/saashub"
+    package-dir: "armsaashub"
+    module: "github.com/Azure/azure-sdk-for-go/{service-dir}/{package-dir}"
+    fix-const-stuttering: true
+    generate-examples: true
+    generate-samples: true
+    generate-fakes: true
+    head-as-boolean: true
+    inject-spans: true
+    emitter-output-dir: "{output-dir}/{service-dir}/armsaashub"
+  "@azure-tools/typespec-python":
+    flavor: azure
+    package-dir: "azure-mgmt-saashub"
+    package-name: "{package-dir}"
+    namespace: "azure.mgmt.saashub"
+    generate-test: true
+    generate-sample: true
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-saashub"
+  # "@azure-tools/typespec-csharp": # Temporarily disabled due to beta emitter bug (v0.2.0-beta.20250926.1)
+  #   flavor: azure
+  #   package-dir: "Azure.ResourceManager.SaasHub"
+  #   namespace: "Azure.ResourceManager.SaasHub"
+  #   clear-output-folder: true
+  #   emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.SaasHub"
+  #   unreferenced-types-handling: "keepAll"
+  #   suppress: ["AZC0030", "AZC0032", "AZC0033"]
+  #   # AZC0030: Model name ends with 'Request' or 'Response' - applies to MergeCloudServiceRequest, MergeSaasResourcesRequest, GetRefundableQuantityResponse
+  #   # AZC0032: Model name ends with 'Data' - applies to SystemData, SaasHubResourceData
+  #   # AZC0033: Model name ends with 'Operation' - applies to Operation model
+  #   # Protection level error with GeneratorPageableHelpers:
+  #   # The C# emitter generates code that calls GeneratorPageableHelpers.CreatePageable()
+  #   # but GeneratorPageableHelpers class is marked as internal in Azure.ResourceManager.Core
+  #   # This is a bug in the emitter - it should either:
+  #   # 1. Use public APIs instead of internal helpers
+  #   # 2. Generate different pagination code that doesn't rely on internal classes
+  #   # 3. The Azure.ResourceManager.Core should expose these helpers publicly
+  #   #
+  #   # Current workaround: C# emitter is disabled until bug is fixed
+  #   # To re-enable: uncomment this section when emitter is updated
+linter:
+  extends:
+    - "@azure-tools/typespec-azure-rulesets/resource-manager"
+    - "@azure-tools/typespec-azure-rulesets/client-sdk"

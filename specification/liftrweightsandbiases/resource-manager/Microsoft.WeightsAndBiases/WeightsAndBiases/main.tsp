@@ -4,7 +4,6 @@ import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@azure-tools/typespec-liftr-base";
-import "./client.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
@@ -21,16 +20,10 @@ namespace Microsoft.WeightsAndBiases;
 
 /** The available API versions. */
 enum Versions {
-  /** 2024-09-18-preview version */
+  /** 2024-09-18 version */
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   @useDependency(LiftrBase.Versions.v2_preview)
   v2024_09_18_preview: "2024-09-18-preview",
-
-  /** 2024-09-18 version */
-  #suppress "@azure-tools/typespec-azure-resource-manager/version-progression" "Existing API"
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  @useDependency(LiftrBase.Versions.v2_preview)
-  v2024_09_18: "2024-09-18",
 }
 
 /** The available regions */
@@ -72,9 +65,8 @@ model PartnerProperties {
  * BaseResourceProperties contains Marketplace, useDetail related properties*/
 @doc("Properties specific to Instance")
 model InstanceProperties is BaseResourceProperties {
-  @madeRequired(Versions.v2024_09_18)
   @doc("partner properties")
-  partnerProperties: PartnerProperties;
+  partnerProperties?: PartnerProperties;
 
   @doc("Single sign-on properties")
   singleSignOnProperties?: SingleSignOnPropertiesV2;
