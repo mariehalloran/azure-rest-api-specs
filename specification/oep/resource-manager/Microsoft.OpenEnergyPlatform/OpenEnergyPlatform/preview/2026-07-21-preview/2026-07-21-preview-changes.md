@@ -59,6 +59,20 @@ prior version's contract is preserved. The `AddOnPackage` / `AddOnPackageItemPro
 - `Acz` + `AczIdentity`
 - PATCH-only models: `SkuUpdate`, `EdsUpdate`, `EdsKeyVaultPropertiesUpdate`,
   `UpgradeSettingsUpdate`, `EncryptionUpdate`, `KeyVaultPropertiesUpdate`
+- `AdmePrivateEndpointConnection` (the `privateEndpointConnections` element type) — see below
+
+## `privateEndpointConnections` — `id` no longer `arm-id` format
+
+`properties.privateEndpointConnections[]` uses a local `AdmePrivateEndpointConnection` model
+instead of the common-types `PrivateEndpointConnection`. The two are structurally identical
+(`id`/`name`/`type`/`systemData` plus the common-types `PrivateEndpointConnectionProperties`)
+except that `id` is a plain read-only `string` rather than `arm-id` format. The resource provider
+emits these sub-resource ids without a leading slash, which the `arm-id` format rejects during
+response validation (an HTTP 412 payload-validation error). The `arm-id` format came from the
+common-types v3 → v6 bump in `2026-02-02-preview` (v5+ `Resource.id` carries `format: arm-id`);
+stable `2025-12-15` and earlier reference common-types v3, which does not. `@armCommonTypesVersion`
+is global, so a local model is the surgical way to drop the format on just this field. Applied to
+both `2026-02-02-preview` and `2026-07-21-preview`.
 
 ## PrivateEndpointConnectionProxy — nested → flat shape
 
