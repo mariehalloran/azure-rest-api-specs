@@ -18,7 +18,15 @@
     the API less natural and break existing clients.
   rules: [EnumInsteadOfBoolean]
   paths:
-    - data-plane/CloudHealth/preview/2026-06-01-preview/cloudhealth.json
+    - preview/2026-06-01-preview/cloudhealth.json
+- tool: LintDiff
+  reason: >
+    Model_Status mirrors the deployed status endpoint and its existing generated
+    client surface. Renaming it to Get would create an unnecessary SDK breaking
+    change without improving the service contract.
+  rules: [GetInOperationName, OperationId]
+  paths:
+    - preview/2026-06-01-preview/cloudhealth.json
 - tool: BreakingChange
   reason: >
     The 2026-06-01-preview API is being synchronized with the deployed
@@ -26,7 +34,7 @@
     responses, diagnostics fields, and corrected operation identifiers are
     intentional preview changes required for service parity.
   paths:
-    - data-plane/CloudHealth/preview/2026-06-01-preview/cloudhealth.json
+    - preview/2026-06-01-preview/cloudhealth.json
 - tool: LintDiff
   reason: >
     Health report ingestion is a fire-and-forget submission endpoint. HTTP 202
@@ -35,7 +43,7 @@
     part of this contract.
   rules: [LroExtension, LroHeaders]
   paths:
-    - data-plane/CloudHealth/preview/2026-06-01-preview/cloudhealth.json
+    - preview/2026-06-01-preview/cloudhealth.json
 - tool: LintDiff
   reason: >
     Entity health-state history returns the complete bounded result for the
@@ -43,4 +51,4 @@
     wrapper is a list response, not a pageable service contract.
   rules: [PageableOperation, PaginationResponse]
   paths:
-    - data-plane/CloudHealth/preview/2026-06-01-preview/cloudhealth.json
+    - preview/2026-06-01-preview/cloudhealth.json
