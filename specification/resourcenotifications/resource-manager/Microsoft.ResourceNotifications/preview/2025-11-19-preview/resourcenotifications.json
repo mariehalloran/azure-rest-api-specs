@@ -46,7 +46,7 @@
       "name": "ResourceSubscriptions"
     },
     {
-      "name": "Destinations"
+      "name": "ResourceSubscriptionDestinations"
     },
     {
       "name": "NotificationsSessions"
@@ -700,7 +700,7 @@
       "get": {
         "operationId": "ResourceSubscriptionDestinations_List",
         "tags": [
-          "Destinations"
+          "ResourceSubscriptionDestinations"
         ],
         "description": "Lists all destinations for a resource subscription",
         "parameters": [
@@ -750,7 +750,7 @@
       "get": {
         "operationId": "ResourceSubscriptionDestinations_Get",
         "tags": [
-          "Destinations"
+          "ResourceSubscriptionDestinations"
         ],
         "description": "Gets a destination",
         "parameters": [
@@ -803,7 +803,7 @@
       "put": {
         "operationId": "ResourceSubscriptionDestinations_CreateOrUpdate",
         "tags": [
-          "Destinations"
+          "ResourceSubscriptionDestinations"
         ],
         "description": "Creates or updates a destination. Asynchronous operation.",
         "parameters": [
@@ -886,7 +886,7 @@
       "patch": {
         "operationId": "ResourceSubscriptionDestinations_Update",
         "tags": [
-          "Destinations"
+          "ResourceSubscriptionDestinations"
         ],
         "description": "Updates the tags on a destination",
         "parameters": [
@@ -948,7 +948,7 @@
       "delete": {
         "operationId": "ResourceSubscriptionDestinations_Delete",
         "tags": [
-          "Destinations"
+          "ResourceSubscriptionDestinations"
         ],
         "description": "Deletes a destination. Asynchronous operation.",
         "parameters": [
@@ -1016,36 +1016,6 @@
     }
   },
   "definitions": {
-    "ArnLocationPartitioningConfiguration": {
-      "type": "object",
-      "description": "ARN location partitioning configuration",
-      "properties": {
-        "partitions": {
-          "type": "array",
-          "description": "The partitions list",
-          "items": {
-            "$ref": "#/definitions/Partition"
-          },
-          "x-ms-identifiers": [
-            "name"
-          ]
-        }
-      },
-      "required": [
-        "partitions"
-      ],
-      "allOf": [
-        {
-          "$ref": "#/definitions/PartitioningConfiguration"
-        }
-      ],
-      "x-ms-discriminator-value": "arnLocation"
-    },
-    "Azure.Core.uuid": {
-      "type": "string",
-      "format": "uuid",
-      "description": "Universally Unique Identifier"
-    },
     "Azure.ResourceManager.ResourceProvisioningState": {
       "type": "string",
       "description": "The provisioning state of a resource type.",
@@ -1113,15 +1083,14 @@
       "type": "object",
       "description": "Cloud scope configuration",
       "properties": {
-        "providerNamespace": {
+        "id": {
           "type": "string",
-          "description": "The provider namespace populated by caller"
-        },
-        "appId": {
-          "$ref": "#/definitions/Azure.Core.uuid",
-          "description": "The application ID extracted from request, checked against manifest"
+          "description": "Provider registration or namespace identity used to validate the caller against the RP relationship."
         }
       },
+      "required": [
+        "id"
+      ],
       "allOf": [
         {
           "$ref": "#/definitions/Scope"
@@ -1134,10 +1103,18 @@
       "description": "Destination resource for Azure Resource Notifications",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/DestinationProperties",
+          "$ref": "#/definitions/DestinationPropertiesBase",
           "description": "The resource-specific properties for this resource."
+        },
+        "kind": {
+          "$ref": "#/definitions/DestinationKind",
+          "description": "The kind of destination"
         }
       },
+      "discriminator": "kind",
+      "required": [
+        "kind"
+      ],
       "allOf": [
         {
           "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
@@ -1189,42 +1166,23 @@
         "value"
       ]
     },
-    "DestinationOptions": {
-      "type": "string",
-      "description": "Available destination options",
-      "enum": [
-        "enableInitialSnapshot"
-      ],
-      "x-ms-enum": {
-        "name": "DestinationOptions",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "enableInitialSnapshot",
-            "value": "enableInitialSnapshot",
-            "description": "Enables delivery of the initial snapshot"
-          }
-        ]
-      }
-    },
-    "DestinationProperties": {
+    "DestinationPropertiesBase": {
       "type": "object",
-      "description": "Base properties for destination configuration",
+      "description": "Base properties shared by all destination kinds",
       "properties": {
-        "kind": {
-          "$ref": "#/definitions/DestinationKind",
-          "description": "The kind of destination"
-        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "The status of the last operation",
           "readOnly": true
+        },
+        "partitions": {
+          "type": "array",
+          "description": "Parent partition names this destination receives. Required when the parent subscription's deliveryMode is partitioned.",
+          "items": {
+            "type": "string"
+          }
         }
-      },
-      "discriminator": "kind",
-      "required": [
-        "kind"
-      ]
+      }
     },
     "DestinationUpdate": {
       "type": "object",
@@ -1237,30 +1195,6 @@
             "type": "string"
           }
         }
-      }
-    },
-    "EndpointDeliveryMode": {
-      "type": "string",
-      "description": "The delivery mode for endpoints, determining how notifications are distributed across endpoints",
-      "enum": [
-        "round-robin",
-        "failover"
-      ],
-      "x-ms-enum": {
-        "name": "EndpointDeliveryMode",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "roundRobin",
-            "value": "round-robin",
-            "description": "Spreads load over all endpoints"
-          },
-          {
-            "name": "failover",
-            "value": "failover",
-            "description": "Delivers to the first available endpoint"
-          }
-        ]
       }
     },
     "FabricEndpoint": {
@@ -1281,31 +1215,13 @@
         "databaseId"
       ]
     },
-    "FabricTableDestinationProperties": {
+    "FabricTableDestination": {
       "type": "object",
-      "description": "Fabric table destination properties",
+      "description": "Fabric table destination",
       "properties": {
-        "outputSchema": {
-          "type": "string",
-          "description": "The output schema - readonly for now, will provide a way for 1P to set to fabric1P",
-          "readOnly": true
-        },
-        "outputEncoding": {
-          "type": "string",
-          "description": "The output encoding - readonly and not configurable",
-          "readOnly": true
-        },
         "endpoint": {
           "$ref": "#/definitions/FabricEndpoint",
           "description": "The fabric endpoint configuration"
-        },
-        "options": {
-          "type": "array",
-          "description": "Optional destination configuration options",
-          "items": {
-            "$ref": "#/definitions/DestinationOptions"
-          },
-          "readOnly": true
         }
       },
       "required": [
@@ -1313,7 +1229,7 @@
       ],
       "allOf": [
         {
-          "$ref": "#/definitions/DestinationProperties"
+          "$ref": "#/definitions/Destination"
         }
       ],
       "x-ms-discriminator-value": "fabricTable"
@@ -1538,59 +1454,6 @@
         ]
       }
     },
-    "Partition": {
-      "type": "object",
-      "description": "Partition definition",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "The name of the partition"
-        },
-        "regions": {
-          "type": "array",
-          "description": "The regions for this partition",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": [
-        "name",
-        "regions"
-      ]
-    },
-    "PartitioningConfiguration": {
-      "type": "object",
-      "description": "Base properties for partitioning configuration",
-      "properties": {
-        "kind": {
-          "$ref": "#/definitions/PartitioningConfigurationKind",
-          "description": "The kind of partitioning configuration"
-        }
-      },
-      "discriminator": "kind",
-      "required": [
-        "kind"
-      ]
-    },
-    "PartitioningConfigurationKind": {
-      "type": "string",
-      "description": "Partitioning configuration kind discriminator",
-      "enum": [
-        "arnLocation"
-      ],
-      "x-ms-enum": {
-        "name": "PartitioningConfigurationKind",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "arnLocation",
-            "value": "arnLocation",
-            "description": "ARN location partitioning"
-          }
-        ]
-      }
-    },
     "PathPolicy": {
       "type": "object",
       "description": "Base properties for path policy configuration",
@@ -1726,18 +1589,6 @@
           "$ref": "#/definitions/Scope",
           "description": "The scope for the execution of the filter"
         },
-        "partitioningConfiguration": {
-          "$ref": "#/definitions/PartitioningConfiguration",
-          "description": "Defines how to partition the event stream. Supported kind: arnLocation"
-        },
-        "options": {
-          "type": "array",
-          "description": "Optional configuration options",
-          "items": {
-            "$ref": "#/definitions/SubscriptionOptions"
-          },
-          "readOnly": true
-        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "The status of the last operation",
@@ -1800,16 +1651,13 @@
         ]
       }
     },
-    "StorageAccountDestinationProperties": {
+    "StorageAccountDestination": {
       "type": "object",
-      "description": "Storage account destination properties",
+      "description": "Storage account destination",
       "properties": {
-        "partitions": {
-          "type": "array",
-          "description": "Which partitions go to this destination",
-          "items": {
-            "type": "string"
-          }
+        "container": {
+          "type": "string",
+          "description": "Container where blobs are written. Applies to all storage account endpoints in this destination."
         },
         "pathPolicy": {
           "$ref": "#/definitions/PathPolicy",
@@ -1818,24 +1666,6 @@
         "batchingPolicy": {
           "$ref": "#/definitions/BatchingPolicy",
           "description": "Notifications for the same path are batched following the batching policy"
-        },
-        "outputSchema": {
-          "type": "string",
-          "description": "The schema to use for the delivered notifications - read-only, must be \"firstParty\" for now",
-          "readOnly": true
-        },
-        "outputEncoding": {
-          "type": "string",
-          "description": "Format for the output - read-only, must be \"parquet\" for now",
-          "readOnly": true
-        },
-        "endpointContainer": {
-          "type": "string",
-          "description": "Storage container to store the data"
-        },
-        "endpointDeliveryMode": {
-          "$ref": "#/definitions/EndpointDeliveryMode",
-          "description": "How to deliver to the endpoints below"
         },
         "endpoints": {
           "type": "array",
@@ -1849,15 +1679,13 @@
         }
       },
       "required": [
-        "partitions",
+        "container",
         "pathPolicy",
-        "endpointContainer",
-        "endpointDeliveryMode",
         "endpoints"
       ],
       "allOf": [
         {
-          "$ref": "#/definitions/DestinationProperties"
+          "$ref": "#/definitions/Destination"
         }
       ],
       "x-ms-discriminator-value": "storageAccount"
@@ -1868,36 +1696,13 @@
       "properties": {
         "id": {
           "type": "string",
+          "format": "arm-id",
           "description": "The storage account endpoint resource ID"
         }
       },
       "required": [
         "id"
       ]
-    },
-    "SubscriptionOptions": {
-      "type": "string",
-      "description": "Available options for resource subscriptions",
-      "enum": [
-        "enablePeriodicSnapshots",
-        "enableDeltas"
-      ],
-      "x-ms-enum": {
-        "name": "SubscriptionOptions",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "enablePeriodicSnapshots",
-            "value": "enablePeriodicSnapshots",
-            "description": "Enables delivery of periodic snapshots"
-          },
-          {
-            "name": "enableDeltas",
-            "value": "enableDeltas",
-            "description": "Enables delivery of writes and deletes"
-          }
-        ]
-      }
     },
     "TenantScope": {
       "type": "object",
@@ -1910,6 +1715,9 @@
           "type": "string"
         }
       },
+      "required": [
+        "tenantId"
+      ],
       "allOf": [
         {
           "$ref": "#/definitions/Scope"
@@ -1921,15 +1729,11 @@
       "type": "object",
       "description": "Time and scope range hash path policy",
       "properties": {
-        "timeSource": {
-          "type": "string",
-          "description": "The source of time used for partitioning and hashing.\nTypical values include \"eventTime\" (use the event timestamp) and \"systemTime\" (use the ingestion/processing time)."
-        },
         "scope": {
           "type": "string",
-          "description": "The logical scope used for hashing into buckets, for example \"tenant\", \"subscription\", or \"resourceGroup\"."
+          "description": "The logical scope used for hashing into buckets, for example 'tenant', 'subscription', or 'resourceGroup'."
         },
-        "scopeBuckets": {
+        "scopeBucketsCount": {
           "type": "integer",
           "format": "int32",
           "description": "The number of scope buckets to hash the chosen scope into."
@@ -1940,9 +1744,8 @@
         }
       },
       "required": [
-        "timeSource",
         "scope",
-        "scopeBuckets",
+        "scopeBucketsCount",
         "pathTemplate"
       ],
       "allOf": [

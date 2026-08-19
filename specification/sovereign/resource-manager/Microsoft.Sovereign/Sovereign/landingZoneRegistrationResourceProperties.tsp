@@ -5,6 +5,7 @@ using Azure.Core;
 namespace Microsoft.Sovereign;
 
 @added(Versions.Preview20241031)
+@removed(Versions.Preview20260731)
 @doc("The properties of landing zone registration resource type.")
 model LandingZoneRegistrationResourceProperties {
   @visibility(Lifecycle.Read)
@@ -28,6 +29,7 @@ model LandingZoneRegistrationResourceProperties {
 }
 
 @added(Versions.Preview20241031)
+@removed(Versions.Preview20260731)
 @doc("Structure of each JSON object for Drift API call.")
 model DriftedItems {
   @doc("The name of the affected rule.")
@@ -47,6 +49,7 @@ model DriftedItems {
 }
 
 @added(Versions.Preview20241031)
+@removed(Versions.Preview20260731)
 @doc("The JSON response of the drift API call.")
 model DriftResponseArray {
   @doc("The time when the drift analysis was run.")
