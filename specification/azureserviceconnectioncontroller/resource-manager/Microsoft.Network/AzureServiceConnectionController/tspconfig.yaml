@@ -12,6 +12,9 @@ options:
     output-file: "{version-status}/{version}/openapi.json"
     examples-dir: "{project-root}/examples"
     arm-types-dir: "{project-root}/../../../../common-types/resource-management"
+  "@azure-typespec/http-client-csharp-mgmt":
+    namespace: "Azure.ResourceManager.AzureServiceConnectionController"
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-java":
     flavor: azure
     emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-azureserviceconnectioncontroller"
