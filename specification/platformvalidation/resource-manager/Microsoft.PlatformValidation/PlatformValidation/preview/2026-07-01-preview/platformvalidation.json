@@ -1990,9 +1990,18 @@
         },
         "testRunIds": {
           "type": "array",
-          "description": "The names of the validation test runs (ValidationTestRun resource names, not ARM resource IDs) executed as part of this execution plan run.",
+          "description": "The ARM resource IDs of the validation test runs (ValidationTestRun resources) executed as part of this execution plan run.",
           "items": {
-            "type": "string"
+            "type": "string",
+            "format": "arm-id",
+            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+            "x-ms-arm-id-details": {
+              "allowedResources": [
+                {
+                  "type": "Microsoft.PlatformValidation/cloudValidations/validationExecutionPlans/executionPlanRuns/validationTestRuns"
+                }
+              ]
+            }
           },
           "readOnly": true
         },
