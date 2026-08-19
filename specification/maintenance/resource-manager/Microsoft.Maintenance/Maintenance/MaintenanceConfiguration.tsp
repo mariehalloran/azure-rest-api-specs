@@ -167,6 +167,7 @@ interface MaintenanceConfigurationsForResourceGroupRoutes {
   @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Maintenance/maintenanceConfigurations")
   @get
   @list
+  @armResourceList(MaintenanceConfiguration)
   @tag("MaintenanceConfigurationOperationGroup")
   @operationId("MaintenanceConfigurationsForResourceGroup_List")
   list(
