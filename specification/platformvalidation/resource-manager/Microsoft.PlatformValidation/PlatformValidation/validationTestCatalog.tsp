@@ -243,7 +243,7 @@ interface ValidationTests {
   get is ArmResourceRead<ValidationTest>;
 
   @doc("List validation test catalog entries for a subscription")
-  listBySubscription is ArmResourceListByParent<
+  listBySubscription is ArmListBySubscription<
     ValidationTest,
     Parameters = ValidationCatalogListQueryParameters
   >;
@@ -269,7 +269,7 @@ interface ValidationTestCategories {
   get is ArmResourceRead<ValidationTestCategory>;
 
   @doc("List validation test category catalog entries for a subscription")
-  listBySubscription is ArmResourceListByParent<
+  listBySubscription is ArmListBySubscription<
     ValidationTestCategory,
     Parameters = ValidationCatalogListQueryParameters
   >;
