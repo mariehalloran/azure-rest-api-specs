@@ -5,6 +5,7 @@ using Azure.Core;
 namespace Microsoft.Sovereign;
 
 @added(Versions.Preview20241031)
+@removed(Versions.Preview20260731)
 @doc("The properties of landing zone account resource type.")
 model LandingZoneAccountResourceProperties {
   @visibility(Lifecycle.Read)

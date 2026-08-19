@@ -6,6 +6,7 @@ namespace Microsoft.Sovereign;
 
 @doc("The properties of the Transparency Log resource type.")
 @added(Versions.Preview20240331)
+@removed(Versions.Preview20260731)
 model TransparencyLogProperties {
   @visibility(Lifecycle.Read)
   @doc("The status of a user-initiated, control-plane operation on the Transparency Log.")
@@ -21,6 +22,7 @@ model TransparencyLogProperties {
 
 @doc("Supported cultures.")
 @added(Versions.Preview20240331)
+@removed(Versions.Preview20260731)
 union Culture {
   string,
 
@@ -87,6 +89,7 @@ union Culture {
 
 @doc("Supported file formats.")
 @added(Versions.Preview20240331)
+@removed(Versions.Preview20260731)
 union FileFormat {
   string,
 
