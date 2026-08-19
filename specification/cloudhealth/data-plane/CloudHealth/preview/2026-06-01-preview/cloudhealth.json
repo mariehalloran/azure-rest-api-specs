@@ -335,7 +335,14 @@
         ],
         "responses": {
           "202": {
-            "description": "Health-report ingestion request was accepted."
+            "description": "Health-report ingestion request was accepted.",
+            "headers": {
+              "Operation-Location": {
+                "type": "string",
+                "format": "uri",
+                "description": "The location for monitoring the operation state."
+              }
+            }
           },
           "400": {
             "description": "Returned when the request is malformed, or a query parameter is invalid.",
@@ -444,7 +451,11 @@
           "Ingest an entity health report": {
             "$ref": "./examples/HealthReportIngestion_IngestHealthReport.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "operation-location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/api/entities/{entityName}/healthStateHistory": {

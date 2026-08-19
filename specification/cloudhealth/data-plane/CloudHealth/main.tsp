@@ -456,9 +456,8 @@ model HealthReportRequest {
 
 @doc("Health-report ingestion request was accepted.")
 model IngestHealthReportAcceptedResponse {
-  @doc("HTTP status code indicating the ingestion request was accepted.")
-  @statusCode
-  statusCode: 202;
+  ...Azure.Core.Foundations.AcceptedResponse;
+  ...LongRunningStatusLocation;
 }
 
 @error
@@ -686,6 +685,7 @@ interface DataAnnotations {
 @route("/api/entities/{entityName}/healthReports")
 interface HealthReportIngestion {
   #suppress "@azure-tools/typespec-azure-core/use-standard-operations" "Data-plane health-report ingestion is a simple non-resource POST; it does not map to an Azure.Core resource operation template. To be revisited at API Stewardship review."
+  #suppress "@azure-tools/typespec-azure-core/long-running-polling-operation-required" "The public contract requires Operation-Location metadata for HTTP 202 responses, but health-report ingestion does not expose a service polling operation."
   @doc("Ingest a health report for a specific signal on an entity.")
   @post
   ingestHealthReport(
