@@ -43,9 +43,6 @@ model ValidationTestRunProperties {
   @doc("The name of the validation test (ValidationTest resource name, not an ARM resource ID) in the validation test catalog.")
   testId?: string;
 
-  @doc("The names of the validation test categories (ValidationTestCategory resource names, not ARM resource IDs) associated with this test run.")
-  testCategoryIds?: string[];
-
   @doc("""
     Validation test run inputs json, conforming to the input contract declared by `ValidationTestInput` on the corresponding validation test.
     This value is returned as-is in get responses, so it must not contain credentials or other secrets.
