@@ -211,7 +211,7 @@ model IngestionUnitPropertiesV2 {
   @visibility(Lifecycle.Read)
   endpoint?: string;
 
-  /** Whether this ingestion unit is enabled. Read-only — toggled out-of-band by ACIS/OCE admin actions for production mitigation (e.g., disabling an IU during an outage); not settable by publishers. Default: true. */
+  /** Whether this ingestion unit is enabled. Read-only — toggled by service administrators for production mitigation (e.g., disabling an ingestion unit during an outage); not settable by publishers. Default: true. */
   #suppress "EnumInsteadOfBoolean" "enabled is a simple on/off operational toggle"
   @visibility(Lifecycle.Read)
   enabled?: boolean = true;
