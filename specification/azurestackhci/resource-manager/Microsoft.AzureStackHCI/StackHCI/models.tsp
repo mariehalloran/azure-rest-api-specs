@@ -4185,6 +4185,7 @@ model DeploymentStep {
    */
   @added(Versions.v2026_03_15_preview)
   @visibility(Lifecycle.Read)
+  @identifiers(#["key"])
   additionalData?: Metadata[];
 
   /**
@@ -4200,7 +4201,14 @@ model DeploymentStep {
  */
 @added(Versions.v2026_03_15_preview)
 model Metadata {
+  /**
+   * The key of the metadata entry.
+   */
   key: string;
+
+  /**
+   * The value of the metadata entry.
+   */
   value: string;
 }
 

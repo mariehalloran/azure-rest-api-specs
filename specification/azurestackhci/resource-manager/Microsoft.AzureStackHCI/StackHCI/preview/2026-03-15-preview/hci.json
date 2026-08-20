@@ -19485,7 +19485,10 @@
           "items": {
             "$ref": "#/definitions/Metadata"
           },
-          "readOnly": true
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "key"
+          ]
         },
         "recommendedSteps": {
           "type": "array",
@@ -26939,10 +26942,12 @@
       "description": "Metadata associated with a deployment step.",
       "properties": {
         "key": {
-          "type": "string"
+          "type": "string",
+          "description": "The key of the metadata entry."
         },
         "value": {
-          "type": "string"
+          "type": "string",
+          "description": "The value of the metadata entry."
         }
       },
       "required": [
