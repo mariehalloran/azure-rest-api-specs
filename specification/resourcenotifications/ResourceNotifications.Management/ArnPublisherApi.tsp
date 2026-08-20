@@ -155,7 +155,8 @@ model IngestionUnit is Azure.ResourceManager.ProxyResource<
   name: string;
 }
 
-@@typeChangedFrom(IngestionUnit.properties,
+@@typeChangedFrom(
+  IngestionUnit.properties,
   Versions.v2026_09_01_preview,
   IngestionUnitProperties
 );
