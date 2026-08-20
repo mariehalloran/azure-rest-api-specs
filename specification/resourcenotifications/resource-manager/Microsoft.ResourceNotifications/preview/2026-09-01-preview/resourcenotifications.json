@@ -1,0 +1,3118 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Microsoft.ResourceNotifications Management Service",
+    "version": "2026-09-01-preview",
+    "description": "Microsoft.ResourceNotifications Resource Provider management API.",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "ResourceSubscriptions"
+    },
+    {
+      "name": "ResourceSubscriptionDestinations"
+    },
+    {
+      "name": "NotificationsSessions"
+    },
+    {
+      "name": "IngestionUnits"
+    }
+  ],
+  "paths": {
+    "/{resourceUri}/providers/Microsoft.ResourceNotifications/locations/{location}/ingestionUnits": {
+      "get": {
+        "operationId": "IngestionUnits_ListByLocation",
+        "tags": [
+          "IngestionUnits"
+        ],
+        "description": "List ingestion units in a location.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/IngestionUnitListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List ingestion units in a location": {
+            "$ref": "./examples/IngestionUnits_ListByLocation.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/{resourceUri}/providers/Microsoft.ResourceNotifications/locations/{location}/ingestionUnits/{ingestionUnitName}": {
+      "get": {
+        "operationId": "IngestionUnits_Get",
+        "tags": [
+          "IngestionUnits"
+        ],
+        "description": "Get an ingestion unit.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          },
+          {
+            "name": "ingestionUnitName",
+            "in": "path",
+            "description": "Ingestion unit name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/IngestionUnit"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get an ingestion unit": {
+            "$ref": "./examples/IngestionUnits_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "IngestionUnits_CreateOrUpdate",
+        "tags": [
+          "IngestionUnits"
+        ],
+        "description": "Create or update an ingestion unit. Asynchronous operation.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          },
+          {
+            "name": "ingestionUnitName",
+            "in": "path",
+            "description": "Ingestion unit name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IngestionUnit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'IngestionUnit' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/IngestionUnit"
+            }
+          },
+          "201": {
+            "description": "Resource 'IngestionUnit' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/IngestionUnit"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create an ingestion unit with DSTS authentication": {
+            "$ref": "./examples/IngestionUnits_CreateOrUpdate_DstsOnly.json"
+          },
+          "Create an ingestion unit with Microsoft Entra and DSTS authentication": {
+            "$ref": "./examples/IngestionUnits_CreateOrUpdate_AadAndDsts.json"
+          },
+          "Create an ingestion unit with Microsoft Entra authentication": {
+            "$ref": "./examples/IngestionUnits_CreateOrUpdate_AadOnly.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "IngestionUnits_Update",
+        "tags": [
+          "IngestionUnits"
+        ],
+        "description": "Update an ingestion unit. Asynchronous operation.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          },
+          {
+            "name": "ingestionUnitName",
+            "in": "path",
+            "description": "Ingestion unit name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IngestionUnitPatch"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/IngestionUnit"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Replace ingestion unit authorizations": {
+            "$ref": "./examples/IngestionUnits_Update_Authorizations.json"
+          },
+          "Scale an ingestion unit": {
+            "$ref": "./examples/IngestionUnits_Update_Sku.json"
+          },
+          "Update ingestion unit capacity limits": {
+            "$ref": "./examples/IngestionUnits_Update_CapacityOverrides.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "IngestionUnits_Delete",
+        "tags": [
+          "IngestionUnits"
+        ],
+        "description": "Delete an ingestion unit. Asynchronous operation.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          },
+          {
+            "name": "ingestionUnitName",
+            "in": "path",
+            "description": "Ingestion unit name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete an ingestion unit": {
+            "$ref": "./examples/IngestionUnits_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/providers/Microsoft.ResourceNotifications/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Operations - List": {
+            "$ref": "./examples/Operations_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/locations/{locationName}/notificationSessions": {
+      "get": {
+        "operationId": "NotificationsSessions_ListByLocation",
+        "tags": [
+          "NotificationsSessions"
+        ],
+        "description": "Lists notification sessions in a location",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "locationName",
+            "in": "path",
+            "description": "The location name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/NotificationSessionResourceListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List notification sessions in a location": {
+            "$ref": "./examples/NotificationsSessions_ListByLocation.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/locations/{locationName}/notificationSessions/{notificationSessionName}": {
+      "get": {
+        "operationId": "NotificationsSessions_Get",
+        "tags": [
+          "NotificationsSessions"
+        ],
+        "description": "Gets a notification session",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "locationName",
+            "in": "path",
+            "description": "The location name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9]+$"
+          },
+          {
+            "name": "notificationSessionName",
+            "in": "path",
+            "description": "The name of the notification session",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,62}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/NotificationSessionResource"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a notification session": {
+            "$ref": "./examples/NotificationsSessions_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "NotificationsSessions_CreateOrUpdate",
+        "tags": [
+          "NotificationsSessions"
+        ],
+        "description": "Creates or updates a notification session",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "locationName",
+            "in": "path",
+            "description": "The location name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9]+$"
+          },
+          {
+            "name": "notificationSessionName",
+            "in": "path",
+            "description": "The name of the notification session",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,62}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NotificationSessionResource"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'NotificationSessionResource' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/NotificationSessionResource"
+            }
+          },
+          "201": {
+            "description": "Resource 'NotificationSessionResource' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/NotificationSessionResource"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create a notification session": {
+            "$ref": "./examples/NotificationsSessions_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "NotificationsSessions_Delete",
+        "tags": [
+          "NotificationsSessions"
+        ],
+        "description": "Deletes a notification session",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "locationName",
+            "in": "path",
+            "description": "The location name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9]+$"
+          },
+          {
+            "name": "notificationSessionName",
+            "in": "path",
+            "description": "The name of the notification session",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,62}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Close a notification session": {
+            "$ref": "./examples/NotificationsSessions_Delete.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/locations/{locationName}/notificationSessions/{notificationSessionName}/getSessionDetails": {
+      "post": {
+        "operationId": "NotificationsSessions_GetSessionDetails",
+        "tags": [
+          "NotificationsSessions"
+        ],
+        "description": "Gets session details for connecting to a notification session",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "locationName",
+            "in": "path",
+            "description": "The location name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9]+$"
+          },
+          {
+            "name": "notificationSessionName",
+            "in": "path",
+            "description": "The name of the notification session",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,62}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetSessionDetailsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/GetNotificationSessionDetails"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get session details": {
+            "$ref": "./examples/NotificationsSessions_GetSessionDetails.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/resourceSubscriptions": {
+      "get": {
+        "operationId": "ResourceSubscriptions_ListBySubscription",
+        "tags": [
+          "ResourceSubscriptions"
+        ],
+        "description": "Lists all resource subscriptions in a subscription",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ResourceSubscriptionListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List all resource subscriptions in a subscription": {
+            "$ref": "./examples/ResourceSubscriptions_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/resourceSubscriptions": {
+      "get": {
+        "operationId": "ResourceSubscriptions_ListByResourceGroup",
+        "tags": [
+          "ResourceSubscriptions"
+        ],
+        "description": "Lists all resource subscriptions in a resource group",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ResourceSubscriptionListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List all resource subscriptions in a resource group": {
+            "$ref": "./examples/ResourceSubscriptions_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/resourceSubscriptions/{subscriptionRuleName}": {
+      "get": {
+        "operationId": "ResourceSubscriptions_Get",
+        "tags": [
+          "ResourceSubscriptions"
+        ],
+        "description": "Gets a resource subscription",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "subscriptionRuleName",
+            "in": "path",
+            "description": "The name of the resource subscription",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ResourceSubscription"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a resource subscription with cloud scope and partitioning": {
+            "$ref": "./examples/ResourceSubscriptions_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ResourceSubscriptions_CreateOrUpdate",
+        "tags": [
+          "ResourceSubscriptions"
+        ],
+        "description": "Creates or updates a resource subscription",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "subscriptionRuleName",
+            "in": "path",
+            "description": "The name of the resource subscription",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceSubscription"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ResourceSubscription' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ResourceSubscription"
+            }
+          },
+          "201": {
+            "description": "Resource 'ResourceSubscription' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ResourceSubscription"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create or update a resource subscription with cloud scope and fanOut delivery": {
+            "$ref": "./examples/ResourceSubscriptions_CreateOrUpdate_CloudFanOut.json"
+          },
+          "Create or update a resource subscription with tenant scope": {
+            "$ref": "./examples/ResourceSubscriptions_CreateOrUpdate.json"
+          },
+          "Create or update a resource subscription with two-layer partitioned delivery": {
+            "$ref": "./examples/ResourceSubscriptions_CreateOrUpdate_Partitioned.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "ResourceSubscriptions_Update",
+        "tags": [
+          "ResourceSubscriptions"
+        ],
+        "description": "Updates the tags on a resource subscription",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "subscriptionRuleName",
+            "in": "path",
+            "description": "The name of the resource subscription",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResourceSubscriptionTagsUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ResourceSubscription"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update a resource subscription": {
+            "$ref": "./examples/ResourceSubscriptions_Update.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "ResourceSubscriptions_Delete",
+        "tags": [
+          "ResourceSubscriptions"
+        ],
+        "description": "Deletes a resource subscription. Asynchronous operation.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "subscriptionRuleName",
+            "in": "path",
+            "description": "The name of the resource subscription",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete a resource subscription": {
+            "$ref": "./examples/ResourceSubscriptions_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/resourceSubscriptions/{subscriptionRuleName}/destinations": {
+      "get": {
+        "operationId": "ResourceSubscriptionDestinations_List",
+        "tags": [
+          "ResourceSubscriptionDestinations"
+        ],
+        "description": "Lists all destinations for a resource subscription",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "subscriptionRuleName",
+            "in": "path",
+            "description": "The name of the resource subscription",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DestinationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List all destinations for a resource subscription": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/resourceSubscriptions/{subscriptionRuleName}/destinations/{destinationName}": {
+      "get": {
+        "operationId": "ResourceSubscriptionDestinations_Get",
+        "tags": [
+          "ResourceSubscriptionDestinations"
+        ],
+        "description": "Gets a destination",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "subscriptionRuleName",
+            "in": "path",
+            "description": "The name of the resource subscription",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          },
+          {
+            "name": "destinationName",
+            "in": "path",
+            "description": "The name of the destination",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Destination"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a storage account destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ResourceSubscriptionDestinations_CreateOrUpdate",
+        "tags": [
+          "ResourceSubscriptionDestinations"
+        ],
+        "description": "Creates or updates a destination. Asynchronous operation.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "subscriptionRuleName",
+            "in": "path",
+            "description": "The name of the resource subscription",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          },
+          {
+            "name": "destinationName",
+            "in": "path",
+            "description": "The name of the destination",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Destination"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'Destination' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Destination"
+            }
+          },
+          "201": {
+            "description": "Resource 'Destination' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Destination"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create or update a fabric table destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate.json"
+          },
+          "Create or update a storage account destination with two storage accounts": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate_StorageAccount.json"
+          },
+          "Create or update a webhook destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate_Webhook.json"
+          },
+          "Create or update a webhook destination bound to a partition with fan-out delivery": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate_WebhookPartitioned.json"
+          },
+          "Create or update an event hub destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate_EventHub.json"
+          },
+          "Create or update an event hub destination bound to a partition": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate_Partitioned.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "ResourceSubscriptionDestinations_Update",
+        "tags": [
+          "ResourceSubscriptionDestinations"
+        ],
+        "description": "Updates the tags on a destination",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "subscriptionRuleName",
+            "in": "path",
+            "description": "The name of the resource subscription",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          },
+          {
+            "name": "destinationName",
+            "in": "path",
+            "description": "The name of the destination",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DestinationUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Destination"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update the tags on a destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_Update.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "ResourceSubscriptionDestinations_Delete",
+        "tags": [
+          "ResourceSubscriptionDestinations"
+        ],
+        "description": "Deletes a destination. Asynchronous operation.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "subscriptionRuleName",
+            "in": "path",
+            "description": "The name of the resource subscription",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          },
+          {
+            "name": "destinationName",
+            "in": "path",
+            "description": "The name of the destination",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete a destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    }
+  },
+  "definitions": {
+    "AadIngestionUnitAuthorization": {
+      "type": "object",
+      "description": "Microsoft Entra application authentication configuration.",
+      "properties": {
+        "applications": {
+          "type": "array",
+          "description": "Applications permitted to publish through this ingestion unit.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/AuthorizedApplication"
+          },
+          "x-ms-identifiers": [
+            "applicationId"
+          ]
+        }
+      },
+      "required": [
+        "applications"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/IngestionUnitAuthorization"
+        }
+      ],
+      "x-ms-discriminator-value": "AAD"
+    },
+    "ArnRegionPartition": {
+      "type": "object",
+      "description": "ARN region partition definition",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the partition"
+        },
+        "arnRegions": {
+          "type": "array",
+          "description": "The ARN regions included in this partition",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "arnRegions"
+      ]
+    },
+    "ArnRegionPartitioningConfiguration": {
+      "type": "object",
+      "description": "ARN region partitioning configuration",
+      "properties": {
+        "partitions": {
+          "type": "array",
+          "description": "The partitions list",
+          "items": {
+            "$ref": "#/definitions/ArnRegionPartition"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "partitions"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/PartitioningConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "arnRegion"
+    },
+    "AuthenticationType": {
+      "type": "string",
+      "description": "Authentication mechanism accepted by an ingestion unit.",
+      "enum": [
+        "AAD",
+        "DSTS"
+      ],
+      "x-ms-enum": {
+        "name": "AuthenticationType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Aad",
+            "value": "AAD",
+            "description": "Microsoft Entra application authentication."
+          },
+          {
+            "name": "Dsts",
+            "value": "DSTS",
+            "description": "DSTS claim authentication."
+          }
+        ]
+      }
+    },
+    "AuthorizationMode": {
+      "type": "string",
+      "description": "The authentication type used by ARN when delivering notifications to the subscriber",
+      "enum": [
+        "DefaultRBAC",
+        "DSTS"
+      ],
+      "x-ms-enum": {
+        "name": "AuthorizationMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "defaultRBAC",
+            "value": "DefaultRBAC",
+            "description": "Default RBAC-based authorization mode (default when omitted)."
+          },
+          {
+            "name": "dSTS",
+            "value": "DSTS",
+            "description": "Datacenter STS based authentication (default)"
+          }
+        ]
+      }
+    },
+    "AuthorizedApplication": {
+      "type": "object",
+      "description": "A Microsoft Entra application permitted to publish through an ingestion unit.",
+      "properties": {
+        "applicationId": {
+          "type": "string",
+          "description": "Microsoft Entra application ID."
+        },
+        "scopes": {
+          "type": "array",
+          "description": "Notification scopes permitted for this application.",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "allowedTenantIds": {
+          "type": "array",
+          "description": "Allowed resource-home tenant IDs. Empty or omitted permits all tenants.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allowedSubscriptionIds": {
+          "type": "array",
+          "description": "Allowed subscription IDs. Empty or omitted permits all subscriptions.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "applicationId",
+        "scopes"
+      ]
+    },
+    "Azure.Core.uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Universally Unique Identifier"
+    },
+    "Azure.ResourceManager.ResourceProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of a resource type.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "BatchingPolicy": {
+      "type": "object",
+      "description": "Base properties for batching policy configuration",
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/BatchingPolicyKind",
+          "description": "The kind of batching policy"
+        }
+      },
+      "discriminator": "kind",
+      "required": [
+        "kind"
+      ]
+    },
+    "BatchingPolicyKind": {
+      "type": "string",
+      "description": "Batching policy kind discriminator",
+      "enum": [
+        "minCountMaxDelay"
+      ],
+      "x-ms-enum": {
+        "name": "BatchingPolicyKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "minCountMaxDelay",
+            "value": "minCountMaxDelay",
+            "description": "Min count max delay batching policy"
+          }
+        ]
+      }
+    },
+    "CallerIdentity": {
+      "type": "object",
+      "description": "The caller identity extracted from the AAD token, validated against the manifest",
+      "properties": {
+        "appId": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "The application ID extracted from the auth token",
+          "readOnly": true
+        },
+        "objectId": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "The object ID extracted from the auth token",
+          "readOnly": true
+        },
+        "tenantId": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "The tenant ID extracted from the auth token",
+          "readOnly": true
+        }
+      }
+    },
+    "CapacityOverrides": {
+      "type": "object",
+      "description": "Request-rate limits overriding the defaults supplied by an ingestion unit SKU.",
+      "properties": {
+        "maxRequestsPerMinute": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum requests in a rolling 60-second window.",
+          "minimum": 1
+        },
+        "maxRequestsPerSecond": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum requests in a rolling one-second window.",
+          "minimum": 1
+        }
+      }
+    },
+    "CapacityOverridesPatch": {
+      "type": "object",
+      "description": "Capacity override fields supported by an ingestion unit PATCH request.",
+      "properties": {
+        "maxRequestsPerMinute": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Updated minute limit.",
+          "minimum": 1
+        },
+        "maxRequestsPerSecond": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Updated one-second limit.",
+          "minimum": 1
+        }
+      }
+    },
+    "CloudScope": {
+      "type": "object",
+      "description": "Cloud scope configuration",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Provider registration or namespace identity used to validate the caller against the RP relationship."
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/Scope"
+        }
+      ],
+      "x-ms-discriminator-value": "cloud"
+    },
+    "DataBoundary": {
+      "type": "string",
+      "description": "The data boundary used for routing notifications and enforcing data residency/compliance",
+      "enum": [
+        "Global",
+        "EU"
+      ],
+      "x-ms-enum": {
+        "name": "DataBoundary",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "global",
+            "value": "Global",
+            "description": "Global data boundary"
+          },
+          {
+            "name": "eu",
+            "value": "EU",
+            "description": "European Union data boundary"
+          }
+        ]
+      }
+    },
+    "DeliveryModeConfiguration": {
+      "type": "object",
+      "description": "Base configuration for how notifications are distributed across a subscription's destination endpoints",
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/DeliveryModeKind",
+          "description": "The kind of delivery mode"
+        }
+      },
+      "discriminator": "kind",
+      "required": [
+        "kind"
+      ]
+    },
+    "DeliveryModeKind": {
+      "type": "string",
+      "description": "The kind of delivery mode, determining how notifications are distributed across destination endpoints",
+      "enum": [
+        "fanOut",
+        "partitioned"
+      ],
+      "x-ms-enum": {
+        "name": "DeliveryModeKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "fanOut",
+            "value": "fanOut",
+            "description": "Deliver every notification to all endpoints (default)"
+          },
+          {
+            "name": "partitioned",
+            "value": "partitioned",
+            "description": "Distribute notifications across endpoints based on partitioning"
+          }
+        ]
+      }
+    },
+    "Destination": {
+      "type": "object",
+      "description": "Destination resource for Azure Resource Notifications",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/DestinationPropertiesBase",
+          "description": "The resource-specific properties for this resource."
+        },
+        "kind": {
+          "$ref": "#/definitions/DestinationKind",
+          "description": "The kind of destination"
+        },
+        "identity": {
+          "$ref": "#/definitions/Identity",
+          "description": "The managed identity used by ARN to deliver notifications to the destination endpoint."
+        }
+      },
+      "discriminator": "kind",
+      "required": [
+        "kind",
+        "identity"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "DestinationDeliveryMode": {
+      "type": "object",
+      "description": "Base configuration for how notifications are distributed across a destination's endpoints",
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/DestinationDeliveryModeKind",
+          "description": "The kind of destination delivery mode"
+        }
+      },
+      "discriminator": "kind",
+      "required": [
+        "kind"
+      ]
+    },
+    "DestinationDeliveryModeKind": {
+      "type": "string",
+      "description": "The kind of destination-level delivery mode",
+      "enum": [
+        "fanOut",
+        "equalDistribution"
+      ],
+      "x-ms-enum": {
+        "name": "DestinationDeliveryModeKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "fanOut",
+            "value": "fanOut",
+            "description": "Deliver every notification to all endpoints in the destination (default)"
+          },
+          {
+            "name": "equalDistribution",
+            "value": "equalDistribution",
+            "description": "Distribute notifications evenly across the destination's endpoints"
+          }
+        ]
+      }
+    },
+    "DestinationKind": {
+      "type": "string",
+      "description": "Destination kind discriminator",
+      "enum": [
+        "fabricTable",
+        "storageAccount",
+        "webhook",
+        "eventHub"
+      ],
+      "x-ms-enum": {
+        "name": "DestinationKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "fabricTable",
+            "value": "fabricTable",
+            "description": "Fabric table destination"
+          },
+          {
+            "name": "storageAccount",
+            "value": "storageAccount",
+            "description": "Storage account destination"
+          },
+          {
+            "name": "webhook",
+            "value": "webhook",
+            "description": "Webhook (HTTP endpoint) destination"
+          },
+          {
+            "name": "eventHub",
+            "value": "eventHub",
+            "description": "Event Hub destination"
+          }
+        ]
+      }
+    },
+    "DestinationListResult": {
+      "type": "object",
+      "description": "The response of a Destination list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Destination items on this page",
+          "items": {
+            "$ref": "#/definitions/Destination"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "DestinationPropertiesBase": {
+      "type": "object",
+      "description": "Base properties shared by all destination kinds",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The status of the last operation",
+          "readOnly": true
+        },
+        "dataBoundary": {
+          "$ref": "#/definitions/DataBoundary",
+          "description": "Destination-level data boundary used to route/deliver notifications for EU/global where required."
+        },
+        "partitions": {
+          "type": "array",
+          "description": "Parent partition names this destination receives. Required when the parent subscription's deliveryMode is partitioned.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deliveryMode": {
+          "$ref": "#/definitions/DestinationDeliveryMode",
+          "description": "Delivery mode applied only within this destination to its endpoints. Defaults to fanOut."
+        }
+      }
+    },
+    "DestinationUpdate": {
+      "type": "object",
+      "description": "The updatable fields of a destination resource.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "identity": {
+          "$ref": "#/definitions/IdentityUpdate",
+          "description": "The managed identity used by ARN to deliver notifications to the destination endpoint."
+        }
+      }
+    },
+    "DstsClaimAuthorization": {
+      "type": "object",
+      "description": "A publisher-defined DSTS claim permitted to publish through an ingestion unit.",
+      "properties": {
+        "claim": {
+          "type": "string",
+          "description": "Case-sensitive DSTS claim moniker.",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "claim"
+      ]
+    },
+    "DstsIngestionUnitAuthorization": {
+      "type": "object",
+      "description": "DSTS claim authentication configuration.",
+      "properties": {
+        "claims": {
+          "type": "array",
+          "description": "DSTS claims permitted to publish through this ingestion unit.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/DstsClaimAuthorization"
+          },
+          "x-ms-identifiers": [
+            "claim"
+          ]
+        }
+      },
+      "required": [
+        "claims"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/IngestionUnitAuthorization"
+        }
+      ],
+      "x-ms-discriminator-value": "DSTS"
+    },
+    "EqualDistributionDestinationDeliveryMode": {
+      "type": "object",
+      "description": "Equal-distribution destination delivery mode: notifications are distributed evenly across endpoints",
+      "allOf": [
+        {
+          "$ref": "#/definitions/DestinationDeliveryMode"
+        }
+      ],
+      "x-ms-discriminator-value": "equalDistribution"
+    },
+    "EventHubDestination": {
+      "type": "object",
+      "description": "Event Hub destination",
+      "properties": {
+        "endpoints": {
+          "type": "array",
+          "description": "The set of event hub endpoints to deliver notifications to",
+          "items": {
+            "$ref": "#/definitions/EventHubEndpoint"
+          },
+          "x-ms-identifiers": [
+            "id"
+          ]
+        }
+      },
+      "required": [
+        "endpoints"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/Destination"
+        }
+      ],
+      "x-ms-discriminator-value": "eventHub"
+    },
+    "EventHubEndpoint": {
+      "type": "object",
+      "description": "Event Hub endpoint configuration",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "The Azure resource ID of the target Event Hub"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "FabricEndpoint": {
+      "type": "object",
+      "description": "Fabric endpoint configuration",
+      "properties": {
+        "workspaceId": {
+          "type": "string",
+          "description": "The workspace ID"
+        },
+        "databaseId": {
+          "type": "string",
+          "description": "The database ID"
+        }
+      },
+      "required": [
+        "workspaceId",
+        "databaseId"
+      ]
+    },
+    "FabricTableDestination": {
+      "type": "object",
+      "description": "Fabric table destination",
+      "properties": {
+        "endpoint": {
+          "$ref": "#/definitions/FabricEndpoint",
+          "description": "The fabric endpoint configuration"
+        }
+      },
+      "required": [
+        "endpoint"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/Destination"
+        }
+      ],
+      "x-ms-discriminator-value": "fabricTable"
+    },
+    "FanOutDeliveryModeConfiguration": {
+      "type": "object",
+      "description": "Fan-out delivery mode: every notification is delivered to all endpoints",
+      "allOf": [
+        {
+          "$ref": "#/definitions/DeliveryModeConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "fanOut"
+    },
+    "FanOutDestinationDeliveryMode": {
+      "type": "object",
+      "description": "Fan-out destination delivery mode: every notification is delivered to all endpoints",
+      "allOf": [
+        {
+          "$ref": "#/definitions/DestinationDeliveryMode"
+        }
+      ],
+      "x-ms-discriminator-value": "fanOut"
+    },
+    "GetNotificationSessionDetails": {
+      "type": "object",
+      "description": "Session details for connecting to a notification session",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The resource ID of the session"
+        },
+        "encodedNotificationSession": {
+          "type": "string",
+          "format": "password",
+          "description": "Encoded notification session data",
+          "x-ms-secret": true
+        },
+        "connectionDetails": {
+          "$ref": "#/definitions/NotificationSessionConnectionDetails",
+          "description": "Connection details for the session"
+        },
+        "validUntil": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp until which the session details are valid"
+        }
+      }
+    },
+    "GetSessionDetailsRequest": {
+      "type": "object",
+      "description": "Request body for getting session details",
+      "properties": {
+        "durationInMinutes": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Duration in minutes for session validity",
+          "minimum": 1,
+          "maximum": 240
+        }
+      }
+    },
+    "HashRangePartition": {
+      "type": "object",
+      "description": "Hash range partition definition",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the partition"
+        },
+        "range": {
+          "type": "string",
+          "description": "Single hash range string, e.g., '0:49'."
+        }
+      },
+      "required": [
+        "name",
+        "range"
+      ]
+    },
+    "Identity": {
+      "type": "object",
+      "description": "Identity for the destination resource, used by ARN to deliver notifications to the destination endpoint. Only user-assigned managed identity is supported.",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ResourceIdentityType",
+          "description": "The identity type. Only UserAssigned is supported. To change the assigned identity, PATCH userAssignedIdentities with the replacement identity resource ID; removal is not supported."
+        },
+        "userAssignedIdentities": {
+          "type": "object",
+          "description": "The user identity associated with the destination. The user identity dictionary key references will be ARM resource ids in the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.",
+          "additionalProperties": {
+            "$ref": "#/definitions/UserAssignedIdentitiesValue"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "userAssignedIdentities"
+      ]
+    },
+    "IdentityUpdate": {
+      "type": "object",
+      "description": "Identity for the destination resource, used by ARN to deliver notifications to the destination endpoint. Only user-assigned managed identity is supported.",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ResourceIdentityType",
+          "description": "The identity type. Only UserAssigned is supported. To change the assigned identity, PATCH userAssignedIdentities with the replacement identity resource ID; removal is not supported."
+        },
+        "userAssignedIdentities": {
+          "type": "object",
+          "description": "The user identity associated with the destination. The user identity dictionary key references will be ARM resource ids in the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.",
+          "additionalProperties": {
+            "$ref": "#/definitions/UserAssignedIdentitiesValue"
+          }
+        }
+      }
+    },
+    "IngestionUnit": {
+      "type": "object",
+      "description": "Regional ingestion capacity for a publisher registered with Microsoft.ProviderHub.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/IngestionUnitProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "IngestionUnitAuthorization": {
+      "type": "object",
+      "description": "Base model for an ingestion unit authentication configuration.",
+      "properties": {
+        "authenticationType": {
+          "$ref": "#/definitions/AuthenticationType",
+          "description": "Authentication mechanism represented by this entry."
+        }
+      },
+      "discriminator": "authenticationType",
+      "required": [
+        "authenticationType"
+      ]
+    },
+    "IngestionUnitListResult": {
+      "type": "object",
+      "description": "The response of a IngestionUnit list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The IngestionUnit items on this page",
+          "items": {
+            "$ref": "#/definitions/IngestionUnit"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "IngestionUnitPatch": {
+      "type": "object",
+      "description": "Ingestion unit PATCH request.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/IngestionUnitPatchProperties",
+          "description": "Properties to update."
+        }
+      }
+    },
+    "IngestionUnitPatchProperties": {
+      "type": "object",
+      "description": "Ingestion unit properties supported by a PATCH request.",
+      "properties": {
+        "sku": {
+          "$ref": "#/definitions/IngestionUnitSkuUpdate",
+          "description": "Updated capacity profile."
+        },
+        "capacityOverrides": {
+          "$ref": "#/definitions/CapacityOverridesPatch",
+          "description": "Updated request-rate overrides."
+        },
+        "authorizations": {
+          "type": "array",
+          "description": "Complete replacement authentication collection.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/IngestionUnitAuthorization"
+          },
+          "x-ms-identifiers": [
+            "authenticationType"
+          ]
+        }
+      }
+    },
+    "IngestionUnitProperties": {
+      "type": "object",
+      "description": "Properties for an ingestion unit resource (2026-09-01-preview and later).",
+      "properties": {
+        "sku": {
+          "$ref": "#/definitions/IngestionUnitSku",
+          "description": "Capacity profile assigned to this ingestion unit."
+        },
+        "capacityOverrides": {
+          "$ref": "#/definitions/CapacityOverrides",
+          "description": "Request-rate limits overriding the defaults supplied by the SKU."
+        },
+        "authorizations": {
+          "type": "array",
+          "description": "Authentication mechanisms permitted to publish through this ingestion unit.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/IngestionUnitAuthorization"
+          },
+          "x-ms-identifiers": [
+            "authenticationType"
+          ]
+        },
+        "endpoint": {
+          "type": "string",
+          "description": "System-provisioned receiver hostname.",
+          "readOnly": true
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether this ingestion unit is enabled. Read-only — toggled out-of-band by ACIS/OCE admin actions for production mitigation (e.g., disabling an IU during an outage); not settable by publishers. Default: true.",
+          "default": true,
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Read-only provisioning state.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "sku",
+        "authorizations"
+      ]
+    },
+    "IngestionUnitSku": {
+      "type": "object",
+      "description": "ARN-owned capacity profile assigned to a regional ingestion unit.",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/IngestionUnitSkuName",
+          "description": "Capacity profile selecting the workload type and default request-rate limits."
+        },
+        "capacity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of capacity units assigned to this ingestion unit.",
+          "default": 1,
+          "minimum": 1
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "IngestionUnitSkuName": {
+      "type": "string",
+      "description": "SKU name for an ingestion unit. Determines the HTTP push ingestion capacity tier.",
+      "enum": [
+        "Standard"
+      ],
+      "x-ms-enum": {
+        "name": "IngestionUnitSkuName",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Standard",
+            "value": "Standard",
+            "description": "Standard push tier: production HTTP push ingestion capacity."
+          }
+        ]
+      }
+    },
+    "IngestionUnitSkuUpdate": {
+      "type": "object",
+      "description": "Capacity profile fields supported by an ingestion unit PATCH request.",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/IngestionUnitSkuName",
+          "description": "Updated capacity profile."
+        },
+        "capacity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Updated number of capacity units.",
+          "minimum": 1
+        }
+      }
+    },
+    "MinCountMaxDelayBatchingPolicy": {
+      "type": "object",
+      "description": "Min count max delay batching policy",
+      "properties": {
+        "minResources": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Minimum number of resources"
+        },
+        "maxDelay": {
+          "type": "string",
+          "format": "duration",
+          "description": "Maximum delay in ISO 8601 duration format (e.g., PT5M for 5 minutes)"
+        }
+      },
+      "required": [
+        "minResources",
+        "maxDelay"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/BatchingPolicy"
+        }
+      ],
+      "x-ms-discriminator-value": "minCountMaxDelay"
+    },
+    "NotificationSessionConnectionDetails": {
+      "type": "object",
+      "description": "Connection details for a notification session",
+      "properties": {
+        "connectionString": {
+          "type": "string",
+          "format": "password",
+          "description": "Connection string for the session",
+          "x-ms-secret": true
+        },
+        "endpoint": {
+          "type": "string",
+          "description": "Endpoint URL for the session"
+        }
+      }
+    },
+    "NotificationSessionProperties": {
+      "type": "object",
+      "description": "Properties of a notification session",
+      "properties": {
+        "configuration": {
+          "type": "string",
+          "description": "Arbitrary configuration payload (string encoded)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the notification session.",
+          "x-ms-mutability": [
+            "read",
+            "update",
+            "create"
+          ]
+        },
+        "maxDurationMinutes": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum duration in minutes.",
+          "minimum": 1,
+          "maximum": 1440,
+          "x-ms-mutability": [
+            "read",
+            "update",
+            "create"
+          ]
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start time of the session.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/NotificationSessionStatus",
+          "description": "The status of the notification session",
+          "x-ms-mutability": [
+            "read",
+            "update",
+            "create"
+          ]
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "The provisioning state of the resource",
+          "readOnly": true
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp.",
+          "readOnly": true
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp.",
+          "readOnly": true
+        },
+        "notificationSessionId": {
+          "type": "string",
+          "description": "Unique identifier of the notification session.",
+          "readOnly": true
+        }
+      }
+    },
+    "NotificationSessionResource": {
+      "type": "object",
+      "description": "Notification session resource for Azure Resource Notifications",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/NotificationSessionProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "NotificationSessionResourceListResult": {
+      "type": "object",
+      "description": "The response of a NotificationSessionResource list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The NotificationSessionResource items on this page",
+          "items": {
+            "$ref": "#/definitions/NotificationSessionResource"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "NotificationSessionStatus": {
+      "type": "string",
+      "description": "Notification session status",
+      "enum": [
+        "Active",
+        "Paused",
+        "Completed",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "NotificationSessionStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Active",
+            "value": "Active",
+            "description": "Active session"
+          },
+          {
+            "name": "Paused",
+            "value": "Paused",
+            "description": "Paused session"
+          },
+          {
+            "name": "Completed",
+            "value": "Completed",
+            "description": "Completed session"
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Failed session"
+          }
+        ]
+      }
+    },
+    "PartitioningConfiguration": {
+      "type": "object",
+      "description": "Base properties for partitioning configuration",
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/PartitioningConfigurationKind",
+          "description": "The kind of partitioning configuration"
+        },
+        "parentPartition": {
+          "type": "string",
+          "description": "Only specified for a child partitioning config. References the parent partition name. Root config omits this field."
+        }
+      },
+      "discriminator": "kind",
+      "required": [
+        "kind"
+      ]
+    },
+    "PartitioningConfigurationKind": {
+      "type": "string",
+      "description": "Partitioning configuration kind discriminator",
+      "enum": [
+        "arnRegion",
+        "resourceLocation",
+        "routingLocation",
+        "scopeId"
+      ],
+      "x-ms-enum": {
+        "name": "PartitioningConfigurationKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "arnRegion",
+            "value": "arnRegion",
+            "description": "ARN region partitioning"
+          },
+          {
+            "name": "resourceLocation",
+            "value": "resourceLocation",
+            "description": "Resource location partitioning"
+          },
+          {
+            "name": "routingLocation",
+            "value": "routingLocation",
+            "description": "Routing location partitioning"
+          },
+          {
+            "name": "scopeId",
+            "value": "scopeId",
+            "description": "Scope ID hash-based partitioning"
+          }
+        ]
+      }
+    },
+    "PartitioningDeliveryModeConfiguration": {
+      "type": "object",
+      "description": "Partitioning delivery mode: notifications are distributed across endpoints based on partitioning",
+      "properties": {
+        "partitioningConfigurations": {
+          "type": "array",
+          "description": "The partitioning configurations. Present only when kind = partitioned.",
+          "items": {
+            "$ref": "#/definitions/PartitioningConfiguration"
+          },
+          "x-ms-identifiers": []
+        }
+      },
+      "required": [
+        "partitioningConfigurations"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/DeliveryModeConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "partitioned"
+    },
+    "PathPolicy": {
+      "type": "object",
+      "description": "Base properties for path policy configuration",
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/PathPolicyKind",
+          "description": "The kind of path policy"
+        }
+      },
+      "discriminator": "kind",
+      "required": [
+        "kind"
+      ]
+    },
+    "PathPolicyKind": {
+      "type": "string",
+      "description": "Path policy kind discriminator",
+      "enum": [
+        "timeAndScopeRangeHash"
+      ],
+      "x-ms-enum": {
+        "name": "PathPolicyKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "timeAndScopeRangeHash",
+            "value": "timeAndScopeRangeHash",
+            "description": "Time and scope range hash path policy"
+          }
+        ]
+      }
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "description": "The resource provisioning state",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Provisioning",
+        "Updating",
+        "Deleting",
+        "Accepted"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          },
+          {
+            "name": "Provisioning",
+            "value": "Provisioning",
+            "description": "The resource is being provisioned"
+          },
+          {
+            "name": "Updating",
+            "value": "Updating",
+            "description": "The resource is updating"
+          },
+          {
+            "name": "Deleting",
+            "value": "Deleting",
+            "description": "The resource is being deleted"
+          },
+          {
+            "name": "Accepted",
+            "value": "Accepted",
+            "description": "The resource create request has been accepted"
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "ResourceIdentityType": {
+      "type": "string",
+      "description": "The identity type for a destination resource. Only UserAssigned is supported.",
+      "enum": [
+        "UserAssigned"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceIdentityType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "UserAssigned",
+            "value": "UserAssigned",
+            "description": "User-assigned managed identity. Only UserAssigned is supported; to swap the assigned identity, update userAssignedIdentities with the new identity resource ID."
+          }
+        ]
+      }
+    },
+    "ResourceLocationPartition": {
+      "type": "object",
+      "description": "Resource location partition definition",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the partition"
+        },
+        "resourceLocations": {
+          "type": "array",
+          "description": "The resource locations included in this partition",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "resourceLocations"
+      ]
+    },
+    "ResourceLocationPartitioningConfiguration": {
+      "type": "object",
+      "description": "Resource location partitioning configuration",
+      "properties": {
+        "partitions": {
+          "type": "array",
+          "description": "The partitions list",
+          "items": {
+            "$ref": "#/definitions/ResourceLocationPartition"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "partitions"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/PartitioningConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "resourceLocation"
+    },
+    "ResourceSubscription": {
+      "type": "object",
+      "description": "Resource subscription for Azure Resource Notifications",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ResourceSubscriptionProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "ResourceSubscriptionListResult": {
+      "type": "object",
+      "description": "The response of a ResourceSubscription list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ResourceSubscription items on this page",
+          "items": {
+            "$ref": "#/definitions/ResourceSubscription"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ResourceSubscriptionOptions": {
+      "type": "object",
+      "description": "Optional configuration options for a resource subscription",
+      "properties": {
+        "skipPayload": {
+          "type": "boolean",
+          "description": "Strips notification payload/resources before delivery."
+        },
+        "allowPreviewNotifications": {
+          "type": "boolean",
+          "description": "Subscriber receives preview/pre-GA notifications that are otherwise dropped."
+        },
+        "authorizationMode": {
+          "$ref": "#/definitions/AuthorizationMode",
+          "description": "The authentication type used by ARN when delivering notifications to the subscriber. Defaults to DefaultRBAC when omitted."
+        }
+      }
+    },
+    "ResourceSubscriptionProperties": {
+      "type": "object",
+      "description": "Properties of a resource subscription",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "The query to execute - only one table can be targeted at a time"
+        },
+        "scope": {
+          "$ref": "#/definitions/Scope",
+          "description": "The scope for the execution of the filter"
+        },
+        "deliveryMode": {
+          "$ref": "#/definitions/DeliveryModeConfiguration",
+          "description": "Determines how notifications are distributed across the subscription's destination endpoints. Defaults to fanOut."
+        },
+        "options": {
+          "$ref": "#/definitions/ResourceSubscriptionOptions",
+          "description": "Optional configuration options"
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The status of the last operation",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "query",
+        "scope"
+      ]
+    },
+    "ResourceSubscriptionTagsUpdate": {
+      "type": "object",
+      "description": "The type used for updating tags in ResourceSubscription resources.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "RoutingLocationPartition": {
+      "type": "object",
+      "description": "Routing location partition definition",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the partition"
+        },
+        "routingLocations": {
+          "type": "array",
+          "description": "The routing locations included in this partition",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "routingLocations"
+      ]
+    },
+    "RoutingLocationPartitioningConfiguration": {
+      "type": "object",
+      "description": "Routing location partitioning configuration",
+      "properties": {
+        "partitions": {
+          "type": "array",
+          "description": "The partitions list",
+          "items": {
+            "$ref": "#/definitions/RoutingLocationPartition"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "partitions"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/PartitioningConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "routingLocation"
+    },
+    "Scope": {
+      "type": "object",
+      "description": "Base properties for scope configuration",
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/ScopeKind",
+          "description": "The kind of scope"
+        }
+      },
+      "discriminator": "kind",
+      "required": [
+        "kind"
+      ]
+    },
+    "ScopeIdPartitioningConfiguration": {
+      "type": "object",
+      "description": "Scope ID hash-based partitioning configuration",
+      "properties": {
+        "hashBucketCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of hash buckets. The scope id is hashed into the range [0, hashBucketCount - 1]. Must be a positive integer."
+        },
+        "partitions": {
+          "type": "array",
+          "description": "The partitions list. Ranges must be sorted, contiguous, gap-free, and cover [0, hashBucketCount - 1].",
+          "items": {
+            "$ref": "#/definitions/HashRangePartition"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "hashBucketCount",
+        "partitions"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/PartitioningConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "scopeId"
+    },
+    "ScopeKind": {
+      "type": "string",
+      "description": "The kind of scope for resource subscriptions, determining how notifications are scoped and delivered",
+      "enum": [
+        "tenant",
+        "cloud"
+      ],
+      "x-ms-enum": {
+        "name": "ScopeKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "tenant",
+            "value": "tenant",
+            "description": "Tenant scope"
+          },
+          {
+            "name": "cloud",
+            "value": "cloud",
+            "description": "Cloud scope"
+          }
+        ]
+      }
+    },
+    "StorageAccountDestination": {
+      "type": "object",
+      "description": "Storage account destination",
+      "properties": {
+        "container": {
+          "type": "string",
+          "description": "Container where blobs are written. Applies to all storage account endpoints in this destination."
+        },
+        "pathPolicy": {
+          "$ref": "#/definitions/PathPolicy",
+          "description": "Incoming notifications are mapped to a path based on the path policy"
+        },
+        "batchingPolicy": {
+          "$ref": "#/definitions/BatchingPolicy",
+          "description": "Notifications for the same path are batched following the batching policy"
+        },
+        "endpoints": {
+          "type": "array",
+          "description": "Set of endpoints to use",
+          "items": {
+            "$ref": "#/definitions/StorageAccountEndpoint"
+          },
+          "x-ms-identifiers": [
+            "id"
+          ]
+        }
+      },
+      "required": [
+        "container",
+        "pathPolicy",
+        "endpoints"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/Destination"
+        }
+      ],
+      "x-ms-discriminator-value": "storageAccount"
+    },
+    "StorageAccountEndpoint": {
+      "type": "object",
+      "description": "Storage account endpoint",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "The storage account endpoint resource ID"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "TenantScope": {
+      "type": "object",
+      "description": "Tenant scope configuration",
+      "properties": {
+        "tenantId": {
+          "type": "string"
+        },
+        "servicePrincipal": {
+          "type": "string"
+        },
+        "identity": {
+          "$ref": "#/definitions/CallerIdentity"
+        }
+      },
+      "required": [
+        "tenantId"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/Scope"
+        }
+      ],
+      "x-ms-discriminator-value": "tenant"
+    },
+    "TimeAndScopeRangeHashPathPolicy": {
+      "type": "object",
+      "description": "Time and scope range hash path policy",
+      "properties": {
+        "scope": {
+          "type": "string",
+          "description": "The logical scope used for hashing into buckets, for example 'tenant', 'subscription', or 'resourceGroup'."
+        },
+        "scopeBucketsCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of scope buckets to hash the chosen scope into."
+        },
+        "pathTemplate": {
+          "type": "string",
+          "description": "The path template string with variable placeholders that will be resolved at runtime, following the pattern:\nyear={yyyy},month={mm},day={dd}/hour={hh}/tenantBucket={scopeBucket}.\nPlaceholders such as {yyyy}, {mm}, {dd}, {hh}, and {scopeBucket} are replaced with the corresponding values."
+        }
+      },
+      "required": [
+        "scope",
+        "scopeBucketsCount",
+        "pathTemplate"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/PathPolicy"
+        }
+      ],
+      "x-ms-discriminator-value": "timeAndScopeRangeHash"
+    },
+    "UserAssignedIdentitiesValue": {
+      "type": "object",
+      "description": "The details of a user assigned identity.",
+      "properties": {
+        "principalId": {
+          "type": "string",
+          "description": "The principal id of user assigned identity.",
+          "readOnly": true
+        },
+        "clientId": {
+          "type": "string",
+          "description": "The client id of user assigned identity.",
+          "readOnly": true
+        }
+      }
+    },
+    "WebhookDestination": {
+      "type": "object",
+      "description": "Webhook destination",
+      "properties": {
+        "endpoints": {
+          "type": "array",
+          "description": "The set of webhook endpoints to deliver notifications to",
+          "items": {
+            "$ref": "#/definitions/WebhookEndpoint"
+          },
+          "x-ms-identifiers": [
+            "url"
+          ]
+        }
+      },
+      "required": [
+        "endpoints"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/Destination"
+        }
+      ],
+      "x-ms-discriminator-value": "webhook"
+    },
+    "WebhookEndpoint": {
+      "type": "object",
+      "description": "Webhook endpoint configuration",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The HTTPS endpoint URL to which notifications are delivered"
+        },
+        "appId": {
+          "type": "string",
+          "description": "The application id used as audience/auth target for delivery."
+        }
+      },
+      "required": [
+        "url",
+        "appId"
+      ]
+    }
+  },
+  "parameters": {
+    "Azure.ResourceManager.ResourceUriParameter": {
+      "name": "resourceUri",
+      "in": "path",
+      "description": "The fully qualified Azure Resource manager identifier of the resource.",
+      "required": true,
+      "type": "string",
+      "x-ms-parameter-location": "method",
+      "x-ms-skip-url-encoding": true
+    }
+  }
+}
