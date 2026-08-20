@@ -107,715 +107,6 @@
         }
       }
     },
-    "/providers/Microsoft.PlatformValidation/validationTestCategories": {
-      "get": {
-        "operationId": "ValidationTestCategories_List",
-        "tags": [
-          "Validation Test Category Interfaces"
-        ],
-        "description": "List validation test category catalog entries",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ValidationTestCategoryListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestCategories_List_MaximumSet": {
-            "$ref": "./examples/ValidationTestCategories_List_MaximumSet_Gen.json"
-          },
-          "ValidationTestCategories_List_MinimumSet": {
-            "$ref": "./examples/ValidationTestCategories_List_MinimumSet_Gen.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/providers/Microsoft.PlatformValidation/validationTestCategories/{validationTestCategoryName}": {
-      "get": {
-        "operationId": "ValidationTestCategories_Get",
-        "tags": [
-          "Validation Test Category Interfaces"
-        ],
-        "description": "Get a validation test category catalog entry",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "validationTestCategoryName",
-            "in": "path",
-            "description": "The name of the ValidationTestCategory",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ValidationTestCategory"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestCategories_Get_MaximumSet": {
-            "$ref": "./examples/ValidationTestCategories_Get_MaximumSet_Gen.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "ValidationTestCategories_CreateOrUpdate",
-        "tags": [
-          "Validation Test Category Interfaces"
-        ],
-        "description": "Create or update a validation test category catalog entry",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "validationTestCategoryName",
-            "in": "path",
-            "description": "The name of the ValidationTestCategory",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ValidationTestCategory"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'ValidationTestCategory' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/ValidationTestCategory"
-            }
-          },
-          "201": {
-            "description": "Resource 'ValidationTestCategory' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/ValidationTestCategory"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestCategories_CreateOrUpdate_MaximumSet": {
-            "$ref": "./examples/ValidationTestCategories_CreateOrUpdate_MaximumSet_Gen.json"
-          }
-        }
-      },
-      "patch": {
-        "operationId": "ValidationTestCategories_Update",
-        "tags": [
-          "Validation Test Category Interfaces"
-        ],
-        "description": "Update a validation test category catalog entry",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "validationTestCategoryName",
-            "in": "path",
-            "description": "The name of the ValidationTestCategory",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          },
-          {
-            "name": "properties",
-            "in": "body",
-            "description": "The resource properties to be updated.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ValidationTestCategoryUpdate"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ValidationTestCategory"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestCategories_Update_MaximumSet": {
-            "$ref": "./examples/ValidationTestCategories_Update_MaximumSet_Gen.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "ValidationTestCategories_Delete",
-        "tags": [
-          "Validation Test Category Interfaces"
-        ],
-        "description": "Delete a validation test category catalog entry",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "validationTestCategoryName",
-            "in": "path",
-            "description": "The name of the ValidationTestCategory",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestCategories_Delete_MaximumSet": {
-            "$ref": "./examples/ValidationTestCategories_Delete_MaximumSet_Gen.json"
-          }
-        }
-      }
-    },
-    "/providers/Microsoft.PlatformValidation/validationTests": {
-      "get": {
-        "operationId": "ValidationTests_List",
-        "tags": [
-          "Validation Test Interfaces"
-        ],
-        "description": "List validation test catalog entries",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ValidationTestListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTests_List_MaximumSet": {
-            "$ref": "./examples/ValidationTests_List_MaximumSet_Gen.json"
-          },
-          "ValidationTests_List_MinimumSet": {
-            "$ref": "./examples/ValidationTests_List_MinimumSet_Gen.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/providers/Microsoft.PlatformValidation/validationTests/{validationTestName}": {
-      "get": {
-        "operationId": "ValidationTests_Get",
-        "tags": [
-          "Validation Test Interfaces"
-        ],
-        "description": "Get a validation test catalog entry",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "validationTestName",
-            "in": "path",
-            "description": "The name of the ValidationTest",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ValidationTest"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTests_Get_MaximumSet": {
-            "$ref": "./examples/ValidationTests_Get_MaximumSet_Gen.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "ValidationTests_CreateOrUpdate",
-        "tags": [
-          "Validation Test Interfaces"
-        ],
-        "description": "Create or update a validation test catalog entry and publish a new immutable version snapshot",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "validationTestName",
-            "in": "path",
-            "description": "The name of the ValidationTest",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ValidationTest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'ValidationTest' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/ValidationTest"
-            }
-          },
-          "201": {
-            "description": "Resource 'ValidationTest' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/ValidationTest"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTests_CreateOrUpdate_MaximumSet": {
-            "$ref": "./examples/ValidationTests_CreateOrUpdate_MaximumSet_Gen.json"
-          }
-        }
-      },
-      "patch": {
-        "operationId": "ValidationTests_Update",
-        "tags": [
-          "Validation Test Interfaces"
-        ],
-        "description": "Update a validation test catalog entry",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "validationTestName",
-            "in": "path",
-            "description": "The name of the ValidationTest",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          },
-          {
-            "name": "properties",
-            "in": "body",
-            "description": "The resource properties to be updated.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ValidationTestUpdate"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ValidationTest"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTests_Update_MaximumSet": {
-            "$ref": "./examples/ValidationTests_Update_MaximumSet_Gen.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "ValidationTests_Delete",
-        "tags": [
-          "Validation Test Interfaces"
-        ],
-        "description": "Delete a validation test catalog entry",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "validationTestName",
-            "in": "path",
-            "description": "The name of the ValidationTest",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTests_Delete_MaximumSet": {
-            "$ref": "./examples/ValidationTests_Delete_MaximumSet_Gen.json"
-          }
-        }
-      }
-    },
-    "/providers/Microsoft.PlatformValidation/validationTests/{validationTestName}/versions": {
-      "get": {
-        "operationId": "ValidationTestVersions_List",
-        "tags": [
-          "Validation Test Version Interfaces"
-        ],
-        "description": "List validation test version catalog entries",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "validationTestName",
-            "in": "path",
-            "description": "The name of the ValidationTest",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ValidationTestVersionListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestVersions_List_MaximumSet - generated by [MaximumSet] rule": {
-            "$ref": "./examples/ValidationTestVersions_List_MaximumSet_Gen.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/providers/Microsoft.PlatformValidation/validationTests/{validationTestName}/versions/{version}": {
-      "get": {
-        "operationId": "ValidationTestVersions_Get",
-        "tags": [
-          "Validation Test Version Interfaces"
-        ],
-        "description": "Get a validation test version catalog entry",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "validationTestName",
-            "in": "path",
-            "description": "The name of the ValidationTest",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          },
-          {
-            "name": "version",
-            "in": "path",
-            "description": "The name of the ValidationTestVersion",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9._-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ValidationTestVersion"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestVersions_Get_MaximumSet": {
-            "$ref": "./examples/ValidationTestVersions_Get_MaximumSet_Gen.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "ValidationTestVersions_CreateOrUpdate",
-        "tags": [
-          "Validation Test Version Interfaces"
-        ],
-        "description": "Create or update a validation test version catalog entry",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "validationTestName",
-            "in": "path",
-            "description": "The name of the ValidationTest",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          },
-          {
-            "name": "version",
-            "in": "path",
-            "description": "The name of the ValidationTestVersion",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9._-]{1,64}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ValidationTestVersion"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'ValidationTestVersion' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/ValidationTestVersion"
-            }
-          },
-          "201": {
-            "description": "Resource 'ValidationTestVersion' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/ValidationTestVersion"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestVersions_CreateOrUpdate_MaximumSet": {
-            "$ref": "./examples/ValidationTestVersions_CreateOrUpdate_MaximumSet_Gen.json"
-          }
-        }
-      },
-      "patch": {
-        "operationId": "ValidationTestVersions_Update",
-        "tags": [
-          "Validation Test Version Interfaces"
-        ],
-        "description": "Update a validation test version catalog entry",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "validationTestName",
-            "in": "path",
-            "description": "The name of the ValidationTest",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          },
-          {
-            "name": "version",
-            "in": "path",
-            "description": "The name of the ValidationTestVersion",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9._-]{1,64}$"
-          },
-          {
-            "name": "properties",
-            "in": "body",
-            "description": "The resource properties to be updated.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ValidationTestVersionUpdate"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ValidationTestVersion"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestVersions_Update_MaximumSet": {
-            "$ref": "./examples/ValidationTestVersions_Update_MaximumSet_Gen.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "ValidationTestVersions_Delete",
-        "tags": [
-          "Validation Test Version Interfaces"
-        ],
-        "description": "Delete a validation test version catalog entry",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "validationTestName",
-            "in": "path",
-            "description": "The name of the ValidationTest",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          },
-          {
-            "name": "version",
-            "in": "path",
-            "description": "The name of the ValidationTestVersion",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9._-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestVersions_Delete_MaximumSet": {
-            "$ref": "./examples/ValidationTestVersions_Delete_MaximumSet_Gen.json"
-          }
-        }
-      }
-    },
     "/subscriptions/{subscriptionId}/providers/Microsoft.PlatformValidation/cloudValidations": {
       "get": {
         "operationId": "CloudValidations_ListBySubscription",
@@ -902,6 +193,286 @@
           },
           "OperationStatus_Get_MaximumSet - generated by [MinimumSet] rule": {
             "$ref": "./examples/OperationStatus_Get_MinimumSet_Gen.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.PlatformValidation/validationTestCategories": {
+      "get": {
+        "operationId": "ValidationTestCategories_ListBySubscription",
+        "tags": [
+          "Validation Test Category Interfaces"
+        ],
+        "description": "List validation test category catalog entries for a subscription",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestCategoryListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTestCategories_ListBySubscription_MaximumSet": {
+            "$ref": "./examples/ValidationTestCategories_ListBySubscription_MaximumSet_Gen.json"
+          },
+          "ValidationTestCategories_ListBySubscription_MinimumSet": {
+            "$ref": "./examples/ValidationTestCategories_ListBySubscription_MinimumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.PlatformValidation/validationTestCategories/{validationTestCategoryName}": {
+      "get": {
+        "operationId": "ValidationTestCategories_Get",
+        "tags": [
+          "Validation Test Category Interfaces"
+        ],
+        "description": "Get a validation test category catalog entry",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "validationTestCategoryName",
+            "in": "path",
+            "description": "The name of the ValidationTestCategory",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,90}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestCategory"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTestCategories_Get_MaximumSet": {
+            "$ref": "./examples/ValidationTestCategories_Get_MaximumSet_Gen.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.PlatformValidation/validationTests": {
+      "get": {
+        "operationId": "ValidationTests_ListBySubscription",
+        "tags": [
+          "Validation Test Interfaces"
+        ],
+        "description": "List validation test catalog entries for a subscription",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTests_ListBySubscription_MaximumSet": {
+            "$ref": "./examples/ValidationTests_ListBySubscription_MaximumSet_Gen.json"
+          },
+          "ValidationTests_ListBySubscription_MinimumSet": {
+            "$ref": "./examples/ValidationTests_ListBySubscription_MinimumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.PlatformValidation/validationTests/{validationTestName}": {
+      "get": {
+        "operationId": "ValidationTests_Get",
+        "tags": [
+          "Validation Test Interfaces"
+        ],
+        "description": "Get a validation test catalog entry",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "validationTestName",
+            "in": "path",
+            "description": "The name of the ValidationTest",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,90}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidationTest"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTests_Get_MaximumSet": {
+            "$ref": "./examples/ValidationTests_Get_MaximumSet_Gen.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.PlatformValidation/validationTests/{validationTestName}/versions": {
+      "get": {
+        "operationId": "ValidationTestVersions_List",
+        "tags": [
+          "Validation Test Version Interfaces"
+        ],
+        "description": "List validation test version catalog entries",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "validationTestName",
+            "in": "path",
+            "description": "The name of the ValidationTest",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,90}$"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestVersionListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTestVersions_List_MaximumSet - generated by [MaximumSet] rule": {
+            "$ref": "./examples/ValidationTestVersions_List_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.PlatformValidation/validationTests/{validationTestName}/versions/{version}": {
+      "get": {
+        "operationId": "ValidationTestVersions_Get",
+        "tags": [
+          "Validation Test Version Interfaces"
+        ],
+        "description": "Get a validation test version catalog entry",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "validationTestName",
+            "in": "path",
+            "description": "The name of the ValidationTest",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,90}$"
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "The name of the ValidationTestVersion",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9._-]{1,64}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestVersion"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTestVersions_Get_MaximumSet": {
+            "$ref": "./examples/ValidationTestVersions_Get_MaximumSet_Gen.json"
           }
         }
       }
@@ -2417,6 +1988,23 @@
           "description": "Snapshot of the execution plan configuration captured at trigger time.",
           "readOnly": true
         },
+        "testRunIds": {
+          "type": "array",
+          "description": "The ARM resource IDs of the validation test runs (ValidationTestRun resources) executed as part of this execution plan run.",
+          "items": {
+            "type": "string",
+            "format": "arm-id",
+            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+            "x-ms-arm-id-details": {
+              "allowedResources": [
+                {
+                  "type": "Microsoft.PlatformValidation/cloudValidations/validationExecutionPlans/executionPlanRuns/validationTestRuns"
+                }
+              ]
+            }
+          },
+          "readOnly": true
+        },
         "provisioningState": {
           "$ref": "#/definitions/ExecutionPlanRunProvisioningState",
           "description": "The provisioning state of the execution plan run.",
@@ -2911,27 +2499,12 @@
         },
         "owners": {
           "type": "array",
-          "description": "Owners of the validation test category, expressed as email aliases or Microsoft Entra object IDs.\nOnly catalog publishers set this value via the create/update operations; end users of the validation\nservice consume catalog entries read-only through Get/List and cannot modify it.",
+          "description": "Owners of the validation test category, expressed as email aliases or Microsoft Entra object IDs.\nOnly catalog publishers set this value through an internal publishing process; end users of the validation\nservice consume catalog entries read-only through Get/List and cannot modify it.",
           "items": {
             "type": "string"
           }
         }
       }
-    },
-    "ValidationTestCategoryUpdate": {
-      "type": "object",
-      "description": "Validation test category catalog entry.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/ValidationTestCategoryProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
     },
     "ValidationTestFailureDetails": {
       "type": "object",
@@ -3170,7 +2743,7 @@
         },
         "owners": {
           "type": "array",
-          "description": "Owners of the validation test definition, expressed as aliases.\nOnly catalog publishers(limited to microsoft internal only) set this value via the create/update operations; end users of the validation\nservice consume catalog entries read-only through Get/List and cannot modify it.",
+          "description": "Owners of the validation test definition, expressed as aliases.\nOnly catalog publishers(limited to microsoft internal only) set this value through an internal publishing process; end users of the validation\nservice consume catalog entries read-only through Get/List and cannot modify it.",
           "items": {
             "type": "string"
           }
@@ -3402,21 +2975,6 @@
         ]
       }
     },
-    "ValidationTestUpdate": {
-      "type": "object",
-      "description": "Validation test catalog entry.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/ValidationTestProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
     "ValidationTestVersion": {
       "type": "object",
       "description": "Validation test version catalog entry.",
@@ -3483,7 +3041,7 @@
         },
         "owners": {
           "type": "array",
-          "description": "Owners of the validation test version definition, expressed as email aliases or Microsoft Entra object IDs.\nOnly catalog publishers set this value via the create/update operations; end users of the validation\nservice consume catalog entries read-only through Get/List and cannot modify it.",
+          "description": "Owners of the validation test version definition, expressed as email aliases or Microsoft Entra object IDs.\nOnly catalog publishers set this value through an internal publishing process; end users of the validation\nservice consume catalog entries read-only through Get/List and cannot modify it.",
           "items": {
             "type": "string"
           }
@@ -3505,21 +3063,6 @@
           "description": "URI of the location where the test artifact is stored."
         }
       }
-    },
-    "ValidationTestVersionUpdate": {
-      "type": "object",
-      "description": "Validation test version catalog entry.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/ValidationTestVersionProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
     }
   },
   "parameters": {

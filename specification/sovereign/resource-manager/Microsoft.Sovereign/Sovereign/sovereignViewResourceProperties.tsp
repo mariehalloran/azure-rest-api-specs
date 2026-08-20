@@ -128,12 +128,51 @@ union DataState {
   string,
 }
 
+@added(Versions.Preview20260731)
+@doc("The compliance report generation state.")
+union ReportState {
+  @doc("The compliance report is being generated for the first time.")
+  Generating: "Generating",
+
+  @doc("No compliance data is available yet.")
+  NoDataYet: "NoDataYet",
+
+  @doc("The compliance report is up to date.")
+  UpToDate: "UpToDate",
+
+  @doc("The compliance report generation is being retried.")
+  Retrying: "Retrying",
+
+  @doc("The compliance report is being refreshed.")
+  Refreshing: "Refreshing",
+
+  @doc("The compliance report is stale and pending refresh.")
+  Stale: "Stale",
+
+  @doc("The compliance report generation is blocked.")
+  Blocked: "Blocked",
+
+  string,
+}
+
+@added(Versions.Preview20260731)
+@doc("The compliance report generation status, including the current state and the next attempt time.")
+model ReportStatus {
+  @doc("The current compliance report generation state.")
+  state: ReportState;
+
+  @doc("The next scheduled evaluation time, in RFC3339 format. May not be available for all report states.")
+  nextAttempt?: utcDateTime;
+}
+
 #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.Preview20260315)
 @doc("The response for the sovereign view compliance summary action.")
 model SovereignViewComplianceSummaryResponse {
   @doc("State indicating whether the data is processed or still being processed.")
-  dataState: DataState;
+  @renamedFrom(Versions.Preview20260731, "dataState")
+  @typeChangedFrom(Versions.Preview20260731, DataState)
+  reportStatus: ReportStatus;
 
   @doc("Error details when dataState is Error.")
   error?: Azure.ResourceManager.Foundations.ErrorDetail;
@@ -256,12 +295,14 @@ model SovereignViewComplianceDetailsRequest {
   filters?: SovereignViewComplianceDetailsFilters[];
 
   @doc("The sorting to apply when querying for compliance details.")
-  sort?: SovereignViewComplianceDetailsSort;
+  @typeChangedFrom(Versions.Preview20260731, SovereignViewComplianceDetailsSort)
+  sort?: SovereignViewComplianceDetailsSort[];
 
   @doc("The search to apply when querying for compliance details.")
   search?: SovereignViewComplianceDetailsSearch;
 
   @doc("The order of sorting to apply when querying for compliance details. Works with policy states.")
+  @removed(Versions.Preview20260731)
   sortingOrder?: string[];
 }
 
@@ -345,6 +386,10 @@ union SovereignViewFilterField {
   @doc("Filter by Controlled Network Exposure compliance dimension.")
   controlledNetworkExposure: "ControlledNetworkExposure",
 
+  @added(Versions.Preview20260731)
+  @doc("Filter by the name of the parent resource that contains the resource.")
+  parentResourceName: "ParentResourceName",
+
   string,
 }
 
@@ -360,11 +405,22 @@ union SovereignViewComplianceDetailsFilterOperators {
 @added(Versions.Preview20260315)
 @doc("The sorting for compliance details.")
 model SovereignViewComplianceDetailsSort {
+  // @key marks `field` as the array element identifier so the emitter produces
+  // x-ms-identifiers on the sort array in 2026-07-31-preview (where sort is an
+  // array). It is intentionally used without @visibility: adding @visibility
+  // would emit x-ms-mutability on this property in the prior 2026-03-15-preview
+  // version (where sort is a single object), altering an already-released version.
+  #suppress "@azure-tools/typespec-azure-core/key-visibility-required" "Applying @visibility here would change the already-released 2026-03-15-preview swagger; @key alone leaves it byte-identical."
+  @key
   @doc("The field to sort on.")
   field: string;
 
   @doc("The direction to sort in.")
   direction: SovereignViewComplianceDetailsSortDirections;
+
+  @added(Versions.Preview20260731)
+  @doc("Explicit ordering of policy compliance states to apply when sorting on a compliance-state field. The states are ranked in the order listed. When provided for a compliance-state field, this takes precedence over `direction`, which is ignored for that field.")
+  sortingOrder?: PolicyComplianceState[];
 }
 
 @added(Versions.Preview20260315)
@@ -394,7 +450,9 @@ model SovereignViewComplianceDetailsSearch {
 @doc("The response for the sovereign view compliance details action.")
 model SovereignViewComplianceDetailsResponse {
   @doc("State indicating whether the data is processed or still being processed.")
-  dataState: DataState;
+  @renamedFrom(Versions.Preview20260731, "dataState")
+  @typeChangedFrom(Versions.Preview20260731, DataState)
+  reportStatus: ReportStatus;
 
   @doc("Error details when dataState is Error.")
   error?: Azure.ResourceManager.Foundations.ErrorDetail;
@@ -416,6 +474,10 @@ model SovereignViewComplianceDetailsResponse {
 model SovereignViewComplianceDetailResource {
   @doc("The resource identifier.")
   resourceId: armResourceIdentifier;
+
+  @added(Versions.Preview20260731)
+  @doc("The fully qualified Azure Resource Manager ID of the parent resource. When a resource is created as part of another Azure resource's creation and its lifecycle is managed by the platform, this is the ID of that parent resource. For a resource that was created standalone and has no parent resource, this will be empty.")
+  parentResourceId?: armResourceIdentifier;
 
   @doc("The location of the resource.")
   location: string;
@@ -509,4 +571,141 @@ model SovereignViewFilterValueItem {
   @doc("The count of resources that match the filter value.")
   @minValue(0)
   count: int32;
+}
+
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept consistent with the sibling action request/response models in this resource provider."
+@added(Versions.Preview20260731)
+@doc("The request for the sovereign view operational status action.")
+model SovereignViewOperationalStatusRequest {
+  @doc("The level of detail to return in the operational status response. Defaults to Detailed.")
+  mode?: OperationalStatusRequestMode;
+
+  @doc("The evaluation parameters that control which checks are performed when determining operational status.")
+  evaluationParameters?: OperationalStatusEvaluationParameter[];
+}
+
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept consistent with the sibling action request/response models in this resource provider."
+@added(Versions.Preview20260731)
+@doc("The response for the sovereign view operational status action.")
+model SovereignViewOperationalStatusResponse {
+  @doc("The name of the sovereign view.")
+  name: string;
+
+  @doc("The overall operational status of the sovereign view.")
+  status: OperationalStatusStates;
+
+  @doc("The detailed operational status information. Returned when the operational status is evaluated in Detailed mode.")
+  @identifiers(#["reason"])
+  details?: SovereignViewOperationalStatusDetails[];
+}
+
+@added(Versions.Preview20260731)
+@doc("An operational status detail item describing an issue impacting the operability of the sovereign view.")
+model SovereignViewOperationalStatusDetails {
+  @doc("The reason the sovereign view is unhealthy.")
+  reason: OperationalStatusUnhealthyReason;
+
+  @doc("The scopes affected by the issue.")
+  @identifiers(#["id"])
+  affectedScopes?: SovereignViewAffectedScopes[];
+}
+
+@added(Versions.Preview20260731)
+@doc("An affected scope in a sovereign view operational status detail.")
+model SovereignViewAffectedScopes {
+  @doc("The name of the management group or subscription affected.")
+  name: string;
+
+  @doc("The identifier of the management group or subscription affected.")
+  id: string;
+
+  @doc("The type of the affected scope.")
+  type: SovereignViewScopeType;
+
+  @doc("The operational status of the affected scope.")
+  status: ScopeLevelOperationalStatusStates;
+
+  @doc("The action required to remediate the affected scope, such as a role name or a policy initiative id.")
+  actionRequired?: string;
+}
+
+@added(Versions.Preview20260731)
+@doc("The level of detail to return in the sovereign view operational status response.")
+union OperationalStatusRequestMode {
+  @doc("Returns a high-level operational status suitable for quickly determining overall view health.")
+  Summary: "Summary",
+
+  @doc("Returns a comprehensive operational status, including detailed information about individual checks, dependencies, and any issues impacting view operability.")
+  Detailed: "Detailed",
+
+  string,
+}
+
+@added(Versions.Preview20260731)
+@doc("An evaluation parameter that controls which checks are performed when determining operational status.")
+union OperationalStatusEvaluationParameter {
+  @doc("Evaluate managed identity permissions on the scopes in the sovereign view.")
+  PermissionsEvaluation: "PermissionsEvaluation",
+
+  @doc("Evaluate policy assignments on the scopes in the sovereign view.")
+  PolicyAssignmentEvaluation: "PolicyAssignmentEvaluation",
+
+  string,
+}
+
+@added(Versions.Preview20260731)
+@doc("The overall operational status states for a sovereign view.")
+union OperationalStatusStates {
+  @doc("The sovereign view is healthy and fully operational.")
+  Healthy: "Healthy",
+
+  @doc("The sovereign view is unhealthy and its operability is impacted.")
+  Unhealthy: "Unhealthy",
+
+  @doc("The operational status of the sovereign view could not be determined.")
+  Unknown: "Unknown",
+
+  string,
+}
+
+@added(Versions.Preview20260731)
+@doc("The operational status states for an individual scope within a sovereign view.")
+union ScopeLevelOperationalStatusStates {
+  @doc("The scope is unhealthy and its operability is impacted.")
+  Unhealthy: "Unhealthy",
+
+  @doc("The operational status of the scope could not be determined.")
+  Unknown: "Unknown",
+
+  @doc("The scope has been deleted.")
+  Deleted: "Deleted",
+
+  string,
+}
+
+@added(Versions.Preview20260731)
+@doc("The reasons a sovereign view or an individual scope is unhealthy.")
+union OperationalStatusUnhealthyReason {
+  @doc("The managed identity is missing.")
+  MIMissing: "MIMissing",
+
+  @doc("The managed identity is missing required permissions.")
+  MIPermissionMissing: "MIPermissionMissing",
+
+  @doc("A required policy assignment is missing.")
+  PolicyAssignmentMissing: "PolicyAssignmentMissing",
+
+  string,
+}
+
+@added(Versions.Preview20260731)
+@doc("The type of scope in a sovereign view.")
+union SovereignViewScopeType {
+  @doc("A management group scope.")
+  ManagementGroup: "ManagementGroup",
+
+  @doc("A subscription scope.")
+  Subscription: "Subscription",
+
+  string,
 }
