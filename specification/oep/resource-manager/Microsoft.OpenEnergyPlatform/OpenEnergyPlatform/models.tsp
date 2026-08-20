@@ -398,6 +398,43 @@ enum IdentityType {
 model EnergyServiceList is Azure.Core.Page<EnergyService>;
 
 /**
+ * The private endpoint connection resource associated with an ADME resource.
+ * Mirrors the common-types private endpoint connection but types `id` as a
+ * plain string without the `arm-id` format, so a resource id emitted without a
+ * leading slash is still accepted during response validation.
+ */
+model AdmePrivateEndpointConnection {
+  /**
+   * Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+   */
+  @visibility(Lifecycle.Read)
+  id?: string;
+
+  /**
+   * The name of the resource
+   */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /**
+   * The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+   */
+  @visibility(Lifecycle.Read)
+  type?: string;
+
+  /**
+   * Azure Resource Manager metadata containing createdBy and modifiedBy information.
+   */
+  @visibility(Lifecycle.Read)
+  systemData?: Azure.ResourceManager.CommonTypes.SystemData;
+
+  /**
+   * Resource properties.
+   */
+  properties?: Azure.ResourceManager.CommonTypes.PrivateEndpointConnectionProperties;
+}
+
+/**
  * The properties of an Energy service resource.
  */
 model EnergyServiceProperties {
@@ -440,7 +477,7 @@ model EnergyServiceProperties {
   /**
    * List of private endpoint connections associated with the ADME resource.
    */
-  privateEndpointConnections?: PrivateEndpointConnection[];
+  privateEndpointConnections?: AdmePrivateEndpointConnection[];
 
   /**
    * List of cors rules
