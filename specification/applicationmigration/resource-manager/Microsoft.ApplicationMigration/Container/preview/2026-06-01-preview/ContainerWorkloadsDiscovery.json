@@ -4102,22 +4102,26 @@
             ]
           }
         },
-        "machineArmId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "Azure resource ID of the underlying VM.",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.OffAzure/serverSites/machines"
-              },
-              {
-                "type": "Microsoft.OffAzure/vmwareSites/machines"
-              },
-              {
-                "type": "Microsoft.OffAzure/hyperVSites/machines"
-              }
-            ]
+        "machineArmIds": {
+          "type": "array",
+          "description": "Azure resource IDs of the underlying VMs the workload runs on.",
+          "items": {
+            "type": "string",
+            "format": "arm-id",
+            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+            "x-ms-arm-id-details": {
+              "allowedResources": [
+                {
+                  "type": "Microsoft.OffAzure/serverSites/machines"
+                },
+                {
+                  "type": "Microsoft.OffAzure/vmwareSites/machines"
+                },
+                {
+                  "type": "Microsoft.OffAzure/hyperVSites/machines"
+                }
+              ]
+            }
           }
         },
         "softwareAttributes": {
