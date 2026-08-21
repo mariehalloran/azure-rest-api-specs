@@ -23,6 +23,9 @@ namespace Microsoft.PlatformValidation;
 enum Versions {
   /** 2026-07-01-preview version */
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
-  @Azure.Core.previewVersion
   v2026_07_01_preview: "2026-07-01-preview",
+
+  /** 2026-08-01 version */
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  v2026_08_01: "2026-08-01",
 }
