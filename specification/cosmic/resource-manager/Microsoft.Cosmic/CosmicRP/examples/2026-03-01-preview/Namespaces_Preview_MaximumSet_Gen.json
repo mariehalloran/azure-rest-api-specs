@@ -34,12 +34,14 @@
                 "coresLimit": "1",
                 "memoryLimit": "1Gi",
                 "replicas": 3,
-                "rollingUpdateReplicaPercentage": 10
+                "rollingUpdateReplicaPercentage": 10,
+                "spotVmAllocationPercentage": 30
               }
             ],
             "os": "Linux",
             "ipVersion": "IPv4",
-            "vmFamily": "D_FLEX"
+            "vmFamily": "D_FLEX",
+            "spotVmAllocationPercentage": 25
           }
         }
       }
@@ -75,12 +77,14 @@
                   "coresLimit": "1",
                   "memoryLimit": "1Gi",
                   "replicas": 3,
-                  "rollingUpdateReplicaPercentage": 10
+                  "rollingUpdateReplicaPercentage": 10,
+                  "spotVmAllocationPercentage": 30
                 }
               ],
               "os": "Linux",
               "ipVersion": "IPv4",
-              "vmFamily": "D_FLEX"
+              "vmFamily": "D_FLEX",
+              "spotVmAllocationPercentage": 25
             }
           },
           "status": {

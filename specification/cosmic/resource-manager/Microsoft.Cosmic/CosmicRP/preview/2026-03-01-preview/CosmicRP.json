@@ -3540,6 +3540,13 @@
             "read",
             "create"
           ]
+        },
+        "spotVmAllocationPercentage": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Environment-scoped default target percentage of replicas to schedule on Spot VM node pools. Valid range 0-100. Optional; acts as a fallback for pod resources that do not set their own spotVmAllocationPercentage (a pod-level value overrides this).",
+          "minimum": 0,
+          "maximum": 100
         }
       }
     },
@@ -4591,6 +4598,13 @@
             "$ref": "#/definitions/CosmicRing"
           }
         },
+        "spotVmAllocationPercentage": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Namespace-scoped target percentage of replicas to schedule on Spot VM node pools. Valid range 0-100. Optional; acts as the namespace-level default and is the lowest-precedence fallback (environment- and pod-level values override it). Setting a non-zero value opts the namespace in to Spot VM scheduling.",
+          "minimum": 0,
+          "maximum": 100
+        },
         "provisioningState": {
           "$ref": "#/definitions/CosmicProvisioningState",
           "description": "The provisioning state of the namespace resource.",
@@ -4668,6 +4682,13 @@
           "items": {
             "$ref": "#/definitions/CosmicRing"
           }
+        },
+        "spotVmAllocationPercentage": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Namespace-scoped target percentage of replicas to schedule on Spot VM node pools. Valid range 0-100. Optional; acts as the namespace-level default and is the lowest-precedence fallback (environment- and pod-level values override it). Setting a non-zero value opts the namespace in to Spot VM scheduling.",
+          "minimum": 0,
+          "maximum": 100
         }
       }
     },
@@ -4861,6 +4882,13 @@
           "description": "Percentage of replicas considered during rolling updates.",
           "minimum": 0,
           "maximum": 25
+        },
+        "spotVmAllocationPercentage": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Target percentage of replicas to schedule on Spot VM node pools, taken from this pod resource's total. Valid range 0-100. For example, with 10 replicas and 30, the platform aims to place ~3 replicas on Spot VMs.",
+          "minimum": 0,
+          "maximum": 100
         }
       }
     },
