@@ -8,23 +8,20 @@
     "destinationName": "eventhub-destination",
     "api-version": "2026-08-01-preview",
     "resource": {
-      "properties": {
-        "outputSchema": "firstParty",
-        "outputEncoding": "json",
-        "endpoints": [
-          {
-            "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.EventHub/namespaces/contoso-ns/eventhubs/arn-events"
-          }
-        ],
-        "kind": "eventhub"
-      },
+      "properties": {},
       "location": "westus",
       "identity": {
         "type": "UserAssigned",
         "userAssignedIdentities": {
           "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/arn-delivery-mi": {}
         }
-      }
+      },
+      "kind": "eventHub",
+      "endpoints": [
+        {
+          "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.EventHub/namespaces/contoso-ns/eventhubs/arn-events"
+        }
+      ]
     }
   },
   "responses": {
@@ -34,15 +31,7 @@
         "name": "eventhub-destination",
         "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
         "properties": {
-          "outputSchema": "firstParty",
-          "outputEncoding": "json",
-          "provisioningState": "Succeeded",
-          "endpoints": [
-            {
-              "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.EventHub/namespaces/contoso-ns/eventhubs/arn-events"
-            }
-          ],
-          "kind": "eventhub"
+          "provisioningState": "Succeeded"
         },
         "location": "westus",
         "identity": {
@@ -53,7 +42,13 @@
               "principalId": "22222222-2222-2222-2222-222222222222"
             }
           }
-        }
+        },
+        "kind": "eventHub",
+        "endpoints": [
+          {
+            "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.EventHub/namespaces/contoso-ns/eventhubs/arn-events"
+          }
+        ]
       }
     },
     "201": {
@@ -66,15 +61,7 @@
         "name": "eventhub-destination",
         "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
         "properties": {
-          "outputSchema": "firstParty",
-          "outputEncoding": "json",
-          "provisioningState": "Accepted",
-          "endpoints": [
-            {
-              "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.EventHub/namespaces/contoso-ns/eventhubs/arn-events"
-            }
-          ],
-          "kind": "eventhub"
+          "provisioningState": "Accepted"
         },
         "location": "westus",
         "identity": {
@@ -85,7 +72,13 @@
               "principalId": "22222222-2222-2222-2222-222222222222"
             }
           }
-        }
+        },
+        "kind": "eventHub",
+        "endpoints": [
+          {
+            "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.EventHub/namespaces/contoso-ns/eventhubs/arn-events"
+          }
+        ]
       }
     }
   }

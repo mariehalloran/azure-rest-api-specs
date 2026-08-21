@@ -96,6 +96,8 @@ interface MaintenancePlans {
  * List operation for MaintenancePlans with custom query parameters.
  * Kept as an explicit route to avoid ARM route composition producing a malformed path.
  */
+// Lowercase `resourcegroups` is intentional for new Maintenance resource-group-scoped routes.
+// It follows the service-wide route convention and is not accidental inheritance.
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "This interface intentionally uses an explicit @route instead of @armResourceOperations templates."
 interface MaintenancePlansCollectionRoutes {
   #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
@@ -104,7 +106,7 @@ interface MaintenancePlansCollectionRoutes {
   @tag("MaintenancePlans")
   @summary("List Maintenance Plans for a resource")
   @doc("Lists all Maintenance Plans for a resource.")
-  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{providerName}/{resourceType}/{resourceName}/providers/Microsoft.Maintenance/maintenancePlans")
+  @route("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{providerName}/{resourceType}/{resourceName}/providers/Microsoft.Maintenance/maintenancePlans")
   @get
   @list
   list(

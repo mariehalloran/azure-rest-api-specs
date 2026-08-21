@@ -140,6 +140,12 @@
     },
     {
       "name": "ServicePeers"
+    },
+    {
+      "name": "Networks"
+    },
+    {
+      "name": "Peerings"
     }
   ],
   "paths": {
@@ -3680,6 +3686,794 @@
         "x-ms-examples": {
           "VrfDelegations_Delete": {
             "$ref": "./examples/VrfDelegations_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedNetworkFabric/fabrics/{fabricName}/vrfs/{vrfName}/networks": {
+      "get": {
+        "operationId": "Networks_ListByVrf",
+        "tags": [
+          "Networks"
+        ],
+        "description": "Lists Networks by Vrf.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "fabricName",
+            "in": "path",
+            "description": "Name of the Fabric.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          },
+          {
+            "name": "vrfName",
+            "in": "path",
+            "description": "Name of the Vrf.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/NetworkListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Networks_ListByVrf": {
+            "$ref": "./examples/Networks_ListByVrf.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedNetworkFabric/fabrics/{fabricName}/vrfs/{vrfName}/networks/{networkName}": {
+      "get": {
+        "operationId": "Networks_Get",
+        "tags": [
+          "Networks"
+        ],
+        "description": "Gets the specified Network.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "fabricName",
+            "in": "path",
+            "description": "Name of the Fabric.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          },
+          {
+            "name": "vrfName",
+            "in": "path",
+            "description": "Name of the Vrf.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          },
+          {
+            "name": "networkName",
+            "in": "path",
+            "description": "Name of the Network.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Network"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Networks_Get": {
+            "$ref": "./examples/Networks_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "Networks_Create",
+        "tags": [
+          "Networks"
+        ],
+        "description": "Creates a Network.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "fabricName",
+            "in": "path",
+            "description": "Name of the Fabric.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          },
+          {
+            "name": "vrfName",
+            "in": "path",
+            "description": "Name of the Vrf.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          },
+          {
+            "name": "networkName",
+            "in": "path",
+            "description": "Name of the Network.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Request payload.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Network"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'Network' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Network"
+            }
+          },
+          "201": {
+            "description": "Resource 'Network' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Network"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Networks_Create": {
+            "$ref": "./examples/Networks_Create.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "Networks_Update",
+        "tags": [
+          "Networks"
+        ],
+        "description": "Updates a Network.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "fabricName",
+            "in": "path",
+            "description": "Name of the Fabric.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          },
+          {
+            "name": "vrfName",
+            "in": "path",
+            "description": "Name of the Vrf.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          },
+          {
+            "name": "networkName",
+            "in": "path",
+            "description": "Name of the Network.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "Network properties to update.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NetworkPatch"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Network"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Networks_Update": {
+            "$ref": "./examples/Networks_Update.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "Networks_Delete",
+        "tags": [
+          "Networks"
+        ],
+        "description": "Deletes the specified Network.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "fabricName",
+            "in": "path",
+            "description": "Name of the Fabric.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          },
+          {
+            "name": "vrfName",
+            "in": "path",
+            "description": "Name of the Vrf.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          },
+          {
+            "name": "networkName",
+            "in": "path",
+            "description": "Name of the Network.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Networks_Delete": {
+            "$ref": "./examples/Networks_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedNetworkFabric/fabrics/{fabricName}/vrfs/{vrfName}/peerings": {
+      "get": {
+        "operationId": "Peerings_ListByVrf",
+        "tags": [
+          "Peerings"
+        ],
+        "description": "Lists Peerings by Vrf.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "fabricName",
+            "in": "path",
+            "description": "Name of the Fabric.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          },
+          {
+            "name": "vrfName",
+            "in": "path",
+            "description": "Name of the Vrf.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/PeeringListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Peerings_ListByVrf": {
+            "$ref": "./examples/Peerings_ListByVrf.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedNetworkFabric/fabrics/{fabricName}/vrfs/{vrfName}/peerings/{peeringName}": {
+      "get": {
+        "operationId": "Peerings_Get",
+        "tags": [
+          "Peerings"
+        ],
+        "description": "Gets the specified Peering.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "fabricName",
+            "in": "path",
+            "description": "Name of the Fabric.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          },
+          {
+            "name": "vrfName",
+            "in": "path",
+            "description": "Name of the Vrf.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          },
+          {
+            "name": "peeringName",
+            "in": "path",
+            "description": "Name of the Peering.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Peering"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Peerings_Get": {
+            "$ref": "./examples/Peerings_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "Peerings_Create",
+        "tags": [
+          "Peerings"
+        ],
+        "description": "Creates a Peering.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "fabricName",
+            "in": "path",
+            "description": "Name of the Fabric.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          },
+          {
+            "name": "vrfName",
+            "in": "path",
+            "description": "Name of the Vrf.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          },
+          {
+            "name": "peeringName",
+            "in": "path",
+            "description": "Name of the Peering.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Request payload.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Peering"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'Peering' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Peering"
+            }
+          },
+          "201": {
+            "description": "Resource 'Peering' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Peering"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Peerings_Create": {
+            "$ref": "./examples/Peerings_Create.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "Peerings_Update",
+        "tags": [
+          "Peerings"
+        ],
+        "description": "Updates a Peering.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "fabricName",
+            "in": "path",
+            "description": "Name of the Fabric.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          },
+          {
+            "name": "vrfName",
+            "in": "path",
+            "description": "Name of the Vrf.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          },
+          {
+            "name": "peeringName",
+            "in": "path",
+            "description": "Name of the Peering.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "Peering properties to update.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PeeringPatch"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Peering"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Peerings_Update": {
+            "$ref": "./examples/Peerings_Update.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "Peerings_Delete",
+        "tags": [
+          "Peerings"
+        ],
+        "description": "Deletes the specified Peering.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "fabricName",
+            "in": "path",
+            "description": "Name of the Fabric.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          },
+          {
+            "name": "vrfName",
+            "in": "path",
+            "description": "Name of the Vrf.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          },
+          {
+            "name": "peeringName",
+            "in": "path",
+            "description": "Name of the Peering.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Peerings_Delete": {
+            "$ref": "./examples/Peerings_Delete.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -17543,6 +18337,16 @@
         }
       ]
     },
+    "BgpNeighborAddress": {
+      "type": "object",
+      "description": "A BGP neighbor entry.",
+      "properties": {
+        "address": {
+          "type": "string",
+          "description": "Neighbor IPv4 or IPv6 address."
+        }
+      }
+    },
     "BgpPatchConfiguration": {
       "type": "object",
       "description": "BGP configuration properties.",
@@ -19004,6 +19808,20 @@
         "servicePeerAttachmentToken"
       ]
     },
+    "ConnectedAddressPrefix": {
+      "type": "object",
+      "description": "A single connected address prefix and its optional gateway.",
+      "properties": {
+        "prefix": {
+          "type": "string",
+          "description": "CIDR prefix."
+        },
+        "gateway": {
+          "type": "string",
+          "description": "Optional default gateway for the prefix."
+        }
+      }
+    },
     "ConnectedSubnet": {
       "type": "object",
       "description": "Connected Subnet properties.",
@@ -19022,6 +19840,26 @@
           "$ref": "#/definitions/AnnotationResource"
         }
       ]
+    },
+    "ConnectedSubnetGroup": {
+      "type": "object",
+      "description": "A named connected-subnet group.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Stable group name, unique within the Network."
+        },
+        "addressPrefixes": {
+          "type": "array",
+          "description": "Address prefixes in this group. Entries may be IPv4 or IPv6 prefixes.",
+          "items": {
+            "$ref": "#/definitions/ConnectedAddressPrefix"
+          },
+          "x-ms-identifiers": [
+            "prefix"
+          ]
+        }
+      }
     },
     "ConnectedSubnetPatch": {
       "type": "object",
@@ -24151,6 +24989,26 @@
         }
       }
     },
+    "LabeledVpnConfig": {
+      "type": "object",
+      "description": "Per-VRF route targets for labeled-VPN peering.",
+      "properties": {
+        "importRouteTargets": {
+          "type": "array",
+          "description": "Route targets to import.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exportRouteTargets": {
+          "type": "array",
+          "description": "Route targets to export.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "LastOperationProperties": {
       "type": "object",
       "description": "Details of the last operations performed on the resource",
@@ -24682,6 +25540,101 @@
         ]
       }
     },
+    "MultihopLabeledVpnConfig": {
+      "type": "object",
+      "description": "Per-VRF PE-to-PE session config for multihop labeled-VPN peering.",
+      "properties": {
+        "remotePeAddress": {
+          "type": "string",
+          "description": "Loopback address of remote PE for multihop VPNv4."
+        },
+        "remotePeAsn": {
+          "type": "integer",
+          "format": "int64",
+          "description": "ASN of the remote PE.",
+          "minimum": 1,
+          "maximum": 4294967295
+        },
+        "asbrPeerAddress": {
+          "type": "string",
+          "description": "Directly-connected ASBR address for labeled-unicast session."
+        },
+        "asbrPeerAsn": {
+          "type": "integer",
+          "format": "int64",
+          "description": "ASN of the directly-connected ASBR.",
+          "minimum": 1,
+          "maximum": 4294967295
+        },
+        "ebgpMultihop": {
+          "type": "integer",
+          "format": "int32",
+          "description": "TTL for the multihop VPNv4 session. Defaults to 5.",
+          "default": 5
+        },
+        "importRouteTargets": {
+          "type": "array",
+          "description": "Route targets to import.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exportRouteTargets": {
+          "type": "array",
+          "description": "Route targets to export.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "MultihopLabeledVpnConfigPatch": {
+      "type": "object",
+      "description": "Per-VRF PE-to-PE session config for multihop labeled-VPN peering patch operations.",
+      "properties": {
+        "remotePeAddress": {
+          "type": "string",
+          "description": "Loopback address of remote PE for multihop VPNv4."
+        },
+        "remotePeAsn": {
+          "type": "integer",
+          "format": "int64",
+          "description": "ASN of the remote PE.",
+          "minimum": 1,
+          "maximum": 4294967295
+        },
+        "asbrPeerAddress": {
+          "type": "string",
+          "description": "Directly-connected ASBR address for labeled-unicast session."
+        },
+        "asbrPeerAsn": {
+          "type": "integer",
+          "format": "int64",
+          "description": "ASN of the directly-connected ASBR.",
+          "minimum": 1,
+          "maximum": 4294967295
+        },
+        "ebgpMultihop": {
+          "type": "integer",
+          "format": "int32",
+          "description": "TTL for the multihop VPNv4 session."
+        },
+        "importRouteTargets": {
+          "type": "array",
+          "description": "Route targets to import.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exportRouteTargets": {
+          "type": "array",
+          "description": "Route targets to export.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "NNIDerivedUniqueRouteDistinguisherConfigurationState": {
       "type": "string",
       "description": "NNI Derived Unique Route Distinguisher Configuration State.",
@@ -25117,6 +26070,193 @@
       "required": [
         "value"
       ]
+    },
+    "Network": {
+      "type": "object",
+      "description": "Defines the Network resource. A Network is a routed L2 and L3 segment under a Vrf, bound to a sibling Vlan.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/NetworkProperties",
+          "description": "The Network properties."
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "NetworkAristaCloudVisionConfig": {
+      "type": "object",
+      "description": "Arista CloudVision controller-managed network configuration.",
+      "properties": {
+        "bgpConfiguration": {
+          "$ref": "#/definitions/NetworkBgpConfiguration",
+          "description": "Per-SVI BGP peering configuration."
+        },
+        "staticRouteConfiguration": {
+          "$ref": "#/definitions/NetworkStaticRouteConfiguration",
+          "description": "Static route configuration."
+        },
+        "importRoutePolicy": {
+          "$ref": "#/definitions/RoutePolicyReference",
+          "description": "Import route policy reference."
+        },
+        "exportRoutePolicy": {
+          "$ref": "#/definitions/RoutePolicyReference",
+          "description": "Export route policy reference."
+        },
+        "ingressAclResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the ingress ACL."
+        },
+        "egressAclResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the egress ACL."
+        },
+        "configletName": {
+          "type": "string",
+          "description": "Override the CloudVision configlet name."
+        },
+        "deviceQuery": {
+          "type": "string",
+          "description": "Override the CloudVision device tag query."
+        }
+      }
+    },
+    "NetworkAristaCloudVisionConfigPatch": {
+      "type": "object",
+      "description": "Arista CloudVision controller-managed network configuration for patch operations.",
+      "properties": {
+        "bgpConfiguration": {
+          "$ref": "#/definitions/NetworkBgpConfigurationPatch",
+          "description": "Per-SVI BGP peering configuration."
+        },
+        "staticRouteConfiguration": {
+          "$ref": "#/definitions/NetworkStaticRouteConfiguration",
+          "description": "Static route configuration."
+        },
+        "importRoutePolicy": {
+          "$ref": "#/definitions/RoutePolicyReference",
+          "description": "Import route policy reference."
+        },
+        "exportRoutePolicy": {
+          "$ref": "#/definitions/RoutePolicyReference",
+          "description": "Export route policy reference."
+        },
+        "ingressAclResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the ingress ACL."
+        },
+        "egressAclResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the egress ACL."
+        },
+        "configletName": {
+          "type": "string",
+          "description": "Override the CloudVision configlet name."
+        },
+        "deviceQuery": {
+          "type": "string",
+          "description": "Override the CloudVision device tag query."
+        }
+      }
+    },
+    "NetworkBgpConfiguration": {
+      "type": "object",
+      "description": "BGP peering configuration for a network.",
+      "properties": {
+        "bfdEnabled": {
+          "type": "string",
+          "description": "Enable Bidirectional Forwarding Detection. Defaults to False.",
+          "default": "False",
+          "enum": [
+            "True",
+            "False"
+          ],
+          "x-ms-enum": {
+            "name": "BooleanEnumProperty",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "True",
+                "value": "True",
+                "description": "EnumProperty-True"
+              },
+              {
+                "name": "False",
+                "value": "False",
+                "description": "EnumProperty-False"
+              }
+            ]
+          }
+        },
+        "peerAsn": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Peer AS number for BGP sessions on this network.",
+          "minimum": 1,
+          "maximum": 4294967295
+        },
+        "ipv4ListenRangePrefixes": {
+          "type": "array",
+          "description": "IPv4 prefix ranges for dynamic BGP neighbor discovery.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ipv4NeighborAddresses": {
+          "type": "array",
+          "description": "Explicit IPv4 BGP neighbor addresses.",
+          "items": {
+            "$ref": "#/definitions/BgpNeighborAddress"
+          },
+          "x-ms-identifiers": [
+            "address"
+          ]
+        }
+      }
+    },
+    "NetworkBgpConfigurationPatch": {
+      "type": "object",
+      "description": "BGP peering configuration for a network patch operation.",
+      "properties": {
+        "bfdEnabled": {
+          "$ref": "#/definitions/BooleanEnumProperty",
+          "description": "Enable Bidirectional Forwarding Detection."
+        },
+        "peerAsn": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Peer AS number for BGP sessions on this network.",
+          "minimum": 1,
+          "maximum": 4294967295
+        },
+        "ipv4ListenRangePrefixes": {
+          "type": "array",
+          "description": "IPv4 prefix ranges for dynamic BGP neighbor discovery.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ipv4NeighborAddresses": {
+          "type": "array",
+          "description": "Explicit IPv4 BGP neighbor addresses.",
+          "items": {
+            "$ref": "#/definitions/BgpNeighborAddress"
+          },
+          "x-ms-identifiers": [
+            "address"
+          ]
+        }
+      }
     },
     "NetworkBootstrapDevice": {
       "type": "object",
@@ -25913,6 +27053,38 @@
         }
       ]
     },
+    "NetworkCiscoAciConfig": {
+      "type": "object",
+      "description": "Cisco ACI controller-managed network configuration.",
+      "properties": {
+        "vrfName": {
+          "type": "string",
+          "description": "Name of the ACI VRF within the tenant."
+        },
+        "bridgeDomainName": {
+          "type": "string",
+          "description": "Name of the ACI Bridge Domain for this segment."
+        },
+        "epgName": {
+          "type": "string",
+          "description": "Name of the ACI Endpoint Group for this segment."
+        },
+        "providedContracts": {
+          "type": "array",
+          "description": "Names of ACI contracts this EPG provides.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "consumedContracts": {
+          "type": "array",
+          "description": "Names of ACI contracts this EPG consumes.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "NetworkDefinition": {
       "type": "object",
       "description": "Network definition for an infrastructure network.",
@@ -26693,6 +27865,12 @@
           "type": "string",
           "format": "date-time",
           "description": "Timestamp when the validation was performed.",
+          "readOnly": true
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when this validation result expires.",
           "readOnly": true
         },
         "validationResult": {
@@ -28200,6 +29378,12 @@
           "description": "Timestamp when the validation was performed.",
           "readOnly": true
         },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when this validation result expires.",
+          "readOnly": true
+        },
         "validationResult": {
           "$ref": "#/definitions/ValidationResult",
           "description": "Overall result of the validation.",
@@ -28550,6 +29734,27 @@
         "value"
       ]
     },
+    "NetworkListResult": {
+      "type": "object",
+      "description": "The response of a Network list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Network items on this page",
+          "items": {
+            "$ref": "#/definitions/Network"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "NetworkMonitor": {
       "type": "object",
       "description": "The NetworkMonitor resource definition.",
@@ -28650,6 +29855,36 @@
           "$ref": "#/definitions/AnnotationResource"
         }
       ]
+    },
+    "NetworkOperationalState": {
+      "type": "string",
+      "description": "Network runtime health.",
+      "enum": [
+        "Up",
+        "Down",
+        "Degraded"
+      ],
+      "x-ms-enum": {
+        "name": "NetworkOperationalState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "up",
+            "value": "Up",
+            "description": "The Network is operational on all participating devices."
+          },
+          {
+            "name": "down",
+            "value": "Down",
+            "description": "The Network is not operational."
+          },
+          {
+            "name": "degraded",
+            "value": "Degraded",
+            "description": "The Network is operational on a subset of participating devices."
+          }
+        ]
+      }
     },
     "NetworkPacketBroker": {
       "type": "object",
@@ -28852,6 +30087,253 @@
       "required": [
         "value"
       ]
+    },
+    "NetworkPatch": {
+      "type": "object",
+      "description": "The Network patch resource definition.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "$ref": "#/definitions/NetworkPatchableProperties",
+          "description": "Network patchable properties."
+        }
+      }
+    },
+    "NetworkPatchableProperties": {
+      "type": "object",
+      "description": "Network patchable properties.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Free-text description. Max 1024 characters.",
+          "maxLength": 1024
+        },
+        "vlanResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the Vlan resource this network is bound to."
+        },
+        "connectedSubnets": {
+          "type": "array",
+          "description": "Named connected-subnet groups for this network segment.",
+          "items": {
+            "$ref": "#/definitions/ConnectedSubnetGroup"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        },
+        "mtu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum transmission unit in bytes for this network segment.",
+          "minimum": 1500,
+          "maximum": 9000
+        },
+        "managementPolicy": {
+          "$ref": "#/definitions/ManagementPolicy",
+          "description": "Operator management policy."
+        },
+        "platformManagedConfig": {
+          "$ref": "#/definitions/NetworkPlatformManagedConfigPatch",
+          "description": "Platform-managed configuration."
+        },
+        "userManagedConfig": {
+          "$ref": "#/definitions/NetworkUserManagedConfig",
+          "description": "User-managed configuration."
+        },
+        "ciscoAciConfig": {
+          "$ref": "#/definitions/NetworkCiscoAciConfig",
+          "description": "Cisco ACI controller-managed configuration."
+        },
+        "aristaCloudVisionConfig": {
+          "$ref": "#/definitions/NetworkAristaCloudVisionConfigPatch",
+          "description": "Arista CloudVision controller-managed configuration."
+        }
+      }
+    },
+    "NetworkPlatformManagedConfig": {
+      "type": "object",
+      "description": "Platform-managed network configuration.",
+      "properties": {
+        "bgpConfiguration": {
+          "$ref": "#/definitions/NetworkBgpConfiguration",
+          "description": "Per-SVI BGP peering configuration."
+        },
+        "staticRouteConfiguration": {
+          "$ref": "#/definitions/NetworkStaticRouteConfiguration",
+          "description": "Static route configuration."
+        },
+        "importRoutePolicy": {
+          "$ref": "#/definitions/RoutePolicyReference",
+          "description": "Import route policy reference."
+        },
+        "exportRoutePolicy": {
+          "$ref": "#/definitions/RoutePolicyReference",
+          "description": "Export route policy reference."
+        },
+        "ingressAclResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the ingress ACL applied to this network."
+        },
+        "egressAclResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the egress ACL applied to this network."
+        }
+      }
+    },
+    "NetworkPlatformManagedConfigPatch": {
+      "type": "object",
+      "description": "Platform-managed network configuration for patch operations.",
+      "properties": {
+        "bgpConfiguration": {
+          "$ref": "#/definitions/NetworkBgpConfigurationPatch",
+          "description": "Per-SVI BGP peering configuration."
+        },
+        "staticRouteConfiguration": {
+          "$ref": "#/definitions/NetworkStaticRouteConfiguration",
+          "description": "Static route configuration."
+        },
+        "importRoutePolicy": {
+          "$ref": "#/definitions/RoutePolicyReference",
+          "description": "Import route policy reference."
+        },
+        "exportRoutePolicy": {
+          "$ref": "#/definitions/RoutePolicyReference",
+          "description": "Export route policy reference."
+        },
+        "ingressAclResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the ingress ACL applied to this network."
+        },
+        "egressAclResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the egress ACL applied to this network."
+        }
+      }
+    },
+    "NetworkProperties": {
+      "type": "object",
+      "description": "Properties of a Network - a routed L2 and L3 segment under a Vrf, bound to a sibling Vlan. The fabric-kind-specific config bags are optional because exact bag selection requires parent Fabric context.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Free-text description. Max 1024 characters.",
+          "maxLength": 1024
+        },
+        "vlanResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the Vlan resource this network is bound to. Must be a sibling under the same Fabric."
+        },
+        "connectedSubnets": {
+          "type": "array",
+          "description": "Named connected-subnet groups for this network segment.",
+          "items": {
+            "$ref": "#/definitions/ConnectedSubnetGroup"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        },
+        "mtu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum transmission unit in bytes for this network segment. Defaults to 1500.",
+          "default": 1500,
+          "minimum": 1500,
+          "maximum": 9000
+        },
+        "managementPolicy": {
+          "type": "string",
+          "description": "Operator management policy; defaults to Observe. Only applicable in controller-managed mode.",
+          "default": "Observe",
+          "enum": [
+            "Manage",
+            "Observe"
+          ],
+          "x-ms-enum": {
+            "name": "ManagementPolicy",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "manage",
+                "value": "Manage",
+                "description": "The operator configures and reconciles the object on the devices."
+              },
+              {
+                "name": "observe",
+                "value": "Observe",
+                "description": "The operator only reads and reports state; it makes no changes."
+              }
+            ]
+          }
+        },
+        "platformManagedConfig": {
+          "$ref": "#/definitions/NetworkPlatformManagedConfig",
+          "description": "Platform-managed configuration. Applicable when the parent Fabric's root-level kind is platformManaged."
+        },
+        "userManagedConfig": {
+          "$ref": "#/definitions/NetworkUserManagedConfig",
+          "description": "User-managed configuration. Applicable when the parent Fabric's root-level kind is userManaged."
+        },
+        "ciscoAciConfig": {
+          "$ref": "#/definitions/NetworkCiscoAciConfig",
+          "description": "Cisco ACI controller-managed configuration. Applicable when the parent Fabric's root-level kind is controllerManaged and controllerKind is CiscoACI."
+        },
+        "aristaCloudVisionConfig": {
+          "$ref": "#/definitions/NetworkAristaCloudVisionConfig",
+          "description": "Arista CloudVision controller-managed configuration. Applicable when the parent Fabric's root-level kind is controllerManaged and controllerKind is AristaCloudVision."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Service-populated ARM provisioning state.",
+          "readOnly": true
+        },
+        "systemManaged": {
+          "$ref": "#/definitions/BooleanEnumProperty",
+          "description": "True when this Network was auto-created by controller hydration.",
+          "readOnly": true
+        },
+        "hydrationSource": {
+          "$ref": "#/definitions/HydrationSource",
+          "description": "Controller provenance for a hydrated Network, used to trace read-only ARM state back to the source controller object.",
+          "readOnly": true
+        },
+        "administrativeState": {
+          "$ref": "#/definitions/AdministrativeState",
+          "description": "Administrative state; defaults to Enabled.",
+          "readOnly": true
+        },
+        "operationalState": {
+          "$ref": "#/definitions/NetworkOperationalState",
+          "description": "Aggregated operational state across all participating devices.",
+          "readOnly": true
+        },
+        "configurationState": {
+          "$ref": "#/definitions/ConfigurationState",
+          "description": "Configuration state from the operator.",
+          "readOnly": true
+        },
+        "resolvedVlanId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Numeric VLAN ID resolved from the referenced Vlan resource.",
+          "minimum": 1,
+          "maximum": 4094,
+          "readOnly": true
+        }
+      }
     },
     "NetworkPurpose": {
       "type": "string",
@@ -29062,6 +30544,32 @@
       "required": [
         "value"
       ]
+    },
+    "NetworkStaticRouteConfiguration": {
+      "type": "object",
+      "description": "Static route configuration for a network.",
+      "properties": {
+        "ipv4Routes": {
+          "type": "array",
+          "description": "IPv4 static routes.",
+          "items": {
+            "$ref": "#/definitions/StaticRoute"
+          },
+          "x-ms-identifiers": [
+            "prefix"
+          ]
+        },
+        "ipv6Routes": {
+          "type": "array",
+          "description": "IPv6 static routes.",
+          "items": {
+            "$ref": "#/definitions/StaticRoute"
+          },
+          "x-ms-identifiers": [
+            "prefix"
+          ]
+        }
+      }
     },
     "NetworkTap": {
       "type": "object",
@@ -30077,6 +31585,10 @@
         "value"
       ]
     },
+    "NetworkUserManagedConfig": {
+      "type": "object",
+      "description": "User-managed network configuration."
+    },
     "NniBmpPatchProperties": {
       "type": "object",
       "description": "BGP Monitoring Protocol (BMP) patch properties.",
@@ -30383,7 +31895,7 @@
         "Provision",
         "CommitConfiguration",
         "ValidateConfiguration",
-        "ValidateReadiness",
+        "RunValidation",
         "RefreshConfiguration",
         "Deprovision",
         "Reboot",
@@ -30419,9 +31931,9 @@
             "description": "Validate configuration operation"
           },
           {
-            "name": "ValidateReadiness",
-            "value": "ValidateReadiness",
-            "description": "Validate readiness operation"
+            "name": "RunValidation",
+            "value": "RunValidation",
+            "description": "Run validation operation"
           },
           {
             "name": "RefreshConfiguration",
@@ -31056,6 +32568,159 @@
         }
       }
     },
+    "Peering": {
+      "type": "object",
+      "description": "Defines the Peering resource. A Peering is an upstream BGP session bound to a Vrf.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/PeeringProperties",
+          "description": "The Peering properties."
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "PeeringAristaCloudVisionConfig": {
+      "type": "object",
+      "description": "Arista CloudVision controller-managed peering configuration.",
+      "properties": {
+        "uplinkResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the Uplink this peering uses."
+        },
+        "peeringKind": {
+          "$ref": "#/definitions/PeeringKind",
+          "description": "BGP peering model. Selects which variant config bag applies."
+        },
+        "staticRouteConfiguration": {
+          "$ref": "#/definitions/PeeringStaticRouteConfiguration",
+          "description": "Static routes for the peering."
+        },
+        "importRoutePolicy": {
+          "$ref": "#/definitions/RoutePolicyReference",
+          "description": "Import route policy reference."
+        },
+        "exportRoutePolicy": {
+          "$ref": "#/definitions/RoutePolicyReference",
+          "description": "Export route policy reference."
+        },
+        "ingressAclResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Per-VRF ingress ACL ARM resource ID."
+        },
+        "egressAclResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Per-VRF egress ACL ARM resource ID."
+        },
+        "configletName": {
+          "type": "string",
+          "description": "Override auto-generated configlet name."
+        },
+        "deviceQuery": {
+          "type": "string",
+          "description": "Override default device targeting."
+        },
+        "vrfToVrfConfig": {
+          "$ref": "#/definitions/VrfToVrfConfig",
+          "description": "Per-VRF sub-interface configuration. Required when peeringKind is VrfToVrf."
+        },
+        "labeledVpnConfig": {
+          "$ref": "#/definitions/LabeledVpnConfig",
+          "description": "Per-VRF route targets. Required when peeringKind is LabeledVpn."
+        },
+        "multihopLabeledVpnConfig": {
+          "$ref": "#/definitions/MultihopLabeledVpnConfig",
+          "description": "Per-VRF PE-to-PE multihop session config. Required when peeringKind is MultihopLabeledVpn."
+        }
+      }
+    },
+    "PeeringAristaCloudVisionConfigPatch": {
+      "type": "object",
+      "description": "Arista CloudVision controller-managed peering configuration for patch operations.",
+      "properties": {
+        "uplinkResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the Uplink this peering uses."
+        },
+        "peeringKind": {
+          "$ref": "#/definitions/PeeringKind",
+          "description": "BGP peering model. Selects which variant config bag applies."
+        },
+        "staticRouteConfiguration": {
+          "$ref": "#/definitions/PeeringStaticRouteConfiguration",
+          "description": "Static routes for the peering."
+        },
+        "importRoutePolicy": {
+          "$ref": "#/definitions/RoutePolicyReference",
+          "description": "Import route policy reference."
+        },
+        "exportRoutePolicy": {
+          "$ref": "#/definitions/RoutePolicyReference",
+          "description": "Export route policy reference."
+        },
+        "ingressAclResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Per-VRF ingress ACL ARM resource ID."
+        },
+        "egressAclResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Per-VRF egress ACL ARM resource ID."
+        },
+        "configletName": {
+          "type": "string",
+          "description": "Override auto-generated configlet name."
+        },
+        "deviceQuery": {
+          "type": "string",
+          "description": "Override default device targeting."
+        },
+        "vrfToVrfConfig": {
+          "$ref": "#/definitions/VrfToVrfConfigPatch",
+          "description": "Per-VRF sub-interface configuration. Required when peeringKind is VrfToVrf."
+        },
+        "labeledVpnConfig": {
+          "$ref": "#/definitions/LabeledVpnConfig",
+          "description": "Per-VRF route targets. Required when peeringKind is LabeledVpn."
+        },
+        "multihopLabeledVpnConfig": {
+          "$ref": "#/definitions/MultihopLabeledVpnConfigPatch",
+          "description": "Per-VRF PE-to-PE multihop session config. Required when peeringKind is MultihopLabeledVpn."
+        }
+      }
+    },
+    "PeeringCiscoAciConfig": {
+      "type": "object",
+      "description": "Cisco ACI controller-managed peering configuration.",
+      "properties": {
+        "l3outName": {
+          "type": "string",
+          "description": "Name of the administrator-owned ACI L3Out object this peering references."
+        },
+        "externalEpgName": {
+          "type": "string",
+          "description": "Name of the administrator-owned ACI external EPG under the L3Out."
+        },
+        "providedContractNames": {
+          "type": "array",
+          "description": "Same-tenant ACI contracts the referenced external EPG provides.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "PeeringKind": {
       "type": "string",
       "description": "VRF peering kind: how the VRF interconnects with other routing domains.",
@@ -31086,6 +32751,63 @@
         ]
       }
     },
+    "PeeringListResult": {
+      "type": "object",
+      "description": "The response of a Peering list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Peering items on this page",
+          "items": {
+            "$ref": "#/definitions/Peering"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "PeeringOperationalState": {
+      "type": "string",
+      "description": "Peering runtime health.",
+      "enum": [
+        "Up",
+        "Down",
+        "Degraded",
+        "Established"
+      ],
+      "x-ms-enum": {
+        "name": "PeeringOperationalState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "up",
+            "value": "Up",
+            "description": "The Peering is operational."
+          },
+          {
+            "name": "down",
+            "value": "Down",
+            "description": "The Peering is not operational."
+          },
+          {
+            "name": "degraded",
+            "value": "Degraded",
+            "description": "The Peering is operational on a subset of participating devices."
+          },
+          {
+            "name": "established",
+            "value": "Established",
+            "description": "The Peering BGP session is established."
+          }
+        ]
+      }
+    },
     "PeeringOption": {
       "type": "string",
       "description": "Peering option list.",
@@ -31108,6 +32830,392 @@
             "description": "PeeringOption-OptionB"
           }
         ]
+      }
+    },
+    "PeeringPatch": {
+      "type": "object",
+      "description": "The Peering patch resource definition.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "$ref": "#/definitions/PeeringPatchableProperties",
+          "description": "Peering patchable properties."
+        }
+      }
+    },
+    "PeeringPatchableProperties": {
+      "type": "object",
+      "description": "Peering patchable properties.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Free-text description. Max 1024 characters.",
+          "maxLength": 1024
+        },
+        "peerAsn": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Remote peer BGP ASN.",
+          "minimum": 1,
+          "maximum": 4294967295
+        },
+        "bfdEnabled": {
+          "$ref": "#/definitions/BooleanEnumProperty",
+          "description": "Enable Bidirectional Forwarding Detection."
+        },
+        "primaryIpv4Prefix": {
+          "type": "string",
+          "description": "Primary IPv4 prefix for the peering link."
+        },
+        "secondaryIpv4Prefix": {
+          "type": "string",
+          "description": "Secondary IPv4 prefix for the peering link."
+        },
+        "primaryIpv6Prefix": {
+          "type": "string",
+          "description": "Primary IPv6 prefix for the peering link."
+        },
+        "secondaryIpv6Prefix": {
+          "type": "string",
+          "description": "Secondary IPv6 prefix for the peering link."
+        },
+        "managementPolicy": {
+          "$ref": "#/definitions/ManagementPolicy",
+          "description": "Operator management policy."
+        },
+        "platformManagedConfig": {
+          "$ref": "#/definitions/PeeringPlatformManagedConfigPatch",
+          "description": "Platform-managed peering configuration."
+        },
+        "ciscoAciConfig": {
+          "$ref": "#/definitions/PeeringCiscoAciConfig",
+          "description": "Cisco ACI controller-managed peering configuration."
+        },
+        "aristaCloudVisionConfig": {
+          "$ref": "#/definitions/PeeringAristaCloudVisionConfigPatch",
+          "description": "Arista CloudVision controller-managed peering configuration."
+        }
+      }
+    },
+    "PeeringPlatformManagedConfig": {
+      "type": "object",
+      "description": "Platform-managed peering configuration.",
+      "properties": {
+        "uplinkResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the Uplink this peering uses."
+        },
+        "peeringKind": {
+          "$ref": "#/definitions/PeeringKind",
+          "description": "BGP peering model. Selects which variant config bag applies."
+        },
+        "staticRouteConfiguration": {
+          "$ref": "#/definitions/PeeringStaticRouteConfiguration",
+          "description": "Static routes for the peering."
+        },
+        "importRoutePolicy": {
+          "$ref": "#/definitions/RoutePolicyReference",
+          "description": "Import route policy reference."
+        },
+        "exportRoutePolicy": {
+          "$ref": "#/definitions/RoutePolicyReference",
+          "description": "Export route policy reference."
+        },
+        "ingressAclResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Per-VRF ingress ACL ARM resource ID."
+        },
+        "egressAclResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Per-VRF egress ACL ARM resource ID."
+        },
+        "vrfToVrfConfig": {
+          "$ref": "#/definitions/VrfToVrfConfig",
+          "description": "Per-VRF sub-interface configuration. Required when peeringKind is VrfToVrf."
+        },
+        "labeledVpnConfig": {
+          "$ref": "#/definitions/LabeledVpnConfig",
+          "description": "Per-VRF route targets. Required when peeringKind is LabeledVpn."
+        },
+        "multihopLabeledVpnConfig": {
+          "$ref": "#/definitions/MultihopLabeledVpnConfig",
+          "description": "Per-VRF PE-to-PE multihop session config. Required when peeringKind is MultihopLabeledVpn."
+        }
+      }
+    },
+    "PeeringPlatformManagedConfigPatch": {
+      "type": "object",
+      "description": "Platform-managed peering configuration for patch operations.",
+      "properties": {
+        "uplinkResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the Uplink this peering uses."
+        },
+        "peeringKind": {
+          "$ref": "#/definitions/PeeringKind",
+          "description": "BGP peering model. Selects which variant config bag applies."
+        },
+        "staticRouteConfiguration": {
+          "$ref": "#/definitions/PeeringStaticRouteConfiguration",
+          "description": "Static routes for the peering."
+        },
+        "importRoutePolicy": {
+          "$ref": "#/definitions/RoutePolicyReference",
+          "description": "Import route policy reference."
+        },
+        "exportRoutePolicy": {
+          "$ref": "#/definitions/RoutePolicyReference",
+          "description": "Export route policy reference."
+        },
+        "ingressAclResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Per-VRF ingress ACL ARM resource ID."
+        },
+        "egressAclResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Per-VRF egress ACL ARM resource ID."
+        },
+        "vrfToVrfConfig": {
+          "$ref": "#/definitions/VrfToVrfConfigPatch",
+          "description": "Per-VRF sub-interface configuration. Required when peeringKind is VrfToVrf."
+        },
+        "labeledVpnConfig": {
+          "$ref": "#/definitions/LabeledVpnConfig",
+          "description": "Per-VRF route targets. Required when peeringKind is LabeledVpn."
+        },
+        "multihopLabeledVpnConfig": {
+          "$ref": "#/definitions/MultihopLabeledVpnConfigPatch",
+          "description": "Per-VRF PE-to-PE multihop session config. Required when peeringKind is MultihopLabeledVpn."
+        }
+      }
+    },
+    "PeeringProperties": {
+      "type": "object",
+      "description": "Properties of a Peering - an upstream BGP session bound to a VRF. The mode-specific config bags are optional because exact bag selection requires parent Fabric context.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Free-text description. Max 1024 characters.",
+          "maxLength": 1024
+        },
+        "peerAsn": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Remote peer BGP ASN.",
+          "minimum": 1,
+          "maximum": 4294967295
+        },
+        "bfdEnabled": {
+          "type": "string",
+          "description": "Enable Bidirectional Forwarding Detection. Defaults to False.",
+          "default": "False",
+          "enum": [
+            "True",
+            "False"
+          ],
+          "x-ms-enum": {
+            "name": "BooleanEnumProperty",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "True",
+                "value": "True",
+                "description": "EnumProperty-True"
+              },
+              {
+                "name": "False",
+                "value": "False",
+                "description": "EnumProperty-False"
+              }
+            ]
+          }
+        },
+        "primaryIpv4Prefix": {
+          "type": "string",
+          "description": "Primary IPv4 prefix for the peering link."
+        },
+        "secondaryIpv4Prefix": {
+          "type": "string",
+          "description": "Secondary IPv4 prefix for the peering link."
+        },
+        "primaryIpv6Prefix": {
+          "type": "string",
+          "description": "Primary IPv6 prefix for the peering link."
+        },
+        "secondaryIpv6Prefix": {
+          "type": "string",
+          "description": "Secondary IPv6 prefix for the peering link."
+        },
+        "managementPolicy": {
+          "type": "string",
+          "description": "Operator management policy; defaults to Observe. Only applicable in controller-managed mode.",
+          "default": "Observe",
+          "enum": [
+            "Manage",
+            "Observe"
+          ],
+          "x-ms-enum": {
+            "name": "ManagementPolicy",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "manage",
+                "value": "Manage",
+                "description": "The operator configures and reconciles the object on the devices."
+              },
+              {
+                "name": "observe",
+                "value": "Observe",
+                "description": "The operator only reads and reports state; it makes no changes."
+              }
+            ]
+          }
+        },
+        "platformManagedConfig": {
+          "$ref": "#/definitions/PeeringPlatformManagedConfig",
+          "description": "Platform-managed peering configuration. Applicable when the parent Fabric's root-level kind is platformManaged."
+        },
+        "ciscoAciConfig": {
+          "$ref": "#/definitions/PeeringCiscoAciConfig",
+          "description": "Cisco ACI controller-managed peering configuration. Applicable when the parent Fabric's root-level kind is controllerManaged and controllerKind is CiscoACI."
+        },
+        "aristaCloudVisionConfig": {
+          "$ref": "#/definitions/PeeringAristaCloudVisionConfig",
+          "description": "Arista CloudVision controller-managed peering configuration. Applicable when the parent Fabric's root-level kind is controllerManaged and controllerKind is AristaCloudVision."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Service-populated ARM provisioning state.",
+          "readOnly": true
+        },
+        "administrativeState": {
+          "$ref": "#/definitions/AdministrativeState",
+          "description": "Administrative state; defaults to Enabled.",
+          "readOnly": true
+        },
+        "operationalState": {
+          "$ref": "#/definitions/PeeringOperationalState",
+          "description": "Aggregated operational state.",
+          "readOnly": true
+        },
+        "peeringState": {
+          "$ref": "#/definitions/PeeringState",
+          "description": "BGP FSM state.",
+          "readOnly": true
+        },
+        "configurationState": {
+          "$ref": "#/definitions/ConfigurationState",
+          "description": "Configuration state from the operator.",
+          "readOnly": true
+        },
+        "resolvedProviderType": {
+          "$ref": "#/definitions/ResolvedProviderType",
+          "description": "Inferred provider type, surfaced in GET responses.",
+          "readOnly": true
+        }
+      }
+    },
+    "PeeringState": {
+      "type": "string",
+      "description": "BGP FSM state per RFC 4271 section 8.",
+      "enum": [
+        "Idle",
+        "Connect",
+        "Active",
+        "OpenSent",
+        "OpenConfirm",
+        "Established"
+      ],
+      "x-ms-enum": {
+        "name": "PeeringState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "idle",
+            "value": "Idle",
+            "description": "The BGP session is idle."
+          },
+          {
+            "name": "connect",
+            "value": "Connect",
+            "description": "The BGP session is in connect state."
+          },
+          {
+            "name": "active",
+            "value": "Active",
+            "description": "The BGP session is active."
+          },
+          {
+            "name": "openSent",
+            "value": "OpenSent",
+            "description": "The BGP session has sent an open message."
+          },
+          {
+            "name": "openConfirm",
+            "value": "OpenConfirm",
+            "description": "The BGP session is confirming an open message."
+          },
+          {
+            "name": "established",
+            "value": "Established",
+            "description": "The BGP session is established."
+          }
+        ]
+      }
+    },
+    "PeeringStaticRoute": {
+      "type": "object",
+      "description": "A single static route entry.",
+      "properties": {
+        "prefix": {
+          "type": "string",
+          "description": "Destination CIDR prefix."
+        },
+        "nextHop": {
+          "type": "array",
+          "description": "Next-hop addresses.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "PeeringStaticRouteConfiguration": {
+      "type": "object",
+      "description": "Static route configuration for the peering.",
+      "properties": {
+        "ipv4Routes": {
+          "type": "array",
+          "description": "IPv4 static routes.",
+          "items": {
+            "$ref": "#/definitions/PeeringStaticRoute"
+          },
+          "x-ms-identifiers": [
+            "prefix"
+          ]
+        },
+        "ipv6Routes": {
+          "type": "array",
+          "description": "IPv6 static routes.",
+          "items": {
+            "$ref": "#/definitions/PeeringStaticRoute"
+          },
+          "x-ms-identifiers": [
+            "prefix"
+          ]
+        }
       }
     },
     "PeeringType": {
@@ -31816,6 +33924,42 @@
         "configurationRegenerationType"
       ]
     },
+    "ResolvedProviderType": {
+      "type": "string",
+      "description": "Provider type resolved from the parent Fabric kind and controller-managed configuration.",
+      "enum": [
+        "PlatformManaged",
+        "UserManaged",
+        "CiscoAci",
+        "AristaCloudVision"
+      ],
+      "x-ms-enum": {
+        "name": "ResolvedProviderType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "platformManaged",
+            "value": "PlatformManaged",
+            "description": "Platform-managed provider."
+          },
+          {
+            "name": "userManaged",
+            "value": "UserManaged",
+            "description": "User-managed provider."
+          },
+          {
+            "name": "ciscoAci",
+            "value": "CiscoAci",
+            "description": "Cisco ACI controller-managed provider."
+          },
+          {
+            "name": "aristaCloudVision",
+            "value": "AristaCloudVision",
+            "description": "Arista CloudVision controller-managed provider."
+          }
+        ]
+      }
+    },
     "RevokeServicePeerAttachmentRequest": {
       "type": "object",
       "description": "Request to revoke an attachment and withdraw service exposure before cleanup.",
@@ -32078,6 +34222,17 @@
         "statements",
         "networkFabricId"
       ]
+    },
+    "RoutePolicyReference": {
+      "type": "object",
+      "description": "A reference to a RoutePolicy ARM resource.",
+      "properties": {
+        "routePolicyResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the RoutePolicy."
+        }
+      }
     },
     "RoutePolicyStatementPatchProperties": {
       "type": "object",
@@ -33005,6 +35160,23 @@
         "ipPrefixId": {
           "type": "string",
           "description": "Arm Resource Id of IpPrefix."
+        }
+      }
+    },
+    "StaticRoute": {
+      "type": "object",
+      "description": "A static route entry.",
+      "properties": {
+        "prefix": {
+          "type": "string",
+          "description": "Destination CIDR prefix."
+        },
+        "nextHop": {
+          "type": "array",
+          "description": "Next-hop addresses.",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -35553,6 +37725,47 @@
             "description": "A routing domain that backs managed public egress services."
           }
         ]
+      }
+    },
+    "VrfToVrfConfig": {
+      "type": "object",
+      "description": "Per-VRF sub-interface configuration.",
+      "properties": {
+        "mtu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum transmission unit in bytes for the peering link. Defaults to 1500.",
+          "default": 1500,
+          "minimum": 1500,
+          "maximum": 9000
+        },
+        "vlanId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "VLAN ID for the peering link.",
+          "minimum": 1,
+          "maximum": 4094
+        }
+      }
+    },
+    "VrfToVrfConfigPatch": {
+      "type": "object",
+      "description": "Per-VRF sub-interface configuration for patch operations.",
+      "properties": {
+        "mtu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum transmission unit in bytes for the peering link.",
+          "minimum": 1500,
+          "maximum": 9000
+        },
+        "vlanId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "VLAN ID for the peering link.",
+          "minimum": 1,
+          "maximum": 4094
+        }
       }
     },
     "WellKnownCommunities": {
