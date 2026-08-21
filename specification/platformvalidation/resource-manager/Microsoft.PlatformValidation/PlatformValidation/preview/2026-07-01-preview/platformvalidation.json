@@ -2851,13 +2851,6 @@
           "type": "string",
           "description": "The name of the validation test (ValidationTest resource name, not an ARM resource ID) in the validation test catalog."
         },
-        "testCategoryIds": {
-          "type": "array",
-          "description": "The names of the validation test categories (ValidationTestCategory resource names, not ARM resource IDs) associated with this test run.",
-          "items": {
-            "type": "string"
-          }
-        },
         "inputsJson": {
           "type": "string",
           "description": "Validation test run inputs json, conforming to the input contract declared by `ValidationTestInput` on the corresponding validation test.\nThis value is returned as-is in get responses, so it must not contain credentials or other secrets."
