@@ -1,0 +1,22 @@
+- tool: TypeSpecValidation
+  rules: [Compile]
+  sub-rules: [ExtraSwagger]
+  reason: Extra swaggers left behind when versions were removed from *.tsp files
+  paths:
+    - ./stable/2024-01-01/edgemarketplace.json
+
+- tool: TypeSpecRequirement
+  path: ./preview/2023-04-01-preview/*.json
+  reason: Brownfield service not ready to migrate
+- tool: TypeSpecRequirement
+  path: ./preview/2023-06-01-preview/*.json
+  reason: Brownfield service not ready to migrate
+- tool: TypeSpecRequirement
+  path: ./preview/2023-08-01-preview/*.json
+  reason: Brownfield service not ready to migrate
+- tool: TypeSpecRequirement
+  path: ./stable/2023-08-01/*.json
+  reason: Brownfield service not ready to migrate
+- tool: TypeSpecRequirement
+  path: ./stable/2024-01-01/*.json
+  reason: Brownfield service not ready to migrate
