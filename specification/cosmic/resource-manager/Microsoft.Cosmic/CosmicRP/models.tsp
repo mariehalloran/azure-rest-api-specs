@@ -313,6 +313,11 @@ model EnvironmentDefaultPolicy {
   @doc("The Azure VM family for cluster selection (e.g., 'D_FLEX', 'F_FLEX', 'DV4').")
   @visibility(Lifecycle.Create, Lifecycle.Read)
   vmFamily?: string;
+
+  @doc("Environment-scoped default target percentage of replicas to schedule on Spot VM node pools. Valid range 0-100. Optional; acts as a fallback for pod resources that do not set their own spotVmAllocationPercentage (a pod-level value overrides this).")
+  @minValue(0)
+  @maxValue(100)
+  spotVmAllocationPercentage?: int32;
 }
 
 @doc("Region-scoped policy overrides.")
@@ -415,6 +420,11 @@ model PodSpec {
   @minValue(0)
   @maxValue(25)
   rollingUpdateReplicaPercentage?: int32;
+
+  @doc("Target percentage of replicas to schedule on Spot VM node pools, taken from this pod resource's total. Valid range 0-100. For example, with 10 replicas and 30, the platform aims to place ~3 replicas on Spot VMs.")
+  @minValue(0)
+  @maxValue(100)
+  spotVmAllocationPercentage?: int32;
 }
 
 // --- Environment read-only status models -----------------------------

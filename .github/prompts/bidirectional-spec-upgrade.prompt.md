@@ -2,14 +2,14 @@
 mode: agent
 ---
 
-Perform the approval-gated TypeSpec branch sync between `RPSaaSMaster` and `typespec-next`.
+Perform the approval-gated TypeSpec branch sync between `main` and `typespec-next`.
 
-The routine sync is `RPSaaSMaster` into `typespec-next`: merge `RPSaaSMaster`, fix TypeSpec Validation - All
+The routine sync is `main` into `typespec-next`: merge `main`, fix TypeSpec Validation - All
 (TSV) failures, and keep `typespec-next` on its `"next"` package pins while preserving commit
 ancestry. Only use the reverse direction when a specific `typespec-next` change is intentionally
-being promoted into `RPSaaSMaster`.
+being promoted into `main`.
 
-`RPSaaSMaster` must use the latest compatible stable TypeSpec packages. `typespec-next` intentionally uses
+`main` must use the latest compatible stable TypeSpec packages. `typespec-next` intentionally uses
 the `"next"` TypeSpec packages to find upcoming compatibility issues. Preserve that difference while
 keeping the branches' commit histories connected.
 
@@ -59,22 +59,22 @@ Before merging either PR:
    Fix every reported specification failure, rerun the complete matrix, and repeat until all jobs
    pass. A failure in one shard does not prove the other shards are clean.
 
-## Phase 1: merge `RPSaaSMaster` into `typespec-next` (normal branch-sync path)
+## Phase 1: merge `main` into `typespec-next` (normal branch-sync path)
 
-Goal: prepare and land a draft PR that merges `RPSaaSMaster` into `typespec-next`, fixing all TypeSpec
+Goal: prepare and land a draft PR that merges `main` into `typespec-next`, fixing all TypeSpec
 Validation - All failures while retaining the branch's `"next"` TypeSpec package pins.
 
 1. Fetch both branches and create a working branch from the current `typespec-next`:
 
    ```bash
-   git fetch origin RPSaaSMaster typespec-next
+   git fetch origin main typespec-next
    git switch --create <phase-1-branch> origin/typespec-next
-   git merge --no-ff origin/RPSaaSMaster -m "Merge RPSaaSMaster into typespec-next"
+   git merge --no-ff origin/main -m "Merge main into typespec-next"
    ```
 
 2. Resolve conflicts with this policy:
    - `specification/`, `.github/`, `eng/`, `.vscode/`, and normal repository content: merge
-     `RPSaaSMaster` normally. Preserve a `typespec-next` change only when it is a deliberate,
+     `main` normally. Preserve a `typespec-next` change only when it is a deliberate,
      branch-specific requirement.
    - Root `package.json`: keep `typespec-next`'s package manifest and its `"next"` TypeSpec pins.
    - Root `package-lock.json`: regenerate with `npm install`.
@@ -83,11 +83,11 @@ Validation - All failures while retaining the branch's `"next"` TypeSpec package
 
    ```bash
    git diff --quiet origin/typespec-next HEAD -- package.json
-   git merge-base --is-ancestor origin/RPSaaSMaster HEAD
+   git merge-base --is-ancestor origin/main HEAD
    ```
 
    Both commands must succeed. The first proves the root manifest kept the `typespec-next` package
-   policy; the second proves `RPSaaSMaster`'s actual commits are ancestors of the candidate tip.
+   policy; the second proves `main`'s actual commits are ancestors of the candidate tip.
 
 4. Complete the required validation gate, then create a draft PR targeting `typespec-next`:
 
@@ -97,27 +97,27 @@ Validation - All failures while retaining the branch's `"next"` TypeSpec package
 
 5. Wait for approval and landing. Record the landed `typespec-next` SHA before continuing.
 
-## Phase 2: merge approved `typespec-next` into `RPSaaSMaster` (intentional promotion only)
+## Phase 2: merge approved `typespec-next` into `main` (intentional promotion only)
 
-Run this phase only when a specific `typespec-next` change must be promoted into `RPSaaSMaster`. Do not
+Run this phase only when a specific `typespec-next` change must be promoted into `main`. Do not
 start it as part of a routine between-release sync.
 
 1. Fetch the `typespec-next` commit containing the approved Phase 1 PR, then create a working
-   branch from `RPSaaSMaster`:
+   branch from `main`:
 
    ```bash
-   git fetch origin RPSaaSMaster typespec-next
-   git switch --create <phase-2-branch> origin/RPSaaSMaster
-   git merge --no-ff origin/typespec-next -m "Merge typespec-next into RPSaaSMaster"
+   git fetch origin main typespec-next
+   git switch --create <phase-2-branch> origin/main
+   git merge --no-ff origin/typespec-next -m "Merge typespec-next into main"
    ```
 
 2. Resolve conflicts with this policy:
    - `specification/`: integrate the intended TypeSpec changes from `typespec-next`.
-   - Root `package.json`: keep `RPSaaSMaster`'s dependency set and update every `@typespec/*` and
+   - Root `package.json`: keep `main`'s dependency set and update every `@typespec/*` and
      `@azure-tools/typespec-*` package to the latest compatible **stable** release. Never leave a
-     TypeSpec package pinned to `"next"` in `RPSaaSMaster`.
+     TypeSpec package pinned to `"next"` in `main`.
    - Root `package-lock.json`: regenerate with `npm install`.
-   - `eng/`, `.github/`, and other tooling: retain `RPSaaSMaster` unless a concrete `typespec-next` change
+   - `eng/`, `.github/`, and other tooling: retain `main` unless a concrete `typespec-next` change
      is required by the promoted specification changes.
 
 3. Confirm the root package policy and ancestry:
@@ -130,13 +130,13 @@ start it as part of a routine between-release sync.
    The first command must not show TypeSpec package dependencies. The second command must succeed.
 
 4. Run `npm install`, commit the resulting lockfile, complete the required validation gate, and
-   create a draft PR targeting `RPSaaSMaster`:
+   create a draft PR targeting `main`:
 
    ```bash
-   gh pr create --base RPSaaSMaster --head <phase-2-branch> --draft --fill
+   gh pr create --base main --head <phase-2-branch> --draft --fill
    ```
 
-5. Wait for approval and landing. Record the landed `RPSaaSMaster` SHA before continuing.
+5. Wait for approval and landing. Record the landed `main` SHA before continuing.
 
 ## Landing the history-preserving merge
 

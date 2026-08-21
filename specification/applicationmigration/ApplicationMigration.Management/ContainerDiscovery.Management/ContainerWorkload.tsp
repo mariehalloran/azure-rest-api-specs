@@ -63,8 +63,8 @@ model ContainerWorkloadProperties is AzureResourceProperties {
     }
   ]>;
 
-  @doc("Azure resource ID of the underlying VM.")
-  machineArmId?: Azure.Core.armResourceIdentifier<[
+  @doc("Azure resource IDs of the underlying VMs the workload runs on.")
+  machineArmIds?: Azure.Core.armResourceIdentifier<[
     {
       type: "Microsoft.OffAzure/serverSites/machines";
     },
@@ -74,7 +74,7 @@ model ContainerWorkloadProperties is AzureResourceProperties {
     {
       type: "Microsoft.OffAzure/hyperVSites/machines";
     }
-  ]>;
+  ]>[];
 
   // ── Software & Discovery Metadata ──
   @doc("Software attributes.") softwareAttributes?: SoftwareAttributes;
