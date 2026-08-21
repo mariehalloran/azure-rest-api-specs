@@ -9,10 +9,4 @@
     - options.@azure-tools/typespec-java.*
     - options.@azure-tools/typespec-python.*
     - options.@azure-tools/typespec-ts.*
-  paths: [IoTOperationsMQ.Management/tspconfig.yaml]
-- tool: TypeSpecValidation
-  rules: [FolderStructure]
-  sub-rules: [MustUseV2]
-  reason: Specs added as folder structure v1, not yet converted to v2
-  paths:
-    - IoTOperationsMQ.Management
+  paths: [tspconfig.yaml]
