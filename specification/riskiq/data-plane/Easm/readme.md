@@ -23,7 +23,7 @@ These settings apply only when `--tag=2022-04-01-preview` is specified on the co
 
 ``` yaml $(tag) == '2022-04-01-preview'
 input-file:
-  - Microsoft.Easm/preview/2022-04-01-preview/easm.json
+  - preview/2022-04-01-preview/easm.json
 ```
 
 ### Release 2022-09-01-preview
@@ -31,7 +31,7 @@ These settings apply only when `--tag=2022-09-01-preview` is specified on the co
 
 ``` yaml $(tag) == '2022-09-01-preview'
 input-file:
-  - Microsoft.Easm/preview/2022-09-01-preview/easm.json
+  - preview/2022-09-01-preview/easm.json
 ```
 
 ## CSharp Settings
