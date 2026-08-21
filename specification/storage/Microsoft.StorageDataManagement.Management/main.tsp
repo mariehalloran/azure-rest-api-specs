@@ -6,7 +6,9 @@ import "@azure-tools/typespec-azure-resource-manager";
 
 import "./Connectors/connectorModels.tsp";
 import "./DataShares/dataShareModels.tsp";
+import "./BlobAccessPointConfigurations/blobAccessPointConfigurationModels.tsp";
 import "./storageAccount.tsp";
+import "./client.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
@@ -23,6 +25,7 @@ enum Versions {
   v2025_01_01_preview: "2025-01-01-preview",
   v2025_05_01_preview: "2025-05-01-preview",
   v2025_07_01_preview: "2025-07-01-preview",
+  v2026_09_01: "2026-09-01",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}
@@ -96,4 +99,74 @@ interface DataShares {
   @doc("List all Storage DataShares in a Storage Account.")
   @added(Versions.v2025_07_01_preview)
   listByStorageAccount is ArmResourceListByParent<DataShare>;
+}
+
+@doc("A BlobAccessPointConfiguration is a tracked Azure resource modeled as a sub-resource of a Storage Account.")
+@parentResource(StorageAccount)
+@added(Versions.v2026_09_01)
+model BlobAccessPointConfiguration is TrackedResource<
+  BlobAccessPointConfigurationProperties,
+  false
+> {
+  @doc("The name of the Blob Access Point configuration.")
+  @pattern("^[a-z0-9](?!.*--)[a-z0-9-]{1,61}[a-z0-9]$")
+  @key("blobAccessPointConfigurationName")
+  @segment("blobAccessPointConfigurations")
+  @path
+  name: string;
+}
+
+@armResourceOperations(BlobAccessPointConfiguration)
+interface BlobAccessPointConfigurations {
+  @doc("Get the specified Blob Access Point configuration.")
+  @added(Versions.v2026_09_01)
+  get is ArmResourceRead<BlobAccessPointConfiguration>;
+
+  @doc("Creates or updates a Blob Access Point configuration.")
+  @added(Versions.v2026_09_01)
+  create is ArmResourceCreateOrReplaceAsync<BlobAccessPointConfiguration>;
+
+  @doc("Update a Blob Access Point configuration.")
+  @added(Versions.v2026_09_01)
+  update is ArmResourcePatchAsync<
+    BlobAccessPointConfiguration,
+    BlobAccessPointConfigurationProperties,
+    LroHeaders = ArmCombinedLroHeaders<FinalResult = BlobAccessPointConfiguration> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
+
+  @doc("Delete a Blob Access Point configuration.")
+  @added(Versions.v2026_09_01)
+  delete is ArmResourceDeleteWithoutOkAsync<
+    BlobAccessPointConfiguration,
+    LroHeaders = ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
+  >;
+
+  @doc("List all Blob Access Point configurations in a Storage Account.")
+  @added(Versions.v2026_09_01)
+  listByStorageAccount is ArmResourceListByParent<BlobAccessPointConfiguration>;
+
+  @doc("Test the connection configured on an existing Blob Access Point configuration.")
+  @added(Versions.v2026_09_01)
+  testExistingConnection is ArmResourceActionAsync<
+    BlobAccessPointConfiguration,
+    BlobAccessPointConnectionTestRequest,
+    BlobAccessPointConnectionTestResponse,
+    LroHeaders = ArmCombinedLroHeaders<FinalResult = BlobAccessPointConnectionTestResponse> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
+}
+
+@armResourceOperations(StorageAccount)
+interface BlobAccessPointConnectionTests {
+  @doc("Test a proposed Blob Access Point connection before the configuration is created. The connection is validated in the context of the storage account in the request path, so no Blob Access Point configuration needs to exist beforehand.")
+  @added(Versions.v2026_09_01)
+  @action("testBlobAccessPointConfigurationProposedConnection")
+  testProposedConnection is ArmResourceActionAsync<
+    StorageAccount,
+    BlobAccessPointProposedConnectionTestRequest,
+    BlobAccessPointConnectionTestResponse,
+    LroHeaders = ArmCombinedLroHeaders<FinalResult = BlobAccessPointConnectionTestResponse> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
 }
