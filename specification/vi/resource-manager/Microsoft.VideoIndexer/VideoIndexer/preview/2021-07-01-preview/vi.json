@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2021-08-16-preview",
+    "version": "2021-07-01-preview",
     "title": "vi",
     "description": "Microsoft Azure Video Analyzer for Media"
   },
@@ -48,7 +48,7 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -70,54 +70,6 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.VideoIndexer/checkNameAvailability": {
-      "post": {
-        "tags": [
-          "NameAvailability"
-        ],
-        "operationId": "Accounts_CheckNameAvailability",
-        "description": "Checks that the Video Indexer account name is valid and is not already in use.",
-        "x-ms-examples": {
-          "Check free account name availability": {
-            "$ref": "./examples/ViAccountCheckNameAvailabilityFree.json"
-          },
-          "Check taken account name availability": {
-            "$ref": "./examples/ViAccountCheckNameAvailabilityTaken.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "checkNameAvailabilityParameters",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AccountCheckNameAvailabilityParameters"
-            },
-            "description": "The name of the Video Indexer account. Name must be unique globally"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK - Operation to check the Video Indexer account name availability was successful. Ok does not indicate the name is available, the body of the response does.",
-            "schema": {
-              "$ref": "#/definitions/CheckNameAvailabilityResult"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
-    },
     "/subscriptions/{subscriptionId}/providers/Microsoft.VideoIndexer/accounts": {
       "get": {
         "tags": [
@@ -132,10 +84,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -171,13 +123,13 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -208,16 +160,16 @@
         "description": "Gets the properties of an Azure Video Analyzer for Media account.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AccountNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -252,16 +204,16 @@
         "description": "Updates the properties of an existing Azure Video Analyzer for Media account.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AccountNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
             "in": "body",
@@ -305,6 +257,12 @@
           },
           "Patch example #2": {
             "$ref": "./examples/ViAccountPatch2.json"
+          },
+          "Patch example #3": {
+            "$ref": "./examples/ViAccountPatch3.json"
+          },
+          "Patch example #4": {
+            "$ref": "./examples/ViAccountPatch4.json"
           }
         }
       },
@@ -320,16 +278,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AccountNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
             "in": "body",
@@ -394,16 +352,16 @@
         "x-ms-long-running-operation": true,
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AccountNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -459,16 +417,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AccountNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
             "in": "body",
@@ -524,7 +482,7 @@
           "description": "List of account properties",
           "type": "object",
           "x-ms-client-flatten": true,
-          "$ref": "#/definitions/AccountPropertiesForPutRequest"
+          "$ref": "#/definitions/AccountProperties"
         },
         "identity": {
           "description": "The managed identity resource ID when connecting to media services resource",
@@ -534,12 +492,12 @@
         "systemData": {
           "readOnly": true,
           "description": "The system meta data relating to this resource.",
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData"
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData"
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
         }
       ]
     },
@@ -551,7 +509,7 @@
           "description": "List of account properties",
           "type": "object",
           "x-ms-client-flatten": true,
-          "$ref": "#/definitions/AccountPropertiesForPatchRequest"
+          "$ref": "#/definitions/AccountProperties"
         },
         "identity": {
           "description": "The managed identity resource ID when connecting to media services resource",
@@ -565,13 +523,14 @@
         }
       ]
     },
-    "AccountPropertiesForPutRequest": {
+    "AccountProperties": {
       "description": "Azure Video Analyzer for Media account properties",
       "type": "object",
       "properties": {
         "accountId": {
           "description": "The account's data-plane ID",
           "type": "string",
+          "readOnly": true,
           "example": "3575690b-a569-449c-ab7b-11020f948f76"
         },
         "accountName": {
@@ -583,41 +542,7 @@
         "mediaServices": {
           "description": "The media services details",
           "type": "object",
-          "$ref": "#/definitions/MediaServicesForPutRequest"
-        },
-        "provisioningState": {
-          "readOnly": true,
-          "type": "string",
-          "description": "Gets the status of the account at the time the operation was called.",
-          "enum": [
-            "Succeeded",
-            "Failed",
-            "Canceled",
-            "Accepted",
-            "Provisioning",
-            "Deleting"
-          ],
-          "x-ms-enum": {
-            "name": "provisioningState",
-            "modelAsString": true
-          }
-        }
-      }
-    },
-    "AccountPropertiesForPatchRequest": {
-      "description": "Azure Video Analyzer for Media account properties",
-      "type": "object",
-      "properties": {
-        "accountId": {
-          "description": "The account's data-plane ID",
-          "readOnly": true,
-          "type": "string",
-          "example": "3575690b-a569-449c-ab7b-11020f948f76"
-        },
-        "mediaServices": {
-          "description": "The media services details",
-          "type": "object",
-          "$ref": "#/definitions/MediaServicesForPatchRequest"
+          "$ref": "#/definitions/MediaServices"
         },
         "provisioningState": {
           "readOnly": true,
@@ -701,7 +626,7 @@
         }
       }
     },
-    "MediaServicesForPutRequest": {
+    "MediaServices": {
       "description": "The media services details",
       "type": "object",
       "properties": {
@@ -710,17 +635,6 @@
           "description": "The media services resource id",
           "example": "/subscriptions/xxx/resourceGroups/contoso-videoanalyzer-rg/providers/Microsoft.Media/mediaservices/contoso-videoanalyzer-ms"
         },
-        "userAssignedIdentity": {
-          "type": "string",
-          "description": "The user assigned identity to be used to grant permissions",
-          "example": "/subscriptions/xxx/resourceGroups/contoso-videoanalyzer-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/contoso-videoanalyzer-mi"
-        }
-      }
-    },
-    "MediaServicesForPatchRequest": {
-      "description": "The media services details",
-      "type": "object",
-      "properties": {
         "userAssignedIdentity": {
           "type": "string",
           "description": "The user assigned identity to be used to grant permissions",
@@ -743,6 +657,12 @@
             "name": "ManagedServiceIdentityType",
             "modelAsString": true
           }
+        },
+        "tenantId": {
+          "readOnly": true,
+          "type": "string",
+          "description": "ID of the Azure Active Directory.",
+          "example": "58b626e9-af53-4351-84c0-5adc7b39f1a3"
         },
         "userAssignedIdentities": {
           "type": "object",
@@ -903,59 +823,6 @@
           "readOnly": true
         }
       }
-    },
-    "AccountCheckNameAvailabilityParameters": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "The VideoIndexer account name."
-        },
-        "type": {
-          "type": "string",
-          "enum": [
-            "Microsoft.VideoIndexer/accounts"
-          ],
-          "x-ms-enum": {
-            "name": "Type",
-            "modelAsString": true
-          },
-          "description": "The type of resource, Microsoft.VideoIndexer/accounts"
-        }
-      },
-      "required": [
-        "name",
-        "type"
-      ],
-      "description": "The parameters used to check the availability of the Video Indexer account name."
-    },
-    "CheckNameAvailabilityResult": {
-      "type": "object",
-      "properties": {
-        "nameAvailable": {
-          "readOnly": true,
-          "type": "boolean",
-          "description": "Gets a boolean value that indicates whether the name is available for you to use. If true, the name is available. If false, the name has already been taken."
-        },
-        "reason": {
-          "readOnly": true,
-          "type": "string",
-          "description": "Gets the reason that a Video Indexer account name could not be used. The Reason element is only returned if NameAvailable is false.",
-          "enum": [
-            "AlreadyExists"
-          ],
-          "x-ms-enum": {
-            "name": "Reason",
-            "modelAsString": true
-          }
-        },
-        "message": {
-          "readOnly": true,
-          "type": "string",
-          "description": "Gets an error message explaining the Reason value in more detail."
-        }
-      },
-      "description": "The CheckNameAvailability operation response."
     }
   },
   "parameters": {

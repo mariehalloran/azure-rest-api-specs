@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2023-09-01-preview",
+    "version": "2023-06-02-preview",
     "title": "vi",
     "description": "Microsoft Azure Video Indexer"
   },
@@ -48,7 +48,7 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -87,10 +87,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "checkNameAvailabilityParameters",
@@ -132,10 +132,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -171,13 +171,13 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -208,16 +208,16 @@
         "description": "Gets the properties of an Azure Video Indexer account.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AccountNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -249,16 +249,16 @@
         "description": "Updates the properties of an existing Azure Video Indexer account.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AccountNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
             "in": "body",
@@ -276,6 +276,27 @@
               "$ref": "#/definitions/Account"
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
@@ -284,11 +305,29 @@
           }
         },
         "x-ms-examples": {
-          "Patch account with system assigned Mi": {
-            "$ref": "./examples/ViAccountPatch/PatchAccountWithSystemAssignedMi.json"
+          "Patch example #1": {
+            "$ref": "./examples/ViAccountPatch/ViAccountPatch1.json"
           },
-          "Patch account with user assigned Mi": {
-            "$ref": "./examples/ViAccountPatch/PatchAccountWithUserAssignedMi.json"
+          "Patch example #2": {
+            "$ref": "./examples/ViAccountPatch/ViAccountPatch2.json"
+          },
+          "Patch example #3": {
+            "$ref": "./examples/ViAccountPatch/ViAccountPatch3.json"
+          },
+          "Patch example #4": {
+            "$ref": "./examples/ViAccountPatch/ViAccountPatch4.json"
+          },
+          "Patch example #5": {
+            "$ref": "./examples/ViAccountPatch/ViAccountPatch5.json"
+          },
+          "Patch example #6": {
+            "$ref": "./examples/ViAccountPatch/ViAccountPatch6.json"
+          },
+          "Patch example #7": {
+            "$ref": "./examples/ViAccountPatch/ViAccountPatch7.json"
+          },
+          "Patch example #8": {
+            "$ref": "./examples/ViAccountPatch/ViAccountPatch8.json"
           }
         }
       },
@@ -301,16 +340,16 @@
         "x-ms-long-running-operation": false,
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AccountNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
             "in": "body",
@@ -328,10 +367,32 @@
               "$ref": "#/definitions/Account"
             }
           },
-          "201": {
-            "description": "The resource was successfully created.",
+          "400": {
+            "description": "Bad Request.",
+            "x-ms-error-response": true,
             "schema": {
-              "$ref": "#/definitions/Account"
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           },
           "default": {
@@ -342,17 +403,35 @@
           }
         },
         "x-ms-examples": {
-          "Create or update account with system assigned Mi": {
-            "$ref": "./examples/ViAccountPut/CreateOrUpdateAccountWithSystemAssignedMi.json"
+          "Put example #1": {
+            "$ref": "./examples/ViAccountPut/ViAccountPut1.json"
           },
-          "Create or update account with user assigned Mi": {
-            "$ref": "./examples/ViAccountPut/CreateOrUpdateAccountWithUserAssignedMi.json"
+          "Put example #2": {
+            "$ref": "./examples/ViAccountPut/ViAccountPut2.json"
           },
-          "Connect classic account to arm account using system assigned Mi": {
-            "$ref": "./examples/ViAccountPut/ConnectClassicAccountToArmAccountUsingSystemAssignedMI.json"
+          "Put example #3": {
+            "$ref": "./examples/ViAccountPut/ViAccountPut3.json"
           },
-          "Connect classic account to arm account using user assigned Mi": {
-            "$ref": "./examples/ViAccountPut/ConnectClassicAccountToArmAccountUsingUserAssignedMi.json"
+          "Put example #4": {
+            "$ref": "./examples/ViAccountPut/ViAccountPut4.json"
+          },
+          "Put example #5": {
+            "$ref": "./examples/ViAccountPut/ViAccountPut5.json"
+          },
+          "Put example #6": {
+            "$ref": "./examples/ViAccountPut/ViAccountPut6.json"
+          },
+          "Put example #7": {
+            "$ref": "./examples/ViAccountPut/ViAccountPut7.json"
+          },
+          "Put example #8": {
+            "$ref": "./examples/ViAccountPut/ViAccountPut8.json"
+          },
+          "Put example #9": {
+            "$ref": "./examples/ViAccountPut/ViAccountPut9.json"
+          },
+          "Put example #10": {
+            "$ref": "./examples/ViAccountPut/ViAccountPut10.json"
           }
         }
       },
@@ -365,16 +444,16 @@
         "x-ms-long-running-operation": false,
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AccountNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -386,6 +465,13 @@
           },
           "204": {
             "description": "The Azure Video Indexer account does not exist."
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
           },
           "default": {
             "description": "Error response describing why the operation failed.",
@@ -401,6 +487,119 @@
         }
       }
     },
+    "/providers/Microsoft.VideoIndexer/locations/{location}/userClassicAccounts": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "operationId": "UserClassicAccounts_List",
+        "description": "Lists all Azure Video Indexer classic accounts",
+        "x-ms-examples": {
+          "List accounts": {
+            "$ref": "./examples/ViListUserClassicAccounts.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/LocationParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserClassicAccountList"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.VideoIndexer/locations/{location}/classicAccounts/{accountName}": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "operationId": "ClassicAccounts_GetDetails",
+        "description": "Gets the properties of an Azure Video Indexer Classic account.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/LocationParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/AccountNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The Azure Video Indexer account properties were retrieved successfully.",
+            "schema": {
+              "$ref": "#/definitions/ClassicAccount"
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "User Not Allowed",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get account": {
+            "$ref": "./examples/ViClassicAccounts.json"
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.VideoIndexer/accounts/{accountName}/generateAccessToken": {
       "post": {
         "tags": [
@@ -409,17 +608,29 @@
         "operationId": "Generate_AccessToken",
         "description": "Generate an Azure Video Indexer access token.",
         "x-ms-examples": {
-          "Generate accessToken for video contributor": {
-            "$ref": "./examples/ViGenerateAccessToken/ViGenerateVideoContributerAccessToken.json"
+          "Generate accessToken for video contributor #1": {
+            "$ref": "./examples/ViGenerateAccessToken/ViGenerateVideoContributerAccessToken1.json"
           },
-          "Generate accessToken for video reader": {
-            "$ref": "./examples/ViGenerateAccessToken/ViGenerateVideoReaderAccessToken.json"
+          "Generate accessToken for video contributor #2": {
+            "$ref": "./examples/ViGenerateAccessToken/ViGenerateVideoContributerAccessToken2.json"
           },
-          "Generate accessToken for project contributor": {
-            "$ref": "./examples/ViGenerateAccessToken/ViGenerateProjectContributerAccessToken.json"
+          "Generate accessToken for video reader #1": {
+            "$ref": "./examples/ViGenerateAccessToken/ViGenerateVideoReaderAccessToken1.json"
           },
-          "Generate accessToken for project reader": {
-            "$ref": "./examples/ViGenerateAccessToken/ViGenerateProjectReaderAccessToken.json"
+          "Generate accessToken for video reader #2": {
+            "$ref": "./examples/ViGenerateAccessToken/ViGenerateVideoReaderAccessToken2.json"
+          },
+          "Generate accessToken for project contributor #1": {
+            "$ref": "./examples/ViGenerateAccessToken/ViGenerateProjectContributerAccessToken1.json"
+          },
+          "Generate accessToken for project contributor #2": {
+            "$ref": "./examples/ViGenerateAccessToken/ViGenerateProjectContributerAccessToken2.json"
+          },
+          "Generate accessToken for project reader #1": {
+            "$ref": "./examples/ViGenerateAccessToken/ViGenerateProjectReaderAccessToken1.json"
+          },
+          "Generate accessToken for project reader #2": {
+            "$ref": "./examples/ViGenerateAccessToken/ViGenerateProjectReaderAccessToken2.json"
           },
           "Generate accessToken for account contributor": {
             "$ref": "./examples/ViGenerateAccessToken/ViGenerateAccountContributerAccessToken.json"
@@ -430,16 +641,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AccountNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
             "in": "body",
@@ -456,6 +667,34 @@
             "description": "The Azure Video Indexer account's access token properties were retrieved successfully.",
             "schema": {
               "$ref": "#/definitions/AccessToken"
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           },
           "default": {
@@ -475,11 +714,17 @@
         "operationId": "Generate_RestrictedViewerAccessToken",
         "description": "Generate an Azure Video Indexer restricted viewer access token.",
         "x-ms-examples": {
-          "Generate restricted viewer accessToken for video": {
-            "$ref": "./examples/ViGenerateRestrictedViewerAccessToken/ViGenerateVideoRestrictedViewerAccessToken.json"
+          "Generate restricted viewer accessToken for video #1": {
+            "$ref": "./examples/ViGenerateRestrictedViewerAccessToken/ViGenerateVideoRestrictedViewerAccessToken1.json"
           },
-          "Generate restricted viewer accessToken for project": {
-            "$ref": "./examples/ViGenerateRestrictedViewerAccessToken/ViGenerateProjectRestrictedViewerAccessToken.json"
+          "Generate restricted viewer accessToken for video #2": {
+            "$ref": "./examples/ViGenerateRestrictedViewerAccessToken/ViGenerateVideoRestrictedViewerAccessToken2.json"
+          },
+          "Generate restricted viewer accessToken for project #1": {
+            "$ref": "./examples/ViGenerateRestrictedViewerAccessToken/ViGenerateProjectRestrictedViewerAccessToken1.json"
+          },
+          "Generate restricted viewer accessToken for project #2": {
+            "$ref": "./examples/ViGenerateRestrictedViewerAccessToken/ViGenerateProjectRestrictedViewerAccessToken2.json"
           },
           "Generate restricted viewer accessToken for account": {
             "$ref": "./examples/ViGenerateRestrictedViewerAccessToken/ViGenerateAccountRestrictedViewerAccessToken.json"
@@ -487,16 +732,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AccountNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
             "in": "body",
@@ -513,6 +758,27 @@
             "description": "The Azure Video Indexer account's access token properties were retrieved successfully.",
             "schema": {
               "$ref": "#/definitions/AccessToken"
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           },
           "default": {
@@ -539,16 +805,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AccountNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -563,6 +829,27 @@
                 "type": "string",
                 "description": "URI to poll for completion status."
               }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           },
           "default": {
@@ -588,16 +875,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
             "$ref": "#/parameters/AccountNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -605,6 +892,27 @@
             "description": "The subscription's Cognitive Services (Speech, Translator, and OCR) instances secret.",
             "schema": {
               "$ref": "#/definitions/CognitiveServicesSecrets"
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           },
           "default": {
@@ -630,16 +938,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
             "$ref": "#/parameters/AccountNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "in": "body",
@@ -654,6 +962,27 @@
         "responses": {
           "200": {
             "description": "Secrets successfully rotated."
+          },
+          "400": {
+            "description": "Bad Request.",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
           },
           "default": {
             "description": "Error response describing why the operation failed.",
@@ -673,7 +1002,10 @@
         "description": "Generate an Azure Video Indexer restricted viewer access token.",
         "x-ms-examples": {
           "Generate restricted viewer accessToken for video #1": {
-            "$ref": "./examples/ViGenerateExtensionRestrictedViewerAccessToken/ViGenerateVideoRestrictedViewerAccessToken.json"
+            "$ref": "./examples/ViGenerateExtensionRestrictedViewerAccessToken/ViGenerateVideoRestrictedViewerAccessToken1.json"
+          },
+          "Generate restricted viewer accessToken for video #2": {
+            "$ref": "./examples/ViGenerateExtensionRestrictedViewerAccessToken/ViGenerateVideoRestrictedViewerAccessToken2.json"
           },
           "Generate restricted viewer accessToken for account": {
             "$ref": "./examples/ViGenerateExtensionRestrictedViewerAccessToken/ViGenerateAccountRestrictedViewerAccessToken.json"
@@ -681,16 +1013,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AccountNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
             "in": "body",
@@ -707,6 +1039,20 @@
             "description": "The Azure Video Indexer account's access token properties were retrieved successfully.",
             "schema": {
               "$ref": "#/definitions/AccessToken"
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           },
           "default": {
@@ -726,11 +1072,17 @@
         "operationId": "Generate_ExtensionAccessToken",
         "description": "Generate an Azure Video Indexer access token.",
         "x-ms-examples": {
-          "Generate accessToken for video contributor": {
-            "$ref": "./examples/ViGenerateExtensionAccessToken/ViGenerateVideoContributerAccessToken.json"
+          "Generate accessToken for video contributor #1": {
+            "$ref": "./examples/ViGenerateExtensionAccessToken/ViGenerateVideoContributerAccessToken1.json"
           },
-          "Generate accessToken for video reader": {
-            "$ref": "./examples/ViGenerateExtensionAccessToken/ViGenerateVideoReaderAccessToken.json"
+          "Generate accessToken for video contributor #2": {
+            "$ref": "./examples/ViGenerateExtensionAccessToken/ViGenerateVideoContributerAccessToken2.json"
+          },
+          "Generate accessToken for video reader #1": {
+            "$ref": "./examples/ViGenerateExtensionAccessToken/ViGenerateVideoReaderAccessToken1.json"
+          },
+          "Generate accessToken for video reader #2": {
+            "$ref": "./examples/ViGenerateExtensionAccessToken/ViGenerateVideoReaderAccessToken2.json"
           },
           "Generate accessToken for account contributor": {
             "$ref": "./examples/ViGenerateExtensionAccessToken/ViGenerateAccountContributerAccessToken.json"
@@ -741,16 +1093,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/AccountNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/parameters/ApiVersionParameter"
           },
           {
             "in": "body",
@@ -767,6 +1119,20 @@
             "description": "The Azure Video Indexer account's access token properties were retrieved successfully.",
             "schema": {
               "$ref": "#/definitions/AccessToken"
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "x-ms-error-response": true,
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           },
           "default": {
@@ -809,17 +1175,17 @@
           "$ref": "#/definitions/AccountPropertiesForPutRequest"
         },
         "identity": {
-          "$ref": "../../../../../common-types/resource-management/v3/managedidentity.json#/definitions/ManagedServiceIdentity"
+          "$ref": "../../../../../../common-types/resource-management/v3/managedidentity.json#/definitions/ManagedServiceIdentity"
         },
         "systemData": {
           "readOnly": true,
           "description": "The system meta data relating to this resource.",
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData"
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData"
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
         }
       ]
     },
@@ -930,7 +1296,7 @@
           "$ref": "#/definitions/AccountPropertiesForPatchRequest"
         },
         "identity": {
-          "$ref": "../../../../../common-types/resource-management/v3/managedidentity.json#/definitions/ManagedServiceIdentity"
+          "$ref": "../../../../../../common-types/resource-management/v3/managedidentity.json#/definitions/ManagedServiceIdentity"
         }
       },
       "allOf": [
@@ -950,7 +1316,7 @@
           "example": "2b9bcf6d-39d5-460a-a6bb-7b40b7ccf139"
         },
         "accountId": {
-          "description": "The account's data-plane ID.",
+          "description": "The account's data-plane ID. This can be set only when connecting an existing classic account",
           "type": "string",
           "default": "00000000-0000-0000-0000-000000000000",
           "example": "3575690b-a569-449c-ab7b-11020f948f76"
@@ -961,10 +1327,10 @@
           "readOnly": true,
           "example": "contoso-videoAnalyzer"
         },
-        "storageServices": {
-          "description": "The storage services details",
+        "mediaServices": {
+          "description": "The media services details",
           "type": "object",
-          "$ref": "#/definitions/StorageServicesForPutRequest"
+          "$ref": "#/definitions/MediaServicesForPutRequest"
         },
         "totalSecondsIndexed": {
           "description": "An integer representing the total seconds that have been indexed on the account",
@@ -1007,10 +1373,10 @@
           "type": "string",
           "example": "3575690b-a569-449c-ab7b-11020f948f76"
         },
-        "storageServices": {
-          "description": "The storage services details",
+        "mediaServices": {
+          "description": "The media services details",
           "type": "object",
-          "$ref": "#/definitions/StorageServicesForPatchRequest"
+          "$ref": "#/definitions/MediaServicesForPatchRequest"
         },
         "provisioningState": {
           "readOnly": true,
@@ -1214,52 +1580,28 @@
         }
       }
     },
-    "StorageServicesForPutRequest": {
-      "description": "The storage services details",
+    "MediaServicesForPutRequest": {
+      "description": "The media services details",
       "type": "object",
       "properties": {
         "resourceId": {
           "type": "string",
-          "format": "arm-id",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.Storage/storageAccounts"
-              }
-            ]
-          },
-          "description": "The storage services resource id",
-          "example": "/subscriptions/xxx/resourceGroups/contoso-videoAnalyzer-rg/providers/Microsoft.Storage/storageAccounts/contoso-videoAnalyzer-ms"
+          "description": "The media services resource id",
+          "example": "/subscriptions/xxx/resourceGroups/contoso-videoAnalyzer-rg/providers/Microsoft.Media/mediaservices/contoso-videoAnalyzer-ms"
         },
         "userAssignedIdentity": {
           "type": "string",
-          "format": "arm-id",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.ManagedIdentity/userAssignedIdentities"
-              }
-            ]
-          },
           "description": "The user assigned identity to be used to grant permissions",
           "example": "/subscriptions/xxx/resourceGroups/contoso-videoAnalyzer-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/contoso-videoAnalyzer-mi"
         }
       }
     },
-    "StorageServicesForPatchRequest": {
-      "description": "The storage services details",
+    "MediaServicesForPatchRequest": {
+      "description": "The media services details",
       "type": "object",
       "properties": {
         "userAssignedIdentity": {
           "type": "string",
-          "format": "arm-id",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.ManagedIdentity/userAssignedIdentities"
-              }
-            ]
-          },
           "description": "The user assigned identity to be used to grant permissions",
           "example": "/subscriptions/xxx/resourceGroups/contoso-videoAnalyzer-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/contoso-videoAnalyzer-mi"
         }
@@ -1275,6 +1617,132 @@
           "description": "The access token.",
           "x-ms-secret": true,
           "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE2MjI0NDc3MzMsImV4cCI6MTY1Mzk4MzczMywiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0"
+        }
+      }
+    },
+    "UserClassicAccountList": {
+      "properties": {
+        "value": {
+          "readOnly": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ClassicAccountSlim"
+          },
+          "description": "List of classic account names and their location."
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "URL to get the next set of operation list results if there are any.",
+          "example": "https://management.azure.com/{accountsOperation}?api-version={version}&%24skiptoken={token}"
+        }
+      },
+      "description": "The list of user classic accounts.",
+      "type": "object"
+    },
+    "ClassicAccountSlim": {
+      "description": "An Azure Video Indexer classic account.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The account's name",
+          "type": "string",
+          "readOnly": true,
+          "example": "contoso-videoanalyzer"
+        },
+        "location": {
+          "description": "The account's location",
+          "type": "string",
+          "readOnly": true,
+          "example": "westus"
+        },
+        "id": {
+          "description": "The account's id",
+          "type": "string",
+          "readOnly": true,
+          "example": "462af7c5-d1f6-4b91-86e3-8bc5e8a61574"
+        }
+      }
+    },
+    "ClassicAccount": {
+      "description": "An Azure Video Indexer classic account.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The account's name",
+          "type": "string",
+          "readOnly": true,
+          "example": "contoso-videoanalyzer"
+        },
+        "location": {
+          "description": "The account's location",
+          "type": "string",
+          "example": "westus"
+        },
+        "id": {
+          "description": "The account's id",
+          "type": "string",
+          "readOnly": true,
+          "example": "462af7c5-d1f6-4b91-86e3-8bc5e8a61574"
+        },
+        "properties": {
+          "description": "List of classic account properties",
+          "type": "object",
+          "x-ms-client-flatten": true,
+          "$ref": "#/definitions/ClassicAccountProperties"
+        }
+      }
+    },
+    "ClassicAccountProperties": {
+      "description": "Azure Video Indexer classic account properties",
+      "type": "object",
+      "properties": {
+        "mediaServices": {
+          "description": "The media services details",
+          "type": "object",
+          "$ref": "#/definitions/ClassicAccountMediaServices"
+        }
+      }
+    },
+    "ClassicAccountMediaServices": {
+      "description": "Azure Video Indexer classic account properties",
+      "type": "object",
+      "properties": {
+        "aadApplicationId": {
+          "type": "string",
+          "description": "The aad application id",
+          "example": "912f96dc-1ed3-4d7d-aa67-0adef4bb68ad"
+        },
+        "aadTenantId": {
+          "type": "string",
+          "description": "The aad tenant id",
+          "example": "72f988bf-86f1-41ag-91ab-2d7cd061db47"
+        },
+        "connected": {
+          "type": "boolean",
+          "description": "Represents wether the media services is connected or not"
+        },
+        "eventGridProviderRegistered": {
+          "type": "boolean",
+          "description": "Represents if the media services event grid is connected or not"
+        },
+        "name": {
+          "type": "string",
+          "description": "The media services name",
+          "example": "contosoVideoanalyzerMediaServices"
+        },
+        "resourceGroup": {
+          "type": "string",
+          "description": "The resource group that the media services belong to",
+          "example": "contoso-videoanalyzer-rg"
+        },
+        "streamingEndpointStarted": {
+          "type": "boolean",
+          "description": "Represents wether the media services streaming endpoint has started"
+        },
+        "subscriptionId": {
+          "type": "string",
+          "description": "The media services subscriptionId",
+          "example": "586d4f48-8f08-4a4e-96b7-e1892d6dba9e"
         }
       }
     },
