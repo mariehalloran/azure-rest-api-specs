@@ -202,7 +202,10 @@ interface ComputeConfigs {
       ComputeConfigProperties
     >
   >;
-  delete is ArmResourceDeleteWithoutOkAsync<ComputeConfig>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    ComputeConfig,
+    LroHeaders = ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
+  >;
   listByResourceGroup is ArmResourceListByParent<ComputeConfig>;
   listBySubscription is ArmListBySubscription<ComputeConfig>;
 }

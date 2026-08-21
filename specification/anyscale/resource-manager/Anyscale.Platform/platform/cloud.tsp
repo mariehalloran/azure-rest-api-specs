@@ -64,7 +64,10 @@ interface Clouds {
   >;
 
   /** Delete a cloud resource */
-  delete is ArmResourceDeleteWithoutOkAsync<Cloud>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    Cloud,
+    LroHeaders = ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
+  >;
 
   /** List cloud resources by resource group */
   listByResourceGroup is ArmResourceListByParent<Cloud>;

@@ -23,7 +23,16 @@ These are the global settings for the Anyscale.Platform API.
 
 ``` yaml
 openapi-type: arm
-tag: package-2026-08-01-preview
+tag: package-2026-09-01
+```
+
+### Tag: package-2026-09-01
+
+These settings apply only when `--tag=package-2026-09-01` is specified on the command line.
+
+``` yaml $(tag) == 'package-2026-09-01'
+input-file:
+- Anyscale.Platform/platform/stable/2026-09-01/anyscale.json
 ```
 
 ### Tag: package-2026-08-01-preview
@@ -79,6 +88,7 @@ swagger-to-sdk:
   - repo: azure-cli-extensions
   - repo: azure-powershell
 ```
+
 ## Az
 
 See configuration in [readme.az.md](./readme.az.md)
