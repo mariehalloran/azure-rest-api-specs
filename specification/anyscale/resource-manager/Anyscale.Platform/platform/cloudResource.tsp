@@ -123,7 +123,10 @@ interface CloudResources {
   >;
 
   /** Delete a cloud resource */
-  delete is ArmResourceDeleteWithoutOkAsync<CloudResource>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    CloudResource,
+    LroHeaders = ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
+  >;
 
   /** Get a cloud resource */
   get is ArmResourceRead<CloudResource>;

@@ -295,7 +295,10 @@ interface Services {
       ServiceProperties
     >
   >;
-  delete is ArmResourceDeleteWithoutOkAsync<Service>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    Service,
+    LroHeaders = ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
+  >;
   listByResourceGroup is ArmResourceListByParent<Service>;
   listBySubscription is ArmListBySubscription<Service>;
 }

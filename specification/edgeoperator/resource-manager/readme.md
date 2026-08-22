@@ -32,6 +32,7 @@ openapi-subtype: rpaas
 Each service under `Microsoft.EdgeOperator` is configured by its own `readme.md`:
 
 - [BillingConfigurations](Microsoft.EdgeOperator/BillingConfigurations/readme.md)
+- [ObservabilityConfiguration](Microsoft.EdgeOperator/ObservabilityConfiguration/readme.md)
 - [SystemReadiness](Microsoft.EdgeOperator/SystemReadiness/readme.md)
 
 ---
