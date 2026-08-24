@@ -4181,11 +4181,12 @@ model DeploymentStep {
   percentComplete?: int32;
 
   /**
-   * Additional data associated with the step.
+   * Additional metadata associated with the step.
    */
   @added(Versions.v2026_03_15_preview)
   @visibility(Lifecycle.Read)
-  additionalData?: string;
+  @identifiers(#["key"])
+  additionalData?: Metadata[];
 
   /**
    * Recommended steps to resolve failures in this step.
@@ -4193,6 +4194,22 @@ model DeploymentStep {
   @added(Versions.v2026_03_15_preview)
   @visibility(Lifecycle.Read)
   recommendedSteps?: string[];
+}
+
+/**
+ * Metadata associated with a deployment step.
+ */
+@added(Versions.v2026_03_15_preview)
+model Metadata {
+  /**
+   * The key of the metadata entry.
+   */
+  key: string;
+
+  /**
+   * The value of the metadata entry.
+   */
+  value: string;
 }
 
 /**

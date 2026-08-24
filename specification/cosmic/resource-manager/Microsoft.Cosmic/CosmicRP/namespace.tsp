@@ -68,6 +68,11 @@ model NamespaceProperties {
   @doc("Legacy process metadata listing rollout readiness rings.")
   deploymentReadiness?: CosmicRing[];
 
+  @doc("Namespace-scoped target percentage of replicas to schedule on Spot VM node pools. Valid range 0-100. Optional; acts as the namespace-level default and is the lowest-precedence fallback (environment- and pod-level values override it). Setting a non-zero value opts the namespace in to Spot VM scheduling.")
+  @minValue(0)
+  @maxValue(100)
+  spotVmAllocationPercentage?: int32;
+
   @doc("The provisioning state of the namespace resource.")
   @visibility(Lifecycle.Read)
   provisioningState?: CosmicProvisioningState;
