@@ -74,4 +74,13 @@ interface Workspaces {
     void,
     ArmResponse<WorkspaceLinkedSaaSListResponse>
   >;
+
+  /** Returns the complete Workspace details reported by Kore, including its projects. */
+  @added(Versions.v2026_07_01_preview)
+  @action("getWorkspaceDetails")
+  getWorkspaceDetails is ArmResourceActionSync<
+    WorkspaceResource,
+    void,
+    ArmResponse<WorkspaceDetail>
+  >;
 }

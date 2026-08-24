@@ -287,6 +287,151 @@ model ListWorkspacesResponse {
   value: DiscoveredWorkspace[];
 }
 
+/** Complete Workspace details returned by Kore. */
+@added(Versions.v2026_07_01_preview)
+model WorkspaceDetail {
+  /** Partner-issued Workspace identifier. */
+  id: string;
+
+  /** Full Azure resource ID of the Workspace. */
+  azureResourceId: string;
+
+  /** Partner-issued identifier of the parent Organization. */
+  organizationId: string;
+
+  /** Azure region inherited from the parent Organization. */
+  location: string;
+
+  /** Partner-specific Workspace properties. */
+  partnerProperties: WorkspaceReadPartnerProperties;
+
+  /** Lifecycle status of the Workspace. */
+  status: WorkspaceLifecycleStatus;
+
+  /** Projects under the Workspace. */
+  @identifiers(#["id"])
+  projects: WorkspaceProject[];
+
+  /** Time when the Workspace was created. */
+  createdAt: utcDateTime;
+
+  /** Time when the Workspace was last updated. */
+  updatedAt: utcDateTime;
+}
+
+/** Partner-specific fields returned for a Workspace. */
+@added(Versions.v2026_07_01_preview)
+model WorkspaceReadPartnerProperties {
+  /** Workspace display name. */
+  name: string;
+
+  /** Email address of the Workspace owner. */
+  ownerEmail: email;
+
+  /** Conversation retention period in days. */
+  retentionDays: int32;
+
+  /** Indicates whether this is the Organization's default Workspace. */
+  default: boolean;
+
+  /** Marketplace SaaS subscriptions owned by the Workspace. */
+  @maxItems(20)
+  @identifiers(#["mpId"])
+  marketplaceDetails: WorkspaceMarketplaceDetails[];
+}
+
+/** Marketplace SaaS subscription details returned by Kore. */
+@added(Versions.v2026_07_01_preview)
+model WorkspaceMarketplaceDetails {
+  /** Azure resource ID of the Marketplace SaaS resource. */
+  resourceId: string;
+
+  /** Globally unique Marketplace SaaS identifier used for billing. */
+  mpId: string;
+
+  /** Plan identifier within the Marketplace offer. */
+  planId: string;
+
+  /** Human-readable plan display name. */
+  planName?: string;
+
+  /** Marketplace offer identifier. */
+  offerId: string;
+
+  /** Publisher identifier from Partner Center. */
+  publisherId?: string;
+
+  /** Marketplace subscription term identifier. */
+  termId?: string;
+
+  /** Azure Marketplace fulfillment subscription status. */
+  status?: WorkspaceMarketplaceStatus;
+}
+
+/** Azure Marketplace fulfillment status reported by Kore. */
+@added(Versions.v2026_07_01_preview)
+union WorkspaceMarketplaceStatus {
+  string,
+
+  /** Fulfillment has not started. */
+  PendingFulfillmentStart: "PendingFulfillmentStart",
+
+  /** The subscription is active. */
+  Subscribed: "Subscribed",
+
+  /** The subscription is suspended. */
+  Suspended: "Suspended",
+
+  /** The subscription is unsubscribed. */
+  Unsubscribed: "Unsubscribed",
+}
+
+/** Project summary returned with complete Workspace details. */
+@added(Versions.v2026_07_01_preview)
+model WorkspaceProject {
+  /** Partner-issued Project identifier. */
+  id: string;
+
+  /** Project display name. */
+  name: string;
+
+  /** Project description. */
+  description?: string;
+
+  /** Email address of the user who created the Project. */
+  createdBy: email;
+
+  /** Lifecycle status of the Project. */
+  status: WorkspaceProjectStatus;
+
+  /** Number of agents in the Project. */
+  agentCount: int32;
+
+  /** Time when the Project was created. */
+  createdAt: utcDateTime;
+
+  /** Time when the Project was last updated. */
+  updatedAt: utcDateTime;
+}
+
+/** Lifecycle status of a Workspace Project. */
+@added(Versions.v2026_07_01_preview)
+union WorkspaceProjectStatus {
+  string,
+
+  /** The Project is active. */
+  Active: "active",
+
+  /** The Project is under development. */
+  InDevelopment: "in-development",
+
+  /** The Project is deployed. */
+  Deployed: "deployed",
+
+  /** The Project is archived. */
+  Archived: "archived",
+}
+
 // =============================================================================
 // Organization PATCH body
 // =============================================================================
