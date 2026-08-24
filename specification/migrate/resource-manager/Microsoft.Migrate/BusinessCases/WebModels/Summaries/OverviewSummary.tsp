@@ -418,7 +418,7 @@ model CostSummary {
 @added(BusinessCaseApiVersions.v2025_09_09_preview)
 @doc("The Cost Details have total Cost, other costs segregation")
 model TotalCostDetails {
-  @doc("The total cost.")
+  @doc("License cost details for workloads.")
   @visibility(Lifecycle.Read)
   totalCost: float32;
 

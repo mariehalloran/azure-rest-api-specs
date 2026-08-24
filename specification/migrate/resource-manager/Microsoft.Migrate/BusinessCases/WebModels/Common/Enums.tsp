@@ -204,7 +204,7 @@ union BusinessCaseState {
 
   @removed(BusinessCaseApiVersions.v2025_09_09_preview)
   @added(BusinessCaseApiVersions.v2026_06_06_preview)
-  @doc("InProgress State.")
+  @doc("InProgress  State.")
   InProgress: "InProgress",
 
   @doc("Completed State.")

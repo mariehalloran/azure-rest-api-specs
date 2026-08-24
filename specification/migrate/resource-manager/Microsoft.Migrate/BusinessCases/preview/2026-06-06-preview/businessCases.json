@@ -619,6 +619,7 @@
       "description": "Business case supported state types.",
       "enum": [
         "Unknown",
+        "InProgress",
         "Completed",
         "OutDated",
         "Started",
@@ -637,6 +638,11 @@
             "name": "Unknown",
             "value": "Unknown",
             "description": "Unknown State."
+          },
+          {
+            "name": "InProgress",
+            "value": "InProgress",
+            "description": "InProgress  State."
           },
           {
             "name": "Completed",
@@ -733,6 +739,28 @@
         "compute",
         "storage"
       ]
+    },
+    "CostComponent": {
+      "type": "object",
+      "description": "Represents a single cost component with a name, value and description.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the cost component.",
+          "readOnly": true
+        },
+        "value": {
+          "type": "number",
+          "format": "float",
+          "description": "The value of the cost component.",
+          "readOnly": true
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the cost component.",
+          "readOnly": true
+        }
+      }
     },
     "CostComponentCategory": {
       "type": "string",
@@ -1056,6 +1084,48 @@
         "azureCostDetails",
         "onPremCostDetails"
       ]
+    },
+    "LicenseCostDetails": {
+      "type": "object",
+      "description": "License Cost Details.",
+      "properties": {
+        "licenseCost": {
+          "type": "number",
+          "format": "float",
+          "description": "License Cost.",
+          "readOnly": true
+        },
+        "licenseCostComponents": {
+          "type": "array",
+          "description": "License Cost Components.",
+          "items": {
+            "$ref": "#/definitions/CostComponent"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        }
+      }
+    },
+    "ManagementCostDetails": {
+      "type": "object",
+      "description": "Management Cost Details.",
+      "properties": {
+        "managementCost": {
+          "type": "number",
+          "format": "float",
+          "description": "Management Cost.",
+          "readOnly": true
+        },
+        "managementCostComponents": {
+          "type": "array",
+          "description": "Management Cost Components.",
+          "items": {
+            "$ref": "#/definitions/CostComponent"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        }
+      }
     },
     "OverviewSummary": {
       "type": "object",
@@ -1503,8 +1573,7 @@
           "readOnly": true
         },
         "licenseCostDetails": {
-          "type": "number",
-          "format": "float",
+          "$ref": "#/definitions/LicenseCostDetails",
           "description": "License cost details for workloads.",
           "readOnly": true
         },
@@ -1551,8 +1620,7 @@
           "readOnly": true
         },
         "managementCostDetails": {
-          "type": "number",
-          "format": "float",
+          "$ref": "#/definitions/ManagementCostDetails",
           "description": "Management Cost Details.",
           "readOnly": true
         },
@@ -1579,8 +1647,7 @@
         }
       },
       "required": [
-        "totalCost",
-        "licenseCostDetails"
+        "totalCost"
       ]
     },
     "TotalEconomicBenefitDetails": {
