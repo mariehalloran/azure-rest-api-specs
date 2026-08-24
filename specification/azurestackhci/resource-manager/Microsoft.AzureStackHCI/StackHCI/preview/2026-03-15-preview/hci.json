@@ -24299,6 +24299,12 @@
           "$ref": "#/definitions/Architecture",
           "description": "CPU architecture of the machine, for example amd64 or arm64.",
           "readOnly": true
+        },
+        "logicalCoreCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of logical (SMT/hyper-threaded) cores in the machine, synchronized from Arc Machine DetectedProperties.",
+          "readOnly": true
         }
       }
     },
