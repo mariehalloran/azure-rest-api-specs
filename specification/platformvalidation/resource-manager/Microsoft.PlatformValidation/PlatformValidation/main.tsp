@@ -11,6 +11,7 @@ import "./validationTestRun.tsp";
 import "./validationTestCatalog.tsp";
 
 using TypeSpec.Versioning;
+using Azure.Core;
 using Azure.ResourceManager;
 
 /** Microsoft.PlatformValidation Resource Provider management API. */
@@ -26,6 +27,7 @@ enum Versions {
   v2026_07_01_preview: "2026-07-01-preview",
 
   /** 2026-08-01-preview version */
+  @previewVersion
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   v2026_08_01_preview: "2026-08-01-preview",
 }
