@@ -16182,6 +16182,57 @@
         }
       }
     },
+    "CapacityGpuGroup": {
+      "type": "object",
+      "description": "GPU capacity for devices grouped by type, mode, and partition size.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "GPU type represented by the group.",
+          "readOnly": true
+        },
+        "mode": {
+          "type": "string",
+          "description": "GPU assignment mode represented by the group.",
+          "readOnly": true
+        },
+        "partitionSizeInMB": {
+          "type": "string",
+          "description": "Partition size in megabytes, represented as a decimal string.",
+          "readOnly": true
+        },
+        "totalAssignableGpuCount": {
+          "type": "string",
+          "description": "Total number of assignable GPUs, represented as a decimal string.",
+          "readOnly": true
+        },
+        "reservedAssignableGpuCount": {
+          "type": "string",
+          "description": "Number of assignable GPUs reserved by policy, represented as a decimal string.",
+          "readOnly": true
+        },
+        "consumedAssignableGpuCount": {
+          "type": "string",
+          "description": "Number of assignable GPUs consumed by workloads, represented as a decimal string.",
+          "readOnly": true
+        },
+        "totalPartitionableGpuCount": {
+          "type": "string",
+          "description": "Total number of partitionable GPUs, represented as a decimal string.",
+          "readOnly": true
+        },
+        "reservedPartitionableGpuCount": {
+          "type": "string",
+          "description": "Number of partitionable GPUs reserved by policy, represented as a decimal string.",
+          "readOnly": true
+        },
+        "consumedPartitionableGpuCount": {
+          "type": "string",
+          "description": "Number of partitionable GPUs consumed by workloads, represented as a decimal string.",
+          "readOnly": true
+        }
+      }
+    },
     "CapacityGpuSnapshot": {
       "type": "object",
       "description": "Cluster-wide GPU capacity summary. Per-GPU details remain available through the\nEdgeMachineGpu resource tree.",
@@ -16221,6 +16272,19 @@
           "format": "int32",
           "description": "GPU-P partitions available for placement after assignments and reservation policy.",
           "readOnly": true
+        },
+        "groups": {
+          "type": "array",
+          "description": "GPU capacity grouped by type, mode, and partition size.",
+          "items": {
+            "$ref": "#/definitions/CapacityGpuGroup"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "type",
+            "mode",
+            "partitionSizeInMB"
+          ]
         },
         "lastUpdated": {
           "type": "string",
@@ -16580,6 +16644,37 @@
           "type": "string",
           "format": "date-time",
           "description": "Last storage update time.",
+          "readOnly": true
+        }
+      }
+    },
+    "CapacityVolumeSnapshot": {
+      "type": "object",
+      "description": "Capacity details for a volume reported by the cluster.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the volume.",
+          "readOnly": true
+        },
+        "path": {
+          "type": "string",
+          "description": "Path of the volume.",
+          "readOnly": true
+        },
+        "sizeInBytes": {
+          "type": "string",
+          "description": "Total size of the volume in bytes, represented as a decimal string.",
+          "readOnly": true
+        },
+        "sizeRemainingInBytes": {
+          "type": "string",
+          "description": "Remaining size of the volume in bytes, represented as a decimal string.",
+          "readOnly": true
+        },
+        "sizeConsumedInBytes": {
+          "type": "string",
+          "description": "Consumed size of the volume in bytes, represented as a decimal string.",
           "readOnly": true
         }
       }
@@ -32145,6 +32240,17 @@
           "$ref": "#/definitions/CapacityStorageSnapshot",
           "description": "Storage capacity aggregated from eligible user Cluster Volume resources.\nInfrastructure volumes are excluded.",
           "readOnly": true
+        },
+        "volumes": {
+          "type": "array",
+          "description": "Capacity details for volumes reported by the cluster.",
+          "items": {
+            "$ref": "#/definitions/CapacityVolumeSnapshot"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "id"
+          ]
         },
         "cpu": {
           "$ref": "#/definitions/CapacityCpuSnapshot",

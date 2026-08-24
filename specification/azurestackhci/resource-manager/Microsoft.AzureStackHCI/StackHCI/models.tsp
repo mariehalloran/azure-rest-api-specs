@@ -12444,6 +12444,13 @@ model ReportedCapacitySnapshot {
   storage?: CapacityStorageSnapshot;
 
   /**
+   * Capacity details for volumes reported by the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["id"])
+  volumes?: CapacityVolumeSnapshot[];
+
+  /**
    * CPU capacity summary including P-core, L-core, policy-adjusted vCPU, and consumption.
    */
   @visibility(Lifecycle.Read)
@@ -12514,6 +12521,42 @@ model CapacityStorageSnapshot {
    */
   @visibility(Lifecycle.Read)
   lastUpdated?: utcDateTime;
+}
+
+/**
+ * Capacity details for a volume reported by the cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+model CapacityVolumeSnapshot {
+  /**
+   * Unique identifier of the volume.
+   */
+  @visibility(Lifecycle.Read)
+  id?: string;
+
+  /**
+   * Path of the volume.
+   */
+  @visibility(Lifecycle.Read)
+  path?: string;
+
+  /**
+   * Total size of the volume in bytes, represented as a decimal string.
+   */
+  @visibility(Lifecycle.Read)
+  sizeInBytes?: string;
+
+  /**
+   * Remaining size of the volume in bytes, represented as a decimal string.
+   */
+  @visibility(Lifecycle.Read)
+  sizeRemainingInBytes?: string;
+
+  /**
+   * Consumed size of the volume in bytes, represented as a decimal string.
+   */
+  @visibility(Lifecycle.Read)
+  sizeConsumedInBytes?: string;
 }
 
 /**
@@ -12684,10 +12727,78 @@ model CapacityGpuSnapshot {
   effectiveAvailablePartitionCount?: int32;
 
   /**
+   * GPU capacity grouped by type, mode, and partition size.
+   */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["type", "mode", "partitionSizeInMB"])
+  groups?: CapacityGpuGroup[];
+
+  /**
    * Last GPU inventory update time.
    */
   @visibility(Lifecycle.Read)
   lastUpdated?: utcDateTime;
+}
+
+/**
+ * GPU capacity for devices grouped by type, mode, and partition size.
+ */
+@added(Versions.v2026_03_15_preview)
+model CapacityGpuGroup {
+  /**
+   * GPU type represented by the group.
+   */
+  @visibility(Lifecycle.Read)
+  type?: string;
+
+  /**
+   * GPU assignment mode represented by the group.
+   */
+  @visibility(Lifecycle.Read)
+  mode?: string;
+
+  /**
+   * Partition size in megabytes, represented as a decimal string.
+   */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "Property name matches the capacity response wire format."
+  @visibility(Lifecycle.Read)
+  partitionSizeInMB?: string;
+
+  /**
+   * Total number of assignable GPUs, represented as a decimal string.
+   */
+  @visibility(Lifecycle.Read)
+  totalAssignableGpuCount?: string;
+
+  /**
+   * Number of assignable GPUs reserved by policy, represented as a decimal string.
+   */
+  @visibility(Lifecycle.Read)
+  reservedAssignableGpuCount?: string;
+
+  /**
+   * Number of assignable GPUs consumed by workloads, represented as a decimal string.
+   */
+  @visibility(Lifecycle.Read)
+  consumedAssignableGpuCount?: string;
+
+  /**
+   * Total number of partitionable GPUs, represented as a decimal string.
+   */
+  @visibility(Lifecycle.Read)
+  totalPartitionableGpuCount?: string;
+
+  /**
+   * Number of partitionable GPUs reserved by policy, represented as a decimal string.
+   */
+  @visibility(Lifecycle.Read)
+  reservedPartitionableGpuCount?: string;
+
+  /**
+   * Number of partitionable GPUs consumed by workloads, represented as a decimal string.
+   */
+  @visibility(Lifecycle.Read)
+  consumedPartitionableGpuCount?: string;
 }
 
 /**
