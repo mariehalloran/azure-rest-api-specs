@@ -11307,13 +11307,17 @@
           "type": "string",
           "description": "Display name"
         },
-        "commitment": {
-          "$ref": "#/definitions/Commitment",
-          "description": "Commitment towards the benefit. Only amount can be modified."
-        },
         "billingPlan": {
           "$ref": "#/definitions/BillingPlan",
           "description": "Represents the billing plan in ISO 8601 format. Required only for monthly billing plans."
+        },
+        "appliedScopeType": {
+          "$ref": "#/definitions/AppliedScopeType",
+          "description": "Type of the Applied Scope."
+        },
+        "appliedScopeProperties": {
+          "$ref": "#/definitions/AppliedScopeProperties",
+          "description": "Properties specific to applied scope type. Not required if not applicable."
         },
         "renew": {
           "type": "boolean",
@@ -11322,11 +11326,6 @@
         "scheduledChanges": {
           "$ref": "#/definitions/SpendPlanPatchScheduledChanges",
           "description": "The changes that are scheduled to be applied to the spend plan in the future."
-        },
-        "endAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "End DateTime in UTC."
         }
       }
     },
