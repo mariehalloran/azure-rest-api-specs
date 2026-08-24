@@ -418,13 +418,15 @@ model CostSummary {
 @added(BusinessCaseApiVersions.v2025_09_09_preview)
 @doc("The Cost Details have total Cost, other costs segregation")
 model TotalCostDetails {
-  @doc("License cost details for workloads.")
+  @doc("The total cost.")
   @visibility(Lifecycle.Read)
   totalCost: float32;
 
   @doc("License cost details for workloads.")
   @visibility(Lifecycle.Read)
-  licenseCostDetails: float32;
+  @typeChangedFrom(BusinessCaseApiVersions.v2026_06_06_preview, float32)
+  @madeOptional(BusinessCaseApiVersions.v2026_06_06_preview)
+  licenseCostDetails?: LicenseCostDetails;
 
   @doc("The storage cost.")
   @visibility(Lifecycle.Read)
@@ -456,7 +458,8 @@ model TotalCostDetails {
 
   @doc("Management Cost Details.")
   @visibility(Lifecycle.Read)
-  managementCostDetails?: float32;
+  @typeChangedFrom(BusinessCaseApiVersions.v2026_06_06_preview, float32)
+  managementCostDetails?: ManagementCostDetails;
 
   @doc("esu savings.")
   @visibility(Lifecycle.Read)
@@ -470,6 +473,48 @@ model TotalCostDetails {
   @doc("Gets or sets the list of cost line items.")
   @identifiers(#[])
   costLineItems?: CostLineItem[];
+}
+
+@doc("Management Cost Details.")
+@added(BusinessCaseApiVersions.v2026_06_06_preview)
+model ManagementCostDetails {
+  @doc("Management Cost.")
+  @visibility(Lifecycle.Read)
+  managementCost?: float32;
+
+  @doc("Management Cost Components.")
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  managementCostComponents?: CostComponent[];
+}
+
+@doc("License Cost Details.")
+@added(BusinessCaseApiVersions.v2026_06_06_preview)
+model LicenseCostDetails {
+  @doc("License Cost.")
+  @visibility(Lifecycle.Read)
+  licenseCost?: float32;
+
+  @doc("License Cost Components.")
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  licenseCostComponents?: CostComponent[];
+}
+
+@doc("Represents a single cost component with a name, value and description.")
+@added(BusinessCaseApiVersions.v2026_06_06_preview)
+model CostComponent {
+  @doc("The name of the cost component.")
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  @doc("The value of the cost component.")
+  @visibility(Lifecycle.Read)
+  value?: float32;
+
+  @doc("The description of the cost component.")
+  @visibility(Lifecycle.Read)
+  description?: string;
 }
 
 @doc("Represents a single line item in a cost breakdown.")
@@ -625,3 +670,4 @@ union CostPillar {
 
   string,
 }
+
