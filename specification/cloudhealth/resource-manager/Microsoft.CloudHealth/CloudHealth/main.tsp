@@ -416,7 +416,7 @@ model ResourceMetricSignalDefinitionProperties
 
   @doc("Optional: Dimension filter to apply to the dimension. Must only be set if also Dimension is set.")
   @minLength(1)
-  @maxLength(256)
+  @maxLength(2048)
   dimensionFilter?: string;
 }
 
@@ -1751,7 +1751,7 @@ model SignalConfiguration {
 
   @doc("Optional dimension filter to apply to the metric.")
   @minLength(1)
-  @maxLength(256)
+  @maxLength(2048)
   dimensionFilter?: string;
 
   @doc("Evaluation rules with recommended thresholds.")
