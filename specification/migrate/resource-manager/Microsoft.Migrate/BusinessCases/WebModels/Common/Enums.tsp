@@ -452,4 +452,3 @@ union LicensingProgram {
 
   string,
 }
-
