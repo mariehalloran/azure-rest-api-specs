@@ -35,6 +35,23 @@ modelerfour:
   flatten-models: false
 ```
 
+### Suppressions
+
+```yaml
+suppressions:
+  - code: EnumInsteadOfBoolean
+    reason: These properties are intentional binary flags in the existing ARM and Kore partner contracts; changing them to enums would alter the wire contract.
+    where:
+      - $.definitions.DiscoveredWorkspace.properties.isDefault
+      - $.definitions.DiscoveredWorkspace.properties.isManagedByLiftr
+      - $.definitions.WorkspaceLinkedSaaSItem.properties.isHiddenSaaS
+      - $.definitions.WorkspaceProperties.properties.isDefault
+      - $.definitions.WorkspaceReadPartnerProperties.properties.default
+  - code: PostOperationIdContainsUrlVerb
+    reason: SaaSOperationGroup_ActivateResource is an existing shipped operation ID; renaming it would break generated clients.
+    where: $.paths["/subscriptions/{subscriptionId}/providers/Kore.AgentPlatform/activateSaaS"].post.operationId
+```
+
 ### Tag: package-2026-06-01-preview
 
 These settings apply only when `--tag=package-2026-06-01-preview` is specified on the command line.

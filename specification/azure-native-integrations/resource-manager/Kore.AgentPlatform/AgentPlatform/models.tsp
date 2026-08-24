@@ -299,9 +299,6 @@ model WorkspaceDetail {
   /** Partner-issued identifier of the parent Organization. */
   organizationId: string;
 
-  /** Azure region inherited from the parent Organization. */
-  location: string;
-
   /** Partner-specific Workspace properties. */
   partnerProperties: WorkspaceReadPartnerProperties;
 
