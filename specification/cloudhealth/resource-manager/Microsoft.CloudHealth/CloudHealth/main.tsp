@@ -1186,6 +1186,7 @@ union HealthState {
   @doc("Unknown status")
   Unknown: "Unknown",
 
+  @removed(Versions.v2026_09_01_preview)
   @doc("Deleted status")
   Deleted: "Deleted",
 }
