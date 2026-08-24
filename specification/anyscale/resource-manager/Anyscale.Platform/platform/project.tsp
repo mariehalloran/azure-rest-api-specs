@@ -42,7 +42,10 @@ model ProjectProperties {
 interface Projects {
   get is ArmResourceRead<Project>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<Project>;
-  delete is ArmResourceDeleteWithoutOkAsync<Project>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    Project,
+    LroHeaders = ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
+  >;
   listByResourceGroup is ArmResourceListByParent<Project>;
   listBySubscription is ArmListBySubscription<Project>;
 }

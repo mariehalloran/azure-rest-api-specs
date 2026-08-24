@@ -80,7 +80,10 @@ interface ContainerImages {
       ContainerImageProperties
     >
   >;
-  delete is ArmResourceDeleteWithoutOkAsync<ContainerImage>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    ContainerImage,
+    LroHeaders = ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
+  >;
   listByResourceGroup is ArmResourceListByParent<ContainerImage>;
   listBySubscription is ArmListBySubscription<ContainerImage>;
 }

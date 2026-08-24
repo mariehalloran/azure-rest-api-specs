@@ -1550,7 +1550,7 @@
         "tags": [
           "Validation Test Run Interfaces"
         ],
-        "description": "Create or update a validation test run",
+        "description": "Create or update a validation test run. Internal-only: available in 2026-07-01-preview, removed starting 2026-08-01.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -1649,7 +1649,7 @@
         "tags": [
           "Validation Test Run Interfaces"
         ],
-        "description": "Delete a validation test run",
+        "description": "Delete a validation test run. Internal-only: available in 2026-07-01-preview, removed starting 2026-08-01.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -2850,13 +2850,6 @@
         "testId": {
           "type": "string",
           "description": "The name of the validation test (ValidationTest resource name, not an ARM resource ID) in the validation test catalog."
-        },
-        "testCategoryIds": {
-          "type": "array",
-          "description": "The names of the validation test categories (ValidationTestCategory resource names, not ARM resource IDs) associated with this test run.",
-          "items": {
-            "type": "string"
-          }
         },
         "inputsJson": {
           "type": "string",
