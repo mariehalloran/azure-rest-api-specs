@@ -3167,7 +3167,9 @@
       "description": "Maintenance Plan State.",
       "enum": [
         "Succeeded",
-        "Failed"
+        "Failed",
+        "Completed",
+        "Canceled"
       ],
       "x-ms-enum": {
         "name": "MaintenancePlansState",
@@ -3182,6 +3184,16 @@
             "name": "Failed",
             "value": "Failed",
             "description": "MaintenancePlan call was accepted, creation has failed."
+          },
+          {
+            "name": "Completed",
+            "value": "Completed",
+            "description": "Maintenance plan execution has completed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Maintenance plan execution was canceled."
           }
         ]
       },
@@ -3191,6 +3203,7 @@
       "type": "string",
       "description": "Maintenance Plan Update Scope.",
       "enum": [
+        "None",
         "FlightingNodeFirmwareUpdates",
         "FlightingRackFirmwareUpdates",
         "QualifiedNodeFirmwareUpdates",
@@ -3201,17 +3214,17 @@
         "CriticalRackImpactlessUpdates",
         "CriticalNodeImpactfulUpdates",
         "CriticalRackImpactfulUpdates",
-        "Custom",
-        "FlightingNodeFirmwareUpdatesOnly",
-        "QualifiedNodeFirmwareUpdatesOnly",
-        "CriticalImpactlessUpdatesOnly",
-        "CriticalImpactfulUpdatesOnly",
-        "AllQualifiedUpdates"
+        "Custom"
       ],
       "x-ms-enum": {
         "name": "MaintenancePlansUpdateScope",
         "modelAsString": false,
         "values": [
+          {
+            "name": "None",
+            "value": "None",
+            "description": "No update scope is selected."
+          },
           {
             "name": "FlightingNodeFirmwareUpdates",
             "value": "FlightingNodeFirmwareUpdates",
@@ -3266,26 +3279,6 @@
             "name": "Custom",
             "value": "Custom",
             "description": "Customer specifies via versionToUpdate what package they want us to update."
-          },
-          {
-            "name": "FlightingNodeFirmwareUpdatesOnly",
-            "value": "FlightingNodeFirmwareUpdatesOnly"
-          },
-          {
-            "name": "QualifiedNodeFirmwareUpdatesOnly",
-            "value": "QualifiedNodeFirmwareUpdatesOnly"
-          },
-          {
-            "name": "CriticalImpactlessUpdatesOnly",
-            "value": "CriticalImpactlessUpdatesOnly"
-          },
-          {
-            "name": "CriticalImpactfulUpdatesOnly",
-            "value": "CriticalImpactfulUpdatesOnly"
-          },
-          {
-            "name": "AllQualifiedUpdates",
-            "value": "AllQualifiedUpdates"
           }
         ]
       }
