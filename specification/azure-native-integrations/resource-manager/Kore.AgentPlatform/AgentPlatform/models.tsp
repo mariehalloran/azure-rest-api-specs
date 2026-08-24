@@ -299,8 +299,8 @@ model WorkspaceDetail {
   /** Partner-issued identifier of the parent Organization. */
   organizationId: string;
 
-  /** Partner-specific Workspace properties. */
-  partnerProperties: WorkspaceReadPartnerProperties;
+  /** Partner-specific fields returned by the Workspace details action. */
+  partnerProperties: WorkspaceDetailPartnerProperties;
 
   /** Lifecycle status of the Workspace. */
   status: WorkspaceLifecycleStatus;
@@ -309,23 +309,25 @@ model WorkspaceDetail {
   @identifiers(#["id"])
   projects: WorkspaceProject[];
 
-  /** Time when the Workspace was created. */
+  /** Time when the partner Workspace was created, as reported by Kore. This is distinct from ARM-managed `systemData.createdAt`. */
   createdAt: utcDateTime;
 
-  /** Time when the Workspace was last updated. */
+  /** Time when the partner Workspace was last updated, as reported by Kore. This is distinct from ARM-managed `systemData.lastModifiedAt`. */
   updatedAt: utcDateTime;
 }
 
-/** Partner-specific fields returned for a Workspace. */
+/** Partner-specific fields returned by the Workspace details action. */
 @added(Versions.v2026_07_01_preview)
-model WorkspaceReadPartnerProperties {
+model WorkspaceDetailPartnerProperties {
   /** Workspace display name. */
   name: string;
 
   /** Email address of the Workspace owner. */
   ownerEmail: email;
 
-  /** Conversation retention period in days. */
+  /** Conversation retention period in days. Valid values are 1 through 365. */
+  @minValue(1)
+  @maxValue(365)
   retentionDays: int32;
 
   /** Indicates whether this is the Organization's default Workspace. */

@@ -46,7 +46,7 @@ suppressions:
       - $.definitions.DiscoveredWorkspace.properties.isManagedByLiftr
       - $.definitions.WorkspaceLinkedSaaSItem.properties.isHiddenSaaS
       - $.definitions.WorkspaceProperties.properties.isDefault
-      - $.definitions.WorkspaceReadPartnerProperties.properties.default
+      - $.definitions.WorkspaceDetailPartnerProperties.properties.default
   - code: PostOperationIdContainsUrlVerb
     reason: SaaSOperationGroup_ActivateResource is an existing shipped operation ID; renaming it would break generated clients.
     where: $.paths["/subscriptions/{subscriptionId}/providers/Kore.AgentPlatform/activateSaaS"].post.operationId
