@@ -4501,7 +4501,7 @@ model SpendPlanProperties {
   /**
    * Represents the billing plan in ISO 8601 format. Required only for monthly billing plans.
    */
-  billingPlan: BillingPlan;
+  billingPlan?: BillingPlan;
 
   /**
    * Type of the Applied Scope.
