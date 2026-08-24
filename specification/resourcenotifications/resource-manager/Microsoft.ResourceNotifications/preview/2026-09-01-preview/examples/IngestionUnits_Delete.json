@@ -1,0 +1,20 @@
+{
+  "parameters": {
+    "resourceUri": "subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ProviderHub/providerRegistrations/microsoft.contoso",
+    "location": "eastus2euap",
+    "ingestionUnitName": "contoso-primary",
+    "api-version": "2026-09-01-preview"
+  },
+  "responses": {
+    "202": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/locations/eastus2euap/operationStatuses/55555555-6666-7777-8888-999999999999?api-version=2026-09-01-preview",
+        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/locations/eastus2euap/operationStatuses/55555555-6666-7777-8888-999999999999?api-version=2026-09-01-preview",
+        "Retry-After": 10
+      }
+    },
+    "204": {}
+  },
+  "operationId": "IngestionUnits_Delete",
+  "title": "Delete an ingestion unit"
+}
