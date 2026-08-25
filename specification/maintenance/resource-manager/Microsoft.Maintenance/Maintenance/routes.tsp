@@ -233,7 +233,7 @@ interface ApplyUpdateForResourceGroupOperationGroup {
   #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
   #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "Suppress expected arm error"
   @summary("Get Configuration records within a subscription and resource group")
-  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Maintenance/applyUpdates")
+  @route("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Maintenance/applyUpdates")
   @get
   @list
   list(

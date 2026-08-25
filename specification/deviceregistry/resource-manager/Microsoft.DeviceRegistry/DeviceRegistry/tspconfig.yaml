@@ -1,0 +1,15 @@
+emit:
+  - "@azure-tools/typespec-autorest"
+options:
+  "@azure-tools/typespec-autorest":
+    emitter-output-dir: "{project-root}"
+    azure-resource-provider-folder: "resource-manager"
+    output-file: "{version-status}/{version}/deviceregistry.json"
+    arm-types-dir: "{project-root}/../../../../common-types/resource-management"
+    use-read-only-status-schema: true
+  "@azure-tools/typespec-client-generator-cli":
+    additionalDirectories:
+      - "specification/deviceregistry/resource-manager/Microsoft.DeviceRegistry/DeviceRegistry/common/"
+linter:
+  extends:
+    - "@azure-tools/typespec-azure-rulesets/resource-manager"

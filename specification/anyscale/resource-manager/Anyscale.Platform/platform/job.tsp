@@ -107,7 +107,10 @@ interface Jobs {
     Job,
     Azure.ResourceManager.Foundations.ResourceUpdateModel<Job, JobProperties>
   >;
-  delete is ArmResourceDeleteWithoutOkAsync<Job>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    Job,
+    LroHeaders = ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
+  >;
   listByResourceGroup is ArmResourceListByParent<Job>;
   listBySubscription is ArmListBySubscription<Job>;
 }

@@ -58,11 +58,11 @@ model DataShareProperties {
 @doc("Policy that specify the permission allowed to a managed identity.")
 @added(Versions.v2025_07_01_preview)
 model AccessPolicy {
-  @doc("The AAD principal ID of the Managed Identity.")
+  @doc("The Microsoft Entra ID principal ID of the managed identity.")
   @pattern("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
   principalId: string;
 
-  @doc("The AAD tenant ID of the Managed Identity.")
+  @doc("The Microsoft Entra tenant ID of the managed identity.")
   @pattern("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
   tenantId: string;
 

@@ -1,0 +1,49 @@
+{
+  "parameters": {
+    "resourceUri": "subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ProviderHub/providerRegistrations/microsoft.contoso",
+    "location": "eastus2euap",
+    "api-version": "2026-09-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ProviderHub/providerRegistrations/microsoft.contoso/providers/Microsoft.ResourceNotifications/locations/eastus2euap/ingestionUnits/contoso-primary",
+            "name": "contoso-primary",
+            "type": "Microsoft.ResourceNotifications/locations/ingestionUnits",
+            "properties": {
+              "sku": {
+                "name": "Standard",
+                "capacity": 1
+              },
+              "capacityOverrides": {
+                "maxRequestsPerMinute": 120000,
+                "maxRequestsPerSecond": 4000
+              },
+              "authorizations": [
+                {
+                  "authenticationType": "AAD",
+                  "applications": [
+                    {
+                      "applicationId": "00000000-1111-2222-3333-444444444444",
+                      "scopes": [
+                        "Preview",
+                        "Prod"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "endpoint": "ms-contoso-contoso-primary-eus2euap.receiver.arn-df.core.windows.net",
+              "enabled": true,
+              "provisioningState": "Succeeded"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "IngestionUnits_ListByLocation",
+  "title": "List ingestion units in a location"
+}

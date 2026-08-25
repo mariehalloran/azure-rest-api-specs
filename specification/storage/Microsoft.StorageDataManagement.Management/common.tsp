@@ -82,23 +82,53 @@ union TlsVerification {
 @doc("The type of the backing data source.")
 union DataSourceType {
   @doc("NetApp ONTAP data source type.")
+  @removed(Versions.v2026_09_01)
   NetApp_ONTAP: "NetApp_ONTAP",
 
   @doc("Azure NetApp Files data source type.")
+  @removed(Versions.v2026_09_01)
   Azure_NetApp_Files: "Azure_NetApp_Files",
 
   @doc("Dell OneFS data source type.")
+  @removed(Versions.v2026_09_01)
   Dell_OneFS: "Dell_OneFS",
 
   @doc("AWS S3 data source type.")
+  @removed(Versions.v2026_09_01)
   AWS_S3: "AWS_S3",
 
   @doc("S3 Compatible data source type.")
+  @removed(Versions.v2026_09_01)
   S3_Compatible: "S3_Compatible",
 
   @doc("Azure DataShare data source type.")
   @added(Versions.v2025_07_01_preview)
+  @removed(Versions.v2026_09_01)
   Azure_DataShare: "Azure_DataShare",
+
+  @doc("NetApp ONTAP data source type.")
+  @added(Versions.v2026_09_01)
+  NetAppOntap: "NetAppOntap",
+
+  @doc("Azure NetApp Files data source type.")
+  @added(Versions.v2026_09_01)
+  AzureNetAppFiles: "AzureNetAppFiles",
+
+  @doc("Dell OneFS data source type.")
+  @added(Versions.v2026_09_01)
+  DellOneFs: "DellOneFs",
+
+  @doc("AWS S3 data source type.")
+  @added(Versions.v2026_09_01)
+  AwsS3: "AwsS3",
+
+  @doc("S3 Compatible data source type.")
+  @added(Versions.v2026_09_01)
+  S3Compatible: "S3Compatible",
+
+  @doc("Azure DataShare data source type.")
+  @added(Versions.v2026_09_01)
+  AzureDataShare: "AzureDataShare",
 
   string,
 }

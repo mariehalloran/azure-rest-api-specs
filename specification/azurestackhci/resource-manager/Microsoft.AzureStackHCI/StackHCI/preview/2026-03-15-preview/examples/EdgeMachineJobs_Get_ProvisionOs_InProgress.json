@@ -87,7 +87,16 @@
                   "startTimeUtc": "2026-07-09T17:59:55.0000000Z",
                   "endTimeUtc": "2026-07-09T18:00:00.0000000Z",
                   "status": "Success",
-                  "additionalData": "{\"resolvedOsProfile\":\"AzureLinux-3.0\",\"targetDisk\":\"/dev/sda\",\"validationChecks\":\"passed\"}"
+                  "additionalData": [
+                    {
+                      "key": "resolvedOsProfile",
+                      "value": "AzureLinux-3.0"
+                    },
+                    {
+                      "key": "targetDisk",
+                      "value": "/dev/sda"
+                    }
+                  ]
                 },
                 {
                   "name": "DownloadOSArtifacts",
@@ -99,7 +108,12 @@
                   "percentComplete": 45,
                   "exception": [],
                   "steps": [],
-                  "additionalData": "{\"DownloadProgress\":\"{\\\"Type\\\":\\\"DownloadProgress\\\",\\\"status\\\":\\\"InProgress\\\",\\\"percentComplete\\\":45,\\\"totalBytes\\\":1326990848,\\\"bytesDownloaded\\\":597145882,\\\"ProgressInfo\\\":{\\\"totalFiles\\\":1,\\\"completedFiles\\\":0,\\\"files\\\":[{\\\"fileName\\\":\\\"az-local-sff-target-1.cosi\\\",\\\"totalBytes\\\":1326990848,\\\"bytesDownloaded\\\":597145882,\\\"percentComplete\\\":45,\\\"status\\\":\\\"InProgress\\\"}]}}\"}"
+                  "additionalData": [
+                    {
+                      "key": "DownloadProgress",
+                      "value": "{\"Type\":\"DownloadProgress\",\"status\":\"InProgress\",\"percentComplete\":45,\"totalBytes\":1326990848,\"bytesDownloaded\":597145882,\"ProgressInfo\":{\"totalFiles\":1,\"completedFiles\":0,\"files\":[{\"fileName\":\"az-local-sff-target-1.cosi\",\"totalBytes\":1326990848,\"bytesDownloaded\":597145882,\"percentComplete\":45,\"status\":\"InProgress\"}]}}"
+                    }
+                  ]
                 },
                 {
                   "name": "SetupHybridComputeRP",

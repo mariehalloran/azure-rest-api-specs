@@ -1,0 +1,71 @@
+{
+  "title": "BusinessCaseOperations_Create_MaximumSet",
+  "operationId": "BusinessCaseOperations_Create",
+  "parameters": {
+    "api-version": "2026-06-06-preview",
+    "subscriptionId": "ADC896AD-6A38-454E-9A62-AFC618F5F4BC",
+    "resourceGroupName": "rgbusinessCases",
+    "projectName": "MyMigrateProject",
+    "businessCaseName": "MyBusinessCase",
+    "resource": {
+      "properties": {
+        "dependentAssessmentIds": [
+          "/subscriptions/ADC896AD-6A38-454E-9A62-AFC618F5F4BC/resourceGroups/rgbusinessCases/providers/Microsoft.Migrate/assessmentProjects/MyMigrateProject/heterogeneousAssessments/MyAssessment"
+        ]
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "provisioningState": "Succeeded",
+          "version": "v4",
+          "state": "Completed",
+          "reportStatusDetails": [],
+          "dependentAssessmentIds": [
+            "/subscriptions/ADC896AD-6A38-454E-9A62-AFC618F5F4BC/resourceGroups/rgbusinessCases/providers/Microsoft.Migrate/assessmentProjects/MyMigrateProject/heterogeneousAssessments/MyAssessment"
+          ]
+        },
+        "id": "/subscriptions/ADC896AD-6A38-454E-9A62-AFC618F5F4BC/resourceGroups/rgbusinessCases/providers/Microsoft.Migrate/assessmentProjects/MyMigrateProject/businessCases/MyBusinessCase",
+        "name": "MyBusinessCase",
+        "type": "Microsoft.Migrate/assessmentProjects/businessCases",
+        "systemData": {
+          "createdBy": "user@contoso.com",
+          "createdByType": "User",
+          "createdAt": "2026-06-06T10:27:58.438Z",
+          "lastModifiedBy": "user@contoso.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-06-06T10:27:58.438Z"
+        }
+      }
+    },
+    "201": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/providers/Microsoft.Migrate/operationStatuses/00000000-0000-0000-0000-000000000000"
+      },
+      "body": {
+        "properties": {
+          "provisioningState": "Succeeded",
+          "version": "v4",
+          "state": "Completed",
+          "reportStatusDetails": [],
+          "dependentAssessmentIds": [
+            "/subscriptions/ADC896AD-6A38-454E-9A62-AFC618F5F4BC/resourceGroups/rgbusinessCases/providers/Microsoft.Migrate/assessmentProjects/MyMigrateProject/heterogeneousAssessments/MyAssessment"
+          ]
+        },
+        "id": "/subscriptions/ADC896AD-6A38-454E-9A62-AFC618F5F4BC/resourceGroups/rgbusinessCases/providers/Microsoft.Migrate/assessmentProjects/MyMigrateProject/businessCases/MyBusinessCase",
+        "name": "MyBusinessCase",
+        "type": "Microsoft.Migrate/assessmentProjects/businessCases",
+        "systemData": {
+          "createdBy": "user@contoso.com",
+          "createdByType": "User",
+          "createdAt": "2026-06-06T10:27:58.438Z",
+          "lastModifiedBy": "user@contoso.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-06-06T10:27:58.438Z"
+        }
+      }
+    }
+  }
+}

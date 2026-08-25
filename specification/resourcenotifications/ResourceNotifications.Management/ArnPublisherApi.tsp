@@ -50,9 +50,11 @@ union IngestionUnitSkuName {
   Standard: "Standard",
 
   /** Premium push tier: high-throughput HTTP push ingestion capacity. */
+  @removed(Versions.v2026_09_01_preview)
   Premium: "Premium",
 
   /** Dedicated push tier: high-volume HTTP push ingestion capacity. */
+  @removed(Versions.v2026_09_01_preview)
   Dedicated: "Dedicated",
 }
 
@@ -142,7 +144,7 @@ model DstsClaimAuthorization {
 @added(Versions.v2026_08_01_preview)
 @parentResource(ArmLocationResource<"Extension">)
 model IngestionUnit is Azure.ResourceManager.ProxyResource<
-  IngestionUnitProperties,
+  IngestionUnitPropertiesV2,
   false
 > {
   /** Ingestion unit name. */
@@ -152,6 +154,12 @@ model IngestionUnit is Azure.ResourceManager.ProxyResource<
   @path
   name: string;
 }
+
+@@typeChangedFrom(
+  IngestionUnit.properties,
+  Versions.v2026_09_01_preview,
+  IngestionUnitProperties
+);
 
 /** Properties for an ingestion unit resource. */
 @added(Versions.v2026_08_01_preview)
@@ -176,6 +184,36 @@ model IngestionUnitProperties {
 
   /** Whether this ingestion unit is enabled. Set to false to disable during outages. Default: true. */
   #suppress "EnumInsteadOfBoolean" "enabled is a simple on/off operational toggle"
+  enabled?: boolean = true;
+
+  /** Read-only provisioning state. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/** Properties for an ingestion unit resource (2026-09-01-preview and later). */
+#suppress "@azure-tools/typespec-azure-core/friendly-name" "Intentionally reuse the base schema name so the 2026-09-01-preview read-only variant emits as IngestionUnitProperties."
+@added(Versions.v2026_09_01_preview)
+@friendlyName("IngestionUnitProperties")
+model IngestionUnitPropertiesV2 {
+  /** Capacity profile assigned to this ingestion unit. */
+  sku: IngestionUnitSku;
+
+  /** Request-rate limits overriding the defaults supplied by the SKU. */
+  capacityOverrides?: CapacityOverrides;
+
+  /** Authentication mechanisms permitted to publish through this ingestion unit. */
+  @identifiers(#["authenticationType"])
+  @minItems(1)
+  authorizations: IngestionUnitAuthorization[];
+
+  /** System-provisioned receiver hostname. */
+  @visibility(Lifecycle.Read)
+  endpoint?: string;
+
+  /** Whether this ingestion unit is enabled. Read-only — toggled by service administrators for production mitigation (e.g., disabling an ingestion unit during an outage); not settable by publishers. Default: true. */
+  #suppress "EnumInsteadOfBoolean" "enabled is a simple on/off operational toggle"
+  @visibility(Lifecycle.Read)
   enabled?: boolean = true;
 
   /** Read-only provisioning state. */
@@ -221,9 +259,11 @@ model IngestionUnitPatchProperties {
   authorizations?: IngestionUnitAuthorization[];
 
   /** Complete replacement collection of Event Grid topics, domains, and domain topics routed through this ingestion unit. */
+  @removed(Versions.v2026_09_01_preview)
   eventGridTopicIds?: EventGridSourceResourceId[];
 
   /** Updated enabled state. */
+  @removed(Versions.v2026_09_01_preview)
   enabled?: boolean;
 }
 

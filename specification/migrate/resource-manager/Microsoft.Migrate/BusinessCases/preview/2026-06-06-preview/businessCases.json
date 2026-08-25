@@ -1,0 +1,1993 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Azure Migrate Assessment Service",
+    "version": "2026-06-06-preview",
+    "description": "Azure Migrate Resource Provider management API.",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "BusinessCaseOperations"
+    },
+    {
+      "name": "BusinessCaseOverviewSummaryOperations"
+    }
+  ],
+  "paths": {
+    "/providers/Microsoft.Migrate/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Operations_List": {
+            "$ref": "./examples/Operations_List_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/businessCases": {
+      "get": {
+        "operationId": "BusinessCaseOperations_ListByParent",
+        "tags": [
+          "BusinessCaseOperations"
+        ],
+        "description": "List BusinessCase resources by AssessmentProject",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Assessment Project Name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/BusinessCaseListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "BusinessCaseOperations_ListByParent_MaximumSet": {
+            "$ref": "./examples/BusinessCaseOperations_ListByParent_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/businessCases/{businessCaseName}": {
+      "get": {
+        "operationId": "BusinessCaseOperations_Get",
+        "tags": [
+          "BusinessCaseOperations"
+        ],
+        "description": "Get a BusinessCase",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Assessment Project Name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          },
+          {
+            "name": "businessCaseName",
+            "in": "path",
+            "description": "Business case ARM name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/BusinessCase"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "BusinessCaseOperations_Get_MaximumSet": {
+            "$ref": "./examples/BusinessCaseOperations_Get_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "BusinessCaseOperations_Create",
+        "tags": [
+          "BusinessCaseOperations"
+        ],
+        "description": "Create a BusinessCase",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Assessment Project Name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          },
+          {
+            "name": "businessCaseName",
+            "in": "path",
+            "description": "Business case ARM name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BusinessCase"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'BusinessCase' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/BusinessCase"
+            }
+          },
+          "201": {
+            "description": "Resource 'BusinessCase' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/BusinessCase"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "BusinessCaseOperations_Create_MaximumSet": {
+            "$ref": "./examples/BusinessCaseOperations_Create_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "BusinessCaseOperations_Delete",
+        "tags": [
+          "BusinessCaseOperations"
+        ],
+        "description": "Delete a BusinessCase",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Assessment Project Name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          },
+          {
+            "name": "businessCaseName",
+            "in": "path",
+            "description": "Business case ARM name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "BusinessCaseOperations_Delete_MaximumSet": {
+            "$ref": "./examples/BusinessCaseOperations_Delete_MaximumSet_Gen.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/businessCases/{businessCaseName}/overviewSummaries": {
+      "get": {
+        "operationId": "BusinessCaseOverviewSummaryOperations_ListByParent",
+        "tags": [
+          "BusinessCaseOverviewSummaryOperations"
+        ],
+        "description": "List OverviewSummary resources by BusinessCase",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Assessment Project Name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          },
+          {
+            "name": "businessCaseName",
+            "in": "path",
+            "description": "Business case ARM name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/OverviewSummaryListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "BusinessCaseOverviewSummaryOperations_ListByParent_MaximumSet": {
+            "$ref": "./examples/BusinessCaseOverviewSummaryOperations_ListByParent_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/businessCases/{businessCaseName}/overviewSummaries/{overviewSummaryName}": {
+      "get": {
+        "operationId": "BusinessCaseOverviewSummaryOperations_Get",
+        "tags": [
+          "BusinessCaseOverviewSummaryOperations"
+        ],
+        "description": "Get a OverviewSummary",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Assessment Project Name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          },
+          {
+            "name": "businessCaseName",
+            "in": "path",
+            "description": "Business case ARM name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          },
+          {
+            "name": "overviewSummaryName",
+            "in": "path",
+            "description": "Gets the Name of the Overview Summary.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/OverviewSummary"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "BusinessCaseOverviewSummaryOperations_Get_MaximumSet": {
+            "$ref": "./examples/BusinessCaseOverviewSummaryOperations_Get_MaximumSet_Gen.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/businessCases/{businessCaseName}/report": {
+      "post": {
+        "operationId": "BusinessCaseOperations_GetReport",
+        "tags": [
+          "BusinessCaseOperations"
+        ],
+        "summary": "Get download URL for the business case report.",
+        "description": "Get the URL for downloading the business case in a report format.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Assessment Project Name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          },
+          {
+            "name": "businessCaseName",
+            "in": "path",
+            "description": "Business case ARM name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ReportDownloadUrl"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get download URL for the business case report. - generated by [MaximumSet] rule": {
+            "$ref": "./examples/BusinessCaseOperations_GetReport_MaximumSet_Gen.json"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AssessmentProject": {
+      "type": "object",
+      "description": "An Assessment project site resource.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ProjectProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "AzureResourceProperties": {
+      "type": "object",
+      "description": "Common properties for all azure tracked and proxy resources.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The status of the last operation.",
+          "readOnly": true
+        }
+      }
+    },
+    "BusinessCase": {
+      "type": "object",
+      "description": "Business case resource.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/BusinessCaseProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "BusinessCaseListResult": {
+      "type": "object",
+      "description": "The response of a BusinessCase list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The BusinessCase items on this page",
+          "items": {
+            "$ref": "#/definitions/BusinessCase"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "BusinessCaseProperties": {
+      "type": "object",
+      "description": "Property bag for an\nMicrosoft.Azure.Migrate.BusinessCaseService.Api.V20220202_preview.Resources.BusinessCase\nresource.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The status of the last operation.",
+          "readOnly": true
+        },
+        "version": {
+          "type": "string",
+          "description": "The version of the business case.",
+          "readOnly": true
+        },
+        "state": {
+          "$ref": "#/definitions/BusinessCaseState",
+          "description": "Business case state.",
+          "readOnly": true
+        },
+        "reportStatusDetails": {
+          "type": "array",
+          "description": "Gets the state of business case reports.",
+          "items": {
+            "$ref": "#/definitions/ReportDetails"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        },
+        "dependentAssessmentIds": {
+          "type": "array",
+          "description": "Arm id of dependent partner assessments.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "BusinessCaseState": {
+      "type": "string",
+      "description": "Business case supported state types.",
+      "enum": [
+        "Unknown",
+        "InProgress",
+        "Completed",
+        "OutDated",
+        "Started",
+        "Tagging",
+        "ArtifactsCreation",
+        "Computing",
+        "Failed",
+        "Deleting",
+        "Updating"
+      ],
+      "x-ms-enum": {
+        "name": "BusinessCaseState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Unknown State."
+          },
+          {
+            "name": "InProgress",
+            "value": "InProgress",
+            "description": "InProgress  State."
+          },
+          {
+            "name": "Completed",
+            "value": "Completed",
+            "description": "Completed State."
+          },
+          {
+            "name": "OutDated",
+            "value": "OutDated",
+            "description": "OutDated State."
+          },
+          {
+            "name": "Started",
+            "value": "Started",
+            "description": "In progress state."
+          },
+          {
+            "name": "Tagging",
+            "value": "Tagging",
+            "description": "In entities getting tagged on static data state."
+          },
+          {
+            "name": "ArtifactsCreation",
+            "value": "ArtifactsCreation",
+            "description": "In Artifacts Created state."
+          },
+          {
+            "name": "Computing",
+            "value": "Computing",
+            "description": "Computation of the business case."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Failed State."
+          },
+          {
+            "name": "Deleting",
+            "value": "Deleting",
+            "description": "The deleting business case state."
+          },
+          {
+            "name": "Updating",
+            "value": "Updating",
+            "description": "The updating business case state."
+          }
+        ]
+      }
+    },
+    "CarbonEmissionsDetails": {
+      "type": "object",
+      "description": "Details of carbon emissions.",
+      "properties": {
+        "scope1": {
+          "$ref": "#/definitions/CarbonEmissionsScopeDetails",
+          "description": "Scope 1 emissions in metric tons of CO2 equivalent (MTCO2e).",
+          "readOnly": true
+        },
+        "scope2": {
+          "$ref": "#/definitions/CarbonEmissionsScopeDetails",
+          "description": "Scope 2 emissions in metric tons of CO2 equivalent (MTCO2e).",
+          "readOnly": true
+        },
+        "scope3": {
+          "$ref": "#/definitions/CarbonEmissionsScopeDetails",
+          "description": "Scope 3 emissions in metric tons of CO2 equivalent (MTCO2e).",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "scope1",
+        "scope2",
+        "scope3"
+      ]
+    },
+    "CarbonEmissionsScopeDetails": {
+      "type": "object",
+      "description": "Details of carbon emissions scope.",
+      "properties": {
+        "compute": {
+          "type": "number",
+          "format": "float",
+          "description": "The compute emissions in metric tons of CO2 equivalent (MTCO2e).",
+          "readOnly": true
+        },
+        "storage": {
+          "type": "number",
+          "format": "float",
+          "description": "The storage emissions in metric tons of CO2 equivalent (MTCO2e).",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "compute",
+        "storage"
+      ]
+    },
+    "CostComponent": {
+      "type": "object",
+      "description": "Represents a single cost component with a name, value and description.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the cost component.",
+          "readOnly": true
+        },
+        "value": {
+          "type": "number",
+          "format": "float",
+          "description": "The value of the cost component.",
+          "readOnly": true
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the cost component.",
+          "readOnly": true
+        }
+      }
+    },
+    "CostComponentCategory": {
+      "type": "string",
+      "description": "Represents the category of a cost component.",
+      "enum": [
+        "Unknown",
+        "HardwareAcquisitionCost",
+        "VirtualizationLicenseCost",
+        "LinuxLicenseCost",
+        "SqlLicenseCost",
+        "WindowsLicenseCost",
+        "EsuCosts",
+        "HardwareMaintainanceCost",
+        "StorageAcquisitionCost",
+        "StorageMaintenanceCost",
+        "NetworkAcquisitionCost",
+        "NetworkMaintenanceCost",
+        "FacilitiesCost",
+        "SecurityCost",
+        "LaborCost",
+        "AzureArcMonitoringCost",
+        "AzureArcPatchingCost",
+        "AzureDataProtectionCost",
+        "ManagementCost",
+        "MonitoringServiceCost",
+        "OtherDataProtectionManagementCost",
+        "OtherMonitoringManagementCost",
+        "OtherPatchingManagementCost",
+        "PatchingServiceCost",
+        "StorageBackupCost",
+        "SystemCenterLicenseCost",
+        "ThirdPartyManagementCost",
+        "VSphereManagementCost"
+      ],
+      "x-ms-enum": {
+        "name": "CostComponentCategory",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Unknown or uninitialized category."
+          },
+          {
+            "name": "HardwareAcquisitionCost",
+            "value": "HardwareAcquisitionCost",
+            "description": "Hardware acquisition cost."
+          },
+          {
+            "name": "VirtualizationLicenseCost",
+            "value": "VirtualizationLicenseCost",
+            "description": "Virtualization license cost."
+          },
+          {
+            "name": "LinuxLicenseCost",
+            "value": "LinuxLicenseCost",
+            "description": "Linux license cost."
+          },
+          {
+            "name": "SqlLicenseCost",
+            "value": "SqlLicenseCost",
+            "description": "SQL license cost."
+          },
+          {
+            "name": "WindowsLicenseCost",
+            "value": "WindowsLicenseCost",
+            "description": "Windows license cost."
+          },
+          {
+            "name": "EsuCosts",
+            "value": "EsuCosts",
+            "description": "ESU costs."
+          },
+          {
+            "name": "HardwareMaintainanceCost",
+            "value": "HardwareMaintainanceCost",
+            "description": "Hardware maintainance cost."
+          },
+          {
+            "name": "StorageAcquisitionCost",
+            "value": "StorageAcquisitionCost",
+            "description": "Storage acquisition cost."
+          },
+          {
+            "name": "StorageMaintenanceCost",
+            "value": "StorageMaintenanceCost",
+            "description": "Storage maintenance cost."
+          },
+          {
+            "name": "NetworkAcquisitionCost",
+            "value": "NetworkAcquisitionCost",
+            "description": "Network acquisition cost."
+          },
+          {
+            "name": "NetworkMaintenanceCost",
+            "value": "NetworkMaintenanceCost",
+            "description": "Network maintenance cost."
+          },
+          {
+            "name": "FacilitiesCost",
+            "value": "FacilitiesCost",
+            "description": "Facilities cost."
+          },
+          {
+            "name": "SecurityCost",
+            "value": "SecurityCost",
+            "description": "Security cost."
+          },
+          {
+            "name": "LaborCost",
+            "value": "LaborCost",
+            "description": "Labor cost."
+          },
+          {
+            "name": "AzureArcMonitoringCost",
+            "value": "AzureArcMonitoringCost",
+            "description": "Monitoring cost in Azure Arc."
+          },
+          {
+            "name": "AzureArcPatchingCost",
+            "value": "AzureArcPatchingCost",
+            "description": "Patching cost in Azure Arc."
+          },
+          {
+            "name": "AzureDataProtectionCost",
+            "value": "AzureDataProtectionCost",
+            "description": "Data protection cost in Azure."
+          },
+          {
+            "name": "ManagementCost",
+            "value": "ManagementCost",
+            "description": "Management cost."
+          },
+          {
+            "name": "MonitoringServiceCost",
+            "value": "MonitoringServiceCost",
+            "description": "Monitoring service cost."
+          },
+          {
+            "name": "OtherDataProtectionManagementCost",
+            "value": "OtherDataProtectionManagementCost",
+            "description": "Other data protection management cost."
+          },
+          {
+            "name": "OtherMonitoringManagementCost",
+            "value": "OtherMonitoringManagementCost",
+            "description": "Other monitoring management cost."
+          },
+          {
+            "name": "OtherPatchingManagementCost",
+            "value": "OtherPatchingManagementCost",
+            "description": "Other patching management cost."
+          },
+          {
+            "name": "PatchingServiceCost",
+            "value": "PatchingServiceCost",
+            "description": "Patching service cost."
+          },
+          {
+            "name": "StorageBackupCost",
+            "value": "StorageBackupCost",
+            "description": "Storage backup cost."
+          },
+          {
+            "name": "SystemCenterLicenseCost",
+            "value": "SystemCenterLicenseCost",
+            "description": "System Center license cost."
+          },
+          {
+            "name": "ThirdPartyManagementCost",
+            "value": "ThirdPartyManagementCost",
+            "description": "Third party management cost."
+          },
+          {
+            "name": "VSphereManagementCost",
+            "value": "VSphereManagementCost",
+            "description": "VSphere management cost."
+          }
+        ]
+      }
+    },
+    "CostComponentType": {
+      "type": "string",
+      "description": "Represents the type of cost component.",
+      "enum": [
+        "Unknown",
+        "CapexCost",
+        "OpexCost"
+      ],
+      "x-ms-enum": {
+        "name": "CostComponentType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Unknown or uninitialized cost type."
+          },
+          {
+            "name": "CapexCost",
+            "value": "CapexCost",
+            "description": "Capital expenditure (CapEx) cost."
+          },
+          {
+            "name": "OpexCost",
+            "value": "OpexCost",
+            "description": "Operational expenditure (OpEx) cost."
+          }
+        ]
+      }
+    },
+    "CostLineItem": {
+      "type": "object",
+      "description": "Represents a single line item in a cost breakdown.",
+      "properties": {
+        "pillar": {
+          "$ref": "#/definitions/CostPillar",
+          "description": "Gets or sets the pillar this cost belongs to."
+        },
+        "name": {
+          "$ref": "#/definitions/CostComponentCategory",
+          "description": "Gets or sets the name of the cost component."
+        },
+        "value": {
+          "type": "number",
+          "format": "double",
+          "description": "Gets or sets the value of the cost component."
+        },
+        "costType": {
+          "$ref": "#/definitions/CostComponentType",
+          "description": "Gets or sets the type of cost (Capex or Opex)."
+        }
+      },
+      "required": [
+        "pillar",
+        "name",
+        "value",
+        "costType"
+      ]
+    },
+    "CostPillar": {
+      "type": "string",
+      "description": "Represents the cost pillar a line item belongs to.",
+      "enum": [
+        "Unknown",
+        "Compute",
+        "Facilities",
+        "ItLabor",
+        "Licensing",
+        "Management",
+        "Network",
+        "Security",
+        "Storage"
+      ],
+      "x-ms-enum": {
+        "name": "CostPillar",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Unknown or uninitialized pillar."
+          },
+          {
+            "name": "Compute",
+            "value": "Compute",
+            "description": "Compute pillar."
+          },
+          {
+            "name": "Facilities",
+            "value": "Facilities",
+            "description": "Facilities pillar."
+          },
+          {
+            "name": "ItLabor",
+            "value": "ItLabor",
+            "description": "IT labor pillar."
+          },
+          {
+            "name": "Licensing",
+            "value": "Licensing",
+            "description": "Licensing pillar."
+          },
+          {
+            "name": "Management",
+            "value": "Management",
+            "description": "Management pillar."
+          },
+          {
+            "name": "Network",
+            "value": "Network",
+            "description": "Network pillar."
+          },
+          {
+            "name": "Security",
+            "value": "Security",
+            "description": "Security pillar."
+          },
+          {
+            "name": "Storage",
+            "value": "Storage",
+            "description": "Storage pillar."
+          }
+        ]
+      }
+    },
+    "CostSummary": {
+      "type": "object",
+      "description": "Summary of application migration, including readiness, cost, and strategies.",
+      "properties": {
+        "azureCostDetails": {
+          "$ref": "#/definitions/TotalCostDetails",
+          "description": "Azure cost details for the applications."
+        },
+        "onPremCostDetails": {
+          "$ref": "#/definitions/TotalCostDetails",
+          "description": "On-premises cost details for the applications."
+        }
+      },
+      "required": [
+        "azureCostDetails",
+        "onPremCostDetails"
+      ]
+    },
+    "LicenseCostDetails": {
+      "type": "object",
+      "description": "License Cost Details.",
+      "properties": {
+        "licenseCost": {
+          "type": "number",
+          "format": "float",
+          "description": "License Cost.",
+          "readOnly": true
+        },
+        "licenseCostComponents": {
+          "type": "array",
+          "description": "License Cost Components.",
+          "items": {
+            "$ref": "#/definitions/CostComponent"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        }
+      }
+    },
+    "ManagementCostDetails": {
+      "type": "object",
+      "description": "Management Cost Details.",
+      "properties": {
+        "managementCost": {
+          "type": "number",
+          "format": "float",
+          "description": "Management Cost.",
+          "readOnly": true
+        },
+        "managementCostComponents": {
+          "type": "array",
+          "description": "Management Cost Components.",
+          "items": {
+            "$ref": "#/definitions/CostComponent"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        }
+      }
+    },
+    "OverviewSummary": {
+      "type": "object",
+      "description": "Overview summary REST resource.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/OverviewSummaryProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "OverviewSummaryListResult": {
+      "type": "object",
+      "description": "The response of a OverviewSummary list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The OverviewSummary items on this page",
+          "items": {
+            "$ref": "#/definitions/OverviewSummary"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "OverviewSummaryProperties": {
+      "type": "object",
+      "description": "Overview summary properties class.",
+      "properties": {
+        "applicationSummary": {
+          "$ref": "#/definitions/CostSummary",
+          "description": "Summary of custom applications migrated to Azure.",
+          "readOnly": true
+        },
+        "cotsApplicationSummary": {
+          "$ref": "#/definitions/CostSummary",
+          "description": "Summary of commercial off-the-shelf (COTS) applications.",
+          "readOnly": true
+        },
+        "customApplicationSummary": {
+          "$ref": "#/definitions/CostSummary",
+          "description": "Summary of custom applications migrated to Azure.",
+          "readOnly": true
+        },
+        "independentWorkloadsSummary": {
+          "$ref": "#/definitions/CostSummary",
+          "description": "Summary of ungrouped workloads migrated to Azure.",
+          "readOnly": true
+        },
+        "totalAzureCostDetails": {
+          "$ref": "#/definitions/TotalCostDetails",
+          "description": "Total cost details in azure.",
+          "readOnly": true
+        },
+        "totalOnPremCostDetails": {
+          "$ref": "#/definitions/TotalCostDetails",
+          "description": "Total cost details in on-premises.",
+          "readOnly": true
+        },
+        "windowsAhubSavings": {
+          "type": "number",
+          "format": "float",
+          "description": "The windows ahub saving.",
+          "readOnly": true
+        },
+        "linuxAhubSavings": {
+          "type": "number",
+          "format": "float",
+          "description": "The linux ahub saving.",
+          "readOnly": true
+        },
+        "sqlAhubSavings": {
+          "type": "number",
+          "format": "float",
+          "description": "The sql ahub saving.",
+          "readOnly": true
+        },
+        "yearOnYearEstimates": {
+          "$ref": "#/definitions/YearOnYearEstimates",
+          "description": "Shows the year-on-year cost overall.",
+          "readOnly": true
+        },
+        "azureArcEnabledOnPremisesCost": {
+          "type": "number",
+          "format": "float",
+          "description": "The total Azure arc enabled on-premises cost assuming all on-premises infra is arc enabled.",
+          "readOnly": true
+        },
+        "futureCostIncludingAzureArc": {
+          "type": "number",
+          "format": "float",
+          "description": "The final cost including azure and azure arc enabled on-premises considering the remaining on-prem infra is arc enabled.",
+          "readOnly": true
+        },
+        "futureEsuSavingsFor4YearsIncludingAzureArc": {
+          "type": "number",
+          "format": "float",
+          "description": "ESU Savings in 4 Years considering the remaining on-prem infra each year is arc enabled.",
+          "readOnly": true
+        },
+        "futureManagementCostSavingsIncludingAzureArc": {
+          "type": "number",
+          "format": "float",
+          "description": "The management cost saving considering the remaining on-prem infra is arc enabled",
+          "readOnly": true
+        },
+        "futureSecurityCostSavingsIncludingAzureArc": {
+          "type": "number",
+          "format": "float",
+          "description": "The security cost saving considering the remaining on-prem infra is arc enabled.",
+          "readOnly": true
+        },
+        "azureArcServicesCost": {
+          "type": "number",
+          "format": "float",
+          "description": "The total cost of services offered by azure arc.",
+          "readOnly": true
+        },
+        "futureAzureArcEnabledOnPremisesCost": {
+          "type": "number",
+          "format": "float",
+          "description": "The future azure arc cost based on the final migration percentage.",
+          "readOnly": true
+        },
+        "futureAzureArcServicesCost": {
+          "type": "number",
+          "format": "float",
+          "description": "The total cost of services offered by azure arc based on the final migration percentage.",
+          "readOnly": true
+        },
+        "totalOnPremisesSustainabilityDetails": {
+          "$ref": "#/definitions/CarbonEmissionsDetails",
+          "description": "The total on-premises sustainability estimates.",
+          "readOnly": true
+        },
+        "totalAzureSustainabilityDetails": {
+          "$ref": "#/definitions/CarbonEmissionsDetails",
+          "description": "The total azure sustainability estimates.",
+          "readOnly": true
+        },
+        "futureCostDetails": {
+          "$ref": "#/definitions/TotalCostDetails",
+          "description": "Future state cost which includes Azure cost and Arc enabled on-premises cost based on the final migration percentage.",
+          "readOnly": true
+        },
+        "azureArcEnabledOnPremisesCostDetails": {
+          "$ref": "#/definitions/TotalCostDetails",
+          "description": "The Azure arc enabled on-premises cost.",
+          "readOnly": true
+        },
+        "futureAzureArcEnabledOnPremisesCostDetails": {
+          "$ref": "#/definitions/TotalCostDetails",
+          "description": "The final azure arc enabled on-premises cost based on the final migration percentage.",
+          "readOnly": true
+        },
+        "valueBenefit": {
+          "$ref": "#/definitions/ValueBenefitDetails",
+          "description": "Azure value uplift benefits, aggregated across the heterogeneous assessment that contributes to this business case. Absent when the contributing assessment reported no value benefits.",
+          "readOnly": true
+        },
+        "totalEconomicBenefit": {
+          "$ref": "#/definitions/TotalEconomicBenefitDetails",
+          "description": "Infrastructure cost savings and the value benefit combined into the total economic benefit of the migration. Absent when no value benefit was reported, since the total would then restate the cost savings.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "applicationSummary",
+        "cotsApplicationSummary",
+        "customApplicationSummary",
+        "independentWorkloadsSummary",
+        "totalAzureCostDetails",
+        "totalOnPremCostDetails",
+        "totalOnPremisesSustainabilityDetails",
+        "totalAzureSustainabilityDetails"
+      ]
+    },
+    "PrivateEndpointConnection": {
+      "type": "object",
+      "description": "Private endpoint connection resource.",
+      "properties": {
+        "properties": {
+          "$ref": "../../../../../../common-types/resource-management/v6/privatelinks.json#/definitions/PrivateEndpointConnectionProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "ProjectProperties": {
+      "type": "object",
+      "description": "Properties of a project.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The status of the last operation.",
+          "readOnly": true
+        },
+        "createdTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time when this project was created. Date-Time represented in ISO-8601 format.",
+          "readOnly": true
+        },
+        "updatedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time when this project was last updated. Date-Time represented in ISO-8601\nformat.",
+          "readOnly": true
+        },
+        "serviceEndpoint": {
+          "type": "string",
+          "description": "Endpoint at which the collector agent can call agent REST API.",
+          "readOnly": true
+        },
+        "assessmentSolutionId": {
+          "type": "string",
+          "description": "Assessment solution ARM id tracked by Microsoft.Migrate/migrateProjects."
+        },
+        "projectStatus": {
+          "$ref": "#/definitions/ProjectStatus",
+          "description": "Assessment project status."
+        },
+        "customerWorkspaceId": {
+          "type": "string",
+          "description": "The ARM id of service map workspace created by customer."
+        },
+        "customerWorkspaceLocation": {
+          "type": "string",
+          "description": "Location of service map workspace created by customer."
+        },
+        "publicNetworkAccess": {
+          "type": "string",
+          "description": "This value can be set to 'enabled' to avoid breaking changes on existing\ncustomer resources and templates. If set to 'disabled', traffic over public\ninterface is not allowed, and private endpoint connections would be the\nexclusive access method."
+        },
+        "privateEndpointConnections": {
+          "type": "array",
+          "description": "The list of private endpoint connections to the project.",
+          "items": {
+            "$ref": "#/definitions/PrivateEndpointConnection"
+          },
+          "readOnly": true
+        },
+        "customerStorageAccountArmId": {
+          "type": "string",
+          "description": "The ARM id of the storage account used for interactions when public access is\ndisabled."
+        }
+      }
+    },
+    "ProjectStatus": {
+      "type": "string",
+      "description": "Project Status.",
+      "enum": [
+        "Active",
+        "Inactive"
+      ],
+      "x-ms-enum": {
+        "name": "ProjectStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Active",
+            "value": "Active",
+            "description": "Active Status."
+          },
+          {
+            "name": "Inactive",
+            "value": "Inactive",
+            "description": "Inactive Status."
+          }
+        ]
+      }
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "description": "The status of the current operation.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Provisioning",
+        "Updating",
+        "Deleting",
+        "Accepted"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource provisioning Successful."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource provisioning Failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource provisioning Canceled."
+          },
+          {
+            "name": "Provisioning",
+            "value": "Provisioning",
+            "description": "Resource is being Provisioned."
+          },
+          {
+            "name": "Updating",
+            "value": "Updating",
+            "description": "Resource is being Updated."
+          },
+          {
+            "name": "Deleting",
+            "value": "Deleting",
+            "description": "Resource is being Deleted."
+          },
+          {
+            "name": "Accepted",
+            "value": "Accepted",
+            "description": "Resource is being Accepted."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "ReportDetails": {
+      "type": "object",
+      "description": "Business case report details.",
+      "properties": {
+        "reportType": {
+          "$ref": "#/definitions/ReportType",
+          "description": "Report type.",
+          "readOnly": true
+        },
+        "reportStatus": {
+          "$ref": "#/definitions/ReportStatus",
+          "description": "Report status.",
+          "readOnly": true
+        }
+      }
+    },
+    "ReportDownloadUrl": {
+      "type": "object",
+      "description": "Download URL for assessment report.",
+      "properties": {
+        "businessCaseReportUrl": {
+          "type": "string",
+          "description": "Hyperlink to download report.",
+          "readOnly": true
+        }
+      }
+    },
+    "ReportStatus": {
+      "type": "string",
+      "description": "Business case supported report status types.",
+      "enum": [
+        "Unknown",
+        "None",
+        "InProgress",
+        "Failed",
+        "Completed"
+      ],
+      "x-ms-enum": {
+        "name": "ReportStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Unknown Report Status."
+          },
+          {
+            "name": "None",
+            "value": "None",
+            "description": "None Report Status."
+          },
+          {
+            "name": "InProgress",
+            "value": "InProgress",
+            "description": "InProgress Report Status."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Failed Report Status."
+          },
+          {
+            "name": "Completed",
+            "value": "Completed",
+            "description": "Completed Report Status."
+          }
+        ]
+      }
+    },
+    "ReportType": {
+      "type": "string",
+      "description": "Business case supported report types.",
+      "enum": [
+        "Unknown",
+        "Excel"
+      ],
+      "x-ms-enum": {
+        "name": "ReportType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Unknown Report Type."
+          },
+          {
+            "name": "Excel",
+            "value": "Excel",
+            "description": "Excel Report Type."
+          }
+        ]
+      }
+    },
+    "TotalCostDetails": {
+      "type": "object",
+      "description": "The Cost Details have total Cost, other costs segregation",
+      "properties": {
+        "totalCost": {
+          "type": "number",
+          "format": "float",
+          "description": "License cost details for workloads.",
+          "readOnly": true
+        },
+        "licenseCostDetails": {
+          "$ref": "#/definitions/LicenseCostDetails",
+          "description": "License cost details for workloads.",
+          "readOnly": true
+        },
+        "storageCost": {
+          "type": "number",
+          "format": "float",
+          "description": "The storage cost.",
+          "readOnly": true
+        },
+        "computeCost": {
+          "type": "number",
+          "format": "float",
+          "description": "The compute cost.",
+          "readOnly": true
+        },
+        "itLaborCost": {
+          "type": "number",
+          "format": "float",
+          "description": "The IT labor cost.",
+          "readOnly": true
+        },
+        "networkCost": {
+          "type": "number",
+          "format": "float",
+          "description": "The network cost.",
+          "readOnly": true
+        },
+        "ahubSavings": {
+          "type": "number",
+          "format": "float",
+          "description": "The windows AhubSavings.",
+          "readOnly": true
+        },
+        "linuxAhubSavings": {
+          "type": "number",
+          "format": "float",
+          "description": "The linux AhubSavings.",
+          "readOnly": true
+        },
+        "securityCost": {
+          "type": "number",
+          "format": "float",
+          "description": "Security Cost.",
+          "readOnly": true
+        },
+        "managementCostDetails": {
+          "$ref": "#/definitions/ManagementCostDetails",
+          "description": "Management Cost Details.",
+          "readOnly": true
+        },
+        "esuSavings": {
+          "type": "number",
+          "format": "float",
+          "description": "esu savings.",
+          "readOnly": true
+        },
+        "facilitiesCost": {
+          "type": "number",
+          "format": "float",
+          "description": "The facilities cost.",
+          "readOnly": true
+        },
+        "costLineItems": {
+          "type": "array",
+          "description": "Gets or sets the list of cost line items.",
+          "items": {
+            "$ref": "#/definitions/CostLineItem"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        }
+      },
+      "required": [
+        "totalCost"
+      ]
+    },
+    "TotalEconomicBenefitDetails": {
+      "type": "object",
+      "description": "The complete economic picture of the migration: what is saved on infrastructure, plus what Azure\ndelivers beyond price.\n\nCarries the totals only. The pillar and line-item breakdown behind the value benefit is the\nsibling `valueBenefit`, so it is not repeated here.\n\nThe total is returned rather than left for the caller to add up, so that the portal, the export\nand any downstream report agree on the figure instead of each rounding the parts independently.",
+      "properties": {
+        "costSavingsAnnual": {
+          "type": "number",
+          "format": "double",
+          "description": "Annual infrastructure cost savings, the on-premises cost less the future-state cost.\n\nMeasured against the future-state cost rather than the Azure cost, so that any on-premises\nfootprint the customer keeps running is charged against the saving instead of being ignored.",
+          "readOnly": true
+        },
+        "valueBenefitAnnualRiskAdjusted": {
+          "type": "number",
+          "format": "double",
+          "description": "Annual risk-adjusted value benefit. Restates the aggregate of the sibling value benefit so this object can be read on its own.",
+          "readOnly": true
+        },
+        "totalEconomicBenefitAnnual": {
+          "type": "number",
+          "format": "double",
+          "description": "Annual total economic benefit, the sum of the cost savings and the risk-adjusted value benefit.\n\nReported annually rather than as a net present value. The two halves are discounted differently\ntoday — the value benefit arrives already discounted from the contributing assessment, while\ncost savings ramp with the migration completion percentage — so a combined net present value\nwould be the sum of two methods and would overstate the benefit of a phased migration.",
+          "readOnly": true
+        },
+        "percentOfOnPremisesCost": {
+          "type": "number",
+          "format": "double",
+          "description": "Total economic benefit expressed as a fraction of the current annual on-premises spend.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "costSavingsAnnual",
+        "valueBenefitAnnualRiskAdjusted",
+        "totalEconomicBenefitAnnual"
+      ]
+    },
+    "ValueBenefitDetails": {
+      "type": "object",
+      "description": "Azure value uplift benefits for a set of workloads, broken down by pillar.",
+      "properties": {
+        "totalAnnualRiskAdjusted": {
+          "type": "number",
+          "format": "double",
+          "description": "Total annual value benefit after risk adjustment, expressed in the business case currency.",
+          "readOnly": true
+        },
+        "valueBenefitNpv": {
+          "type": "number",
+          "format": "double",
+          "description": "Net present value of the risk-adjusted value benefit over the finance horizon.",
+          "readOnly": true
+        },
+        "pillars": {
+          "type": "array",
+          "description": "Breakdown of the value benefit by pillar.",
+          "items": {
+            "$ref": "#/definitions/ValueBenefitPillar"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "pillar"
+          ]
+        }
+      },
+      "required": [
+        "totalAnnualRiskAdjusted",
+        "valueBenefitNpv",
+        "pillars"
+      ]
+    },
+    "ValueBenefitLineItem": {
+      "type": "object",
+      "description": "A single named contribution to a value benefit pillar.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the contribution.",
+          "readOnly": true
+        },
+        "value": {
+          "type": "number",
+          "format": "double",
+          "description": "Value of the contribution, expressed in the business case currency.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ]
+    },
+    "ValueBenefitPillar": {
+      "type": "object",
+      "description": "Value benefit contributed by a single pillar.",
+      "properties": {
+        "pillar": {
+          "$ref": "#/definitions/ValueBenefitPillarType",
+          "description": "The pillar this benefit is attributed to.",
+          "readOnly": true
+        },
+        "totalAnnual": {
+          "type": "number",
+          "format": "double",
+          "description": "Total annual value benefit for the pillar before risk adjustment.",
+          "readOnly": true
+        },
+        "riskAdjustedAnnual": {
+          "type": "number",
+          "format": "double",
+          "description": "Total annual value benefit for the pillar after risk adjustment.",
+          "readOnly": true
+        },
+        "npv": {
+          "type": "number",
+          "format": "double",
+          "description": "Net present value of the pillar's risk-adjusted benefit over the finance horizon.",
+          "readOnly": true
+        },
+        "lineItems": {
+          "type": "array",
+          "description": "Individual contributions that make up the pillar's benefit.",
+          "items": {
+            "$ref": "#/definitions/ValueBenefitLineItem"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "pillar",
+        "totalAnnual",
+        "riskAdjustedAnnual",
+        "npv",
+        "lineItems"
+      ]
+    },
+    "ValueBenefitPillarType": {
+      "type": "string",
+      "description": "Represents the value uplift pillar a benefit belongs to.",
+      "enum": [
+        "Unknown",
+        "Productivity",
+        "Resiliency",
+        "BusinessAgility"
+      ],
+      "x-ms-enum": {
+        "name": "ValueBenefitPillarType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Unknown or uninitialized pillar."
+          },
+          {
+            "name": "Productivity",
+            "value": "Productivity",
+            "description": "Productivity pillar, covering administrator, developer and operations efficiency gains."
+          },
+          {
+            "name": "Resiliency",
+            "value": "Resiliency",
+            "description": "Resiliency pillar, covering avoided downtime and reduced incidents."
+          },
+          {
+            "name": "BusinessAgility",
+            "value": "BusinessAgility",
+            "description": "Business agility pillar, covering the value of earlier delivery."
+          }
+        ]
+      }
+    },
+    "Year": {
+      "type": "string",
+      "description": "Year values.",
+      "enum": [
+        "Year0",
+        "Year1",
+        "Year2",
+        "Year3"
+      ],
+      "x-ms-enum": {
+        "name": "Year",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Year0",
+            "value": "Year0",
+            "description": "Year 0."
+          },
+          {
+            "name": "Year1",
+            "value": "Year1",
+            "description": "Year 1."
+          },
+          {
+            "name": "Year2",
+            "value": "Year2",
+            "description": "Year 2."
+          },
+          {
+            "name": "Year3",
+            "value": "Year3",
+            "description": "Year 3."
+          }
+        ]
+      }
+    },
+    "YearOnYearCost": {
+      "type": "object",
+      "description": "Year on Year cost.",
+      "properties": {
+        "year": {
+          "$ref": "#/definitions/Year",
+          "description": "Year value."
+        },
+        "cost": {
+          "type": "number",
+          "format": "float",
+          "description": "Cost for the specified year."
+        }
+      },
+      "required": [
+        "year"
+      ]
+    },
+    "YearOnYearEmissions": {
+      "type": "object",
+      "description": "Year on Year Emissions.",
+      "properties": {
+        "year": {
+          "$ref": "#/definitions/Year",
+          "description": "Year value."
+        },
+        "emissions": {
+          "type": "number",
+          "format": "float",
+          "description": "Emissions for the specified year."
+        }
+      },
+      "required": [
+        "year"
+      ]
+    },
+    "YearOnYearEstimates": {
+      "type": "object",
+      "description": "Shows the year-on-year cost overall.",
+      "properties": {
+        "onPremisesCost": {
+          "type": "array",
+          "description": "Year-on-Year on-premises cost.",
+          "items": {
+            "$ref": "#/definitions/YearOnYearCost"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        },
+        "azureCost": {
+          "type": "array",
+          "description": "Year-on-Year Azure cost.",
+          "items": {
+            "$ref": "#/definitions/YearOnYearCost"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        },
+        "savings": {
+          "type": "array",
+          "description": "Year-on-Year savings.",
+          "items": {
+            "$ref": "#/definitions/YearOnYearCost"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        },
+        "paybackPeriod": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Payback period.",
+          "readOnly": true
+        },
+        "azureArcEnabledOnPremisesCost": {
+          "type": "array",
+          "description": "Year-on-Year azure arc enabled on-premises cost.",
+          "items": {
+            "$ref": "#/definitions/YearOnYearCost"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        },
+        "futureCost": {
+          "type": "array",
+          "description": "Year-on-Year azure with arc enabled on-premises cost.",
+          "items": {
+            "$ref": "#/definitions/YearOnYearCost"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        },
+        "futureAzureArcEnabledOnPremisesEsuCost": {
+          "type": "array",
+          "description": "Year-on-Year azure arc enabled on-premises esu cost of the remaining infra on-premises.",
+          "items": {
+            "$ref": "#/definitions/YearOnYearCost"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        },
+        "futureOnPremisesEsuCost": {
+          "type": "array",
+          "description": "Year-on-Year on-premises esu cost of the remaining infra on-premises.",
+          "items": {
+            "$ref": "#/definitions/YearOnYearCost"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        },
+        "onPremisesEmissionsEstimates": {
+          "type": "array",
+          "description": "Year-on-Year on-premises emissions estimates.",
+          "items": {
+            "$ref": "#/definitions/YearOnYearEmissions"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        },
+        "azureEmissionsEstimates": {
+          "type": "array",
+          "description": "Year-on-Year Azure emissions estimates.",
+          "items": {
+            "$ref": "#/definitions/YearOnYearEmissions"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        }
+      }
+    }
+  },
+  "parameters": {}
+}

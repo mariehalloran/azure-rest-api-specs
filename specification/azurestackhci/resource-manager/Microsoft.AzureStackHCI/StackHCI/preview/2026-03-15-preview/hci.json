@@ -11304,76 +11304,6 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/securitySettings/{securitySettingsName}/refresh": {
-      "post": {
-        "operationId": "EdgeMachineSecuritySettingsOperations_Refresh",
-        "tags": [
-          "EdgeMachineSecuritySettingsOperations"
-        ],
-        "description": "Trigger refresh sync for edge machine security settings.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "edgeMachineName",
-            "in": "path",
-            "description": "Name of Device",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
-          },
-          {
-            "name": "securitySettingsName",
-            "in": "path",
-            "description": "Name of the security settings resource",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Resource operation accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "204": {
-            "description": "Action completed successfully."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Refresh edge machine security settings": {
-            "$ref": "./examples/EdgeMachineSecuritySettingsOperations_Refresh.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
-      }
-    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/updates": {
       "get": {
         "operationId": "EdgeMachineUpdates_List",
@@ -16255,6 +16185,57 @@
         }
       }
     },
+    "CapacityGpuGroup": {
+      "type": "object",
+      "description": "GPU capacity for devices grouped by type, mode, and partition size.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "GPU type represented by the group.",
+          "readOnly": true
+        },
+        "mode": {
+          "type": "string",
+          "description": "GPU assignment mode represented by the group.",
+          "readOnly": true
+        },
+        "partitionSizeInMB": {
+          "type": "string",
+          "description": "Partition size in megabytes, represented as a decimal string.",
+          "readOnly": true
+        },
+        "totalAssignableGpuCount": {
+          "type": "string",
+          "description": "Total number of assignable GPUs, represented as a decimal string.",
+          "readOnly": true
+        },
+        "reservedAssignableGpuCount": {
+          "type": "string",
+          "description": "Number of assignable GPUs reserved by policy, represented as a decimal string.",
+          "readOnly": true
+        },
+        "consumedAssignableGpuCount": {
+          "type": "string",
+          "description": "Number of assignable GPUs consumed by workloads, represented as a decimal string.",
+          "readOnly": true
+        },
+        "totalPartitionableGpuCount": {
+          "type": "string",
+          "description": "Total number of partitionable GPUs, represented as a decimal string.",
+          "readOnly": true
+        },
+        "reservedPartitionableGpuCount": {
+          "type": "string",
+          "description": "Number of partitionable GPUs reserved by policy, represented as a decimal string.",
+          "readOnly": true
+        },
+        "consumedPartitionableGpuCount": {
+          "type": "string",
+          "description": "Number of partitionable GPUs consumed by workloads, represented as a decimal string.",
+          "readOnly": true
+        }
+      }
+    },
     "CapacityGpuSnapshot": {
       "type": "object",
       "description": "Cluster-wide GPU capacity summary. Per-GPU details remain available through the\nEdgeMachineGpu resource tree.",
@@ -16294,6 +16275,19 @@
           "format": "int32",
           "description": "GPU-P partitions available for placement after assignments and reservation policy.",
           "readOnly": true
+        },
+        "groups": {
+          "type": "array",
+          "description": "GPU capacity grouped by type, mode, and partition size.",
+          "items": {
+            "$ref": "#/definitions/CapacityGpuGroup"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "type",
+            "mode",
+            "partitionSizeInMB"
+          ]
         },
         "lastUpdated": {
           "type": "string",
@@ -16653,6 +16647,37 @@
           "type": "string",
           "format": "date-time",
           "description": "Last storage update time.",
+          "readOnly": true
+        }
+      }
+    },
+    "CapacityVolumeSnapshot": {
+      "type": "object",
+      "description": "Capacity details for a volume reported by the cluster.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the volume.",
+          "readOnly": true
+        },
+        "path": {
+          "type": "string",
+          "description": "Path of the volume.",
+          "readOnly": true
+        },
+        "sizeInBytes": {
+          "type": "string",
+          "description": "Total size of the volume in bytes, represented as a decimal string.",
+          "readOnly": true
+        },
+        "sizeRemainingInBytes": {
+          "type": "string",
+          "description": "Remaining size of the volume in bytes, represented as a decimal string.",
+          "readOnly": true
+        },
+        "sizeConsumedInBytes": {
+          "type": "string",
+          "description": "Consumed size of the volume in bytes, represented as a decimal string.",
           "readOnly": true
         }
       }
@@ -19483,9 +19508,15 @@
           "readOnly": true
         },
         "additionalData": {
-          "type": "string",
-          "description": "Additional data associated with the step.",
-          "readOnly": true
+          "type": "array",
+          "description": "Additional metadata associated with the step.",
+          "items": {
+            "$ref": "#/definitions/Metadata"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "key"
+          ]
         },
         "recommendedSteps": {
           "type": "array",
@@ -26940,6 +26971,24 @@
         ]
       }
     },
+    "Metadata": {
+      "type": "object",
+      "description": "Metadata associated with a deployment step.",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The key of the metadata entry."
+        },
+        "value": {
+          "type": "string",
+          "description": "The value of the metadata entry."
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ]
+    },
     "NetworkAdapter": {
       "type": "object",
       "description": "Network adapter configuration.",
@@ -32200,6 +32249,17 @@
           "$ref": "#/definitions/CapacityStorageSnapshot",
           "description": "Storage capacity aggregated from eligible user Cluster Volume resources.\nInfrastructure volumes are excluded.",
           "readOnly": true
+        },
+        "volumes": {
+          "type": "array",
+          "description": "Capacity details for volumes reported by the cluster.",
+          "items": {
+            "$ref": "#/definitions/CapacityVolumeSnapshot"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "id"
+          ]
         },
         "cpu": {
           "$ref": "#/definitions/CapacityCpuSnapshot",

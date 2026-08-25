@@ -23,7 +23,7 @@ These are the global settings for the storage data management.
 ```yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2025-07-01-preview
+tag: package-2026-09-01
 ```
 
 ### Tag: package-2025-01-01-preview
@@ -73,6 +73,29 @@ suppressions:
     where:
       - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/connectors/{connectorName}"].patch.parameters[5].schema.properties.properties
       - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/dataShares/{dataShareName}"].patch.parameters[5].schema.properties.properties
+```
+
+### Tag: package-2026-09-01
+
+These settings apply only when `--tag=package-2026-09-01` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-09-01'
+input-file:
+  - stable/2026-09-01/StorageDataManagementRP.json
+suppressions:
+  - code: PatchBodyParametersSchema
+    from:
+      - StorageDataManagementRP.json
+    reason: >
+      The Connector PATCH contract is carried forward unchanged with a state
+      default and a required source discriminator. The DataShare PATCH contract
+      is also carried forward and contains required properties in nested
+      access-policy and asset items. Blob Access Point requires a source
+      discriminator to select the concrete polymorphic shape being updated.
+    where:
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/connectors/{connectorName}"].patch.parameters[5].schema.properties.properties
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/dataShares/{dataShareName}"].patch.parameters[5].schema.properties.properties
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobAccessPointConfigurations/{blobAccessPointConfigurationName}"].patch.parameters[5].schema.properties.properties
 ```
 
 ## Code Generation

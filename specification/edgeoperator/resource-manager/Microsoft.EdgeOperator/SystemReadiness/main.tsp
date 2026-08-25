@@ -12,6 +12,7 @@ using Azure.Core;
 using Azure.ResourceManager;
 
 /** Microsoft.EdgeOperator Resource Provider management API for Azure Local Disconnected Operations (ALDO) system readiness. */
+#suppress "@azure-tools/typespec-azure-resource-manager/missing-operations-endpoint" "Operations API is published as part of same RP in BillingConfigurations folder."
 @armProviderNamespace
 @service(#{
   title: "Microsoft.EdgeOperator - Azure Local Disconnected Operations system readiness",
@@ -26,6 +27,3 @@ enum Versions {
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   v2026_06_01_preview: "2026-06-01-preview",
 }
-
-/** Lists all available REST API operations for Microsoft.EdgeOperator. */
-interface Operations extends Azure.ResourceManager.Operations {}

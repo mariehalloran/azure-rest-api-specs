@@ -27,7 +27,7 @@ These are the global settings.
 ```yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2026-07-01-preview
+tag: package-2026-08-01-preview
 ```
 
 ### Tag: package-2026-07-01-preview
@@ -39,13 +39,12 @@ input-file:
   - preview/2026-07-01-preview/platformvalidation.json
 ```
 
-## Suppression
+### Tag: package-2026-08-01-preview
 
-``` yaml
-directive:
-  - suppress: TenantLevelAPIsNotAllowed
-    from: platformvalidation.json
-    where: $.paths
-    reason: ValidationTest/ValidationTestVersion/ValidationTestCategory catalog resources are intentionally tenant-scoped, shared across all subscriptions in the tenant. ARM office-hours sign-off obtained; PAS team security approval pending.
+These settings apply only when `--tag=package-2026-08-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-08-01-preview'
+input-file:
+  - preview/2026-08-01-preview/platformvalidation.json
 ```
 

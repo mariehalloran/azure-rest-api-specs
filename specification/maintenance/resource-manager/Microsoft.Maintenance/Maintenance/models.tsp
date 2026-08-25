@@ -493,6 +493,8 @@ model InputLinuxParameters {
  * Definition of a Resource
  */
 model Resource {
+  // Common-types v5 emits this id as arm-id, which is a known cross-version finding.
+  // Remove this note after 2025-10-01 is GA and becomes the v5 stable comparison baseline.
   /**
    * Fully qualified identifier of the resource
    */
@@ -752,6 +754,8 @@ model Operation {
   /**
    * Name of the operation
    */
+  // Known cross-version finding: the legacy stable schema did not mark this response-only property as read-only.
+  // Keep it read-only because Operation is returned by the Operations API and is never accepted in a request.
   @visibility(Lifecycle.Read)
   name?: string;
 

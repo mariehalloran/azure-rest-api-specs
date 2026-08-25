@@ -96,6 +96,7 @@ union ProvisioningState {
 }
 
 @doc("Location for Azure.")
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 union AzureLocation {
   @doc("Unknown Location for Azure")
   Unknown: "Unknown",
@@ -302,6 +303,7 @@ union AzureLocation {
 }
 
 @doc("Currency for Azure.")
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 union AzureCurrency {
   @doc("Unknown Currency for Azure")
   Unknown: "Unknown",
@@ -385,6 +387,7 @@ union AzureCurrency {
 }
 
 @doc("The savings options.")
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 union SavingsOptions {
   @doc("No savings options.")
   None: "None",
@@ -480,6 +483,7 @@ union AzureWebAppTier {
 }
 
 @doc("Percentile for Performance Data.")
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 union Percentile {
   @doc("Percentile 50.")
   Percentile50: "Percentile50",
@@ -500,6 +504,7 @@ union Percentile {
 }
 
 @doc("Time Range for Performance Data.")
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 union TimeRange {
   @doc("Daily.")
   Day: "Day",
@@ -517,6 +522,7 @@ union TimeRange {
 }
 
 @doc("The licensing program.")
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 union LicensingProgram {
   @doc("Retail/Pay as you go.")
   Retail: "Retail",

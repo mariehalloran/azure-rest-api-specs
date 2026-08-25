@@ -2526,7 +2526,7 @@
           "type": "string",
           "description": "Optional: Dimension filter to apply to the dimension. Must only be set if also Dimension is set.",
           "minLength": 1,
-          "maxLength": 256
+          "maxLength": 2048
         },
         "displayName": {
           "type": "string",
@@ -3401,46 +3401,6 @@
           "$ref": "#/definitions/HealthModelProvisioningState",
           "description": "The status of the last operation.",
           "readOnly": true
-        },
-        "dataPlaneUri": {
-          "type": "string",
-          "format": "uri",
-          "description": "The data plane endpoint URL for interacting with the health model's data.",
-          "readOnly": true
-        },
-        "publicNetworkAccess": {
-          "type": "string",
-          "description": "Controls public-network access to the data plane only; never gates control-plane operations. Defaults to `Enabled`. `Disabled` denies all data-plane requests and ignores `dataPlaneIpAllowList`.",
-          "default": "Enabled",
-          "enum": [
-            "Enabled",
-            "Disabled"
-          ],
-          "x-ms-enum": {
-            "name": "PublicNetworkAccess",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "Enabled",
-                "value": "Enabled",
-                "description": "Data plane requests are allowed, subject to `dataPlaneIpAllowList`."
-              },
-              {
-                "name": "Disabled",
-                "value": "Disabled",
-                "description": "All data plane requests are denied."
-              }
-            ]
-          }
-        },
-        "dataPlaneIpAllowList": {
-          "type": "array",
-          "description": "IP addresses or CIDR ranges allowed to reach the data plane. An absent, null, or empty list allows all public IPs; the list is ignored when `publicNetworkAccess` is `Disabled`. On PUT an omitted list becomes empty.",
-          "default": [],
-          "maxItems": 100,
-          "items": {
-            "$ref": "#/definitions/ipAddressOrRange"
-          }
         }
       }
     },
@@ -3498,28 +3458,6 @@
           "description": "Resource tags.",
           "additionalProperties": {
             "type": "string"
-          }
-        },
-        "properties": {
-          "$ref": "#/definitions/HealthModelUpdateProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      }
-    },
-    "HealthModelUpdateProperties": {
-      "type": "object",
-      "description": "The updatable properties of the HealthModel.",
-      "properties": {
-        "publicNetworkAccess": {
-          "$ref": "#/definitions/PublicNetworkAccess",
-          "description": "Controls public-network access to the data plane only; never gates control-plane operations. `Disabled` denies all data-plane requests and ignores `dataPlaneIpAllowList`. Omitting this property leaves the stored value unchanged."
-        },
-        "dataPlaneIpAllowList": {
-          "type": "array",
-          "description": "IP addresses or CIDR ranges allowed to reach the data plane. An absent, null, or empty list allows all public IPs; the list is ignored when `publicNetworkAccess` is `Disabled`. PATCH replaces the list wholesale rather than merging: omitting it or sending null preserves the stored list, an empty array clears it.",
-          "maxItems": 100,
-          "items": {
-            "$ref": "#/definitions/ipAddressOrRange"
           }
         }
       }
@@ -4019,30 +3957,6 @@
       ],
       "x-ms-discriminator-value": "PrometheusMetricsQuery"
     },
-    "PublicNetworkAccess": {
-      "type": "string",
-      "description": "Whether requests from the public network are allowed.",
-      "enum": [
-        "Enabled",
-        "Disabled"
-      ],
-      "x-ms-enum": {
-        "name": "PublicNetworkAccess",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Enabled",
-            "value": "Enabled",
-            "description": "Data plane requests are allowed, subject to `dataPlaneIpAllowList`."
-          },
-          {
-            "name": "Disabled",
-            "value": "Disabled",
-            "description": "All data plane requests are denied."
-          }
-        ]
-      }
-    },
     "Relationship": {
       "type": "object",
       "description": "A relationship (aka edge) between two entities in a health model",
@@ -4293,7 +4207,7 @@
           "type": "string",
           "description": "Optional: Dimension filter to apply to the dimension. Must only be set if also Dimension is set.",
           "minLength": 1,
-          "maxLength": 256
+          "maxLength": 2048
         }
       },
       "required": [
@@ -4451,7 +4365,7 @@
           "type": "string",
           "description": "Optional dimension filter to apply to the metric.",
           "minLength": 1,
-          "maxLength": 256
+          "maxLength": 2048
         },
         "evaluationRules": {
           "$ref": "#/definitions/EvaluationRule",
@@ -4895,10 +4809,6 @@
       "type": "string",
       "description": "Type for entity resource name.",
       "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
-    },
-    "ipAddressOrRange": {
-      "type": "string",
-      "description": "An IP address or IP range in CIDR notation (IPv4 /0-/32 or IPv6 /0-/128)."
     },
     "signalAggregationGroupName": {
       "type": "string",
