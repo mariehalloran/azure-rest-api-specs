@@ -7733,6 +7733,9 @@
         "x-ms-examples": {
           "EdgeMachines_Get_MaximumSet": {
             "$ref": "./examples/EdgeMachines_Get.json"
+          },
+          "EdgeMachines_Get_UpdateOsSuccess": {
+            "$ref": "./examples/EdgeMachines_Get_UpdateOsSuccess.json"
           }
         }
       },
@@ -26300,6 +26303,7 @@
         "NotStarted",
         "InProgress",
         "Completed",
+        "Skipped",
         "Failed"
       ],
       "x-ms-enum": {
@@ -26320,6 +26324,11 @@
             "name": "Completed",
             "value": "Completed",
             "description": "Operation has completed successfully."
+          },
+          {
+            "name": "Skipped",
+            "value": "Skipped",
+            "description": "Operation was skipped."
           },
           {
             "name": "Failed",

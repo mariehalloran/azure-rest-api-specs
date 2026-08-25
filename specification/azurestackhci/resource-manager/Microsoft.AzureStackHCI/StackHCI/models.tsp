@@ -1861,6 +1861,9 @@ union LifecycleOperationStatus {
   /** Operation has completed successfully. */
   Completed: "Completed",
 
+  /** Operation was skipped. */
+  Skipped: "Skipped",
+
   /** Operation has failed. */
   Failed: "Failed",
 }

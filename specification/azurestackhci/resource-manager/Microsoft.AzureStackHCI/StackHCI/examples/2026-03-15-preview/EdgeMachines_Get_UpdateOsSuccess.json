@@ -1,0 +1,273 @@
+{
+  "title": "EdgeMachines_Get_UpdateOsSuccess",
+  "operationId": "EdgeMachines_Get",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "fd3c3665-1729-4b7b-9a38-238e83b0f98b",
+    "resourceGroupName": "ArcInstance-rg",
+    "edgeMachineName": "machine-1"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "provisioningState": "Succeeded",
+          "arcMachineResourceGroupId": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/ArcInstance-rg",
+          "arcMachineResourceId": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/ArcInstance-rg/providers/Microsoft.HybridCompute/machines/Node-1",
+          "ownershipVoucherDetails": {
+            "ownerKeyType": "MicrosoftManaged",
+            "validationDetails": {
+              "validationStatus": "Valid",
+              "serialNumber": "1234567890",
+              "id": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+              "azureMachineId": "6b92c606-8538-43f4-9c07-2a72fcafa260",
+              "architecture": "amd64",
+              "manufacturer": "Lenovo",
+              "modelName": "ThinkPad X1 Carbon",
+              "version": "XXXX",
+              "error": {
+                "code": "Success",
+                "target": "OwnershipVoucher",
+                "details": [],
+                "additionalInfo": []
+              }
+            }
+          },
+          "devicePoolResourceId": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/ArcInstance-rg/providers/Microsoft.AzureStackHCI/devicePools/pool-1",
+          "reportedProperties": {
+            "networkProfile": {
+              "nicDetails": [
+                {
+                  "adapterName": "vmanagement",
+                  "interfaceDescription": "Hyper-V Virtual Ethernet Adapter",
+                  "componentId": "vms_mp",
+                  "driverVersion": "10.0.25398.1",
+                  "ip4Address": "192.168.200.92",
+                  "subnetMask": "255.255.255.0",
+                  "defaultGateway": "192.168.200.1",
+                  "dnsServers": [
+                    "192.168.200.222"
+                  ],
+                  "defaultIsolationId": "0",
+                  "slot": "0",
+                  "macAddress": "000000000041",
+                  "switchName": null,
+                  "nicType": "Virtual",
+                  "vlanId": "0",
+                  "nicStatus": "Up"
+                }
+              ],
+              "switchDetails": [
+                {
+                  "switchName": "vmanagement",
+                  "switchType": "External"
+                }
+              ],
+              "hostNetwork": {
+                "intents": [
+                  {
+                    "scope": 1,
+                    "intentType": 3,
+                    "isComputeIntentSet": true,
+                    "isStorageIntentSet": true,
+                    "isOnlyStorage": false,
+                    "isManagementIntentSet": true,
+                    "isStretchIntentSet": false,
+                    "isOnlyStretch": false,
+                    "isNetworkIntentType": true,
+                    "intentName": "ManagementComputeStorage",
+                    "intentAdapters": [
+                      "port1",
+                      "port2"
+                    ],
+                    "overrideVirtualSwitchConfiguration": false,
+                    "virtualSwitchConfigurationOverrides": {
+                      "enableIov": "true",
+                      "loadBalancingAlgorithm": "Dynamic"
+                    },
+                    "overrideQosPolicy": false,
+                    "qosPolicyOverrides": {
+                      "priorityValue8021Action_Cluster": "7",
+                      "priorityValue8021Action_SMB": "3",
+                      "bandwidthPercentage_SMB": "50"
+                    },
+                    "overrideAdapterProperty": false,
+                    "adapterPropertyOverrides": {
+                      "jumboPacket": "9014",
+                      "networkDirect": "Enabled",
+                      "networkDirectTechnology": "RoCEv2"
+                    }
+                  }
+                ],
+                "storageNetworks": [
+                  {
+                    "name": "Storage1Network",
+                    "networkAdapterName": "port3",
+                    "storageVlanId": "711",
+                    "storageAdapterIPInfo": [
+                      {
+                        "physicalNode": "Node-1",
+                        "ipv4Address": "10.0.0.1",
+                        "subnetMask": "255.255.255.0"
+                      }
+                    ]
+                  }
+                ],
+                "storageConnectivitySwitchless": true,
+                "enableStorageAutoIp": true
+              },
+              "sdnProperties": {
+                "sdnStatus": "Enabled",
+                "sdnDomainName": "sdn-nc.contoso.com",
+                "sdnApiAddress": "10.0.0.10"
+              }
+            },
+            "osProfile": {
+              "bootType": "UEFI",
+              "assemblyVersion": "2402.1"
+            },
+            "hardwareProfile": {
+              "cpuCores": 4,
+              "cpuSockets": 14,
+              "memoryCapacityInGb": 25,
+              "serialNumber": "5855-7104-5665-0328-3864-8600-21",
+              "architecture": "amd64"
+            },
+            "storageProfile": {
+              "poolableDisksCount": 4
+            },
+            "sbeDeploymentPackageInfo": {
+              "code": "NewerThanLatestPublished",
+              "message": "The SBE package at path 'C:\\SBE' with version 4.1.2312.10 is published later than the latest SBE manifest published for online discovery. ",
+              "sbeManifest": "PEFwcGxpY2Fi"
+            },
+            "extensionProfile": {
+              "extensions": [
+                {
+                  "extensionName": "DeviceManagementExtension",
+                  "state": "Connected",
+                  "extensionResourceId": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/ArcInstance-rg/providers/Microsoft.HybridCompute/machines/Node-1/Extensions/DeviceManagementExtension",
+                  "typeHandlerVersion": "1.10.3",
+                  "managedBy": "Azure"
+                }
+              ]
+            },
+            "confidentialVmProfile": {
+              "igvmStatus": "Enabled",
+              "statusDetails": [
+                {
+                  "code": "IgvmEnabled",
+                  "message": "Confidential VM capabilities are enabled on the device."
+                }
+              ]
+            },
+            "storageInitiators": [
+              {
+                "initiatorType": "iSCSI",
+                "initiatorIdentifier": "iqn.1991-05.com.microsoft:node01.contoso.com",
+                "ethernetAdapterName": "SMB2",
+                "ethernetAdapterMacAddress": "00-15-5D-3A-1C-04",
+                "operationalStatus": "Operational"
+              },
+              {
+                "initiatorType": "FibreChannel",
+                "initiatorIdentifier": "20000025b5aa0100",
+                "portWorldWideName": "20000025b5aa01a0",
+                "operationalStatus": "Operational"
+              },
+              {
+                "initiatorType": "FibreChannel",
+                "initiatorIdentifier": "20000025b5aa0100",
+                "portWorldWideName": "20000025b5aa01a1",
+                "operationalStatus": "Operational"
+              }
+            ]
+          },
+          "lifecycleDetails": {
+            "lifecycleStatus": {
+              "status": "Provisioned",
+              "stage": "UpdateOs",
+              "lastUpdatedUtc": "2025-03-23T08:12:30Z",
+              "message": "The operating system update completed successfully."
+            },
+            "lifecycleStages": [
+              {
+                "name": "UpdateOs",
+                "description": "Update OS",
+                "status": "Completed",
+                "startTimeUtc": "2025-03-23T08:01:10Z",
+                "endTimeUtc": "2025-03-23T08:12:30Z",
+                "lastUpdatedUtc": "2025-03-23T08:12:30Z",
+                "subStages": [
+                  {
+                    "name": "InitializingResources",
+                    "description": "Initializing Resources",
+                    "status": "Completed",
+                    "startTimeUtc": "2025-03-23T08:01:10Z",
+                    "endTimeUtc": "2025-03-23T08:02:10Z",
+                    "lastUpdatedUtc": "2025-03-23T08:02:10Z"
+                  },
+                  {
+                    "name": "DownloadingUpdate",
+                    "description": "Downloading Update",
+                    "status": "Completed",
+                    "startTimeUtc": "2025-03-23T08:02:10Z",
+                    "endTimeUtc": "2025-03-23T08:05:30Z",
+                    "lastUpdatedUtc": "2025-03-23T08:05:30Z"
+                  },
+                  {
+                    "name": "PreparingUpdate",
+                    "description": "Preparing Update",
+                    "status": "Completed",
+                    "startTimeUtc": "2025-03-23T08:05:30Z",
+                    "endTimeUtc": "2025-03-23T08:07:00Z",
+                    "lastUpdatedUtc": "2025-03-23T08:07:00Z"
+                  },
+                  {
+                    "name": "Rebooting",
+                    "description": "Rebooting",
+                    "status": "Completed",
+                    "startTimeUtc": "2025-03-23T08:07:00Z",
+                    "endTimeUtc": "2025-03-23T08:09:30Z",
+                    "lastUpdatedUtc": "2025-03-23T08:09:30Z"
+                  },
+                  {
+                    "name": "InstallingAddedPackages",
+                    "description": "Installing Added Packages",
+                    "status": "Completed",
+                    "startTimeUtc": "2025-03-23T08:09:30Z",
+                    "endTimeUtc": "2025-03-23T08:12:30Z",
+                    "lastUpdatedUtc": "2025-03-23T08:12:30Z"
+                  },
+                  {
+                    "name": "CheckingWorkloads",
+                    "description": "Checking Workloads",
+                    "status": "Skipped",
+                    "lastUpdatedUtc": "2025-03-23T08:12:30Z"
+                  },
+                  {
+                    "name": "RolledBack",
+                    "description": "Rolled Back",
+                    "status": "NotStarted"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "location": "eastus",
+        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/ArcInstance-rg/providers/Microsoft.AzureStackHCI/edgeMachines/machine-1",
+        "name": "machine-1",
+        "type": "Microsoft.AzureStackHCI/edgeMachines",
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2024-11-14T10:46:55.167Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2024-11-14T10:46:55.167Z"
+        }
+      }
+    }
+  }
+}
