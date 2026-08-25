@@ -1,0 +1,100 @@
+{
+  "parameters": {
+    "resourceUri": "subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ProviderHub/providerRegistrations/microsoft.contoso",
+    "location": "eastus2euap",
+    "ingestionUnitName": "contoso-aad",
+    "api-version": "2026-09-01-preview",
+    "resource": {
+      "properties": {
+        "sku": {
+          "name": "Standard",
+          "capacity": 2
+        },
+        "authorizations": [
+          {
+            "authenticationType": "AAD",
+            "applications": [
+              {
+                "applicationId": "00000000-1111-2222-3333-444444444444",
+                "scopes": [
+                  "Prod"
+                ],
+                "allowedTenantIds": [],
+                "allowedSubscriptionIds": []
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ProviderHub/providerRegistrations/microsoft.contoso/providers/Microsoft.ResourceNotifications/locations/eastus2euap/ingestionUnits/contoso-aad",
+        "name": "contoso-aad",
+        "type": "Microsoft.ResourceNotifications/locations/ingestionUnits",
+        "properties": {
+          "sku": {
+            "name": "Standard",
+            "capacity": 2
+          },
+          "authorizations": [
+            {
+              "authenticationType": "AAD",
+              "applications": [
+                {
+                  "applicationId": "00000000-1111-2222-3333-444444444444",
+                  "scopes": [
+                    "Prod"
+                  ],
+                  "allowedTenantIds": [],
+                  "allowedSubscriptionIds": []
+                }
+              ]
+            }
+          ],
+          "endpoint": "ms-contoso-contoso-aad-eus2euap.receiver.arn-df.core.windows.net",
+          "enabled": true,
+          "provisioningState": "Succeeded"
+        }
+      }
+    },
+    "201": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/locations/eastus2euap/operationStatuses/66666666-7777-8888-9999-000000000000?api-version=2026-09-01-preview",
+        "Retry-After": 10
+      },
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ProviderHub/providerRegistrations/microsoft.contoso/providers/Microsoft.ResourceNotifications/locations/eastus2euap/ingestionUnits/contoso-aad",
+        "name": "contoso-aad",
+        "type": "Microsoft.ResourceNotifications/locations/ingestionUnits",
+        "properties": {
+          "sku": {
+            "name": "Standard",
+            "capacity": 2
+          },
+          "authorizations": [
+            {
+              "authenticationType": "AAD",
+              "applications": [
+                {
+                  "applicationId": "00000000-1111-2222-3333-444444444444",
+                  "scopes": [
+                    "Prod"
+                  ],
+                  "allowedTenantIds": [],
+                  "allowedSubscriptionIds": []
+                }
+              ]
+            }
+          ],
+          "enabled": true,
+          "provisioningState": "Creating"
+        }
+      }
+    }
+  },
+  "operationId": "IngestionUnits_CreateOrUpdate",
+  "title": "Create an ingestion unit with Microsoft Entra authentication"
+}
