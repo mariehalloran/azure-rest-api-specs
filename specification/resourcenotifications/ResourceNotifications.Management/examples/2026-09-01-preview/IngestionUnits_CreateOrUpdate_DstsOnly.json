@@ -1,0 +1,85 @@
+{
+  "parameters": {
+    "resourceUri": "subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ProviderHub/providerRegistrations/microsoft.contoso",
+    "location": "eastus2euap",
+    "ingestionUnitName": "contoso-dsts",
+    "api-version": "2026-09-01-preview",
+    "resource": {
+      "properties": {
+        "sku": {
+          "name": "Standard",
+          "capacity": 1
+        },
+        "authorizations": [
+          {
+            "authenticationType": "DSTS",
+            "claims": [
+              {
+                "claim": "MicrosoftAzPubSub-Mycroft"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ProviderHub/providerRegistrations/microsoft.contoso/providers/Microsoft.ResourceNotifications/locations/eastus2euap/ingestionUnits/contoso-dsts",
+        "name": "contoso-dsts",
+        "type": "Microsoft.ResourceNotifications/locations/ingestionUnits",
+        "properties": {
+          "sku": {
+            "name": "Standard",
+            "capacity": 1
+          },
+          "authorizations": [
+            {
+              "authenticationType": "DSTS",
+              "claims": [
+                {
+                  "claim": "MicrosoftAzPubSub-Mycroft"
+                }
+              ]
+            }
+          ],
+          "endpoint": "ms-contoso-contoso-dsts-eus2euap.receiver.arn-df.core.windows.net",
+          "enabled": true,
+          "provisioningState": "Succeeded"
+        }
+      }
+    },
+    "201": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/locations/eastus2euap/operationStatuses/77777777-8888-9999-0000-111111111111?api-version=2026-09-01-preview",
+        "Retry-After": 10
+      },
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ProviderHub/providerRegistrations/microsoft.contoso/providers/Microsoft.ResourceNotifications/locations/eastus2euap/ingestionUnits/contoso-dsts",
+        "name": "contoso-dsts",
+        "type": "Microsoft.ResourceNotifications/locations/ingestionUnits",
+        "properties": {
+          "sku": {
+            "name": "Standard",
+            "capacity": 1
+          },
+          "authorizations": [
+            {
+              "authenticationType": "DSTS",
+              "claims": [
+                {
+                  "claim": "MicrosoftAzPubSub-Mycroft"
+                }
+              ]
+            }
+          ],
+          "enabled": true,
+          "provisioningState": "Creating"
+        }
+      }
+    }
+  },
+  "operationId": "IngestionUnits_CreateOrUpdate",
+  "title": "Create an ingestion unit with DSTS authentication"
+}

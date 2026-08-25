@@ -213,6 +213,129 @@ model OverviewSummaryProperties {
   @doc("The final azure arc enabled on-premises cost based on the final migration percentage.")
   @visibility(Lifecycle.Read)
   futureAzureArcEnabledOnPremisesCostDetails?: TotalCostDetails;
+
+  @added(BusinessCaseApiVersions.v2026_06_06_preview)
+  @doc("Azure value uplift benefits, aggregated across the heterogeneous assessment that contributes to this business case. Absent when the contributing assessment reported no value benefits.")
+  @visibility(Lifecycle.Read)
+  valueBenefit?: ValueBenefitDetails;
+
+  @added(BusinessCaseApiVersions.v2026_06_06_preview)
+  @doc("Infrastructure cost savings and the value benefit combined into the total economic benefit of the migration. Absent when no value benefit was reported, since the total would then restate the cost savings.")
+  @visibility(Lifecycle.Read)
+  totalEconomicBenefit?: TotalEconomicBenefitDetails;
+}
+
+@doc("""
+  The complete economic picture of the migration: what is saved on infrastructure, plus what Azure
+  delivers beyond price.
+  
+  Carries the totals only. The pillar and line-item breakdown behind the value benefit is the
+  sibling `valueBenefit`, so it is not repeated here.
+  
+  The total is returned rather than left for the caller to add up, so that the portal, the export
+  and any downstream report agree on the figure instead of each rounding the parts independently.
+  """)
+@added(BusinessCaseApiVersions.v2026_06_06_preview)
+model TotalEconomicBenefitDetails {
+  @doc("""
+    Annual infrastructure cost savings, the on-premises cost less the future-state cost.
+    
+    Measured against the future-state cost rather than the Azure cost, so that any on-premises
+    footprint the customer keeps running is charged against the saving instead of being ignored.
+    """)
+  @visibility(Lifecycle.Read)
+  costSavingsAnnual: float64;
+
+  @doc("Annual risk-adjusted value benefit. Restates the aggregate of the sibling value benefit so this object can be read on its own.")
+  @visibility(Lifecycle.Read)
+  valueBenefitAnnualRiskAdjusted: float64;
+
+  @doc("""
+    Annual total economic benefit, the sum of the cost savings and the risk-adjusted value benefit.
+    
+    Reported annually rather than as a net present value. The two halves are discounted differently
+    today — the value benefit arrives already discounted from the contributing assessment, while
+    cost savings ramp with the migration completion percentage — so a combined net present value
+    would be the sum of two methods and would overstate the benefit of a phased migration.
+    """)
+  @visibility(Lifecycle.Read)
+  totalEconomicBenefitAnnual: float64;
+
+  @doc("Total economic benefit expressed as a fraction of the current annual on-premises spend.")
+  @visibility(Lifecycle.Read)
+  percentOfOnPremisesCost?: float64;
+}
+
+@doc("Azure value uplift benefits for a set of workloads, broken down by pillar.")
+@added(BusinessCaseApiVersions.v2026_06_06_preview)
+model ValueBenefitDetails {
+  @doc("Total annual value benefit after risk adjustment, expressed in the business case currency.")
+  @visibility(Lifecycle.Read)
+  totalAnnualRiskAdjusted: float64;
+
+  @doc("Net present value of the risk-adjusted value benefit over the finance horizon.")
+  @visibility(Lifecycle.Read)
+  valueBenefitNpv: float64;
+
+  @doc("Breakdown of the value benefit by pillar.")
+  @visibility(Lifecycle.Read)
+  @identifiers(#["pillar"])
+  pillars: ValueBenefitPillar[];
+}
+
+@doc("Value benefit contributed by a single pillar.")
+@added(BusinessCaseApiVersions.v2026_06_06_preview)
+model ValueBenefitPillar {
+  @doc("The pillar this benefit is attributed to.")
+  @visibility(Lifecycle.Read)
+  pillar: ValueBenefitPillarType;
+
+  @doc("Total annual value benefit for the pillar before risk adjustment.")
+  @visibility(Lifecycle.Read)
+  totalAnnual: float64;
+
+  @doc("Total annual value benefit for the pillar after risk adjustment.")
+  @visibility(Lifecycle.Read)
+  riskAdjustedAnnual: float64;
+
+  @doc("Net present value of the pillar's risk-adjusted benefit over the finance horizon.")
+  @visibility(Lifecycle.Read)
+  npv: float64;
+
+  @doc("Individual contributions that make up the pillar's benefit.")
+  @visibility(Lifecycle.Read)
+  @identifiers(#["name"])
+  lineItems: ValueBenefitLineItem[];
+}
+
+@doc("A single named contribution to a value benefit pillar.")
+@added(BusinessCaseApiVersions.v2026_06_06_preview)
+model ValueBenefitLineItem {
+  @doc("Name of the contribution.")
+  @visibility(Lifecycle.Read)
+  name: string;
+
+  @doc("Value of the contribution, expressed in the business case currency.")
+  @visibility(Lifecycle.Read)
+  value: float64;
+}
+
+@doc("Represents the value uplift pillar a benefit belongs to.")
+@added(BusinessCaseApiVersions.v2026_06_06_preview)
+union ValueBenefitPillarType {
+  @doc("Unknown or uninitialized pillar.")
+  Unknown: "Unknown",
+
+  @doc("Productivity pillar, covering administrator, developer and operations efficiency gains.")
+  Productivity: "Productivity",
+
+  @doc("Resiliency pillar, covering avoided downtime and reduced incidents.")
+  Resiliency: "Resiliency",
+
+  @doc("Business agility pillar, covering the value of earlier delivery.")
+  BusinessAgility: "BusinessAgility",
+
+  string,
 }
 
 @doc("Shows the discovered servers by virtualization platform.")
@@ -270,6 +393,7 @@ model PaasDistribution {
 
 @added(BusinessCaseApiVersions.v2025_09_09_preview)
 @doc("Summary of migration strategy, including count and cost details.")
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 model StrategySummary {
   @doc("Name of the migration strategy.")
   strategy: string;
@@ -300,7 +424,9 @@ model TotalCostDetails {
 
   @doc("License cost details for workloads.")
   @visibility(Lifecycle.Read)
-  licenseCostDetails: float32;
+  @typeChangedFrom(BusinessCaseApiVersions.v2026_06_06_preview, float32)
+  @madeOptional(BusinessCaseApiVersions.v2026_06_06_preview)
+  licenseCostDetails?: LicenseCostDetails;
 
   @doc("The storage cost.")
   @visibility(Lifecycle.Read)
@@ -332,7 +458,8 @@ model TotalCostDetails {
 
   @doc("Management Cost Details.")
   @visibility(Lifecycle.Read)
-  managementCostDetails?: float32;
+  @typeChangedFrom(BusinessCaseApiVersions.v2026_06_06_preview, float32)
+  managementCostDetails?: ManagementCostDetails;
 
   @doc("esu savings.")
   @visibility(Lifecycle.Read)
@@ -346,6 +473,48 @@ model TotalCostDetails {
   @doc("Gets or sets the list of cost line items.")
   @identifiers(#[])
   costLineItems?: CostLineItem[];
+}
+
+@doc("Management Cost Details.")
+@added(BusinessCaseApiVersions.v2026_06_06_preview)
+model ManagementCostDetails {
+  @doc("Management Cost.")
+  @visibility(Lifecycle.Read)
+  managementCost?: float32;
+
+  @doc("Management Cost Components.")
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  managementCostComponents?: CostComponent[];
+}
+
+@doc("License Cost Details.")
+@added(BusinessCaseApiVersions.v2026_06_06_preview)
+model LicenseCostDetails {
+  @doc("License Cost.")
+  @visibility(Lifecycle.Read)
+  licenseCost?: float32;
+
+  @doc("License Cost Components.")
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  licenseCostComponents?: CostComponent[];
+}
+
+@doc("Represents a single cost component with a name, value and description.")
+@added(BusinessCaseApiVersions.v2026_06_06_preview)
+model CostComponent {
+  @doc("The name of the cost component.")
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  @doc("The value of the cost component.")
+  @visibility(Lifecycle.Read)
+  value?: float32;
+
+  @doc("The description of the cost component.")
+  @visibility(Lifecycle.Read)
+  description?: string;
 }
 
 @doc("Represents a single line item in a cost breakdown.")

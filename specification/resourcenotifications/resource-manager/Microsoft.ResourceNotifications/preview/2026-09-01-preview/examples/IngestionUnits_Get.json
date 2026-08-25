@@ -1,0 +1,68 @@
+{
+  "parameters": {
+    "resourceUri": "subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ProviderHub/providerRegistrations/microsoft.contoso",
+    "location": "eastus2euap",
+    "ingestionUnitName": "contoso-primary",
+    "api-version": "2026-09-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ProviderHub/providerRegistrations/microsoft.contoso/providers/Microsoft.ResourceNotifications/locations/eastus2euap/ingestionUnits/contoso-primary",
+        "name": "contoso-primary",
+        "type": "Microsoft.ResourceNotifications/locations/ingestionUnits",
+        "systemData": {
+          "createdBy": "publisher@example.com",
+          "createdByType": "User",
+          "createdAt": "2026-08-10T18:00:00Z",
+          "lastModifiedBy": "publisher@example.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-08-10T18:05:00Z"
+        },
+        "properties": {
+          "sku": {
+            "name": "Standard",
+            "capacity": 1
+          },
+          "capacityOverrides": {
+            "maxRequestsPerMinute": 120000,
+            "maxRequestsPerSecond": 4000
+          },
+          "authorizations": [
+            {
+              "authenticationType": "AAD",
+              "applications": [
+                {
+                  "applicationId": "00000000-1111-2222-3333-444444444444",
+                  "scopes": [
+                    "Preview",
+                    "Prod"
+                  ],
+                  "allowedTenantIds": [
+                    "00000000-0000-0000-0000-000000000001"
+                  ],
+                  "allowedSubscriptionIds": [
+                    "00000000-0000-0000-0000-000000000000"
+                  ]
+                }
+              ]
+            },
+            {
+              "authenticationType": "DSTS",
+              "claims": [
+                {
+                  "claim": "MicrosoftAzPubSub-Mycroft"
+                }
+              ]
+            }
+          ],
+          "endpoint": "ms-contoso-contoso-primary-eus2euap.receiver.arn-df.core.windows.net",
+          "enabled": true,
+          "provisioningState": "Succeeded"
+        }
+      }
+    }
+  },
+  "operationId": "IngestionUnits_Get",
+  "title": "Get an ingestion unit"
+}
