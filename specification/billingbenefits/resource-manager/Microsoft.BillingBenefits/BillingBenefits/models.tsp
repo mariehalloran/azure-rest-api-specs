@@ -4566,14 +4566,19 @@ model SpendPlanPatchProperties {
   displayName?: string;
 
   /**
-   * Commitment towards the benefit. Only amount can be modified.
-   */
-  commitment?: Commitment;
-
-  /**
    * Represents the billing plan in ISO 8601 format. Required only for monthly billing plans.
    */
   billingPlan?: BillingPlan;
+
+  /**
+   * Type of the Applied Scope.
+   */
+  appliedScopeType?: AppliedScopeType;
+
+  /**
+   * Properties specific to applied scope type. Not required if not applicable.
+   */
+  appliedScopeProperties?: AppliedScopeProperties;
 
   /**
    * Setting this to true will automatically purchase a new benefit on the expiration date time.
@@ -4584,11 +4589,6 @@ model SpendPlanPatchProperties {
    * The changes that are scheduled to be applied to the spend plan in the future.
    */
   scheduledChanges?: SpendPlanPatchScheduledChanges;
-
-  /**
-   * End DateTime in UTC.
-   */
-  endAt?: utcDateTime;
 }
 
 /**
