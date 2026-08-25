@@ -2524,7 +2524,7 @@
         },
         "dimensionFilter": {
           "type": "string",
-          "description": "Optional: Dimension filter to apply to the dimension. Must only be set if also Dimension is set.",
+          "description": "Optional: Dimension filter to apply to the dimension.",
           "minLength": 1,
           "maxLength": 2048
         },
@@ -3587,8 +3587,7 @@
         "Healthy",
         "Degraded",
         "Unhealthy",
-        "Unknown",
-        "Deleted"
+        "Unknown"
       ],
       "x-ms-enum": {
         "name": "HealthState",
@@ -3613,11 +3612,6 @@
             "name": "Unknown",
             "value": "Unknown",
             "description": "Unknown status"
-          },
-          {
-            "name": "Deleted",
-            "value": "Deleted",
-            "description": "Deleted status"
           }
         ]
       }
@@ -4291,7 +4285,7 @@
         },
         "dimensionFilter": {
           "type": "string",
-          "description": "Optional: Dimension filter to apply to the dimension. Must only be set if also Dimension is set.",
+          "description": "Optional: Dimension filter to apply to the dimension.",
           "minLength": 1,
           "maxLength": 2048
         }
