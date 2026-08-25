@@ -8170,6 +8170,13 @@ model HardwareProfile {
   @added(Versions.v2026_03_15_preview)
   @visibility(Lifecycle.Read)
   architecture?: Architecture;
+
+  /**
+   * Number of logical (SMT/hyper-threaded) cores in the machine, synchronized from Arc Machine DetectedProperties.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  logicalCoreCount?: int64;
 }
 
 /**
