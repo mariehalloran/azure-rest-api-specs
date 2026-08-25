@@ -188,6 +188,7 @@ model ReportDownloadUrl {
   @visibility(Lifecycle.Read)
   businessCaseReportUrl?: string;
 
+  @removed(BusinessCaseApiVersions.v2026_06_06_preview)
   @doc("Expiry date of download url.")
   @visibility(Lifecycle.Read)
   expirationTime?: utcDateTime;

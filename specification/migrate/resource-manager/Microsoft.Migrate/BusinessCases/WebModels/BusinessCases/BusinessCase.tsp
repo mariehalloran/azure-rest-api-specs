@@ -55,9 +55,11 @@ model BusinessCaseProperties is AzureResourceProperties {
   @visibility(Lifecycle.Read)
   @identifiers(#[])
   @added(BusinessCaseApiVersions.v2025_09_09_preview)
+  @removed(BusinessCaseApiVersions.v2026_06_06_preview)
   assessments?: Assessments[];
 
   @doc("Business case settings.")
+  @removed(BusinessCaseApiVersions.v2026_06_06_preview)
   settings?: Settings;
 
   @doc("Business case state.")
@@ -71,6 +73,7 @@ model BusinessCaseProperties is AzureResourceProperties {
 
   @doc("Gets the business case scope.")
   @visibility(Lifecycle.Read)
+  @removed(BusinessCaseApiVersions.v2026_06_06_preview)
   businessCaseScope?: BusinessCaseScope;
 
   @doc("Arm id of dependent partner assessments.")
@@ -79,6 +82,7 @@ model BusinessCaseProperties is AzureResourceProperties {
 }
 
 @added(BusinessCaseApiVersions.v2025_09_09_preview)
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 @doc("Business case report details.")
 model Assessments {
   @doc("type of armId")
@@ -99,6 +103,7 @@ model ReportDetails {
   reportStatus?: ReportStatus;
 }
 
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 @doc("Business case settings.")
 model Settings {
   @added(BusinessCaseApiVersions.v2025_09_09_preview)
@@ -121,6 +126,7 @@ model Settings {
 }
 
 @added(BusinessCaseApiVersions.v2025_09_09_preview)
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 @doc("Common settings.")
 model CommonSettings {
   @doc("Location/region that the business case is stored.")
@@ -154,6 +160,7 @@ model CommonSettings {
   workloadDiscoverySource?: DiscoverySource = DiscoverySource.Appliance;
 }
 
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 @doc("Azure settings for a business case.")
 model AzureSettings {
   @removed(BusinessCaseApiVersions.v2025_09_09_preview)
@@ -245,6 +252,7 @@ model AzureSettings {
 }
 
 @added(BusinessCaseApiVersions.v2025_09_09_preview)
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 @doc("Gets and Sets Sql Azure Settings.")
 model SqlAzureSettings {
   @doc("Gets and Sets Sql Azure Settings.")
@@ -252,6 +260,7 @@ model SqlAzureSettings {
 }
 
 @added(BusinessCaseApiVersions.v2025_09_09_preview)
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 @doc("Gets and Sets Sql Azure Settings HadrProperties.")
 model HadrProperties {
   @doc("Indicates whether HADR Assessment is enabled.")
@@ -295,6 +304,7 @@ model OnPremiseSettings {
   managementSettings?: ManagementSettings;
 }
 
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 @doc("Azure arc settings for a business case.")
 model AzureArcSettings {
   @doc("AzureArc state indicates whether to include azure arc related costs in on-premises or not.")
@@ -546,12 +556,14 @@ model OtherManagementCostsSettings {
   dataProtectionCostPerServerPerYear: float32;
 }
 
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 @doc("Azure Arc Management settings.")
 model AzureArcManagementSettings {
   @doc("Gets the azure arc monitoring settings.")
   monitoringSettings: AzureArcMonitoringSettings;
 }
 
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 @doc("Azure Arc Monitoring settings.")
 model AzureArcMonitoringSettings {
   #suppress "@azure-tools/typespec-azure-core/casing-style" "This is present in older API versions."
@@ -562,6 +574,7 @@ model AzureArcMonitoringSettings {
   alertRulesCount: int32;
 }
 
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 @doc("Business case scope.")
 model BusinessCaseScope {
   @doc("Scope type.")
@@ -574,6 +587,7 @@ model BusinessCaseScope {
 }
 
 @added(BusinessCaseApiVersions.v2025_09_09_preview)
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 @doc("Billing settings class.")
 model BillingSettings {
   @doc("Gets or sets the licensing program.")

@@ -13,6 +13,10 @@ enum BusinessCaseApiVersions {
 
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   @doc("2025-09-09-preview API Version.")
-  @Azure.Core.previewVersion
   v2025_09_09_preview: "2025-09-09-preview",
+
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  @doc("2026-06-06-preview API Version.")
+  @Azure.Core.previewVersion
+  v2026_06_06_preview: "2026-06-06-preview",
 }

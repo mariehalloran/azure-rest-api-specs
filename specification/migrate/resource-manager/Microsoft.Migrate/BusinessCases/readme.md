@@ -24,9 +24,18 @@ To see additional help and options, run:
 
 These are the global settings for the API.
 
-``` yaml
+```yaml
 openapi-type: arm
-tag: package-preview-2025-09
+tag: package-preview-2026-06
+```
+
+### Tag: package-preview-2026-06
+
+These settings apply only when `--tag=package-preview-2026-06` is specified on the command line.
+
+```yaml $(tag) == 'package-preview-2026-06'
+input-file:
+  - preview/2026-06-06-preview/businessCases.json
 ```
 
 ### Tag: package-preview-2025-09
